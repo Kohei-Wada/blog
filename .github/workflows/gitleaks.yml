@@ -2,9 +2,8 @@
 name: gitleaks
 
 on: [pull_request, push, workflow_dispatch]
-
 permissions:
-  contents: write
+  contents: read
 
 jobs:
   scan:
@@ -17,7 +16,7 @@ jobs:
           fetch-depth: 0  # full git history
 
       - name: Run Gitleaks
-        uses: gitleaks/gitleaks-action@v3
+        uses: gitleaks/gitleaks-action@v2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
