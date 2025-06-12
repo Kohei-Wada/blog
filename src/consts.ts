@@ -3,3 +3,4 @@
 
 export const SITE_TITLE = 'Kohei Wada';
 export const SITE_DESCRIPTION = 'Welcome to my website!';
+export const GITHUB_URL = 'https://github.com/Kohei-Wada';
