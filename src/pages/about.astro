@@ -1,9 +1,126 @@
 ---
 import Layout from "../layouts/BlogPost.astro";
+import heroImage from "../assets/blog-placeholder-about.jpg";
+import "../styles/global.css";
 ---
 
 <Layout
     title="About Me"
-    description="Lorem ipsum dolor sit amet"
-    pubDate={new Date("June 09 2025")}
-/>
+    description="このブログと筆者について"
+    pubDate={new Date("2025-06-09")}
+    heroImage={heroImage}
+>
+    <p>こんにちは、Koheiです。</p>
+
+    <p>
+        東京でプログラマーとして働いており、普段はリモートワーク中心です。
+        仕事用マシンはWindowsですが、実際の開発作業はほとんどWSL上のArch
+        Linuxで行っています。 一方で、個人環境は完全にArch
+        Linuxをベアメタルでインストールしており、Windowsは削除済みです。
+        軽量で自分の手で構成をコントロールできる環境が好きです。
+    </p>
+
+    <p>
+        もともと数学が好きで、関数をグラフ化するためにPythonを使い始めたのが、プログラミングの出発点でした。
+        抽象的な考え方や構造に惹かれて、今でもHaskellのような関数型言語に関心があります。
+    </p>
+
+    <p>
+        LaravelやPHPは業務で扱う場面もありますが、特に好んで使っているわけではありません。
+        また、VSCodeやCursorといった重いGUI
+        IDEよりも、自分で整えたターミナル中心の環境が肌に合っています。
+    </p>
+
+    <p>
+        フロントエンドにはこれまで積極的に取り組んできませんでしたが、「ブログを自作すればきっと向き合える」と思い、Astroを選んでこのブログを作りました。
+        自分の開発記録や思考ログが、未来の自分やどこかの誰かの役に立てばと思っています。
+    </p>
+
+    <h2>好きなもの・よく使うツール</h2>
+    <ul>
+        <li>Arch Linux（WSLでもベアメタルでも運用中）</li>
+        <li>
+            Neovim（昔vimを使っていましたが、neovimのほうが軽い感じがします）
+        </li>
+        <li>Bash / ShellScript（自動処理・cronなど）</li>
+        <li>Python（グラフ描画・スクリプト用途）</li>
+        <li>Hyprland（Wayland時代の軽量WM）</li>
+        <li>Haskell（関数型言語）</li>
+    </ul>
+
+    <h2>あまり好きではないもの</h2>
+    <ul>
+        <li>Laravel / PHP（使ってはいるけど積極的に選ばない）</li>
+        <li>VSCode / Cursor（GUI IDEは重くて好みではない）</li>
+        <li>Windows（個人環境からは完全に撤去）</li>
+    </ul>
+
+    <h2>関心のあること</h2>
+    <ul>
+        <li>Rust（CLIツールや自動処理の開発）</li>
+        <li>Zettelkastenによる知識の整理と成長</li>
+        <li>音声認識の非同期処理、最小構成システム設計</li>
+    </ul>
+
+    <p>
+        ソースコードやdotfilesは GitHub
+        に公開しています。興味があればぜひ覗いてみてください：
+        <a
+            href="https://github.com/Kohei-Wada"
+            target="_blank"
+            rel="noopener noreferrer"
+        >
+            github.com/Kohei-Wada
+        </a>
+    </p>
+
+    <h2>このブログについて</h2>
+    <p>
+        このブログは、普段の開発や検証のメモをアウトプットする場として作りました。
+        技術的な整理をするだけでなく、誰かに見てもらってフィードバックをもらうことを目的としています。
+    </p>
+    <p>
+        フロントエンドには苦手意識がありますが、あえてブログを自作することで、
+        自分にプレッシャーをかけて「触らざるを得ない」環境を作りました。
+    </p>
+    <p>
+        内容は日々の作業ログや技術検証、思考の断片などが中心です。
+        誤りや気づき、アドバイスなどがあれば、気軽にGitHubやSNSなどでフィードバックをもらえると嬉しいです。
+    </p>
+
+    <h2>エディターの遍歴</h2>
+    <ul>
+        <li>Atom（最初に使ったエディター）</li>
+        <li>Atom + vim モード（キーバインドの快適さに目覚める）</li>
+        <li>VSCode + vim 拡張（ちょっと重さが気になり始める）</li>
+        <li>Vim（VimバインドにするくらいならVimを使ったほうがいいと思った）</li>
+        <li>Neovim（今のメイン。Lua + プラグイン地獄に片足突っ込む）</li>
+    </ul>
+
+    <h2>その他の活動</h2>
+    <p>
+        GitHubでは自作ツールの公開のほかに、オープンソースプロジェクトへの貢献も行っています。
+        たとえば以下のようなNeovim関連のプラグインに、バグ修正や改善提案などの形でコントリビュートしています：
+    </p>
+
+    <ul>
+        <li>
+            <a
+                href="https://github.com/m4xshen/hardtime.nvim"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+                hardtime.nvim
+            </a> – Neovimでのタイピング習慣を改善するためのプラグイン。キー挙動の制御周りで修正を行いました。
+        </li>
+        <li>
+            <a
+                href="https://github.com/CopilotC-Nvim/CopilotChat.nvim"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+                CopilotChat.nvim
+            </a> – GitHub CopilotとのチャットインターフェースをNeovim上で提供するプラグイン。UIと使い勝手に関する提案・修正を行いました。
+        </li>
+    </ul>
+</Layout>
