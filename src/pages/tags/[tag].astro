@@ -7,15 +7,29 @@ import { getCollection } from "astro:content";
 import FormattedDate from "../../components/FormattedDate.astro";
 import { Image } from "astro:assets";
 
-const posts = (await getCollection("blog")).sort(
-    (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
-);
+export async function getStaticPaths() {
+    const posts = await getCollection("blog");
+    const tags = Array.from(
+        new Set(posts.flatMap((post) => post.data.tags)),
+    ).sort();
+    return tags.map((tag) => ({
+        params: { tag },
+        props: { tag },
+    }));
+}
+
+const { tag } = Astro.params;
+const posts = (await getCollection("blog"))
+    .filter((post) => post.data.tags.includes(tag))
+    .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+const title = `${tag} - ${SITE_TITLE}`;
+const description = SITE_DESCRIPTION;
 ---
 
 <!doctype html>
 <html lang="en">
     <head>
-        <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+        <BaseHead title={title} description={description} />
         <style>
             main {
                 width: 960px;
@@ -78,7 +92,7 @@ const posts = (await getCollection("blog")).sort(
     <body>
         <Header />
         <main>
-            <h2>All</h2>
+            <h2>Tag: {tag} ({posts.length})</h2>
             <section>
                 <ul>
                     {

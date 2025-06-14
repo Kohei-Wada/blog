@@ -1,0 +1,91 @@
+---
+import BaseHead from "../../components/BaseHead.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+import { SITE_TITLE, SITE_DESCRIPTION } from "../../consts";
+import { getCollection } from "astro:content";
+const posts = await getCollection("blog");
+const tags = Array.from(
+    new Set(posts.flatMap((post) => post.data.tags)),
+).sort();
+
+const tagCounts: Record<string, number> = {};
+posts.forEach((post) => {
+    post.data.tags.forEach((tag) => {
+        tagCounts[tag] = (tagCounts[tag] ?? 0) + 1;
+    });
+});
+---
+
+<!doctype html>
+<html lang="en">
+    <head>
+        <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+        <style>
+            main {
+                width: 960px;
+            }
+
+            .index_tag_nav {
+                padding-bottom: 100px;
+            }
+
+            .index_tag_nav ul {
+                list-style: none;
+                padding: 0;
+                margin: 0;
+                font-size: 1.2rem;
+                text-align: center;
+            }
+
+            .index_tag_nav ul li {
+                display: inline-block;
+                vertical-align: top;
+                margin: 0 2px 4px;
+            }
+
+            .index_tag_nav ul li a {
+                display: block;
+                background-color: #fff;
+                padding: 10px 15px;
+                border-radius: 4px;
+                color: rgb(var(--black));
+                text-decoration: none;
+                transition:
+                    background-color 0.2s ease,
+                    color 0.2s ease;
+            }
+
+            .index_tag_nav ul li a:hover {
+                background-color: var(--accent);
+                color: #fff;
+            }
+
+            .index_tag_nav ul li a h4 {
+                margin: 0;
+            }
+        </style>
+    </head>
+    <body>
+        <Header />
+        <main>
+            <h2>Tags</h2>
+            <div class="index_tag_nav">
+                <ul>
+                    {
+                        tags.map((tag) => (
+                            <li>
+                                <a href={`/tags/${tag}/`}>
+                                    <h4>
+                                        {tag} ({tagCounts[tag]})
+                                    </h4>
+                                </a>
+                            </li>
+                        ))
+                    }
+                </ul>
+            </div>
+        </main>
+        <Footer />
+    </body>
+</html>
