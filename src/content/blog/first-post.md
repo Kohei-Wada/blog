@@ -2,7 +2,8 @@
 title: 'Astroでブログ始めました'
 description: 'Astroでブログ作成始めました'
 pubDate: 'June 9 2025'
-tags: ['blog']
+updatedDate: 'June 15 2025'
+tags: ['blog', 'Zettelkasten', 'astro']
 heroImage: '../../assets/blog-placeholder-3.jpg'
 ---
 

@@ -6,7 +6,14 @@ import { Image } from "astro:assets";
 
 type Props = CollectionEntry<"blog">["data"];
 
-const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
+const {
+    title,
+    description,
+    pubDate,
+    updatedDate,
+    heroImage,
+    tags = [],
+} = Astro.props;
 ---
 
 <BaseLayout title={title} description={description}>
@@ -46,7 +53,32 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
             color: rgb(var(--gray));
         }
         .last-updated-on {
-            font-style: italic;
+            font-style: bold;
+        }
+
+        .published-on {
+            font-style: bold;
+        }
+
+        .tags {
+            margin: 1em 0;
+            text-align: center;
+        }
+        .tags a {
+            display: inline-block;
+            margin: 0 0.5em 0.5em;
+            padding: 0.25em 0.75em;
+            background-color: rgb(var(--gray-light));
+            color: var(--accent);
+            text-decoration: none;
+            border-radius: 4px;
+            transition:
+                background-color 0.2s ease,
+                color 0.2s ease;
+        }
+        .tags a:hover {
+            background-color: var(--accent);
+            color: #fff;
         }
     </style>
 
@@ -61,11 +93,19 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
         <div class="prose">
             <div class="title">
                 <div class="date">
-                    <FormattedDate date={pubDate} />
+                    {
+                        pubDate && (
+                            <div class="published-on">
+                                Published on:
+                                <FormattedDate date={pubDate} />
+                            </div>
+                        )
+                    }
+
                     {
                         updatedDate && (
                             <div class="last-updated-on">
-                                Last updated on{" "}
+                                Updated on :{" "}
                                 <FormattedDate date={updatedDate} />
                             </div>
                         )
@@ -74,6 +114,18 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
                 <h1>{title}</h1>
                 <hr />
             </div>
+
+            {
+                tags.length > 0 && (
+                    <div class="tags">
+                        {tags.map((tag) => (
+                            <a href={`/tags/${tag}/`} class="tag">
+                                {tag}
+                            </a>
+                        ))}
+                    </div>
+                )
+            }
             <slot />
         </div>
     </article>
