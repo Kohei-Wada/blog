@@ -1,126 +1,222 @@
 ---
-import Layout from "../layouts/BlogPost.astro";
-import heroImage from "../assets/blog-placeholder-about.jpg";
+import BaseLayout from "../layouts/BaseLayout.astro";
 import "../styles/global.css";
 ---
 
-<Layout
-    title="ブログの目的と筆者について"
-    description="このブログと筆者について"
-    pubDate={new Date("2025-06-09")}
-    heroImage={heroImage}
+<BaseLayout
+    title="About"
+    description="Kohei Wadaについて。使用ツールや考え方など。"
 >
-    <p>こんにちは、Koheiです。</p>
+    <style>
+        .about {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+            line-height: 1.6;
+        }
+        .about h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        .about p {
+            margin-bottom: 1.5rem;
+        }
 
-    <p>
-        東京でプログラマーとして働いており、普段はリモートワーク中心です。
-        仕事用マシンはWindowsですが、実際の開発作業はほとんどWSL上のArch
-        Linuxで行っています。 一方で、個人環境は完全にArch
-        Linuxをベアメタルでインストールしており、Windowsは削除済みです。
-        軽量で自分の手で構成をコントロールできる環境が好きです。
-    </p>
+        .about table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 2rem;
+            font-size: 0.95rem;
+        }
+        .about th,
+        .about td {
+            border: 1px solid #ccc;
+            padding: 0.6rem 1rem;
+            vertical-align: top;
+        }
+        .about th {
+            background: #f0f4f8;
+        }
 
-    <p>
-        もともと数学が好きで、関数をグラフ化するためにPythonを使い始めたのが、プログラミングの出発点でした。
-        抽象的な考え方や構造に惹かれて、今でもHaskellのような関数型言語に関心があります。
-    </p>
+        .about tbody tr td:first-of-type {
+            font-weight: normal;
+            background: transparent;
+        }
 
-    <p>
-        LaravelやPHPは業務で扱う場面もありますが、特に好んで使っているわけではありません。
-        また、VSCodeやCursorといった重いGUI
-        IDEよりも、自分で整えたターミナル中心の環境が肌に合っています。
-    </p>
+        .about tbody tr td[rowspan] {
+            font-weight: bold;
+            background: #f9fafb;
+            white-space: nowrap;
+        }
 
-    <p>
-        フロントエンドにはこれまで積極的に取り組んできませんでしたが、「ブログを自作すればきっと向き合える」と思い、Astroを選んでこのブログを作りました。
-        自分の開発記録や思考ログが、未来の自分やどこかの誰かの役に立てばと思っています。
-    </p>
+        .about .icon {
+            margin-right: 0.5rem;
+        }
+    </style>
 
-    <h2>好きなもの・よく使うツール</h2>
-    <ul>
-        <li>Arch Linux（WSLでもベアメタルでも運用中）</li>
-        <li>
-            Neovim（昔vimを使っていましたが、neovimのほうが軽い感じがします）
-        </li>
-        <li>Bash / ShellScript（自動処理・cronなど）</li>
-        <li>Python（グラフ描画・スクリプト用途）</li>
-        <li>Hyprland（Wayland時代の軽量WM）</li>
-        <li>Haskell（関数型言語）</li>
-    </ul>
+    <section class="about">
+        <h1>筆者について</h1>
 
-    <h2>あまり好きではないもの</h2>
-    <ul>
-        <li>Laravel / PHP（使ってはいるけど積極的に選ばない）</li>
-        <li>VSCode / Cursor（GUI IDEは重くて好みではない）</li>
-        <li>Windows（個人環境からは完全に撤去）</li>
-    </ul>
+        <h2>名前</h2>
+        <p>Kohei Wada</p>
 
-    <h2>関心のあること</h2>
-    <ul>
-        <li>Rust（CLIツールや自動処理の開発）</li>
-        <li>Zettelkastenによる知識の整理と成長</li>
-        <li>音声認識の非同期処理、最小構成システム設計</li>
-    </ul>
+        <h2>自己紹介</h2>
+        <p>
+            東京でリモートワーク中心に活動しているエンジニアです。
+            普段はAWS・Laravelを用いたWebアプリ開発を行いつつ、WSLやArch
+            Linux環境での構成・自動化・軽量化に強い関心があります。
+        </p>
+        <p>
+            もともと機械工学から入り、C言語でのデバイス制御やドライバ自作、Pythonでのデータ処理を経験しました。
+            その後、PHPやC#を用いたWebアプリ開発にシフトし、現在はLaravelを中心にバックエンド開発を行っています。
+        </p>
+        <p>
+            GUI IDEよりもNeovim +
+            CLIを好み、UNIXコマンドを活用した自動処理やトラブル対応が得意です。
+            もともとフロントエンドは苦手でしたが、このブログの作成を通じてAstroやTailwind
+            CSSに触れ、少しずつ慣れてきました。
+        </p>
 
-    <p>
-        ソースコードやdotfilesは GitHub
-        に公開しています。興味があればぜひ覗いてみてください：
-        <a
-            href="https://github.com/Kohei-Wada"
-            target="_blank"
-            rel="noopener noreferrer"
-        >
-            github.com/Kohei-Wada
-        </a>
-    </p>
+        <h2>スキルセット</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>カテゴリ</th>
+                    <th>使用技術・ツール</th>
+                    <th>経験・備考</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td rowspan="7">
+                        <span class="icon">💻</span>言語
+                    </td>
+                    <td>Rust</td>
+                    <td>CLIツールや自動処理用に使用</td>
+                </tr>
+                <tr>
+                    <td>Python</td>
+                    <td>スクリプト作成・グラフ描画など</td>
+                </tr>
+                <tr>
+                    <td>C</td>
+                    <td>言語処理系・ドライバの自作経験あり</td>
+                </tr>
+                <tr>
+                    <td>Bash / ShellScript</td>
+                    <td>障害対応・自動処理・即興スクリプト作成に精通</td>
+                </tr>
+                <tr>
+                    <td>PHP</td>
+                    <td>業務で日常的に使用</td>
+                </tr>
+                <tr>
+                    <td>C#</td>
+                    <td>Windowsフォームアプリ開発経験あり（業務）</td>
+                </tr>
+                <tr>
+                    <td>Haskell / PureScript / Java</td>
+                    <td>個人学習・試作レベル。関数型や静的型付けに関心</td>
+                </tr>
 
-    <h2>このブログについて</h2>
-    <p>
-        このブログは、普段の開発や検証のメモをアウトプットする場として作りました。
-        技術的な整理をするだけでなく、誰かに見てもらってフィードバックをもらうことを目的としています。
-    </p>
-    <p>
-        フロントエンドには苦手意識がありますが、あえてブログを自作することで、
-        自分にプレッシャーをかけて「触らざるを得ない」環境を作りました。
-    </p>
-    <p>
-        内容は日々の作業ログや技術検証、思考の断片などが中心です。
-        誤りや気づき、アドバイスなどがあれば、気軽にGitHubやSNSなどでフィードバックをもらえると嬉しいです。
-    </p>
+                <tr>
+                    <td rowspan="4">
+                        <span class="icon">🧰</span>フレームワーク
+                    </td>
+                    <td>Laravel</td>
+                    <td>業務で日常的に使用。バックエンド開発・保守に対応</td>
+                </tr>
+                <tr>
+                    <td>FastAPI</td>
+                    <td>画像生成やAPI作成</td>
+                </tr>
+                <tr>
+                    <td>Astro</td>
+                    <td>このブログに使用</td>
+                </tr>
+                <tr>
+                    <td>その他（自作）</td>
+                    <td>RustやPythonでの軽量CLIやAPIツールなど</td>
+                </tr>
 
-    <h2>エディターの遍歴</h2>
-    <ul>
-        <li>Atom（最初に使ったエディター）</li>
-        <li>Atom + vim モード（キーバインドの快適さに目覚める）</li>
-        <li>VSCode + vim 拡張（ちょっと重さが気になり始める）</li>
-        <li>Vim（VimバインドにするくらいならVimを使ったほうがいいと思った）</li>
-        <li>Neovim（今のメイン。Lua + プラグイン地獄に片足突っ込む）</li>
-    </ul>
+                <tr>
+                    <td rowspan="3">
+                        <span class="icon">☁️</span>インフラ / クラウド
+                    </td>
+                    <td>AWS（EC2, RDS）</td>
+                    <td>業務で使用</td>
+                </tr>
+                <tr>
+                    <td>Docker / GitHub Actions / k3s</td>
+                    <td>軽量なCI/CD構成、Raspberry Pi運用</td>
+                </tr>
+                <tr>
+                    <td>Ansible</td>
+                    <td>構成管理</td>
+                </tr>
 
-    <h2>その他の活動</h2>
-    <p>
-        GitHubでは自作ツールの公開のほかに、オープンソースプロジェクトへの貢献も行っています。
-        たとえば以下のようなNeovim関連のプラグインに、バグ修正や改善提案などの形でコントリビュートしています：
-    </p>
+                <tr>
+                    <td rowspan="2">
+                        <span class="icon">🔧</span>その他
+                    </td>
+                    <td>Neovim</td>
+                    <td>メインエディター、Luaプラグイン活用</td>
+                </tr>
+                <tr>
+                    <td>Hyprland</td>
+                    <td>Wayland環境での軽量WM</td>
+                </tr>
 
-    <ul>
-        <li>
+                <tr>
+                    <td>
+                        <span class="icon">🖥️</span>使用OS
+                    </td>
+                    <td>CentOS / AlmaLinux / Arch Linux / Ubuntu / Red Hat</td>
+                    <td>業務・個人環境の両方で幅広く使用</td>
+                </tr>
+            </tbody>
+        </table>
+        <h2>趣味・関心ごと</h2>
+        <p>
+            日々の情報整理には Zettelkasten
+            を用いており、技術・思考の断片をノートとして蓄積するのが習慣です。
+            抽象的なアイデアを構造化して記録し、あとから発見や接続が得られるようにしています。
+        </p>
+        <p>
+            また、日常の中で感じた小さな不便や繰り返し作業を自動化することが好きで、ちょっとしたシェルスクリプトやCLIツールを自作しては改善を楽しんでいます。
+        </p>
+
+        <h2>OSS活動</h2>
+        <ul>
+            <li>
+                <a
+                    href="https://github.com/m4xshen/hardtime.nvim"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    hardtime.nvim
+                </a> – Neovimでのタイピング改善プラグイン。イベント周りバグ修正や機能追加を行い、プルリクエストを提出。
+            </li>
+            <li>
+                <a
+                    href="https://github.com/CopilotC-Nvim/CopilotChat.nvim"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    CopilotChat.nvim
+                </a> – GitHub CopilotとのNeovim統合。UI改善・Telescope 統合の提案を行い、プルリクエストを提出。
+            </li>
+        </ul>
+
+        <p>
+            ソースコードやdotfilesはGitHubに公開しています：
             <a
-                href="https://github.com/m4xshen/hardtime.nvim"
+                href="https://github.com/Kohei-Wada"
                 target="_blank"
                 rel="noopener noreferrer"
             >
-                hardtime.nvim
-            </a> – Neovimでのタイピング習慣を改善するためのプラグイン。キー挙動の制御周りで修正を行いました。
-        </li>
-        <li>
-            <a
-                href="https://github.com/CopilotC-Nvim/CopilotChat.nvim"
-                target="_blank"
-                rel="noopener noreferrer"
-            >
-                CopilotChat.nvim
-            </a> – GitHub CopilotとのチャットインターフェースをNeovim上で提供するプラグイン。UIと使い勝手に関する提案・修正を行いました。
-        </li>
-    </ul>
-</Layout>
+                github.com/Kohei-Wada
+            </a>
+        </p>
+    </section>
+</BaseLayout>
