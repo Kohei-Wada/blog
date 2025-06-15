@@ -6,7 +6,14 @@ import { Image } from "astro:assets";
 
 type Props = CollectionEntry<"blog">["data"];
 
-const { title, description, pubDate, updatedDate, heroImage, tags = [] } = Astro.props;
+const {
+    title,
+    description,
+    pubDate,
+    updatedDate,
+    heroImage,
+    tags = [],
+} = Astro.props;
 ---
 
 <BaseLayout title={title} description={description}>
@@ -46,7 +53,11 @@ const { title, description, pubDate, updatedDate, heroImage, tags = [] } = Astro
             color: rgb(var(--gray));
         }
         .last-updated-on {
-            font-style: italic;
+            font-style: bold;
+        }
+
+        .published-on {
+            font-style: bold;
         }
 
         .tags {
@@ -61,7 +72,9 @@ const { title, description, pubDate, updatedDate, heroImage, tags = [] } = Astro
             color: var(--accent);
             text-decoration: none;
             border-radius: 4px;
-            transition: background-color 0.2s ease, color 0.2s ease;
+            transition:
+                background-color 0.2s ease,
+                color 0.2s ease;
         }
         .tags a:hover {
             background-color: var(--accent);
@@ -80,11 +93,19 @@ const { title, description, pubDate, updatedDate, heroImage, tags = [] } = Astro
         <div class="prose">
             <div class="title">
                 <div class="date">
-                    <FormattedDate date={pubDate} />
+                    {
+                        pubDate && (
+                            <div class="published-on">
+                                Published on:
+                                <FormattedDate date={pubDate} />
+                            </div>
+                        )
+                    }
+
                     {
                         updatedDate && (
                             <div class="last-updated-on">
-                                Last updated on{" "}
+                                Updated on :{" "}
                                 <FormattedDate date={updatedDate} />
                             </div>
                         )
@@ -94,13 +115,17 @@ const { title, description, pubDate, updatedDate, heroImage, tags = [] } = Astro
                 <hr />
             </div>
 
-            {tags.length > 0 && (
-                <div class="tags">
-                    {tags.map((tag) => (
-                        <a href={`/tags/${tag}/`} class="tag">{tag}</a>
-                    ))}
-                </div>
-            )}
+            {
+                tags.length > 0 && (
+                    <div class="tags">
+                        {tags.map((tag) => (
+                            <a href={`/tags/${tag}/`} class="tag">
+                                {tag}
+                            </a>
+                        ))}
+                    </div>
+                )
+            }
             <slot />
         </div>
     </article>
