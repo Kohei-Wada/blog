@@ -153,3 +153,20 @@ hr {
 	/* added line to stop words getting smushed together (as they go onto separate lines and some screen readers do not understand line feeds as a space */
 	white-space: nowrap;
 }
+
+@media (max-width: 720px) {
+	table {
+		display: block;
+		width: 100%;
+		overflow-x: auto;
+		white-space: nowrap;
+		-webkit-overflow-scrolling: touch;
+	}
+}
+
+@media (min-width: 721px) {
+	table {
+		display: table;
+		white-space: normal;
+	}
+}
