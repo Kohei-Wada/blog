@@ -16,7 +16,7 @@ const {
 } = Astro.props;
 ---
 
-<BaseLayout title={title} description={description}>
+<BaseLayout title={title} description={description} image={heroImage} isArticle={true} publishedTime={pubDate}>
     <style>
         main {
             width: calc(100% - 2em);
