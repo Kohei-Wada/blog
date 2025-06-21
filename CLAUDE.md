@@ -51,14 +51,16 @@ This is a personal blog built with Astro, a modern static site generator. The si
 
 - Unit tests: `src/**/*.test.ts` - Test individual components and utilities
 - Test setup: `src/test/setup.ts` - Global test configuration
-- Configuration: `vitest.config.ts` - Vitest settings and aliases
+- Configuration: `vitest.config.ts` - Vitest settings and aliases with `@` path alias
+- Pre-commit hooks: husky + lint-staged for automatic formatting and linting
 
 ### CI/CD
 
 - GitHub Actions workflow: `.github/workflows/test.yml`
 - Automated testing on Node.js 18 & 20
-- Quality checks: lint → typecheck → test → build
+- Quality checks: typecheck → lint → test → build
 - Automatic PR validation and deployment previews
+- Additional workflows: gitleaks security scan, pre-commit auto-update
 
 ## Architecture
 
