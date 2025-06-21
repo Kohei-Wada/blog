@@ -28,4 +28,19 @@ repos:
     rev: v1.7.7
     hooks:
       - id: actionlint
+
+  - repo: local
+    hooks:
+      - id: eslint
+        name: ESLint
+        entry: npm run lint
+        language: system
+        files: \.(js|ts|astro)$
+        require_serial: true
+      - id: astro-check
+        name: Astro TypeScript Check
+        entry: npm run typecheck
+        language: system
+        files: \.(astro|ts|tsx)$
+        require_serial: true
 ...
