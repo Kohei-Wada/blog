@@ -15,6 +15,13 @@ This is a personal blog built with Astro, a modern static site generator. The si
 - `npm run dev` - Start development server
 - `npm run build` - Build for production
 - `npm run preview` - Preview production build locally
+- `npm run test` - Run tests interactively with Vitest
+- `npm run test:ui` - Open Vitest UI in browser
+- `npm run test:run` - Run all tests once (CI mode)
+- `npm run test:coverage` - Generate test coverage report
+- `npm run lint` - Run ESLint on all files
+- `npm run lint:fix` - Run ESLint with auto-fix
+- `npm run typecheck` - Run TypeScript type checking
 - `npx prettier --write .` - Format code with Prettier
 - `./new-post.sh` - Create new blog post from template
 
@@ -30,6 +37,28 @@ This is a personal blog built with Astro, a modern static site generator. The si
 - その後、テストをパスさせる実装を進める
 - 実装中はテストを変更せず、コードを修正し続ける
 - すべてのテストが通過するまで繰り返す
+
+## Testing
+
+### Test Framework
+
+- **Vitest**: Modern test runner with TypeScript support
+- **Happy-DOM**: Lightweight DOM environment for testing
+- **Testing Library**: DOM utilities and assertions
+- **Jest-DOM**: Additional matchers for DOM testing
+
+### Test Structure
+
+- Unit tests: `src/**/*.test.ts` - Test individual components and utilities
+- Test setup: `src/test/setup.ts` - Global test configuration
+- Configuration: `vitest.config.ts` - Vitest settings and aliases
+
+### CI/CD
+
+- GitHub Actions workflow: `.github/workflows/test.yml`
+- Automated testing on Node.js 18 & 20
+- Quality checks: lint → typecheck → test → build
+- Automatic PR validation and deployment previews
 
 ## Architecture
 
