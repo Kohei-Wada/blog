@@ -2,6 +2,7 @@
 import type { CollectionEntry } from "astro:content";
 import BaseLayout from "./BaseLayout.astro";
 import FormattedDate from "../components/FormattedDate.astro";
+import ShareButtons from "../components/ShareButtons.astro";
 import { Image } from "astro:assets";
 
 type Props = CollectionEntry<"blog">["data"];
@@ -14,6 +15,9 @@ const {
     heroImage,
     tags = [],
 } = Astro.props;
+
+// 現在のページのURLを取得
+const currentUrl = new URL(Astro.url.pathname, Astro.site).toString();
 ---
 
 <BaseLayout title={title} description={description} image={heroImage} isArticle={true} publishedTime={pubDate}>
@@ -127,6 +131,7 @@ const {
                 )
             }
             <slot />
+            <ShareButtons title={title} description={description} url={currentUrl} />
         </div>
     </article>
 </BaseLayout>
