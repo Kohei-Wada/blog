@@ -5,7 +5,7 @@ import { GITHUB_URL } from "../consts";
 ---
 
 <header>
-    <nav>
+    <nav aria-label="Main navigation">
         <h2><a href="/">{SITE_TITLE}</a></h2>
         <div class="internal-links">
             <HeaderLink href="/">
@@ -110,7 +110,7 @@ import { GITHUB_URL } from "../consts";
             </HeaderLink>
         </div>
         <div class="social-links">
-            <a href={GITHUB_URL} target="_blank">
+            <a href={GITHUB_URL} target="_blank" aria-label="Visit GitHub profile (opens in new tab)">
                 <svg
                     viewBox="0 0 16 16"
                     aria-hidden="true"
