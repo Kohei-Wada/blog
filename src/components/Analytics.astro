@@ -1,14 +1,14 @@
 ---
-const isProduction = process.env.CONTEXT === 'production';
+const isProduction: boolean = process.env.CONTEXT === 'production';
 ---
 {isProduction && (
   <>
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-XGH4QVLSMS"></script>
     <script is:inline>
-      // @ts-ignore
       window.dataLayer = window.dataLayer || [];
-      // @ts-ignore
-      function gtag(){dataLayer.push(arguments);}
+      function gtag(...args) {
+        window.dataLayer.push(args);
+      }
       gtag('js', new Date());
       gtag('config', 'G-XGH4QVLSMS');
     </script>
