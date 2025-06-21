@@ -2,13 +2,23 @@
 import BaseHead from "../components/BaseHead.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
-const { title, description } = Astro.props;
+import type { ImageMetadata } from "astro";
+
+interface Props {
+    title: string;
+    description: string;
+    image?: ImageMetadata;
+    isArticle?: boolean;
+    publishedTime?: Date;
+}
+
+const { title, description, image, isArticle, publishedTime } = Astro.props;
 ---
 
 <!doctype html>
 <html lang="en">
     <head>
-        <BaseHead title={title} description={description} />
+        <BaseHead title={title} description={description} image={image} isArticle={isArticle} publishedTime={publishedTime} />
     </head>
     <body>
         <Header />
