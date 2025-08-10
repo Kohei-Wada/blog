@@ -1,7 +1,9 @@
 {
   "permissions": {
     "allow": [
-      "WebFetch(domain:docs.anthropic.com)"
+      "WebFetch(domain:docs.anthropic.com)",
+      "Bash(npm run test:coverage:*)",
+      "Bash(npm run test:run:*)"
     ],
     "deny": []
   }

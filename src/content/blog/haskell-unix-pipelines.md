@@ -1,5 +1,5 @@
 ---
-title: '# AWKを超えて：HaskellをUnixパイプラインに持ち込む'
+title: 'AWKを超えて：HaskellをUnixパイプラインに持ち込む'
 description: 'HaskellをUnixパイプラインに持ち込む'
 pubDate: 'Aug 10 2025'
 updatedDate: 'Aug 10 2025'

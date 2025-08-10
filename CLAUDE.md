@@ -23,7 +23,7 @@ This is a personal blog built with Astro, a modern static site generator. The si
 - `npm run lint:fix` - Run ESLint with auto-fix
 - `npm run typecheck` - Run TypeScript type checking
 - `npx prettier --write .` - Format code with Prettier
-- `./new-post.sh` - Create new blog post from template
+- `npm run new-post` - Create new blog post with interactive prompts
 
 ## Development Philosophy
 
@@ -69,7 +69,7 @@ This is a personal blog built with Astro, a modern static site generator. The si
 - Blog posts are stored in `src/content/blog/` as Markdown/MDX files
 - Content schema is defined in `src/content.config.ts` with frontmatter validation
 - Blog template is at `src/content/blog-template.md`
-- New posts are created with timestamp-based slugs via `new-post.sh`
+- New posts are created with title-based slugs via `npm run new-post`
 
 ### Key Components
 
