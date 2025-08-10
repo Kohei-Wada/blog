@@ -15,6 +15,19 @@
   --box-shadow:
     0 2px 6px rgba(var(--gray), 25%), 0 8px 24px rgba(var(--gray), 33%),
     0 16px 32px rgba(var(--gray), 33%);
+
+  /* 共通のレイアウト値 */
+  --content-max-width: 720px;
+  --mobile-breakpoint: 720px;
+  --tablet-breakpoint: 768px;
+
+  /* 共通の背景と境界線 */
+  --card-background: rgba(var(--gray-light), 20%);
+  --card-border: 1px solid rgba(var(--gray), 10%);
+  --separator-border: 1px solid rgba(var(--gray), 20%);
+  --hover-background: rgba(var(--gray-light), 15%);
+  --subtle-background: rgba(var(--gray-light), 5%);
+  --active-background: rgba(var(--accent), 12%);
 }
 @font-face {
   font-family: 'Atkinson';
@@ -127,7 +140,7 @@ hr {
   border: none;
   border-top: 1px solid rgb(var(--gray-light));
 }
-@media (max-width: 720px) {
+@media (max-width: var(--mobile-breakpoint)) {
   body {
     font-size: 18px;
   }
@@ -154,7 +167,7 @@ hr {
   white-space: nowrap;
 }
 
-@media (max-width: 720px) {
+@media (max-width: var(--mobile-breakpoint)) {
   table {
     display: block;
     width: 100%;
@@ -250,7 +263,7 @@ pre.astro-code code {
   flex-shrink: 0;
 }
 
-@media (max-width: 720px) {
+@media (max-width: var(--mobile-breakpoint)) {
   .copy-code-button .copy-text {
     display: none;
   }

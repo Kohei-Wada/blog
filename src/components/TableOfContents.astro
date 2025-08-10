@@ -1,23 +1,11 @@
 ---
-export interface MarkdownHeading {
-  depth: number;
-  slug: string;
-  text: string;
-}
+import type { MarkdownHeading, TocItem } from '../types/index.js';
 
 interface Props {
   headings: MarkdownHeading[];
 }
 
 const { headings } = Astro.props;
-
-// 見出しを階層構造に変換
-interface TocItem {
-  depth: number;
-  slug: string;
-  text: string;
-  subheadings: TocItem[];
-}
 
 function buildTocStructure(headings: MarkdownHeading[]): TocItem[] {
   const toc: TocItem[] = [];
@@ -94,11 +82,11 @@ const hasToc = tocStructure.length > 0;
 
 <style>
   .table-of-contents {
-    background: rgba(var(--gray-light), 20%);
+    background: var(--card-background);
     border-radius: 8px;
     padding: 1.5rem;
     margin-bottom: 2rem;
-    border: 1px solid rgba(var(--gray), 10%);
+    border: var(--card-border);
   }
 
   .toc-details {
@@ -339,7 +327,7 @@ const hasToc = tocStructure.length > 0;
   .toc-link.active,
   .toc-sublink.active {
     color: var(--accent);
-    background: rgba(var(--accent), 12%);
+    background: var(--active-background);
     padding-left: 0.5rem;
     font-weight: 700;
   }

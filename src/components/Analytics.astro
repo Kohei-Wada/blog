@@ -1,17 +1,19 @@
 ---
+import { ANALYTICS } from '../constants/api.js';
+
 const isProduction: boolean = process.env.CONTEXT === 'production';
 ---
 {isProduction && (
   <>
-    <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-XGH4QVLSMS"></script>
-    <script is:inline>
+    <script is:inline async src={`${ANALYTICS.GOOGLE_TAG_MANAGER}?id=${ANALYTICS.GA_MEASUREMENT_ID}`}></script>
+    <script is:inline define:vars={{ measurementId: ANALYTICS.GA_MEASUREMENT_ID }}>
       window.dataLayer = window.dataLayer || [];
       function gtag() {
         var args = Array.prototype.slice.call(arguments);
         window.dataLayer.push(args);
       }
       gtag('js', new Date());
-      gtag('config', 'G-XGH4QVLSMS');
+      gtag('config', measurementId);
     </script>
   </>
 )}

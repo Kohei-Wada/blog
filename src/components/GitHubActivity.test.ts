@@ -1,36 +1,22 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
+import { createConsoleMock, mockEnvironmentVariable, createFetchMock } from '../test/helpers.js';
 
 describe('GitHubActivity 環境変数制御', () => {
-  const originalConsole = globalThis.console;
+  let consoleMock: ReturnType<typeof createConsoleMock>;
 
   beforeEach(() => {
-    // テスト前にコンソールモックをリセット
     vi.clearAllMocks();
-    globalThis.console = {
-      ...console,
-      log: vi.fn(),
-      error: vi.fn(),
-    };
+    consoleMock = createConsoleMock();
   });
 
   afterEach(() => {
     vi.restoreAllMocks();
-    globalThis.console = originalConsole;
+    consoleMock.restoreConsole();
   });
 
   it('DISABLE_GITHUB_API=trueの時、API呼び出しをスキップしてモックデータを返す', async () => {
-    // 環境変数をモック
-    vi.stubGlobal('import', {
-      meta: {
-        env: {
-          PUBLIC_DISABLE_GITHUB_API: 'true',
-        },
-      },
-    });
-
-    // fetchをモック
-    const mockFetch = vi.fn();
-    globalThis.fetch = mockFetch;
+    mockEnvironmentVariable('PUBLIC_DISABLE_GITHUB_API', 'true');
+    const mockFetch = createFetchMock();
 
     // モックデータ関数
     const getMockData = () => {
@@ -122,7 +108,7 @@ describe('GitHubActivity 環境変数制御', () => {
     // APIが呼ばれないことを確認
     expect(mockFetch).not.toHaveBeenCalled();
     // 適切なログが出力されることを確認
-    expect(globalThis.console.log).toHaveBeenCalledWith(
+    expect(consoleMock.mockConsole.log).toHaveBeenCalledWith(
       'GitHub API disabled in development mode - using mock data'
     );
     // モックデータが返されることを確認
@@ -133,25 +119,8 @@ describe('GitHubActivity 環境変数制御', () => {
   });
 
   it('DISABLE_GITHUB_API=falseの時、API呼び出しを実行する', async () => {
-    // 環境変数をモック
-    vi.stubGlobal('import', {
-      meta: {
-        env: {
-          PUBLIC_DISABLE_GITHUB_API: 'false',
-        },
-      },
-    });
-
-    // fetchをモック
-    const mockFetch = vi
-      .fn()
-      .mockResolvedValueOnce({
-        json: () => Promise.resolve([]),
-      })
-      .mockResolvedValueOnce({
-        json: () => Promise.resolve([]),
-      });
-    vi.stubGlobal('fetch', mockFetch);
+    mockEnvironmentVariable('PUBLIC_DISABLE_GITHUB_API', 'false');
+    const mockFetch = createFetchMock([[], []]);
 
     // GitHubActivityコンポーネントから関数を抽出してテスト
     const fetchGitHubData = async () => {
@@ -192,7 +161,7 @@ describe('GitHubActivity 環境変数制御', () => {
       'https://api.github.com/users/Kohei-Wada/repos?sort=pushed&per_page=5'
     );
     // 無効化ログが出力されないことを確認
-    expect(globalThis.console.log).not.toHaveBeenCalledWith(
+    expect(consoleMock.mockConsole.log).not.toHaveBeenCalledWith(
       'GitHub API disabled in development mode'
     );
   });

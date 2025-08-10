@@ -1,17 +1,5 @@
 import { describe, it, expect } from 'vitest';
-
-interface MarkdownHeading {
-  depth: number;
-  slug: string;
-  text: string;
-}
-
-interface TocItem {
-  depth: number;
-  slug: string;
-  text: string;
-  subheadings: TocItem[];
-}
+import type { MarkdownHeading, TocItem } from '../types/index.js';
 
 // TableOfContentsコンポーネントから関数を抽出してテスト
 function buildTocStructure(headings: MarkdownHeading[]): TocItem[] {

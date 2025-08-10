@@ -1,4 +1,5 @@
 import { describe, it, expect } from 'vitest';
+import { testUrlEncoding } from '../../src/test/helpers.js';
 
 describe('ShareButtons Logic', () => {
   const mockUrl = 'https://example.com/blog/test-post';
@@ -44,8 +45,7 @@ describe('ShareButtons Logic', () => {
 
   describe('URL Encoding', () => {
     it('should handle URLs with special characters', () => {
-      const specialUrl = 'https://example.com/blog/post?id=123&tag=c++';
-      const encoded = encodeURIComponent(specialUrl);
+      const encoded = testUrlEncoding('https://example.com/blog/post?id=123&tag=c++');
 
       expect(encoded).not.toContain('?');
       expect(encoded).not.toContain('&');
@@ -54,8 +54,7 @@ describe('ShareButtons Logic', () => {
     });
 
     it('should handle titles with special characters', () => {
-      const specialTitle = 'C++ & JavaScript: A Comparison!';
-      const encoded = encodeURIComponent(specialTitle);
+      const encoded = testUrlEncoding('C++ & JavaScript: A Comparison!');
 
       expect(encoded).toBe('C%2B%2B%20%26%20JavaScript%3A%20A%20Comparison!');
       expect(encoded).not.toContain('&');
@@ -64,8 +63,7 @@ describe('ShareButtons Logic', () => {
     });
 
     it('should handle Japanese characters', () => {
-      const japaneseTitle = '日本語のタイトル';
-      const encoded = encodeURIComponent(japaneseTitle);
+      const encoded = testUrlEncoding('日本語のタイトル');
 
       expect(encoded).toBe(
         '%E6%97%A5%E6%9C%AC%E8%AA%9E%E3%81%AE%E3%82%BF%E3%82%A4%E3%83%88%E3%83%AB'

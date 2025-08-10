@@ -4,7 +4,7 @@ import { SITE_TITLE, SITE_DESCRIPTION, GOOGLE_FORMS_URL } from '../consts';
 ---
 
 <BaseLayout title={SITE_TITLE} description={SITE_DESCRIPTION} showSidebar={true}>
-  <div style="max-width: 720px; margin: 0 auto; width: 100%;">
+  <div style="max-width: var(--content-max-width); margin: 0 auto; width: 100%;">
     <iframe src={GOOGLE_FORMS_URL} width="100%" height="642" style="border: none;">
       Loading…
     </iframe>

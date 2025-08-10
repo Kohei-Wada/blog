@@ -1,158 +1,9 @@
 ---
-interface GitHubEvent {
-  id: string;
-  type: string;
-  repo: {
-    name: string;
-  };
-  created_at: string;
-  payload: {
-    commits?: Array<{
-      message: string;
-      sha: string;
-    }>;
-    pull_request?: {
-      title: string;
-    };
-    issue?: {
-      title: string;
-    };
-  };
-}
-
-interface GitHubRepo {
-  name: string;
-  full_name: string;
-  html_url: string;
-  description: string | null;
-  stargazers_count: number;
-  language: string | null;
-  updated_at: string;
-  pushed_at: string;
-}
-
-// 開発環境用のモックデータ
-function getMockData() {
-  const mockEvents: GitHubEvent[] = [
-    {
-      id: 'mock-1',
-      type: 'PushEvent',
-      repo: { name: 'Kohei-Wada/blog' },
-      created_at: new Date().toISOString(),
-      payload: {
-        commits: [
-          {
-            message: 'feat: GitHub API無効化設定を追加',
-            sha: 'mock-sha-1',
-          },
-        ],
-      },
-    },
-    {
-      id: 'mock-2',
-      type: 'PushEvent',
-      repo: { name: 'Kohei-Wada/sample-project' },
-      created_at: new Date(Date.now() - 86400000).toISOString(),
-      payload: {
-        commits: [
-          {
-            message: 'fix: バグ修正とリファクタリング',
-            sha: 'mock-sha-2',
-          },
-        ],
-      },
-    },
-  ];
-
-  const mockRepos: GitHubRepo[] = [
-    {
-      name: 'blog',
-      full_name: 'Kohei-Wada/blog',
-      html_url: 'https://github.com/Kohei-Wada/blog',
-      description: '個人ブログ - Astro製',
-      stargazers_count: 5,
-      language: 'TypeScript',
-      updated_at: new Date().toISOString(),
-      pushed_at: new Date().toISOString(),
-    },
-    {
-      name: 'sample-project',
-      full_name: 'Kohei-Wada/sample-project',
-      html_url: 'https://github.com/Kohei-Wada/sample-project',
-      description: 'サンプルプロジェクト',
-      stargazers_count: 12,
-      language: 'JavaScript',
-      updated_at: new Date(Date.now() - 86400000).toISOString(),
-      pushed_at: new Date(Date.now() - 86400000).toISOString(),
-    },
-    {
-      name: 'learning-rust',
-      full_name: 'Kohei-Wada/learning-rust',
-      html_url: 'https://github.com/Kohei-Wada/learning-rust',
-      description: 'Rust学習用リポジトリ',
-      stargazers_count: 3,
-      language: 'Rust',
-      updated_at: new Date(Date.now() - 172800000).toISOString(),
-      pushed_at: new Date(Date.now() - 172800000).toISOString(),
-    },
-  ];
-
-  return { events: mockEvents, repos: mockRepos };
-}
-
-// GitHub APIからデータ取得
-async function fetchGitHubData() {
-  // 開発環境でGitHub APIを無効化
-  if (import.meta.env.PUBLIC_DISABLE_GITHUB_API === 'true') {
-    console.log('GitHub API disabled in development mode - using mock data');
-    return getMockData();
-  }
-
-  try {
-    // 最近のイベント取得
-    const eventsResponse = await fetch(
-      'https://api.github.com/users/Kohei-Wada/events/public?per_page=10'
-    );
-
-    if (!eventsResponse.ok) {
-      // レート制限の場合は警告レベルでログ出力
-      if (eventsResponse.status === 403) {
-        console.warn(`GitHub API rate limit exceeded. Status: ${eventsResponse.status}`);
-      } else {
-        console.error(`Events API error: ${eventsResponse.status} ${eventsResponse.statusText}`);
-      }
-      return { events: [], repos: [] };
-    }
-
-    const events: GitHubEvent[] = await eventsResponse.json();
-
-    // 最近更新されたリポジトリ取得
-    const reposResponse = await fetch(
-      'https://api.github.com/users/Kohei-Wada/repos?sort=pushed&per_page=5'
-    );
-
-    if (!reposResponse.ok) {
-      // レート制限の場合は警告レベルでログ出力
-      if (reposResponse.status === 403) {
-        console.warn(`GitHub API rate limit exceeded. Status: ${reposResponse.status}`);
-      } else {
-        console.error(`Repos API error: ${reposResponse.status} ${reposResponse.statusText}`);
-      }
-      return { events, repos: [] };
-    }
-
-    const repos: GitHubRepo[] = await reposResponse.json();
-
-    return { events, repos };
-  } catch (error) {
-    // ネットワークエラーやJSONパースエラーなど
-    console.warn(
-      'GitHub API unavailable:',
-      error instanceof Error ? error.message : 'Unknown error'
-    );
-    return { events: [], repos: [] };
-  }
-}
+import type { GitHubEvent, GitHubRepo } from '../types/index.js';
+import { fetchGitHubData } from '../utils/github-api.js';
+import GitHubIcon from './GitHubIcon.astro';
+import GitHubRecentCommits from './GitHubRecentCommits.astro';
+import GitHubActiveRepos from './GitHubActiveRepos.astro';
 
 // データ取得を安全に実行
 let events: GitHubEvent[] = [];
@@ -166,90 +17,16 @@ try {
   console.error('Critical error in GitHubActivity component:', error);
   // エラーが発生してもコンポーネント全体がクラッシュしないよう空のデータで継続
 }
-
-// イベントをフィルタリングして最新5件のコミットを取得
-const recentCommits = events
-  .filter(event => event.type === 'PushEvent')
-  .slice(0, 3)
-  .flatMap(event =>
-    (event.payload.commits || []).slice(0, 1).map(commit => ({
-      repo: event.repo.name,
-      message: commit.message.split('\n')[0], // 最初の行のみ
-      date: new Date(event.created_at),
-    }))
-  );
-
-// アクティブなリポジトリ（最新3件）
-const activeRepos = repos.slice(0, 3);
-
-// 日付フォーマット
-function formatDate(date: Date): string {
-  const now = new Date();
-  const diff = now.getTime() - date.getTime();
-  const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-
-  if (days === 0) return '今日';
-  if (days === 1) return '昨日';
-  if (days < 7) return `${days}日前`;
-  if (days < 30) return `${Math.floor(days / 7)}週間前`;
-  return `${Math.floor(days / 30)}ヶ月前`;
-}
 ---
 
 <section class="sidebar-section github-activity">
   <h3>
-    <svg
-      class="github-icon"
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 16 16"
-      width="16"
-      height="16"
-    >
-      <path
-        fill="currentColor"
-        d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"
-      ></path>
-    </svg>
+    <GitHubIcon class="github-icon" width={16} height={16} />
     GitHub Activity
   </h3>
 
-  {
-    recentCommits.length > 0 && (
-      <div class="github-section">
-        <h4>最近のコミット</h4>
-        <ul class="commit-list">
-          {recentCommits.map(commit => (
-            <li>
-              <div class="commit-repo">{commit.repo.split('/')[1]}</div>
-              <div class="commit-message">{commit.message}</div>
-              <div class="commit-date">{formatDate(commit.date)}</div>
-            </li>
-          ))}
-        </ul>
-      </div>
-    )
-  }
-
-  {
-    activeRepos.length > 0 && (
-      <div class="github-section">
-        <h4>アクティブなリポジトリ</h4>
-        <ul class="repo-list">
-          {activeRepos.map(repo => (
-            <li>
-              <a href={repo.html_url} target="_blank" rel="noopener noreferrer">
-                <div class="repo-name">{repo.name}</div>
-                <div class="repo-meta">
-                  {repo.language && <span class="repo-lang">{repo.language}</span>}
-                  <span class="repo-stars">⭐ {repo.stargazers_count}</span>
-                </div>
-              </a>
-            </li>
-          ))}
-        </ul>
-      </div>
-    )
-  }
+  <GitHubRecentCommits events={events} />
+  <GitHubActiveRepos repos={repos} />
 
   <div class="github-link">
     <a href="https://github.com/Kohei-Wada" target="_blank" rel="noopener noreferrer">
@@ -263,7 +40,7 @@ function formatDate(date: Date): string {
   .github-activity {
     margin-bottom: 2rem;
     padding: 1.5rem;
-    background: rgba(var(--gray-light), 20%);
+    background: var(--card-background);
     border-radius: 8px;
   }
 
@@ -283,123 +60,11 @@ function formatDate(date: Date): string {
     height: 18px;
   }
 
-  .github-section {
-    margin-bottom: 1.25rem;
-  }
-
-  .github-section:last-of-type {
-    margin-bottom: 1rem;
-  }
-
-  .github-section h4 {
-    font-size: 0.95em;
-    margin: 0 0 0.75rem 0;
-    color: rgb(var(--black));
-    font-weight: 600;
-  }
-
-  .commit-list,
-  .repo-list {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-
-  .commit-list li {
-    margin-bottom: 1rem;
-    padding-bottom: 1rem;
-    border-bottom: 1px solid rgba(var(--gray), 20%);
-  }
-
-  .commit-list li:last-child {
-    border-bottom: none;
-    margin-bottom: 0;
-    padding-bottom: 0;
-  }
-
-  .commit-repo {
-    font-size: 0.9em;
-    font-weight: 600;
-    color: rgb(var(--black));
-    margin-bottom: 0.25rem;
-  }
-
-  .commit-message {
-    font-size: 0.9em;
-    color: rgb(var(--gray-dark));
-    line-height: 1.3;
-    margin-bottom: 0.25rem;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-  }
-
-  .commit-date {
-    font-size: 0.8em;
-    color: rgb(var(--gray));
-  }
-
-  .repo-list li {
-    margin-bottom: 0.75rem;
-  }
-
-  .repo-list li:last-child {
-    margin-bottom: 0;
-  }
-
-  .repo-list a {
-    text-decoration: none;
-    color: inherit;
-    display: block;
-    padding: 0.5rem 0.75rem;
-    background: rgba(var(--gray-light), 5%);
-    border: 1px solid rgba(var(--gray), 10%);
-    border-radius: 6px;
-    transition: all 0.2s ease;
-  }
-
-  .repo-list a:hover {
-    background: rgba(var(--gray-light), 15%);
-    border-color: var(--accent);
-    color: var(--accent);
-  }
-
-  .repo-name {
-    font-size: 0.9em;
-    font-weight: 600;
-    color: inherit;
-    margin-bottom: 0.25rem;
-  }
-
-  .repo-meta {
-    font-size: 0.8em;
-    color: rgb(var(--gray));
-    display: flex;
-    gap: 1rem;
-  }
-
-  .repo-lang {
-    display: inline-flex;
-    align-items: center;
-  }
-
-  .repo-lang::before {
-    content: '';
-    display: inline-block;
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    background: var(--accent);
-    margin-right: 0.25rem;
-  }
-
   .github-link {
     text-align: center;
     padding-top: 0.75rem;
     margin-top: 0.5rem;
-    border-top: 1px solid rgba(var(--gray), 20%);
+    border-top: var(--separator-border);
   }
 
   .github-link a {

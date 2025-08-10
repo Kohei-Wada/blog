@@ -25,7 +25,7 @@ const description = SITE_DESCRIPTION;
 <BaseLayout title={title} description={description} showSidebar={true}>
   <style>
     .content {
-      max-width: 720px;
+      max-width: var(--content-max-width);
       margin: 0 auto;
       width: 100%;
     }
@@ -67,7 +67,7 @@ const description = SITE_DESCRIPTION;
     ul a:hover img {
       box-shadow: var(--box-shadow);
     }
-    @media (max-width: 720px) {
+    @media (max-width: var(--content-max-width)) {
       ul {
         gap: 0.5em;
       }

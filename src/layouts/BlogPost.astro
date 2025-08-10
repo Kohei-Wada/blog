@@ -12,11 +12,7 @@ interface Props {
   updatedDate?: Date;
   heroImage?: any;
   tags?: string[];
-  headings?: Array<{
-    depth: number;
-    slug: string;
-    text: string;
-  }>;
+  headings?: import('../types/index.js').MarkdownHeading[];
 }
 
 const {
@@ -43,7 +39,7 @@ const currentUrl = new URL(Astro.url.pathname, Astro.site).toString();
 >
   <style>
     article {
-      max-width: 720px;
+      max-width: var(--content-max-width);
       margin: 0 auto;
       width: 100%;
     }

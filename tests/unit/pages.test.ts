@@ -1,19 +1,29 @@
 import { describe, it, expect } from 'vitest';
+import {
+  createTestPost,
+  createTestPosts,
+  sortPostsByDate,
+  filterPostsByTag,
+  countTagsFromPosts,
+  getUniqueTagsFromPosts,
+  testUrlEncoding,
+  createTestDate,
+} from '../../src/test/helpers.js';
 
 describe('Page Logic', () => {
   describe('Blog Index Page', () => {
     it('should sort posts by date in descending order', () => {
       const posts = [
-        { data: { pubDate: new Date('2023-01-01') } },
-        { data: { pubDate: new Date('2023-03-01') } },
-        { data: { pubDate: new Date('2023-02-01') } },
+        createTestPost({ data: { pubDate: createTestDate('2023-01-01') } }),
+        createTestPost({ data: { pubDate: createTestDate('2023-03-01') } }),
+        createTestPost({ data: { pubDate: createTestDate('2023-02-01') } }),
       ];
 
-      const sorted = posts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+      const sorted = sortPostsByDate(posts);
 
-      expect(sorted[0].data.pubDate).toEqual(new Date('2023-03-01'));
-      expect(sorted[1].data.pubDate).toEqual(new Date('2023-02-01'));
-      expect(sorted[2].data.pubDate).toEqual(new Date('2023-01-01'));
+      expect(sorted[0].data.pubDate).toEqual(createTestDate('2023-03-01'));
+      expect(sorted[1].data.pubDate).toEqual(createTestDate('2023-02-01'));
+      expect(sorted[2].data.pubDate).toEqual(createTestDate('2023-01-01'));
     });
 
     it('should format blog post URL correctly', () => {
@@ -26,13 +36,12 @@ describe('Page Logic', () => {
   describe('Tag Page', () => {
     it('should filter posts by tag', () => {
       const posts = [
-        { data: { tags: ['javascript', 'react'] } },
-        { data: { tags: ['python', 'django'] } },
-        { data: { tags: ['javascript', 'vue'] } },
+        createTestPost({ data: { tags: ['javascript', 'react'] } }),
+        createTestPost({ data: { tags: ['python', 'django'] } }),
+        createTestPost({ data: { tags: ['javascript', 'vue'] } }),
       ];
 
-      const tag = 'javascript';
-      const filtered = posts.filter(post => post.data.tags.includes(tag));
+      const filtered = filterPostsByTag(posts, 'javascript');
 
       expect(filtered.length).toBe(2);
       expect(filtered[0].data.tags).toContain('javascript');
@@ -46,8 +55,7 @@ describe('Page Logic', () => {
     });
 
     it('should handle special characters in tags', () => {
-      const tag = 'c++';
-      const encoded = encodeURIComponent(tag);
+      const encoded = testUrlEncoding('c++');
       expect(encoded).toBe('c%2B%2B');
     });
   });
@@ -55,17 +63,12 @@ describe('Page Logic', () => {
   describe('Tags Index Page', () => {
     it('should count posts per tag correctly', () => {
       const posts = [
-        { data: { tags: ['javascript', 'react'] } },
-        { data: { tags: ['javascript', 'vue'] } },
-        { data: { tags: ['python'] } },
+        createTestPost({ data: { tags: ['javascript', 'react'] } }),
+        createTestPost({ data: { tags: ['javascript', 'vue'] } }),
+        createTestPost({ data: { tags: ['python'] } }),
       ];
 
-      const tagCounts = {};
-      posts.forEach(post => {
-        post.data.tags.forEach(tag => {
-          tagCounts[tag] = (tagCounts[tag] || 0) + 1;
-        });
-      });
+      const tagCounts = countTagsFromPosts(posts);
 
       expect(tagCounts['javascript']).toBe(2);
       expect(tagCounts['react']).toBe(1);
@@ -75,13 +78,12 @@ describe('Page Logic', () => {
 
     it('should get unique tags from posts', () => {
       const posts = [
-        { data: { tags: ['javascript', 'react'] } },
-        { data: { tags: ['javascript', 'vue'] } },
-        { data: { tags: ['react', 'typescript'] } },
+        createTestPost({ data: { tags: ['javascript', 'react'] } }),
+        createTestPost({ data: { tags: ['javascript', 'vue'] } }),
+        createTestPost({ data: { tags: ['react', 'typescript'] } }),
       ];
 
-      const allTags = posts.flatMap(post => post.data.tags);
-      const uniqueTags = [...new Set(allTags)];
+      const uniqueTags = getUniqueTagsFromPosts(posts);
 
       expect(uniqueTags).toContain('javascript');
       expect(uniqueTags).toContain('react');

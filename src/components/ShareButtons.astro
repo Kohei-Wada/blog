@@ -1,4 +1,6 @@
 ---
+import { SOCIAL_SHARE_URLS } from '../constants/api.js';
+
 interface Props {
   title: string;
   description: string;
@@ -12,10 +14,10 @@ const encodedUrl = encodeURIComponent(url);
 const encodedText = encodeURIComponent(`${title} - ${description}`);
 
 // シェア用URL
-const twitterUrl = `https://twitter.com/intent/tweet?text=${encodedText}&url=${encodedUrl}`;
-const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`;
-const lineUrl = `https://social-plugins.line.me/lineit/share?url=${encodedUrl}&text=${encodedText}`;
-const linkedinUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodedUrl}`;
+const twitterUrl = `${SOCIAL_SHARE_URLS.TWITTER}?text=${encodedText}&url=${encodedUrl}`;
+const facebookUrl = `${SOCIAL_SHARE_URLS.FACEBOOK}?u=${encodedUrl}`;
+const lineUrl = `${SOCIAL_SHARE_URLS.LINE}?url=${encodedUrl}&text=${encodedText}`;
+const linkedinUrl = `${SOCIAL_SHARE_URLS.LINKEDIN}?url=${encodedUrl}`;
 ---
 
 <div class="share-buttons">

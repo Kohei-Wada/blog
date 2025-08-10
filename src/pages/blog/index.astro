@@ -13,7 +13,7 @@ const posts = (await getCollection('blog')).sort(
 <BaseLayout title={SITE_TITLE} description={SITE_DESCRIPTION} showSidebar={true}>
   <style>
     section {
-      max-width: 720px;
+      max-width: var(--content-max-width);
       margin: 0 auto;
       width: 100%;
     }
@@ -55,7 +55,7 @@ const posts = (await getCollection('blog')).sort(
     ul a:hover img {
       box-shadow: var(--box-shadow);
     }
-    @media (max-width: 720px) {
+    @media (max-width: var(--content-max-width)) {
       ul {
         gap: 0.5em;
       }

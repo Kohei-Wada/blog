@@ -4,7 +4,9 @@
       "WebFetch(domain:docs.anthropic.com)",
       "Bash(npm run test:coverage:*)",
       "Bash(npm run test:run:*)",
-      "Bash(npm run lint)"
+      "Bash(npm run lint)",
+      "Bash(find:*)",
+      "Bash(sed:*)"
     ],
     "deny": []
   }
