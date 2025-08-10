@@ -2,8 +2,11 @@
 // You can import this data from anywhere in your site by using the `import` keyword.
 
 export const SITE_TITLE: string = 'Kohei Wada';
+export const SITE_SUBTITLE: string = 'ソフトウェアエンジニア';
 export const SITE_DESCRIPTION: string =
   'ようこそ、私の個人的なウェブサイトへ。ここでは、私の技術的な情報やプロジェクト、そして私の個人的な興味について紹介しています。';
+export const SITE_HERO_DESCRIPTION: string =
+  'ソフトウェア開発、技術記事、そして個人的な学びについて発信しています。';
 export const GITHUB_URL: string = 'https://github.com/Kohei-Wada';
 export const ZENN_URL: string = 'https://zenn.dev/koheiwada';
 export const GOOGLE_FORMS_URL: string =

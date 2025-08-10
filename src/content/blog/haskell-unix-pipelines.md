@@ -5,6 +5,7 @@ pubDate: 'Aug 10 2025'
 updatedDate: 'Aug 10 2025'
 tags: ['Haskell', 'ghci', 'shell芸']
 heroImage: '../../assets/blog-placeholder-2.jpg'
+featured: true
 ---
 
 ## 1. 開発者の日常から生まれた課題

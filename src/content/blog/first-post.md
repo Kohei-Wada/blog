@@ -5,6 +5,7 @@ pubDate: 'June 9 2025'
 updatedDate: 'June 15 2025'
 tags: ['blog', 'Zettelkasten', 'astro']
 heroImage: '../../assets/blog-placeholder-3.jpg'
+featured: true
 ---
 
 こんにちは、Koheiです。
