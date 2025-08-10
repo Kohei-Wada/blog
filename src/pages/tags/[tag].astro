@@ -2,8 +2,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { SITE_TITLE, SITE_DESCRIPTION } from '../../consts';
 import { getCollection } from 'astro:content';
-import FormattedDate from '../../components/FormattedDate.astro';
-import { Image } from 'astro:assets';
+import PostCard from '../../components/PostCard.astro';
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog');
@@ -66,132 +65,11 @@ const description = SITE_DESCRIPTION;
       margin-top: 2rem;
     }
 
-    .post-card {
-      background: rgb(var(--gray-light));
-      border-radius: 12px;
-      overflow: hidden;
-      transition: all 0.3s ease;
-      border: 1px solid rgba(var(--accent-light), 0.1);
-      max-height: 400px;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .post-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 12px 24px rgba(var(--accent), 0.1);
-      border-color: var(--accent);
-    }
-
-    .post-card a {
-      text-decoration: none;
-      color: inherit;
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .post-image {
-      width: 100%;
-      height: 150px;
-      object-fit: cover;
-      display: block;
-    }
-
-    .post-content {
-      padding: 1.5rem;
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .post-meta {
-      color: var(--accent);
-      font-size: 0.9rem;
-      font-weight: 600;
-      margin-bottom: 1rem;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-
-    .featured-badge {
-      background: var(--accent);
-      color: white;
-      padding: 0.2rem 0.5rem;
-      border-radius: 4px;
-      font-size: 0.8rem;
-      font-weight: 600;
-    }
-
-    .post-card h2 {
-      font-size: 1.2rem;
-      margin: 0 0 0.8rem;
-      line-height: 1.3;
-      color: rgb(var(--black));
-      flex-grow: 1;
-    }
-
-    .post-description {
-      color: rgb(var(--gray));
-      line-height: 1.5;
-      margin-bottom: 1rem;
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      font-size: 0.9rem;
-    }
-
-    .post-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-      margin-top: auto;
-    }
-
-    .tag {
-      background: rgba(var(--accent), 0.1);
-      color: var(--accent);
-      padding: 0.3rem 0.8rem;
-      border-radius: 15px;
-      font-size: 0.8rem;
-      font-weight: 500;
-    }
-
-    .current-tag {
-      background: var(--accent);
-      color: white;
-    }
-
     /* Responsive */
     @media (max-width: 768px) {
       .posts-grid {
         grid-template-columns: 1fr;
         gap: 1rem;
-      }
-
-      .post-content {
-        padding: 1rem;
-      }
-
-      .post-image {
-        height: 120px;
-      }
-
-      .post-card {
-        max-height: 320px;
-      }
-
-      .post-card h2 {
-        font-size: 1.1rem;
-        margin-bottom: 0.6rem;
-      }
-
-      .post-description {
-        font-size: 0.85rem;
-        margin-bottom: 0.8rem;
       }
 
       .content {
@@ -210,36 +88,7 @@ const description = SITE_DESCRIPTION;
       気になる記事があれば、ぜひクリックして詳細をお読みください。
     </p>
     <div class="posts-grid">
-      {
-        posts.map(post => (
-          <article class="post-card">
-            <a href={`/blog/${post.id}/`}>
-              {post.data.heroImage && (
-                <Image
-                  src={post.data.heroImage}
-                  alt={post.data.title}
-                  width={400}
-                  height={200}
-                  class="post-image"
-                />
-              )}
-              <div class="post-content">
-                <div class="post-meta">
-                  <FormattedDate date={post.data.pubDate} />
-                  {post.data.featured && <span class="featured-badge">おすすめ</span>}
-                </div>
-                <h2>{post.data.title}</h2>
-                <p class="post-description">{post.data.description}</p>
-                <div class="post-tags">
-                  {post.data.tags.map(postTag => (
-                    <span class={`tag ${postTag === tag ? 'current-tag' : ''}`}>{postTag}</span>
-                  ))}
-                </div>
-              </div>
-            </a>
-          </article>
-        ))
-      }
+      {posts.map(post => <PostCard post={post} currentTag={tag} />)}
     </div>
   </div>
 </BaseLayout>
