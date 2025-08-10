@@ -2,6 +2,7 @@
 import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import Sidebar from '../components/Sidebar.astro';
 import type { ImageMetadata } from 'astro';
 
 interface Props {
@@ -10,9 +11,10 @@ interface Props {
   image?: ImageMetadata;
   isArticle?: boolean;
   publishedTime?: Date;
+  showSidebar?: boolean;
 }
 
-const { title, description, image, isArticle, publishedTime } = Astro.props;
+const { title, description, image, isArticle, publishedTime, showSidebar = false } = Astro.props;
 ---
 
 <!doctype html>
@@ -28,9 +30,14 @@ const { title, description, image, isArticle, publishedTime } = Astro.props;
   </head>
   <body>
     <Header />
-    <main>
-      <slot />
-    </main>
+    <div class={showSidebar ? 'layout-with-sidebar' : 'layout-single'}>
+      {showSidebar && <div class="spacer-left" />}
+      <main class={showSidebar ? 'main-with-sidebar' : ''}>
+        <slot />
+      </main>
+      {showSidebar && <div class="gap-spacer" />}
+      {showSidebar && <Sidebar />}
+    </div>
     <Footer />
   </body>
 </html>

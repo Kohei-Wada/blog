@@ -10,10 +10,12 @@ const posts = (await getCollection('blog')).sort(
 );
 ---
 
-<BaseLayout title={SITE_TITLE} description={SITE_DESCRIPTION}>
+<BaseLayout title={SITE_TITLE} description={SITE_DESCRIPTION} showSidebar={true}>
   <style>
-    main {
-      width: 960px;
+    section {
+      max-width: 720px;
+      margin: 0 auto;
+      width: 100%;
     }
     ul {
       display: flex;

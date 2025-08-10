@@ -2,12 +2,17 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 
-<BaseLayout title="About" description="Kohei Wadaについて。使用ツールや考え方など。">
+<BaseLayout
+  title="About"
+  description="Kohei Wadaについて。使用ツールや考え方など。"
+  showSidebar={true}
+>
   <style>
     .about {
-      max-width: 800px;
+      max-width: 720px;
       margin: 0 auto;
-      padding: 2rem;
+      width: 100%;
+      padding: 0 1rem;
       line-height: 1.6;
     }
     .about h1 {

@@ -2,12 +2,17 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 
-<BaseLayout title="404 - Page Not Found" description="お探しのページが見つかりません。">
+<BaseLayout
+  title="404 - Page Not Found"
+  description="お探しのページが見つかりません。"
+  showSidebar={true}
+>
   <style>
     .error-page {
-      max-width: 800px;
+      max-width: 720px;
       margin: 0 auto;
-      padding: 2rem;
+      width: 100%;
+      padding: 0 1rem;
       text-align: center;
       line-height: 1.6;
     }

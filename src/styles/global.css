@@ -259,3 +259,65 @@ pre.astro-code code {
     padding: 0.25rem;
   }
 }
+
+/* Layout styles for sidebar */
+.layout-with-sidebar {
+  display: grid;
+  grid-template-columns: 1fr 720px 96px 300px;
+  gap: 0;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 1rem;
+  align-items: start;
+}
+
+.layout-single {
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.main-with-sidebar {
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  padding: 3em 1em;
+  overflow: hidden;
+}
+
+/* Responsive sidebar */
+@media (max-width: 1024px) {
+  .layout-with-sidebar {
+    grid-template-columns: 1fr;
+    max-width: 720px;
+    gap: 4rem;
+  }
+
+  .spacer-left,
+  .gap-spacer {
+    display: none;
+  }
+
+  .main-with-sidebar {
+    padding: 3em 1em;
+  }
+
+  .sidebar {
+    order: -1;
+    margin-bottom: 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .layout-with-sidebar {
+    gap: 3rem;
+  }
+
+  .layout-with-sidebar .sidebar {
+    display: none;
+  }
+
+  .spacer-left,
+  .gap-spacer {
+    display: none;
+  }
+}
