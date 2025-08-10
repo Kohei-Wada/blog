@@ -19,6 +19,34 @@ posts.forEach(post => {
       max-width: var(--content-max-width);
       margin: 0 auto;
       width: 100%;
+      padding: 0 1rem;
+    }
+
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 2rem;
+      text-align: center;
+      color: rgb(var(--black));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+    }
+
+    .title-icon {
+      font-size: 2.2rem;
+      filter: drop-shadow(0 2px 4px rgba(var(--accent), 0.3));
+    }
+
+    .page-description {
+      text-align: center;
+      color: rgb(var(--gray));
+      font-size: 1.1rem;
+      line-height: 1.6;
+      margin-bottom: 3rem;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
     }
 
     .index_tag_nav {
@@ -62,7 +90,14 @@ posts.forEach(post => {
   </style>
 
   <div class="content">
-    <h1>Tags</h1>
+    <h1>
+      <span class="title-icon">🏷️</span>
+      タグ一覧
+    </h1>
+    <p class="page-description">
+      記事をタグで分類して探すことができます。
+      気になるタグをクリックして、関連記事をお楽しみください。
+    </p>
     <div class="index_tag_nav">
       <ul>
         {

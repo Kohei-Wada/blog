@@ -28,82 +28,218 @@ const description = SITE_DESCRIPTION;
       max-width: var(--content-max-width);
       margin: 0 auto;
       width: 100%;
+      padding: 0 1rem;
+      margin-bottom: 4rem;
     }
-    ul {
+
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 2rem;
+      text-align: center;
+      color: rgb(var(--black));
       display: flex;
-      flex-wrap: wrap;
-      gap: 2rem;
-      list-style-type: none;
-      margin: 0;
-      padding: 0;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
     }
-    ul li {
-      width: calc(50% - 1rem);
+
+    .title-icon {
+      font-size: 2.2rem;
+      filter: drop-shadow(0 2px 4px rgba(var(--accent), 0.3));
     }
-    ul li * {
-      text-decoration: none;
-      transition: 0.2s ease;
+
+    .page-description {
+      text-align: center;
+      color: rgb(var(--gray));
+      font-size: 1.1rem;
+      line-height: 1.6;
+      margin-bottom: 3rem;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
     }
-    ul li img {
-      margin-bottom: 0.5rem;
+
+    .posts-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    .post-card {
+      background: rgb(var(--gray-light));
       border-radius: 12px;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      border: 1px solid rgba(var(--accent-light), 0.1);
+      max-height: 400px;
+      display: flex;
+      flex-direction: column;
     }
-    ul li a {
+
+    .post-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 24px rgba(var(--accent), 0.1);
+      border-color: var(--accent);
+    }
+
+    .post-card a {
+      text-decoration: none;
+      color: inherit;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .post-image {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
       display: block;
     }
-    .title {
-      margin: 0;
+
+    .post-content {
+      padding: 1.5rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .post-meta {
+      color: var(--accent);
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .featured-badge {
+      background: var(--accent);
+      color: white;
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+
+    .post-card h2 {
+      font-size: 1.2rem;
+      margin: 0 0 0.8rem;
+      line-height: 1.3;
       color: rgb(var(--black));
-      line-height: 1;
+      flex-grow: 1;
     }
-    .date {
-      margin: 0;
+
+    .post-description {
       color: rgb(var(--gray));
+      line-height: 1.5;
+      margin-bottom: 1rem;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      font-size: 0.9rem;
     }
-    ul li a:hover h4,
-    ul li a:hover .date {
-      color: rgb(var(--accent));
+
+    .post-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: auto;
     }
-    ul a:hover img {
-      box-shadow: var(--box-shadow);
+
+    .tag {
+      background: rgba(var(--accent), 0.1);
+      color: var(--accent);
+      padding: 0.3rem 0.8rem;
+      border-radius: 15px;
+      font-size: 0.8rem;
+      font-weight: 500;
     }
-    @media (max-width: var(--content-max-width)) {
-      ul {
-        gap: 0.5em;
+
+    .current-tag {
+      background: var(--accent);
+      color: white;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .posts-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
       }
-      ul li {
-        width: 100%;
-        text-align: center;
+
+      .post-content {
+        padding: 1rem;
       }
-      ul li:first-child {
-        margin-bottom: 0;
+
+      .post-image {
+        height: 120px;
       }
-      ul li:first-child .title {
-        font-size: 1.563em;
+
+      .post-card {
+        max-height: 320px;
+      }
+
+      .post-card h2 {
+        font-size: 1.1rem;
+        margin-bottom: 0.6rem;
+      }
+
+      .post-description {
+        font-size: 0.85rem;
+        margin-bottom: 0.8rem;
+      }
+
+      .content {
+        margin-bottom: 3rem;
       }
     }
   </style>
 
   <div class="content">
-    <h1>Tag: {tag} ({posts.length})</h1>
-    <section>
-      <ul>
-        {
-          posts.map(post => (
-            <li>
-              <a href={`/blog/${post.id}/`}>
-                {post.data.heroImage && (
-                  <Image width={720} height={360} src={post.data.heroImage} alt="" />
-                )}
-                <h4 class="title">{post.data.title}</h4>
-                <p class="date">
+    <h1>
+      <span class="title-icon">🏷️</span>
+      {tag}タグの記事
+    </h1>
+    <p class="page-description">
+      {tag}に関する記事一覧です。{posts.length}件の記事があります。
+      気になる記事があれば、ぜひクリックして詳細をお読みください。
+    </p>
+    <div class="posts-grid">
+      {
+        posts.map(post => (
+          <article class="post-card">
+            <a href={`/blog/${post.id}/`}>
+              {post.data.heroImage && (
+                <Image
+                  src={post.data.heroImage}
+                  alt={post.data.title}
+                  width={400}
+                  height={200}
+                  class="post-image"
+                />
+              )}
+              <div class="post-content">
+                <div class="post-meta">
                   <FormattedDate date={post.data.pubDate} />
-                </p>
-              </a>
-            </li>
-          ))
-        }
-      </ul>
-    </section>
+                  {post.data.featured && <span class="featured-badge">おすすめ</span>}
+                </div>
+                <h2>{post.data.title}</h2>
+                <p class="post-description">{post.data.description}</p>
+                <div class="post-tags">
+                  {post.data.tags.map(postTag => (
+                    <span class={`tag ${postTag === tag ? 'current-tag' : ''}`}>{postTag}</span>
+                  ))}
+                </div>
+              </div>
+            </a>
+          </article>
+        ))
+      }
+    </div>
   </div>
 </BaseLayout>
