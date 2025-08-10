@@ -35,6 +35,26 @@ All commands are run from the root of the project, from a terminal:
 | `npm run lint:fix`      | Run ESLint with auto-fix                      |
 | `npm run typecheck`     | Run TypeScript type checking                  |
 
+## Development Environment
+
+### GitHub API Configuration
+
+To avoid hitting GitHub API rate limits during development, create a `.env` file in the project root:
+
+```bash
+# .env
+PUBLIC_DISABLE_GITHUB_API=true
+```
+
+This will:
+
+- Disable GitHub API calls during development (`npm run dev`)
+- Display mock data instead of live GitHub activity
+- Prevent rate limiting issues
+- Allow UI testing without external API dependencies
+
+**Note**: This setting only affects development. Production deployments will use live GitHub API data.
+
 ## Project Structure
 
 ```
