@@ -9,8 +9,13 @@ const posts = (await getCollection('blog'))
   .slice(0, 5);
 ---
 
-<BaseLayout title={SITE_TITLE} description={SITE_DESCRIPTION}>
+<BaseLayout title={SITE_TITLE} description={SITE_DESCRIPTION} showSidebar={true}>
   <style>
+    .content {
+      max-width: 720px;
+      margin: 0 auto;
+      width: 100%;
+    }
     .hero {
       text-align: center;
       margin: 4rem 0;
@@ -52,26 +57,28 @@ const posts = (await getCollection('blog'))
     }
   </style>
 
-  <section class="hero">
-    <h1>{SITE_TITLE}</h1>
-    <p>{SITE_DESCRIPTION}</p>
-  </section>
+  <div class="content">
+    <section class="hero">
+      <h1>{SITE_TITLE}</h1>
+      <p>{SITE_DESCRIPTION}</p>
+    </section>
 
-  <section class="recent-posts">
-    <h2>Recent Posts</h2>
-    <ul>
-      {
-        posts.map(post => (
-          <li>
-            <a href={`/blog/${post.id}/`}>
-              <h3>{post.data.title}</h3>
-              <p>
-                <FormattedDate date={post.data.pubDate} />
-              </p>
-            </a>
-          </li>
-        ))
-      }
-    </ul>
-  </section>
+    <section class="recent-posts">
+      <h2>Recent Posts</h2>
+      <ul>
+        {
+          posts.map(post => (
+            <li>
+              <a href={`/blog/${post.id}/`}>
+                <h3>{post.data.title}</h3>
+                <p>
+                  <FormattedDate date={post.data.pubDate} />
+                </p>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+  </div>
 </BaseLayout>

@@ -22,10 +22,12 @@ const title = `${tag} - ${SITE_TITLE}`;
 const description = SITE_DESCRIPTION;
 ---
 
-<BaseLayout title={title} description={description}>
+<BaseLayout title={title} description={description} showSidebar={true}>
   <style>
-    main {
-      width: 960px;
+    .content {
+      max-width: 720px;
+      margin: 0 auto;
+      width: 100%;
     }
     ul {
       display: flex;
@@ -82,24 +84,26 @@ const description = SITE_DESCRIPTION;
     }
   </style>
 
-  <h1>Tag: {tag} ({posts.length})</h1>
-  <section>
-    <ul>
-      {
-        posts.map(post => (
-          <li>
-            <a href={`/blog/${post.id}/`}>
-              {post.data.heroImage && (
-                <Image width={720} height={360} src={post.data.heroImage} alt="" />
-              )}
-              <h4 class="title">{post.data.title}</h4>
-              <p class="date">
-                <FormattedDate date={post.data.pubDate} />
-              </p>
-            </a>
-          </li>
-        ))
-      }
-    </ul>
-  </section>
+  <div class="content">
+    <h1>Tag: {tag} ({posts.length})</h1>
+    <section>
+      <ul>
+        {
+          posts.map(post => (
+            <li>
+              <a href={`/blog/${post.id}/`}>
+                {post.data.heroImage && (
+                  <Image width={720} height={360} src={post.data.heroImage} alt="" />
+                )}
+                <h4 class="title">{post.data.title}</h4>
+                <p class="date">
+                  <FormattedDate date={post.data.pubDate} />
+                </p>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+  </div>
 </BaseLayout>
