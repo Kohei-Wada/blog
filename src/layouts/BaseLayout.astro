@@ -35,6 +35,7 @@ const { title, description, image, isArticle, publishedTime, showSidebar = false
       <main class={showSidebar ? 'main-with-sidebar' : ''}>
         <slot />
       </main>
+      {showSidebar && <div class="gap-spacer" />}
       {showSidebar && <Sidebar />}
     </div>
     <Footer />

@@ -263,9 +263,9 @@ pre.astro-code code {
 /* Layout styles for sidebar */
 .layout-with-sidebar {
   display: grid;
-  grid-template-columns: minmax(50px, 1fr) minmax(0, 720px) 300px;
-  gap: 4rem;
-  max-width: 1200px;
+  grid-template-columns: 1fr 720px 96px 300px;
+  gap: 0;
+  max-width: 1400px;
   margin: 0 auto;
   padding: 0 1rem;
   align-items: start;
@@ -289,10 +289,11 @@ pre.astro-code code {
   .layout-with-sidebar {
     grid-template-columns: 1fr;
     max-width: 720px;
-    gap: 3rem;
+    gap: 4rem;
   }
 
-  .spacer-left {
+  .spacer-left,
+  .gap-spacer {
     display: none;
   }
 
@@ -308,14 +309,15 @@ pre.astro-code code {
 
 @media (max-width: 768px) {
   .layout-with-sidebar {
-    gap: 2.5rem;
+    gap: 3rem;
   }
 
   .layout-with-sidebar .sidebar {
     display: none;
   }
 
-  .spacer-left {
+  .spacer-left,
+  .gap-spacer {
     display: none;
   }
 }
