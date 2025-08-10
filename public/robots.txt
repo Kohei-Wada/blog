@@ -1,0 +1,29 @@
+# robots.txt for Kohei Wada's Blog
+# https://kohei-wada-blog.netlify.app/
+
+User-agent: *
+
+# Allow all content by default
+Allow: /
+
+# Disallow common paths that shouldn't be indexed
+Disallow: /_astro/
+Disallow: /dist/
+Disallow: /.netlify/
+Disallow: /404.html
+
+# Allow specific important pages
+Allow: /blog/
+Allow: /tags/
+Allow: /about/
+Allow: /contact/
+
+# RSS feed for content syndication
+Allow: /rss.xml
+
+# Sitemap location
+Sitemap: https://kohei-wada-blog.netlify.app/sitemap-index.xml
+Sitemap: https://kohei-wada-blog.netlify.app/sitemap-0.xml
+
+# Crawl-delay to be respectful (optional)
+# Crawl-delay: 1
