@@ -31,3 +31,24 @@ repos:
         language: system
         stages: [pre-commit]
         require_serial: true
+
+      - id: typecheck
+        name: TypeScript Type Check
+        entry: npm run typecheck
+        language: system
+        stages: [pre-commit]
+        pass_filenames: false
+
+      - id: test
+        name: Run Tests
+        entry: npm run test:run
+        language: system
+        stages: [pre-commit]
+        pass_filenames: false
+
+      - id: build
+        name: Build Check
+        entry: npm run build
+        language: system
+        stages: [pre-commit]
+        pass_filenames: false
