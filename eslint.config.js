@@ -5,7 +5,14 @@ import astroPlugin from 'eslint-plugin-astro';
 
 export default [
   {
-    ignores: ['node_modules/**', 'dist/**', '.astro/**', '**/*.d.ts', 'tests/**'],
+    ignores: [
+      'node_modules/**',
+      'dist/**',
+      '.astro/**',
+      '**/*.d.ts',
+      'tests/**',
+      'astro.config.mjs',
+    ],
   },
   eslint.configs.recommended,
   {

@@ -170,3 +170,88 @@ hr {
     white-space: normal;
   }
 }
+
+/* Code block styles for rehype-pretty-code */
+.code-block-wrapper {
+  position: relative;
+  margin: 1.5em 0;
+}
+
+pre.astro-code {
+  overflow-x: auto;
+  border-radius: 8px;
+  padding: 1rem;
+  line-height: 1.4;
+  margin: 0;
+}
+
+pre.astro-code code {
+  font-family: 'Courier New', Consolas, monospace;
+  font-size: 0.875rem;
+}
+
+.highlighted {
+  background: rgba(200, 200, 200, 0.1);
+  border-left: 3px solid var(--accent);
+  padding-left: 0.5rem;
+}
+
+.chars {
+  background: rgba(200, 200, 200, 0.2);
+  border-radius: 4px;
+  padding: 0.125rem 0.25rem;
+}
+
+/* Copy button styles */
+.copy-code-button {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  background: rgba(var(--gray-light), 0.9);
+  border: 1px solid rgba(var(--gray), 0.3);
+  border-radius: 4px;
+  padding: 0.25rem 0.5rem;
+  color: rgb(var(--gray-dark));
+  cursor: pointer;
+  font-size: 0.75rem;
+  font-family: inherit;
+  transition: all 0.2s ease;
+  backdrop-filter: blur(4px);
+  z-index: 1;
+}
+
+.copy-code-button:hover {
+  background: rgb(var(--gray-dark));
+  color: white;
+  border-color: rgb(var(--gray-dark));
+  transform: translateY(-1px);
+}
+
+.copy-code-button:active {
+  transform: translateY(0) scale(0.95);
+}
+
+.copy-code-button.copied {
+  background: var(--accent);
+  color: white;
+  border-color: var(--accent);
+}
+
+.copy-code-button svg {
+  width: 12px;
+  height: 12px;
+  flex-shrink: 0;
+}
+
+@media (max-width: 720px) {
+  .copy-code-button .copy-text {
+    display: none;
+  }
+
+  .copy-code-button {
+    padding: 0.25rem;
+  }
+}

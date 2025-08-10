@@ -35,7 +35,9 @@
     "@astrojs/rss": "^4.0.12",
     "@astrojs/sitemap": "^3.4.1",
     "astro": "^5.9.1",
-    "sharp": "^0.34.2"
+    "rehype-pretty-code": "^0.14.1",
+    "sharp": "^0.34.2",
+    "shiki": "^3.9.2"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.4",

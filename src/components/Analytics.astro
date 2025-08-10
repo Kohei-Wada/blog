@@ -3,7 +3,7 @@ const isProduction: boolean = process.env.CONTEXT === 'production';
 ---
 {isProduction && (
   <>
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XGH4QVLSMS"></script>
+    <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-XGH4QVLSMS"></script>
     <script is:inline>
       window.dataLayer = window.dataLayer || [];
       function gtag() {
