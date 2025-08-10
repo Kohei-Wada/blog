@@ -3,7 +3,8 @@
     "allow": [
       "WebFetch(domain:docs.anthropic.com)",
       "Bash(npm run test:coverage:*)",
-      "Bash(npm run test:run:*)"
+      "Bash(npm run test:run:*)",
+      "Bash(npm run lint)"
     ],
     "deny": []
   }

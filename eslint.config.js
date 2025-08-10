@@ -5,7 +5,7 @@ import astroPlugin from 'eslint-plugin-astro';
 
 export default [
   {
-    ignores: ['node_modules/**', 'dist/**', '.astro/**', '**/*.d.ts'],
+    ignores: ['node_modules/**', 'dist/**', '.astro/**', '**/*.d.ts', 'tests/**'],
   },
   eslint.configs.recommended,
   {
@@ -15,6 +15,10 @@ export default [
       parserOptions: {
         ecmaVersion: 'latest',
         sourceType: 'module',
+      },
+      globals: {
+        console: 'readonly',
+        process: 'readonly',
       },
     },
     plugins: {
