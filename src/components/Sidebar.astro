@@ -1,6 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import FormattedDate from './FormattedDate.astro';
+import GitHubActivity from './GitHubActivity.astro';
 
 const posts = (await getCollection('blog'))
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
@@ -57,6 +58,8 @@ const tagCounts = allTags.reduce(
       <p>主にソフトウェア開発、プログラミング、技術トレンドについて書いています。</p>
     </div>
   </section>
+
+  <GitHubActivity />
 </aside>
 
 <style>
