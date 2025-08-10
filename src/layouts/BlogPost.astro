@@ -1,13 +1,33 @@
 ---
-import type { CollectionEntry } from 'astro:content';
 import BaseLayout from './BaseLayout.astro';
 import FormattedDate from '../components/FormattedDate.astro';
 import ShareButtons from '../components/ShareButtons.astro';
+import TableOfContents from '../components/TableOfContents.astro';
 import { Image } from 'astro:assets';
 
-type Props = CollectionEntry<'blog'>['data'];
+interface Props {
+  title: string;
+  description: string;
+  pubDate: Date;
+  updatedDate?: Date;
+  heroImage?: any;
+  tags?: string[];
+  headings?: Array<{
+    depth: number;
+    slug: string;
+    text: string;
+  }>;
+}
 
-const { title, description, pubDate, updatedDate, heroImage, tags = [] } = Astro.props;
+const {
+  title,
+  description,
+  pubDate,
+  updatedDate,
+  heroImage,
+  tags = [],
+  headings = [],
+} = Astro.props;
 
 // 現在のページのURLを取得
 const currentUrl = new URL(Astro.url.pathname, Astro.site).toString();
@@ -119,7 +139,7 @@ const currentUrl = new URL(Astro.url.pathname, Astro.site).toString();
       {
         tags.length > 0 && (
           <div class="tags">
-            {tags.map(tag => (
+            {tags.map((tag: string) => (
               <a href={`/tags/${tag}/`} class="tag">
                 {tag}
               </a>
@@ -127,6 +147,9 @@ const currentUrl = new URL(Astro.url.pathname, Astro.site).toString();
           </div>
         )
       }
+
+      <TableOfContents headings={headings} />
+
       <slot />
       <ShareButtons title={title} description={description} url={currentUrl} />
     </div>
