@@ -11,10 +11,7 @@ type TestPost = {
   [key: string]: unknown;
 };
 
-type MockResponse = {
-  _meta?: Record<string, unknown>;
-  [key: string]: unknown;
-};
+type MockResponse = unknown;
 
 // テスト用の日付生成ヘルパー
 export function createTestDate(dateString: string): Date {
@@ -104,12 +101,15 @@ export function createFetchMock(responses: MockResponse[] = []) {
   const mockFetch = vi.fn();
 
   responses.forEach(response => {
+    const responseData = response as Record<string, unknown> | unknown[];
+    const meta = (responseData as Record<string, unknown>)?._meta || {};
+
     mockFetch.mockResolvedValueOnce({
       ok: true,
       json: () => Promise.resolve(response),
       status: 200,
       statusText: 'OK',
-      ...response._meta, // レスポンスのメタデータをオーバーライド可能
+      ...meta, // レスポンスのメタデータをオーバーライド可能
     });
   });
 
