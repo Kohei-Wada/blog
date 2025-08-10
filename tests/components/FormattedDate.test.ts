@@ -16,7 +16,7 @@ describe('FormattedDate', () => {
   it('should create valid ISO string for datetime attribute', () => {
     const testDate = new Date('2023-12-25T10:30:00Z');
     const isoString = testDate.toISOString();
-    
+
     expect(isoString).toBe('2023-12-25T10:30:00.000Z');
     expect(isoString).toMatch(/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z$/);
   });

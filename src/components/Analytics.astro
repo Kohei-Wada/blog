@@ -6,7 +6,8 @@ const isProduction: boolean = process.env.CONTEXT === 'production';
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-XGH4QVLSMS"></script>
     <script is:inline>
       window.dataLayer = window.dataLayer || [];
-      function gtag(...args) {
+      function gtag() {
+        var args = Array.prototype.slice.call(arguments);
         window.dataLayer.push(args);
       }
       gtag('js', new Date());

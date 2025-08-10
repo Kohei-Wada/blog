@@ -8,11 +8,9 @@ describe('Page Logic', () => {
         { data: { pubDate: new Date('2023-03-01') } },
         { data: { pubDate: new Date('2023-02-01') } },
       ];
-      
-      const sorted = posts.sort((a, b) => 
-        b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
-      );
-      
+
+      const sorted = posts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
       expect(sorted[0].data.pubDate).toEqual(new Date('2023-03-01'));
       expect(sorted[1].data.pubDate).toEqual(new Date('2023-02-01'));
       expect(sorted[2].data.pubDate).toEqual(new Date('2023-01-01'));
@@ -32,12 +30,10 @@ describe('Page Logic', () => {
         { data: { tags: ['python', 'django'] } },
         { data: { tags: ['javascript', 'vue'] } },
       ];
-      
+
       const tag = 'javascript';
-      const filtered = posts.filter(post => 
-        post.data.tags.includes(tag)
-      );
-      
+      const filtered = posts.filter(post => post.data.tags.includes(tag));
+
       expect(filtered.length).toBe(2);
       expect(filtered[0].data.tags).toContain('javascript');
       expect(filtered[1].data.tags).toContain('javascript');
@@ -63,14 +59,14 @@ describe('Page Logic', () => {
         { data: { tags: ['javascript', 'vue'] } },
         { data: { tags: ['python'] } },
       ];
-      
+
       const tagCounts = {};
       posts.forEach(post => {
         post.data.tags.forEach(tag => {
           tagCounts[tag] = (tagCounts[tag] || 0) + 1;
         });
       });
-      
+
       expect(tagCounts['javascript']).toBe(2);
       expect(tagCounts['react']).toBe(1);
       expect(tagCounts['vue']).toBe(1);
@@ -83,10 +79,10 @@ describe('Page Logic', () => {
         { data: { tags: ['javascript', 'vue'] } },
         { data: { tags: ['react', 'typescript'] } },
       ];
-      
+
       const allTags = posts.flatMap(post => post.data.tags);
       const uniqueTags = [...new Set(allTags)];
-      
+
       expect(uniqueTags).toContain('javascript');
       expect(uniqueTags).toContain('react');
       expect(uniqueTags).toContain('vue');

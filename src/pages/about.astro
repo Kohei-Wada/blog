@@ -1,219 +1,211 @@
 ---
-import BaseLayout from "../layouts/BaseLayout.astro";
+import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 
-<BaseLayout
-    title="About"
-    description="Kohei Wadaについて。使用ツールや考え方など。"
->
-    <style>
-        .about {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 2rem;
-            line-height: 1.6;
-        }
-        .about h1 {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-        }
-        .about p {
-            margin-bottom: 1.5rem;
-        }
+<BaseLayout title="About" description="Kohei Wadaについて。使用ツールや考え方など。">
+  <style>
+    .about {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 2rem;
+      line-height: 1.6;
+    }
+    .about h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+    .about p {
+      margin-bottom: 1.5rem;
+    }
 
-        .about table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 2rem;
-            font-size: 0.95rem;
-        }
-        .about th,
-        .about td {
-            border: 1px solid #ccc;
-            padding: 0.6rem 1rem;
-            vertical-align: top;
-        }
-        .about th {
-            background: #f0f4f8;
-        }
+    .about table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 2rem;
+      font-size: 0.95rem;
+    }
+    .about th,
+    .about td {
+      border: 1px solid #ccc;
+      padding: 0.6rem 1rem;
+      vertical-align: top;
+    }
+    .about th {
+      background: #f0f4f8;
+    }
 
-        .about tbody tr td:first-of-type {
-            font-weight: normal;
-            background: transparent;
-        }
+    .about tbody tr td:first-of-type {
+      font-weight: normal;
+      background: transparent;
+    }
 
-        .about tbody tr td[rowspan] {
-            font-weight: bold;
-            background: #f9fafb;
-            white-space: nowrap;
-        }
+    .about tbody tr td[rowspan] {
+      font-weight: bold;
+      background: #f9fafb;
+      white-space: nowrap;
+    }
 
-        .about .icon {
-            margin-right: 0.5rem;
-        }
-    </style>
+    .about .icon {
+      margin-right: 0.5rem;
+    }
+  </style>
 
-    <section class="about">
-        <h1>筆者について</h1>
+  <section class="about">
+    <h1>筆者について</h1>
 
-        <h2>名前</h2>
-        <p>Kohei Wada</p>
+    <h2>名前</h2>
+    <p>Kohei Wada</p>
 
-        <h2>自己紹介</h2>
-        <p>
-            東京でリモートワーク中心に活動しているエンジニアです。
-            普段はAWS・Laravelを用いたWebアプリ開発を行いつつ、WSLやArch
-            Linux環境での構成・自動化・軽量化に強い関心があります。
-        </p>
-        <p>
-            もともと機械工学から入り、C言語でのデバイス制御やドライバ自作、Pythonでのデータ処理を経験しました。
-            その後、PHPやC#を用いたWebアプリ開発にシフトし、現在はLaravelを中心にバックエンド開発を行っています。
-        </p>
-        <p>
-            GUI IDEよりもNeovim +
-            CLIを好み、UNIXコマンドを活用した自動処理やトラブル対応が得意です。
-            もともとフロントエンドは苦手でしたが、このブログの作成を通じてAstroやTailwind
-            CSSに触れ、少しずつ慣れてきました。
-        </p>
+    <h2>自己紹介</h2>
+    <p>
+      東京でリモートワーク中心に活動しているエンジニアです。
+      普段はAWS・Laravelを用いたWebアプリ開発を行いつつ、WSLやArch
+      Linux環境での構成・自動化・軽量化に強い関心があります。
+    </p>
+    <p>
+      もともと機械工学から入り、C言語でのデバイス制御やドライバ自作、Pythonでのデータ処理を経験しました。
+      その後、PHPやC#を用いたWebアプリ開発にシフトし、現在はLaravelを中心にバックエンド開発を行っています。
+    </p>
+    <p>
+      GUI IDEよりもNeovim + CLIを好み、UNIXコマンドを活用した自動処理やトラブル対応が得意です。
+      もともとフロントエンドは苦手でしたが、このブログの作成を通じてAstroやTailwind
+      CSSに触れ、少しずつ慣れてきました。
+    </p>
 
-        <h2>スキルセット</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>カテゴリ</th>
-                    <th>使用技術・ツール</th>
-                    <th>経験・備考</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td rowspan="8">
-                        <span class="icon">💻</span>言語
-                    </td>
-                    <td>Rust</td>
-                    <td>CLIツールや自動処理用に使用</td>
-                </tr>
-                <tr>
-                    <td>Python</td>
-                    <td>スクリプト作成・グラフ描画など</td>
-                </tr>
-                <tr>
-                    <td>C</td>
-                    <td>言語処理系・ドライバの自作経験あり</td>
-                </tr>
-                <tr>
-                    <td>Bash / ShellScript</td>
-                    <td>障害対応・自動処理・即興スクリプト作成に精通</td>
-                </tr>
-                <tr>
-                    <td>PHP</td>
-                    <td>業務で日常的に使用</td>
-                </tr>
-                <tr>
-                    <td>C#</td>
-                    <td>Windowsフォームアプリ開発経験あり（業務）</td>
-                </tr>
-                <tr>
-                    <td>Lua</td>
-                    <td
-                        >Neovimプラグインを自作。公式プラグインや周辺ツールに対してPRを提出・マージされた実績あり</td
-                    >
-                </tr>
-                <tr>
-                    <td>Haskell / PureScript / Java</td>
-                    <td>個人学習・試作レベル。関数型や静的型付けに関心</td>
-                </tr>
+    <h2>スキルセット</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>カテゴリ</th>
+          <th>使用技術・ツール</th>
+          <th>経験・備考</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td rowspan="8">
+            <span class="icon">💻</span>言語
+          </td>
+          <td>Rust</td>
+          <td>CLIツールや自動処理用に使用</td>
+        </tr>
+        <tr>
+          <td>Python</td>
+          <td>スクリプト作成・グラフ描画など</td>
+        </tr>
+        <tr>
+          <td>C</td>
+          <td>言語処理系・ドライバの自作経験あり</td>
+        </tr>
+        <tr>
+          <td>Bash / ShellScript</td>
+          <td>障害対応・自動処理・即興スクリプト作成に精通</td>
+        </tr>
+        <tr>
+          <td>PHP</td>
+          <td>業務で日常的に使用</td>
+        </tr>
+        <tr>
+          <td>C#</td>
+          <td>Windowsフォームアプリ開発経験あり（業務）</td>
+        </tr>
+        <tr>
+          <td>Lua</td>
+          <td
+            >Neovimプラグインを自作。公式プラグインや周辺ツールに対してPRを提出・マージされた実績あり</td
+          >
+        </tr>
+        <tr>
+          <td>Haskell / PureScript / Java</td>
+          <td>個人学習・試作レベル。関数型や静的型付けに関心</td>
+        </tr>
 
-                <tr>
-                    <td rowspan="4">
-                        <span class="icon">🧰</span>フレームワーク
-                    </td>
-                    <td>Laravel</td>
-                    <td>業務で日常的に使用。バックエンド開発・保守に対応</td>
-                </tr>
-                <tr>
-                    <td>FastAPI</td>
-                    <td>画像生成やAPI作成</td>
-                </tr>
-                <tr>
-                    <td>Astro</td>
-                    <td>このブログに使用</td>
-                </tr>
-                <tr>
-                    <td>その他（自作）</td>
-                    <td>RustやPythonでの軽量CLIやAPIツールなど</td>
-                </tr>
+        <tr>
+          <td rowspan="4">
+            <span class="icon">🧰</span>フレームワーク
+          </td>
+          <td>Laravel</td>
+          <td>業務で日常的に使用。バックエンド開発・保守に対応</td>
+        </tr>
+        <tr>
+          <td>FastAPI</td>
+          <td>画像生成やAPI作成</td>
+        </tr>
+        <tr>
+          <td>Astro</td>
+          <td>このブログに使用</td>
+        </tr>
+        <tr>
+          <td>その他（自作）</td>
+          <td>RustやPythonでの軽量CLIやAPIツールなど</td>
+        </tr>
 
-                <tr>
-                    <td rowspan="3">
-                        <span class="icon">☁️</span>インフラ / クラウド
-                    </td>
-                    <td>AWS（EC2, RDS）</td>
-                    <td>業務で使用</td>
-                </tr>
-                <tr>
-                    <td>Docker / GitHub Actions / k3s</td>
-                    <td>軽量なCI/CD構成、Raspberry Pi運用</td>
-                </tr>
-                <tr>
-                    <td>Ansible</td>
-                    <td>構成管理</td>
-                </tr>
+        <tr>
+          <td rowspan="3">
+            <span class="icon">☁️</span>インフラ / クラウド
+          </td>
+          <td>AWS（EC2, RDS）</td>
+          <td>業務で使用</td>
+        </tr>
+        <tr>
+          <td>Docker / GitHub Actions / k3s</td>
+          <td>軽量なCI/CD構成、Raspberry Pi運用</td>
+        </tr>
+        <tr>
+          <td>Ansible</td>
+          <td>構成管理</td>
+        </tr>
 
-                <tr>
-                    <td rowspan="2">
-                        <span class="icon">🔧</span>その他
-                    </td>
-                    <td>Neovim</td>
-                    <td>メインエディター、Luaプラグイン活用</td>
-                </tr>
-                <tr>
-                    <td>Hyprland</td>
-                    <td>Wayland環境での軽量WM</td>
-                </tr>
-            </tbody>
-        </table>
-        <h2>趣味・関心ごと</h2>
-        <p>
-            日々の情報整理には Zettelkasten
-            を用いており、技術・思考の断片をノートとして蓄積するのが習慣です。
-            抽象的なアイデアを構造化して記録し、あとから発見や接続が得られるようにしています。
-        </p>
-        <p>
-            また、日常の中で感じた小さな不便や繰り返し作業を自動化することが好きで、ちょっとしたシェルスクリプトやCLIツールを自作しては改善を楽しんでいます。
-        </p>
+        <tr>
+          <td rowspan="2">
+            <span class="icon">🔧</span>その他
+          </td>
+          <td>Neovim</td>
+          <td>メインエディター、Luaプラグイン活用</td>
+        </tr>
+        <tr>
+          <td>Hyprland</td>
+          <td>Wayland環境での軽量WM</td>
+        </tr>
+      </tbody>
+    </table>
+    <h2>趣味・関心ごと</h2>
+    <p>
+      日々の情報整理には Zettelkasten
+      を用いており、技術・思考の断片をノートとして蓄積するのが習慣です。
+      抽象的なアイデアを構造化して記録し、あとから発見や接続が得られるようにしています。
+    </p>
+    <p>
+      また、日常の中で感じた小さな不便や繰り返し作業を自動化することが好きで、ちょっとしたシェルスクリプトやCLIツールを自作しては改善を楽しんでいます。
+    </p>
 
-        <h2>OSS活動</h2>
-        <ul>
-            <li>
-                <a
-                    href="https://github.com/m4xshen/hardtime.nvim"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    hardtime.nvim
-                </a> – Neovimでのタイピング改善プラグイン。イベント周りバグ修正や機能追加を行い、プルリクエストを提出。
-            </li>
-            <li>
-                <a
-                    href="https://github.com/CopilotC-Nvim/CopilotChat.nvim"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    CopilotChat.nvim
-                </a> – GitHub CopilotとのNeovim統合。UI改善・Telescope 統合の提案を行い、プルリクエストを提出。
-            </li>
-        </ul>
+    <h2>OSS活動</h2>
+    <ul>
+      <li>
+        <a
+          href="https://github.com/m4xshen/hardtime.nvim"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          hardtime.nvim
+        </a> – Neovimでのタイピング改善プラグイン。イベント周りバグ修正や機能追加を行い、プルリクエストを提出。
+      </li>
+      <li>
+        <a
+          href="https://github.com/CopilotC-Nvim/CopilotChat.nvim"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          CopilotChat.nvim
+        </a> – GitHub CopilotとのNeovim統合。UI改善・Telescope 統合の提案を行い、プルリクエストを提出。
+      </li>
+    </ul>
 
-        <p>
-            ソースコードやdotfilesはGitHubに公開しています：
-            <a
-                href="https://github.com/Kohei-Wada"
-                target="_blank"
-                rel="noopener noreferrer"
-            >
-                github.com/Kohei-Wada
-            </a>
-        </p>
-    </section>
+    <p>
+      ソースコードやdotfilesはGitHubに公開しています：
+      <a href="https://github.com/Kohei-Wada" target="_blank" rel="noopener noreferrer">
+        github.com/Kohei-Wada
+      </a>
+    </p>
+  </section>
 </BaseLayout>

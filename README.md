@@ -21,19 +21,19 @@ A modern, bilingual (Japanese/English) personal blog built with [Astro](https://
 
 All commands are run from the root of the project, from a terminal:
 
-| Command | Action |
-|---------|--------|
-| `npm install` | Install dependencies |
-| `npm run dev` | Start development server at `localhost:4321` |
-| `npm run build` | Build production site to `./dist/` |
-| `npm run preview` | Preview production build locally |
-| `npm run new-post` | Create new blog post with interactive prompts |
-| `npm run test` | Run tests interactively |
-| `npm run test:run` | Run all tests once (CI mode) |
-| `npm run test:coverage` | Generate test coverage report |
-| `npm run lint` | Run ESLint |
-| `npm run lint:fix` | Run ESLint with auto-fix |
-| `npm run typecheck` | Run TypeScript type checking |
+| Command                 | Action                                        |
+| ----------------------- | --------------------------------------------- |
+| `npm install`           | Install dependencies                          |
+| `npm run dev`           | Start development server at `localhost:4321`  |
+| `npm run build`         | Build production site to `./dist/`            |
+| `npm run preview`       | Preview production build locally              |
+| `npm run new-post`      | Create new blog post with interactive prompts |
+| `npm run test`          | Run tests interactively                       |
+| `npm run test:run`      | Run all tests once (CI mode)                  |
+| `npm run test:coverage` | Generate test coverage report                 |
+| `npm run lint`          | Run ESLint                                    |
+| `npm run lint:fix`      | Run ESLint with auto-fix                      |
+| `npm run typecheck`     | Run TypeScript type checking                  |
 
 ## Project Structure
 
@@ -45,28 +45,28 @@ All commands are run from the root of the project, from a terminal:
 ├── src/
 │   ├── assets/               # Blog images and assets
 │   ├── components/           # Reusable Astro components
-│   │   ├── Analytics.astro   # Google Analytics
-│   │   ├── BaseHead.astro    # HTML head with meta tags
-│   │   ├── Footer.astro      # Site footer
-│   │   ├── FormattedDate.astro # Date formatting component
-│   │   ├── Header.astro      # Site navigation
-│   │   ├── HeaderLink.astro  # Navigation link with active state
-│   │   └── ShareButtons.astro # Social media share buttons
+│   │   ├── Analytics.Astro   # Google Analytics
+│   │   ├── BaseHead.Astro    # HTML head with meta tags
+│   │   ├── Footer.Astro      # Site footer
+│   │   ├── FormattedDate.Astro # Date formatting component
+│   │   ├── Header.Astro      # Site navigation
+│   │   ├── HeaderLink.Astro  # Navigation link with active state
+│   │   └── ShareButtons.Astro # Social media share buttons
 │   ├── content/              # Content collections
 │   │   ├── blog/             # Blog post markdown files
 │   │   └── blog-template.md  # Template for new posts
 │   ├── layouts/              # Page layouts
-│   │   ├── BaseLayout.astro  # Base layout with common elements
-│   │   └── BlogPost.astro    # Blog post layout
+│   │   ├── BaseLayout.Astro  # Base layout with common elements
+│   │   └── BlogPost.Astro    # Blog post layout
 │   ├── pages/                # File-based routing
 │   │   ├── blog/             # Blog routes
 │   │   ├── tags/             # Tag-based routes
-│   │   ├── about.astro       # About page
-│   │   ├── contact.astro     # Contact page
-│   │   ├── index.astro       # Homepage
-│   │   └── rss.xml.js        # RSS feed generator
+│   │   ├── about.Astro       # About page
+│   │   ├── contact.Astro     # Contact page
+│   │   ├── index.Astro       # Homepage
+│   │   └── RSS.xml.js        # RSS feed generator
 │   ├── styles/
-│   │   └── global.css        # Global styles
+│   │   └── global.CSS        # Global styles
 │   ├── consts.ts             # Site configuration constants
 │   └── content.config.ts     # Content schema definition
 ├── scripts/
@@ -75,31 +75,31 @@ All commands are run from the root of the project, from a terminal:
 │   ├── components/           # Component tests
 │   ├── unit/                 # Unit tests
 │   └── setup.ts              # Test configuration
-├── astro.config.mjs          # Astro configuration
+├── Astro.config.mjs          # Astro configuration
 ├── vitest.config.ts          # Test configuration
 ├── eslint.config.js          # ESLint configuration
-├── tsconfig.json             # TypeScript configuration
-└── package.json              # Dependencies and scripts
+├── tsconfig.JSON             # TypeScript configuration
+└── package.JSON              # Dependencies and scripts
 ```
 
 ## Components Overview
 
 ### Core Components
 
-- **`BaseHead.astro`**: Common HTML head elements including meta tags, SEO, and analytics
-- **`Header.astro`**: Site navigation with active page detection
-- **`Footer.astro`**: Site footer with social links
-- **`FormattedDate.astro`**: Consistent date formatting across the site
+- **`BaseHead.Astro`**: Common HTML head elements including meta tags, SEO, and analytics
+- **`Header.Astro`**: Site navigation with active page detection
+- **`Footer.Astro`**: Site footer with social links
+- **`FormattedDate.Astro`**: Consistent date formatting across the site
 
 ### Blog-Specific Components
 
-- **`ShareButtons.astro`**: Social media sharing (Twitter/X, Facebook, LinkedIn, Hatena, Pocket)
-- **`HeaderLink.astro`**: Navigation links with active state styling
+- **`ShareButtons.Astro`**: Social media sharing (Twitter/X, Facebook, LinkedIn, Hatena, Pocket)
+- **`HeaderLink.Astro`**: Navigation links with active state styling
 
 ### Layouts
 
-- **`BaseLayout.astro`**: Common page structure with header and footer
-- **`BlogPost.astro`**: Blog post layout with metadata, content, and share buttons
+- **`BaseLayout.Astro`**: Common page structure with header and footer
+- **`BlogPost.Astro`**: Blog post layout with metadata, content, and share buttons
 
 ## Content Management
 
@@ -112,7 +112,7 @@ Blog posts are written in Markdown/MDX and stored in `src/content/blog/`. Each p
 title: 'Your Post Title'
 description: 'Brief description of the post'
 pubDate: '2023-12-25'
-tags: ['javascript', 'astro', 'web-development']
+tags: ['JavaScript', 'Astro', 'web-development']
 updatedDate: '2023-12-26' # Optional
 heroImage: '../../assets/image.jpg' # Optional
 ---
@@ -127,11 +127,13 @@ npm run new-post
 ```
 
 This will prompt you for:
+
 - Post title (used to generate URL slug)
 - Description
 - Tags (comma-separated)
 
 The script automatically:
+
 - Generates SEO-friendly slugs from titles
 - Sets current date
 - Creates the file with proper frontmatter
@@ -157,7 +159,7 @@ tests/
 │   ├── consts.test.ts
 │   ├── content.config.test.ts
 │   ├── pages.test.ts
-│   └── rss.xml.test.ts
+│   └── RSS.xml.test.ts
 └── setup.ts              # Test configuration
 ```
 
@@ -179,13 +181,14 @@ The site is automatically deployed to [Netlify](https://www.netlify.com/) on eve
 ### Site Settings
 
 Edit `src/consts.ts` to update:
+
 - Site title and description
 - External URLs (GitHub, Zenn, contact form)
 - Social media links
 
 ### Analytics
 
-Google Analytics is configured in `src/components/Analytics.astro`. Update the tracking ID as needed.
+Google Analytics is configured in `src/components/Analytics.Astro`. Update the tracking ID as needed.
 
 ## Development Philosophy
 

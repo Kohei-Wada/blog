@@ -56,7 +56,7 @@ This is a personal blog built with Astro, a modern static site generator. The si
 
 ### CI/CD
 
-- GitHub Actions workflow: `.github/workflows/test.yml`
+- GitHub Actions workflow: `.GitHub/workflows/test.yml`
 - Automated testing on Node.js 18 & 20
 - Quality checks: typecheck → lint → test → build
 - Automatic PR validation and deployment previews
@@ -80,7 +80,7 @@ This is a personal blog built with Astro, a modern static site generator. The si
 
 ### Styling
 
-- Global CSS in `src/styles/global.css`
+- Global CSS in `src/styles/global.CSS`
 - Uses Atkinson font family (loaded from `public/fonts/`)
 
 ### Static Assets
@@ -90,14 +90,14 @@ This is a personal blog built with Astro, a modern static site generator. The si
 
 ## Site Configuration
 
-The site title, description, and external URLs are centralized in `src/consts.ts`. The Astro config (`astro.config.mjs`) includes MDX and sitemap integrations with the Netlify deployment URL.
+The site title, description, and external URLs are centralized in `src/consts.ts`. The Astro config (`Astro.config.mjs`) includes MDX and sitemap integrations with the Netlify deployment URL.
 
 ## Blog Post Structure
 
 Each blog post requires frontmatter with:
 
 - `title` - Post title
-- `description` - Post description  
+- `description` - Post description
 - `pubDate` - Publication date
 - `tags` - Array of tags
 - Optional: `updatedDate`, `heroImage`

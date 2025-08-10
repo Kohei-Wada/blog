@@ -1,5 +1,11 @@
 import { describe, it, expect } from 'vitest';
-import { SITE_TITLE, SITE_DESCRIPTION, GITHUB_URL, GOOGLE_FORMS_URL, ZENN_URL } from '../../src/consts';
+import {
+  SITE_TITLE,
+  SITE_DESCRIPTION,
+  GITHUB_URL,
+  GOOGLE_FORMS_URL,
+  ZENN_URL,
+} from '../../src/consts';
 
 describe('consts', () => {
   it('should export correct site title', () => {

@@ -13,12 +13,6 @@ repos:
     hooks:
       - id: gitleaks
 
-  - repo: https://github.com/DavidAnson/markdownlint-cli2
-    rev: v0.18.1
-    hooks:
-      - id: markdownlint-cli2
-        args: ["--fix"]
-
   - repo: https://github.com/adrienverge/yamllint.git
     rev: v1.37.1
     hooks:
@@ -31,16 +25,9 @@ repos:
 
   - repo: local
     hooks:
-      - id: eslint
-        name: ESLint
-        entry: npm run lint
+      - id: lint-staged
+        name: Lint Staged Files
+        entry: npx lint-staged
         language: system
-        files: \.(js|ts|astro)$
+        stages: [pre-commit]
         require_serial: true
-      - id: astro-check
-        name: Astro TypeScript Check
-        entry: npm run typecheck
-        language: system
-        files: \.(astro|ts|tsx)$
-        require_serial: true
-...

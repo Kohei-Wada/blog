@@ -4,7 +4,7 @@ import { z } from 'zod';
 describe('Content Config Schema', () => {
   // ブログポストのスキーマテスト
   const mockImageFunction = () => z.any();
-  
+
   const blogSchema = z.object({
     title: z.string(),
     description: z.string(),
@@ -24,7 +24,7 @@ describe('Content Config Schema', () => {
 
     const result = blogSchema.safeParse(validFrontmatter);
     expect(result.success).toBe(true);
-    
+
     if (result.success) {
       expect(result.data.title).toBe('Test Blog Post');
       expect(result.data.pubDate).toBeInstanceOf(Date);
@@ -52,7 +52,7 @@ describe('Content Config Schema', () => {
 
     const result = blogSchema.safeParse(frontmatterWithoutTags);
     expect(result.success).toBe(true);
-    
+
     if (result.success) {
       expect(result.data.tags).toEqual([]);
     }
@@ -68,7 +68,7 @@ describe('Content Config Schema', () => {
 
     const result = blogSchema.safeParse(frontmatter);
     expect(result.success).toBe(true);
-    
+
     if (result.success) {
       expect(result.data.pubDate).toBeInstanceOf(Date);
       expect(result.data.updatedDate).toBeInstanceOf(Date);

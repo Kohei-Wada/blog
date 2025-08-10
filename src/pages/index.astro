@@ -1,77 +1,77 @@
 ---
-import BaseLayout from "../layouts/BaseLayout.astro";
-import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
-import { getCollection } from "astro:content";
-import FormattedDate from "../components/FormattedDate.astro";
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
+import { getCollection } from 'astro:content';
+import FormattedDate from '../components/FormattedDate.astro';
 
-const posts = (await getCollection("blog"))
-    .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
-    .slice(0, 5);
+const posts = (await getCollection('blog'))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 5);
 ---
 
 <BaseLayout title={SITE_TITLE} description={SITE_DESCRIPTION}>
-    <style>
-        .hero {
-            text-align: center;
-            margin: 4rem 0;
-        }
-        .hero p {
-            margin-top: 1rem;
-            color: rgb(var(--gray));
-            font-size: 1.2rem;
-        }
-        .recent-posts h2 {
-            margin-top: 2rem;
-        }
-        .recent-posts ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-        .recent-posts li {
-            margin-bottom: 1.5rem;
-        }
-        .recent-posts a {
-            display: block;
-            text-decoration: none;
-            color: inherit;
-            transition: color 0.2s ease;
-        }
-        .recent-posts a:hover h3,
-        .recent-posts a:hover p {
-            color: var(--accent);
-        }
-        .recent-posts h3 {
-            margin: 0;
-            font-size: 1.5rem;
-            line-height: 1.2;
-        }
-        .recent-posts p {
-            margin: 0.25rem 0 0;
-            color: rgb(var(--gray));
-        }
-    </style>
+  <style>
+    .hero {
+      text-align: center;
+      margin: 4rem 0;
+    }
+    .hero p {
+      margin-top: 1rem;
+      color: rgb(var(--gray));
+      font-size: 1.2rem;
+    }
+    .recent-posts h2 {
+      margin-top: 2rem;
+    }
+    .recent-posts ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .recent-posts li {
+      margin-bottom: 1.5rem;
+    }
+    .recent-posts a {
+      display: block;
+      text-decoration: none;
+      color: inherit;
+      transition: color 0.2s ease;
+    }
+    .recent-posts a:hover h3,
+    .recent-posts a:hover p {
+      color: var(--accent);
+    }
+    .recent-posts h3 {
+      margin: 0;
+      font-size: 1.5rem;
+      line-height: 1.2;
+    }
+    .recent-posts p {
+      margin: 0.25rem 0 0;
+      color: rgb(var(--gray));
+    }
+  </style>
 
-    <section class="hero">
-        <h1>{SITE_TITLE}</h1>
-        <p>{SITE_DESCRIPTION}</p>
-    </section>
+  <section class="hero">
+    <h1>{SITE_TITLE}</h1>
+    <p>{SITE_DESCRIPTION}</p>
+  </section>
 
-    <section class="recent-posts">
-        <h2>Recent Posts</h2>
-        <ul>
-            {
-                posts.map((post) => (
-                    <li>
-                        <a href={`/blog/${post.id}/`}>
-                            <h3>{post.data.title}</h3>
-                            <p>
-                                <FormattedDate date={post.data.pubDate} />
-                            </p>
-                        </a>
-                    </li>
-                ))
-            }
-        </ul>
-    </section>
+  <section class="recent-posts">
+    <h2>Recent Posts</h2>
+    <ul>
+      {
+        posts.map(post => (
+          <li>
+            <a href={`/blog/${post.id}/`}>
+              <h3>{post.data.title}</h3>
+              <p>
+                <FormattedDate date={post.data.pubDate} />
+              </p>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
 </BaseLayout>

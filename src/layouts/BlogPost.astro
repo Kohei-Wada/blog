@@ -1,137 +1,131 @@
 ---
-import type { CollectionEntry } from "astro:content";
-import BaseLayout from "./BaseLayout.astro";
-import FormattedDate from "../components/FormattedDate.astro";
-import ShareButtons from "../components/ShareButtons.astro";
-import { Image } from "astro:assets";
+import type { CollectionEntry } from 'astro:content';
+import BaseLayout from './BaseLayout.astro';
+import FormattedDate from '../components/FormattedDate.astro';
+import ShareButtons from '../components/ShareButtons.astro';
+import { Image } from 'astro:assets';
 
-type Props = CollectionEntry<"blog">["data"];
+type Props = CollectionEntry<'blog'>['data'];
 
-const {
-    title,
-    description,
-    pubDate,
-    updatedDate,
-    heroImage,
-    tags = [],
-} = Astro.props;
+const { title, description, pubDate, updatedDate, heroImage, tags = [] } = Astro.props;
 
 // 現在のページのURLを取得
 const currentUrl = new URL(Astro.url.pathname, Astro.site).toString();
 ---
 
-<BaseLayout title={title} description={description} image={heroImage} isArticle={true} publishedTime={pubDate}>
-    <style>
-        main {
-            width: calc(100% - 2em);
-            max-width: 100%;
-            margin: 0;
-        }
-        .hero-image {
-            width: 100%;
-        }
-        .hero-image img {
-            display: block;
-            margin: 0 auto;
-            border-radius: 12px;
-            box-shadow: var(--box-shadow);
-        }
-        .prose {
-            width: 720px;
-            max-width: calc(100% - 2em);
-            margin: auto;
-            padding: 1em;
-            color: rgb(var(--gray-dark));
-        }
-        .title {
-            margin-bottom: 1em;
-            padding: 1em 0;
-            text-align: center;
-            line-height: 1;
-        }
-        .title h1 {
-            margin: 0 0 0.5em 0;
-        }
-        .date {
-            margin-bottom: 0.5em;
-            color: rgb(var(--gray));
-        }
-        .last-updated-on {
-            font-style: bold;
-        }
+<BaseLayout
+  title={title}
+  description={description}
+  image={heroImage}
+  isArticle={true}
+  publishedTime={pubDate}
+>
+  <style>
+    main {
+      width: calc(100% - 2em);
+      max-width: 100%;
+      margin: 0;
+    }
+    .hero-image {
+      width: 100%;
+    }
+    .hero-image img {
+      display: block;
+      margin: 0 auto;
+      border-radius: 12px;
+      box-shadow: var(--box-shadow);
+    }
+    .prose {
+      width: 720px;
+      max-width: calc(100% - 2em);
+      margin: auto;
+      padding: 1em;
+      color: rgb(var(--gray-dark));
+    }
+    .title {
+      margin-bottom: 1em;
+      padding: 1em 0;
+      text-align: center;
+      line-height: 1;
+    }
+    .title h1 {
+      margin: 0 0 0.5em 0;
+    }
+    .date {
+      margin-bottom: 0.5em;
+      color: rgb(var(--gray));
+    }
+    .last-updated-on {
+      font-style: bold;
+    }
 
-        .published-on {
-            font-style: bold;
-        }
+    .published-on {
+      font-style: bold;
+    }
 
-        .tags {
-            margin: 1em 0;
-            text-align: center;
-        }
-        .tags a {
-            display: inline-block;
-            margin: 0 0.5em 0.5em;
-            padding: 0.25em 0.75em;
-            background-color: rgb(var(--gray-light));
-            color: var(--accent);
-            text-decoration: none;
-            border-radius: 4px;
-            transition:
-                background-color 0.2s ease,
-                color 0.2s ease;
-        }
-        .tags a:hover {
-            background-color: var(--accent);
-            color: #fff;
-        }
-    </style>
+    .tags {
+      margin: 1em 0;
+      text-align: center;
+    }
+    .tags a {
+      display: inline-block;
+      margin: 0 0.5em 0.5em;
+      padding: 0.25em 0.75em;
+      background-color: rgb(var(--gray-light));
+      color: var(--accent);
+      text-decoration: none;
+      border-radius: 4px;
+      transition:
+        background-color 0.2s ease,
+        color 0.2s ease;
+    }
+    .tags a:hover {
+      background-color: var(--accent);
+      color: #fff;
+    }
+  </style>
 
-    <article>
-        <div class="hero-image">
-            {
-                heroImage && (
-                    <Image width={1020} height={510} src={heroImage} alt="" />
-                )
-            }
+  <article>
+    <div class="hero-image">
+      {heroImage && <Image width={1020} height={510} src={heroImage} alt="" />}
+    </div>
+    <div class="prose">
+      <div class="title">
+        <div class="date">
+          {
+            pubDate && (
+              <div class="published-on">
+                Published on:
+                <FormattedDate date={pubDate} />
+              </div>
+            )
+          }
+
+          {
+            updatedDate && (
+              <div class="last-updated-on">
+                Updated on : <FormattedDate date={updatedDate} />
+              </div>
+            )
+          }
         </div>
-        <div class="prose">
-            <div class="title">
-                <div class="date">
-                    {
-                        pubDate && (
-                            <div class="published-on">
-                                Published on:
-                                <FormattedDate date={pubDate} />
-                            </div>
-                        )
-                    }
+        <h1>{title}</h1>
+        <hr />
+      </div>
 
-                    {
-                        updatedDate && (
-                            <div class="last-updated-on">
-                                Updated on :{" "}
-                                <FormattedDate date={updatedDate} />
-                            </div>
-                        )
-                    }
-                </div>
-                <h1>{title}</h1>
-                <hr />
-            </div>
-
-            {
-                tags.length > 0 && (
-                    <div class="tags">
-                        {tags.map((tag) => (
-                            <a href={`/tags/${tag}/`} class="tag">
-                                {tag}
-                            </a>
-                        ))}
-                    </div>
-                )
-            }
-            <slot />
-            <ShareButtons title={title} description={description} url={currentUrl} />
-        </div>
-    </article>
+      {
+        tags.length > 0 && (
+          <div class="tags">
+            {tags.map(tag => (
+              <a href={`/tags/${tag}/`} class="tag">
+                {tag}
+              </a>
+            ))}
+          </div>
+        )
+      }
+      <slot />
+      <ShareButtons title={title} description={description} url={currentUrl} />
+    </div>
+  </article>
 </BaseLayout>

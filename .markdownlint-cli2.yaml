@@ -1,6 +1,60 @@
----
+# markdownlint-cli2 configuration file
+# https://github.com/DavidAnson/markdownlint-cli2
+
+# Glob patterns to include
+globs:
+  - '**/*.md'
+  - '!node_modules'
+
+# Configuration options
 config:
-  MD013: false   # allow long line length
-  MD025: false   # allow single h1
-  MD033: false   # allow inline html
-...
+  # Line length - disable for flexibility with Japanese content and long URLs
+  MD013: false
+
+  # Trailing spaces
+  MD009:
+    br_spaces: 2
+
+  # Multiple consecutive blank lines
+  MD012:
+    maximum: 2
+
+  # Allow inline HTML for better formatting
+  MD033: false
+
+  # Allow duplicate headings with different content (common in blogs)
+  MD024:
+    siblings_only: true
+
+  # Allow bare URLs (common in markdown files)
+  MD034: false
+
+  # First line in file should be a top level header
+  MD041: false
+
+  # Fenced code blocks should have a language specified
+  MD040: false
+
+  # Proper names should have the correct capitalization
+  MD044:
+    names:
+      - 'JavaScript'
+      - 'TypeScript'
+      - 'Astro'
+      - 'GitHub'
+      - 'Netlify'
+      - 'Node.js'
+      - 'CSS'
+      - 'HTML'
+      - 'JSON'
+      - 'YAML'
+      - 'API'
+      - 'URL'
+      - 'SEO'
+      - 'RSS'
+      - 'CLI'
+      - 'TDD'
+      - 'README'
+
+# Fix mode settings
+fix: true

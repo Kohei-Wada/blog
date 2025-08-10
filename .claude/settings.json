@@ -1,33 +1,30 @@
 {
-    "permissions": {
-        "allow": [
-            "Bash(npm run dev)",
-            "Bash(npm run build)",
-            "Bash(npm run preview)",
-            "Bash(npm run test*)",
-            "Bash(npm run lint*)",
-            "Bash(npm run typecheck)",
-            "Bash(npx prettier --write .)",
-            "Bash(./new-post.sh)",
-            "Bash(npm audit*)",
-            "Bash(git add*)",
-            "Bash(git commit*)",
-            "Bash(git push*)",
-            "Bash(git pull*)",
-            "Bash(git status)",
-            "Bash(git diff*)",
-            "Bash(git log*)",
-            "Bash(git checkout*)",
-            "Bash(gh pr*)",
-            "Bash(gh issue*)",
-            "WebFetch(domain:docs.anthropic.com)",
-            "WebFetch(domain:docs.astro.build)",
-            "WebFetch(domain:vitest.dev)",
-            "WebFetch(domain:eslint.org)"
-        ],
-        "deny": [
-            "Bash(rm -rf*)",
-            "Bash(sudo*)"
-        ]
-    }
+  "permissions": {
+    "allow": [
+      "Bash(npm run dev)",
+      "Bash(npm run build)",
+      "Bash(npm run preview)",
+      "Bash(npm run test*)",
+      "Bash(npm run lint*)",
+      "Bash(npm run typecheck)",
+      "Bash(npx prettier --write .)",
+      "Bash(./new-post.sh)",
+      "Bash(npm audit*)",
+      "Bash(git add*)",
+      "Bash(git commit*)",
+      "Bash(git push*)",
+      "Bash(git pull*)",
+      "Bash(git status)",
+      "Bash(git diff*)",
+      "Bash(git log*)",
+      "Bash(git checkout*)",
+      "Bash(gh pr*)",
+      "Bash(gh issue*)",
+      "WebFetch(domain:docs.anthropic.com)",
+      "WebFetch(domain:docs.astro.build)",
+      "WebFetch(domain:vitest.dev)",
+      "WebFetch(domain:eslint.org)"
+    ],
+    "deny": ["Bash(rm -rf*)", "Bash(sudo*)"]
+  }
 }
