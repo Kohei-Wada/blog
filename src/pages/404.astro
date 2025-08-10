@@ -9,10 +9,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 >
   <style>
     .error-page {
-      max-width: var(--content-max-width);
-      margin: 0 auto;
-      width: 100%;
-      padding: 0 1rem;
       text-align: center;
       line-height: 1.6;
     }
@@ -70,16 +66,18 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     }
   </style>
 
-  <section class="error-page">
-    <div class="error-code">404</div>
+  <div class="page-container">
+    <section class="error-page">
+      <div class="error-code">404</div>
 
-    <h1 class="error-title">ページが見つかりません</h1>
+      <h1 class="error-title">ページが見つかりません</h1>
 
-    <p class="error-description">
-      申し訳ございません。お探しのページは存在しないか、移動または削除された可能性があります。
-      URLを再度ご確認いただくか、下記のリンクから目的のページをお探しください。
-    </p>
+      <p class="error-description">
+        申し訳ございません。お探しのページは存在しないか、移動または削除された可能性があります。
+        URLを再度ご確認いただくか、下記のリンクから目的のページをお探しください。
+      </p>
 
-    <a href="javascript:history.back()" class="back-link"> 前のページに戻る </a>
-  </section>
+      <a href="javascript:history.back()" class="back-link"> 前のページに戻る </a>
+    </section>
+  </div>
 </BaseLayout>

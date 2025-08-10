@@ -2,7 +2,8 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { SITE_TITLE, SITE_DESCRIPTION } from '../../consts';
 import { getCollection } from 'astro:content';
-import PostCard from '../../components/PostCard.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import PostsGrid from '../../components/PostsGrid.astro';
 
 const posts = (await getCollection('blog')).sort(
   (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
@@ -10,73 +11,12 @@ const posts = (await getCollection('blog')).sort(
 ---
 
 <BaseLayout title={SITE_TITLE} description={SITE_DESCRIPTION} showSidebar={true}>
-  <style>
-    .content {
-      max-width: var(--content-max-width);
-      margin: 0 auto;
-      width: 100%;
-      padding: 0 1rem;
-      margin-bottom: 4rem;
-    }
-
-    h1 {
-      font-size: 2rem;
-      margin-bottom: 2rem;
-      text-align: center;
-      color: rgb(var(--black));
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.75rem;
-    }
-
-    .title-icon {
-      font-size: 2.2rem;
-      filter: drop-shadow(0 2px 4px rgba(var(--accent), 0.3));
-    }
-
-    .page-description {
-      text-align: center;
-      color: rgb(var(--gray));
-      font-size: 1.1rem;
-      line-height: 1.6;
-      margin-bottom: 3rem;
-      max-width: 600px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-
-    .posts-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 1.5rem;
-      margin-top: 2rem;
-    }
-
-    /* Responsive */
-    @media (max-width: 768px) {
-      .posts-grid {
-        grid-template-columns: 1fr;
-        gap: 1rem;
-      }
-
-      .content {
-        margin-bottom: 3rem;
-      }
-    }
-  </style>
-
-  <div class="content">
-    <h1>
-      <span class="title-icon">📚</span>
-      全ての記事
-    </h1>
-    <p class="page-description">
-      技術記事から個人的な学びまで、これまでに書いた記事をすべてご覧いただけます。
-      気になる記事があれば、ぜひクリックして詳細をお読みください。
-    </p>
-    <div class="posts-grid">
-      {posts.map(post => <PostCard post={post} />)}
-    </div>
+  <div class="page-container with-bottom-margin">
+    <PageHeader
+      title="全ての記事"
+      icon="📚"
+      description="技術記事から個人的な学びまで、これまでに書いた記事をすべてご覧いただけます。気になる記事があれば、ぜひクリックして詳細をお読みください。"
+    />
+    <PostsGrid posts={posts} />
   </div>
 </BaseLayout>
