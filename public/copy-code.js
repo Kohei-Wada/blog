@@ -53,9 +53,7 @@ document.addEventListener('DOMContentLoaded', function () {
             copyText.textContent = 'コピー';
           }
         }, 2000);
-      } catch (err) {
-        console.warn('クリップボードコピーに失敗しました:', err);
-
+      } catch {
         // Fallback: select text
         const textArea = document.createElement('textarea');
         textArea.value = code;
@@ -75,8 +73,7 @@ document.addEventListener('DOMContentLoaded', function () {
               copyText.textContent = 'コピー';
             }
           }, 2000);
-        } catch (fallbackErr) {
-          console.error('フォールバックコピーも失敗しました:', fallbackErr);
+        } catch {
           if (copyText) {
             copyText.textContent = 'エラー';
             setTimeout(() => {

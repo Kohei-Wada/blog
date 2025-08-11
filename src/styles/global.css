@@ -317,56 +317,37 @@ pre.astro-code code {
 }
 
 /* Layout styles for sidebar */
-.layout-with-sidebar {
-  display: grid;
-  grid-template-columns: 1fr var(--content-max-width) 96px 300px;
-  gap: 0;
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: 0 1rem;
-  align-items: start;
-}
-
 .layout-single {
   max-width: var(--content-max-width);
   margin: 0 auto;
 }
 
-.main-with-sidebar {
-  width: 100%;
-  max-width: none;
-  margin: 0;
-  padding: 3em 1em;
-}
-
-/* Responsive sidebar */
-@media (max-width: 1024px) {
+/* 大画面のみサイドバー表示（1200px以上） */
+@media (min-width: 1200px) {
   .layout-with-sidebar {
-    grid-template-columns: 1fr;
-    max-width: var(--content-max-width);
-    gap: 4rem;
-  }
-
-  .spacer-left,
-  .gap-spacer {
-    display: none;
+    display: grid;
+    grid-template-columns: 1fr var(--content-max-width) 96px 300px;
+    gap: 0;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 1rem;
+    align-items: start;
   }
 
   .main-with-sidebar {
+    width: 100%;
+    max-width: none;
+    margin: 0;
     padding: 3em 1em;
-  }
-
-  .sidebar {
-    order: -1;
-    margin-bottom: 2rem;
   }
 }
 
-@media (max-width: var(--tablet-breakpoint)) {
+/* 1200px以下は全てシンプルレイアウト */
+@media (max-width: 1199px) {
   .layout-with-sidebar {
-    display: block;
-    max-width: none;
-    padding: 0;
+    max-width: var(--content-max-width);
+    margin: 0 auto;
+    padding: 0 1rem;
   }
 
   .layout-with-sidebar .sidebar {
@@ -375,7 +356,7 @@ pre.astro-code code {
 
   .main-with-sidebar {
     max-width: 100%;
-    padding: 1rem 0.5rem;
+    padding: 3em 1em;
     margin: 0;
   }
 
