@@ -1,13 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import {
-  SITE_TITLE,
-  SITE_SUBTITLE,
-  SITE_DESCRIPTION,
-  SITE_HERO_DESCRIPTION,
-  GITHUB_URL,
-  ZENN_URL,
-} from '../consts';
+import { SITE_TITLE, SITE_SUBTITLE, SITE_DESCRIPTION, GITHUB_URL, ZENN_URL } from '../consts';
 import { getCollection } from 'astro:content';
 import PostsGrid from '../components/PostsGrid.astro';
 import HeroSection from '../components/HeroSection.astro';
@@ -40,10 +33,72 @@ const posts = [...featuredPosts, ...otherPosts]
       color: rgb(var(--black));
     }
 
+    /* Tech Stack Section */
+    .tech-stack {
+      margin-bottom: var(--spacing-xl);
+      padding: var(--spacing-lg);
+      background: var(--subtle-background);
+      border-radius: var(--radius-lg);
+      text-align: center;
+    }
+
+    .tech-stack h2 {
+      font-size: var(--font-size-2xl);
+      margin-bottom: var(--spacing-md);
+      color: rgb(var(--black));
+    }
+
+    .tech-stack p {
+      font-size: var(--font-size-lg);
+      color: rgb(var(--gray-dark));
+      margin-bottom: var(--spacing-sm);
+      line-height: 1.6;
+    }
+
+    .tech-badges {
+      display: flex;
+      justify-content: center;
+      gap: var(--spacing-sm);
+      flex-wrap: wrap;
+      margin-top: var(--spacing-md);
+    }
+
+    .tech-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--spacing-xs);
+      padding: var(--spacing-xs) var(--spacing-sm);
+      background: white;
+      color: rgb(var(--black));
+      text-decoration: none;
+      border-radius: var(--radius-sm);
+      font-size: var(--font-size-sm);
+      font-weight: 500;
+      transition: all var(--transition-normal);
+      box-shadow: var(--shadow-xs);
+      border: 1px solid var(--border-color);
+    }
+
+    .tech-badge:hover {
+      background: var(--accent);
+      color: white;
+      transform: translateY(-1px);
+      box-shadow: var(--shadow-sm);
+    }
+
     /* Responsive */
     @media (max-width: var(--tablet-breakpoint)) {
       .featured-posts {
         margin-bottom: var(--spacing-lg);
+      }
+
+      .tech-stack {
+        padding: var(--spacing-md);
+        margin-bottom: var(--spacing-lg);
+      }
+
+      .tech-badges {
+        gap: var(--spacing-xs);
       }
     }
   </style>
@@ -53,7 +108,7 @@ const posts = [...featuredPosts, ...otherPosts]
     <HeroSection
       title={SITE_TITLE}
       subtitle={SITE_SUBTITLE}
-      description={SITE_HERO_DESCRIPTION}
+      description="ソフトウェア開発、技術記事、そして個人的な学びについて発信しています。このブログはAstroで自作しています。"
       avatar="KW"
       buttons={[
         { text: '📖 ブログを読む', href: '/blog/', primary: true },
@@ -64,6 +119,41 @@ const posts = [...featuredPosts, ...otherPosts]
         { text: 'Zenn', href: ZENN_URL, icon: '📝' },
       ]}
     />
+
+    <!-- Tech Stack Section -->
+    <section class="tech-stack">
+      <h2>🚀 このブログについて</h2>
+      <p>
+        このブログは<strong>Astro</strong>を使用して自作しています。<br />
+        モダンな静的サイトジェネレーターで高速なパフォーマンスを実現しています。
+      </p>
+      <div class="tech-badges">
+        <span class="tech-badge">
+          <span>🚀</span>
+          Astro
+        </span>
+        <span class="tech-badge">
+          <span>📝</span>
+          TypeScript
+        </span>
+        <span class="tech-badge">
+          <span>🎨</span>
+          CSS Variables
+        </span>
+        <span class="tech-badge">
+          <span>📱</span>
+          Responsive Design
+        </span>
+        <span class="tech-badge">
+          <span>⚡</span>
+          Static Generation
+        </span>
+        <span class="tech-badge">
+          <span>💻</span>
+          View Source (Coming Soon)
+        </span>
+      </div>
+    </section>
 
     <!-- Featured Posts Section -->
     <section class="featured-posts" id="featured-posts">
