@@ -6,8 +6,10 @@ import { SITE_TITLE, GITHUB_URL } from '../consts';
 
 <header>
   <nav aria-label="Main navigation">
-    <h2><a href="/">{SITE_TITLE}</a></h2>
-    <div class="internal-links">
+    <div class="nav-left">
+      <h2><a href="/">{SITE_TITLE}</a></h2>
+    </div>
+    <div class="nav-center">
       <HeaderLink href="/">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -102,7 +104,7 @@ import { SITE_TITLE, GITHUB_URL } from '../consts';
         Contact
       </HeaderLink>
     </div>
-    <div class="social-links">
+    <div class="nav-right">
       <a href={GITHUB_URL} target="_blank" aria-label="Visit GitHub profile (opens in new tab)">
         <GitHubIcon />
       </a>
@@ -118,10 +120,29 @@ import { SITE_TITLE, GITHUB_URL } from '../consts';
   }
 
   nav {
-    max-width: var(--content-max-width);
-    margin: 0 auto;
+    width: 100%;
     padding: 0 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
   }
+
+  .nav-left {
+    display: flex;
+    align-items: center;
+  }
+
+  .nav-center {
+    display: flex;
+    align-items: center;
+    gap: 0;
+  }
+
+  .nav-right {
+    display: flex;
+    align-items: center;
+  }
+
   h2 {
     margin: 0;
     font-size: 1em;
@@ -130,11 +151,6 @@ import { SITE_TITLE, GITHUB_URL } from '../consts';
   h2 a,
   h2 a.active {
     text-decoration: none;
-  }
-  nav {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
   }
   nav a {
     display: inline-flex;
@@ -148,8 +164,8 @@ import { SITE_TITLE, GITHUB_URL } from '../consts';
     text-decoration: none;
     border-bottom-color: var(--accent);
   }
-  .social-links,
-  .social-links a {
+  .nav-right,
+  .nav-right a {
     display: flex;
   }
   .nav-icon {
@@ -162,7 +178,7 @@ import { SITE_TITLE, GITHUB_URL } from '../consts';
       padding: 0 var(--spacing-xs);
     }
 
-    .social-links {
+    .nav-right {
       display: none;
     }
   }
