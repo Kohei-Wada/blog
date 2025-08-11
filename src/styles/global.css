@@ -6,6 +6,10 @@
 
 @import './components.css';
 
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
 :root {
   --accent: #2337ff;
   --accent-dark: #000d8a;
@@ -90,12 +94,13 @@ body {
   background-size: 100% 600px;
   word-wrap: break-word;
   overflow-wrap: break-word;
+  overflow-x: hidden;
   color: rgb(var(--gray-dark));
   font-size: 18px;
   line-height: 1.7;
 }
 main {
-  width: 720px;
+  width: var(--content-max-width);
   max-width: calc(100% - 2em);
   margin: auto;
   padding: 3em 1em;
@@ -314,7 +319,7 @@ pre.astro-code code {
 /* Layout styles for sidebar */
 .layout-with-sidebar {
   display: grid;
-  grid-template-columns: 1fr 720px 96px 300px;
+  grid-template-columns: 1fr var(--content-max-width) 96px 300px;
   gap: 0;
   max-width: 1400px;
   margin: 0 auto;
@@ -323,7 +328,7 @@ pre.astro-code code {
 }
 
 .layout-single {
-  max-width: 720px;
+  max-width: var(--content-max-width);
   margin: 0 auto;
 }
 
@@ -332,14 +337,13 @@ pre.astro-code code {
   max-width: none;
   margin: 0;
   padding: 3em 1em;
-  overflow: hidden;
 }
 
 /* Responsive sidebar */
 @media (max-width: 1024px) {
   .layout-with-sidebar {
     grid-template-columns: 1fr;
-    max-width: 720px;
+    max-width: var(--content-max-width);
     gap: 4rem;
   }
 
@@ -358,7 +362,7 @@ pre.astro-code code {
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: var(--tablet-breakpoint)) {
   .layout-with-sidebar {
     display: block;
     max-width: none;

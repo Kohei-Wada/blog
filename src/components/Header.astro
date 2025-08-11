@@ -112,9 +112,15 @@ import { SITE_TITLE, GITHUB_URL } from '../consts';
 <style>
   header {
     margin: 0;
-    padding: 0 1em;
+    width: 100%;
     background: white;
     box-shadow: 0 2px 8px rgba(var(--black), 5%);
+  }
+
+  nav {
+    max-width: var(--content-max-width);
+    margin: 0 auto;
+    padding: 0 1rem;
   }
   h2 {
     margin: 0;
@@ -151,7 +157,11 @@ import { SITE_TITLE, GITHUB_URL } from '../consts';
     height: 1em;
     margin-right: 0.25em;
   }
-  @media (max-width: var(--mobile-breakpoint)) {
+  @media (max-width: var(--tablet-breakpoint)) {
+    nav {
+      padding: 0 var(--spacing-xs);
+    }
+
     .social-links {
       display: none;
     }

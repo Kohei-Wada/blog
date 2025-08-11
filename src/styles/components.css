@@ -46,7 +46,7 @@
 /* Posts Grid Layout */
 .posts-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: var(--spacing-md);
   margin-top: var(--spacing-md);
 }
@@ -213,9 +213,14 @@
 
 /* Responsive Styles */
 @media (max-width: var(--tablet-breakpoint)) {
+  .page-container {
+    padding: 0 var(--spacing-sm);
+  }
+
   .posts-grid {
     grid-template-columns: 1fr;
     gap: var(--spacing-sm);
+    margin-top: var(--spacing-sm);
   }
 
   .page-container.with-bottom-margin {
@@ -225,5 +230,27 @@
   .btn {
     padding: 0.6rem 1.2rem;
     font-size: var(--font-size-sm);
+  }
+
+  .page-header {
+    font-size: var(--font-size-2xl);
+    margin-bottom: var(--spacing-sm);
+  }
+
+  .page-description {
+    font-size: var(--font-size-base);
+    margin-bottom: var(--spacing-md);
+  }
+}
+
+/* Additional mobile styles for very small screens */
+@media (max-width: var(--mobile-breakpoint)) {
+  .posts-grid {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-sm);
+  }
+
+  .page-container {
+    padding: 0 var(--spacing-xs);
   }
 }
