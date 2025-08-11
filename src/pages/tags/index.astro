@@ -5,55 +5,44 @@ import { getCollection } from 'astro:content';
 import PageHeader from '../../components/PageHeader.astro';
 
 const posts = await getCollection('blog');
-const tags = Array.from(new Set(posts.flatMap(post => post.data.tags))).sort();
 
+// タグの投稿数をカウント
 const tagCounts: Record<string, number> = {};
 posts.forEach(post => {
   post.data.tags.forEach(tag => {
     tagCounts[tag] = (tagCounts[tag] ?? 0) + 1;
   });
 });
+
+// 投稿数の多い順にソートしたタグリスト
+const tags = Object.entries(tagCounts)
+  .sort(([, a], [, b]) => b - a)
+  .map(([tag]) => tag);
 ---
 
 <BaseLayout title={SITE_TITLE} description={SITE_DESCRIPTION} showSidebar={true}>
   <style>
-    .index_tag_nav {
-      padding-bottom: 100px;
+    .tags-container {
+      padding-bottom: var(--spacing-xl);
     }
 
-    .index_tag_nav ul {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-      font-size: 1.2rem;
-      text-align: center;
+    .tags-cloud {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--spacing-sm);
+      justify-content: center;
+      margin-top: var(--spacing-md);
     }
 
-    .index_tag_nav ul li {
-      display: inline-block;
-      vertical-align: top;
-      margin: 0 2px 4px;
+    .tag-with-count {
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
     }
 
-    .index_tag_nav ul li a {
-      display: block;
-      background-color: #fff;
-      padding: 10px 15px;
-      border-radius: 4px;
-      color: rgb(var(--black));
-      text-decoration: none;
-      transition:
-        background-color 0.2s ease,
-        color 0.2s ease;
-    }
-
-    .index_tag_nav ul li a:hover {
-      background-color: var(--accent);
-      color: #fff;
-    }
-
-    .index_tag_nav ul li a h4 {
-      margin: 0;
+    .tag-count {
+      font-size: 0.9em;
+      opacity: 0.8;
     }
   </style>
 
@@ -63,20 +52,19 @@ posts.forEach(post => {
       icon="🏷️"
       description="記事をタグで分類して探すことができます。気になるタグをクリックして、関連記事をお楽しみください。"
     />
-    <div class="index_tag_nav">
-      <ul>
+    <div class="tags-container">
+      <div class="tags-cloud">
         {
           tags.map(tag => (
-            <li>
-              <a href={`/tags/${tag}/`}>
-                <h4>
-                  {tag} ({tagCounts[tag]})
-                </h4>
-              </a>
-            </li>
+            <a href={`/tags/${tag}/`} class="tag solid">
+              <span class="tag-with-count">
+                {tag}
+                <span class="tag-count">({tagCounts[tag]})</span>
+              </span>
+            </a>
           ))
         }
-      </ul>
+      </div>
     </div>
   </div>
 </BaseLayout>
