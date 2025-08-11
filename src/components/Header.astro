@@ -186,20 +186,55 @@ import { SITE_TITLE, GITHUB_URL } from '../consts';
     }
   }
 
-  /* 小画面（640px以下）: 主要項目のみ表示 */
+  /* 小画面（640px以下）: 全アイコン表示、テキスト非表示 */
   @media (max-width: 640px) {
-    .nav-center a:nth-child(3),
-    .nav-center a:nth-child(5) {
-      display: none;
-    }
     nav a {
-      padding: 1em 0.25em;
+      padding: 1em 0.35em;
     }
     .nav-text {
       display: none;
     }
     .nav-icon {
       margin-right: 0;
+      width: 1.2em;
+      height: 1.2em;
+    }
+    h2 {
+      font-size: 0.9em;
+    }
+  }
+
+  /* 超小画面（480px以下）: よりコンパクトに */
+  @media (max-width: 480px) {
+    nav {
+      padding: 0 0.5rem;
+    }
+    nav a {
+      padding: 1em 0.25em;
+    }
+    .nav-icon {
+      width: 1.1em;
+      height: 1.1em;
+    }
+    h2 {
+      font-size: 0.85em;
+    }
+  }
+
+  /* 極小画面（380px以下）: 最小限のパディング */
+  @media (max-width: 380px) {
+    nav {
+      padding: 0 0.25rem;
+    }
+    nav a {
+      padding: 1em 0.2em;
+    }
+    .nav-icon {
+      width: 1em;
+      height: 1em;
+    }
+    h2 {
+      font-size: 0.8em;
     }
   }
 
