@@ -40,10 +40,10 @@ const tagCounts = allTags.reduce(
 
   <section class="sidebar-section">
     <h3>タグ</h3>
-    <div class="tag-cloud">
+    <div class="tag-cloud tag-list">
       {
         allTags.map(tag => (
-          <a href={`/tags/${tag}/`} class="tag" data-count={tagCounts[tag]}>
+          <a href={`/tags/${tag}/`} class="tag solid" data-count={tagCounts[tag]}>
             {tag} ({tagCounts[tag]})
           </a>
         ))
@@ -119,21 +119,5 @@ const tagCounts = allTags.reduce(
     display: flex;
     flex-wrap: wrap;
     gap: 0.5rem;
-  }
-
-  .tag {
-    display: inline-block;
-    padding: 0.25rem 0.75rem;
-    background: var(--accent);
-    color: white;
-    text-decoration: none;
-    border-radius: 20px;
-    font-size: 0.8em;
-    transition: all 0.2s ease;
-  }
-
-  .tag:hover {
-    background: var(--accent-dark);
-    transform: translateY(-1px);
   }
 </style>

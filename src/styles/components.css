@@ -8,23 +8,23 @@
   max-width: var(--content-max-width);
   margin: 0 auto;
   width: 100%;
-  padding: 0 1rem;
+  padding: 0 var(--spacing-sm);
 }
 
 .page-container.with-bottom-margin {
-  margin-bottom: 4rem;
+  margin-bottom: var(--spacing-xl);
 }
 
 /* Page Header Styles */
 .page-header {
-  font-size: 2rem;
-  margin-bottom: 2rem;
+  font-size: var(--font-size-3xl);
+  margin-bottom: var(--spacing-md);
   text-align: center;
   color: rgb(var(--black));
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.75rem;
+  gap: var(--spacing-xs);
 }
 
 .title-icon {
@@ -35,9 +35,9 @@
 .page-description {
   text-align: center;
   color: rgb(var(--gray));
-  font-size: 1.1rem;
+  font-size: var(--font-size-lg);
   line-height: 1.6;
-  margin-bottom: 3rem;
+  margin-bottom: var(--spacing-lg);
   max-width: 600px;
   margin-left: auto;
   margin-right: auto;
@@ -47,20 +47,20 @@
 .posts-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 1.5rem;
-  margin-top: 2rem;
+  gap: var(--spacing-md);
+  margin-top: var(--spacing-md);
 }
 
 /* Button Styles */
 .btn {
   padding: 0.8rem 1.5rem;
-  border-radius: 6px;
+  border-radius: var(--radius-md);
   text-decoration: none;
   font-weight: 600;
-  transition: all 0.2s ease;
+  transition: all var(--transition-normal);
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: var(--spacing-xs);
   border: none;
   cursor: pointer;
   font-family: inherit;
@@ -74,6 +74,7 @@
 .btn-primary:hover {
   background: var(--accent-dark);
   transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
 }
 
 .btn-secondary {
@@ -86,23 +87,83 @@
   background: var(--accent);
   color: white;
   transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+/* Tag Styles */
+.tag-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-xs);
+  margin-top: auto;
+}
+
+.tag-list.center {
+  margin: 1em 0;
+  text-align: center;
+  justify-content: center;
+}
+
+.tag {
+  background: rgba(var(--accent), 0.1);
+  color: var(--accent);
+  padding: 0.3rem 0.8rem;
+  border-radius: var(--radius-xl);
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  text-decoration: none;
+  transition: all var(--transition-normal);
+  display: inline-block;
+}
+
+.tag:hover {
+  background: var(--accent);
+  color: white;
+}
+
+.tag.solid {
+  background: var(--accent);
+  color: white;
+  border-radius: var(--radius-xl);
+}
+
+.tag.solid:hover {
+  background: var(--accent-dark);
+}
+
+.tag.current {
+  background: var(--accent);
+  color: white;
+}
+
+.tag.blog-post {
+  background-color: rgb(var(--gray-light));
+  color: var(--accent);
+  padding: 0.25em 0.75em;
+  border-radius: var(--radius-sm);
+  margin: 0 var(--spacing-xs) var(--spacing-xs);
+}
+
+.tag.blog-post:hover {
+  background-color: var(--accent);
+  color: #fff;
 }
 
 /* Social Links */
 .social-links {
   display: flex;
   justify-content: center;
-  gap: 1.5rem;
+  gap: var(--spacing-md);
 }
 
 .social-link {
   color: rgb(var(--gray));
-  transition: all 0.2s ease;
+  transition: all var(--transition-normal);
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: var(--spacing-xs);
   text-decoration: none;
-  font-size: 0.9rem;
+  font-size: var(--font-size-sm);
 }
 
 .social-link:hover {
@@ -110,19 +171,59 @@
   transform: translateY(-2px);
 }
 
+/* Table Styles */
+.table-container {
+  width: 100%;
+  overflow-x: auto;
+  margin-bottom: 2rem;
+}
+
+.styled-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: var(--spacing-md);
+  font-size: var(--font-size-sm);
+}
+
+.styled-table th,
+.styled-table td {
+  border: 1px solid #ccc;
+  padding: 0.6rem 1rem;
+  vertical-align: top;
+}
+
+.styled-table th {
+  background: #f0f4f8;
+}
+
+.styled-table tbody tr td:first-of-type {
+  font-weight: normal;
+  background: transparent;
+}
+
+.styled-table tbody tr td[rowspan] {
+  font-weight: bold;
+  background: #f9fafb;
+  white-space: nowrap;
+}
+
+.styled-table .icon {
+  margin-right: var(--spacing-xs);
+}
+
 /* Responsive Styles */
-@media (max-width: 768px) {
+@media (max-width: var(--tablet-breakpoint)) {
   .posts-grid {
     grid-template-columns: 1fr;
-    gap: 1rem;
+    gap: var(--spacing-sm);
   }
 
   .page-container.with-bottom-margin {
-    margin-bottom: 3rem;
+    margin-bottom: var(--spacing-lg);
   }
 
   .btn {
     padding: 0.6rem 1.2rem;
-    font-size: 0.9rem;
+    font-size: var(--font-size-sm);
   }
 }

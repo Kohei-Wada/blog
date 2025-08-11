@@ -24,6 +24,41 @@
   --mobile-breakpoint: 720px;
   --tablet-breakpoint: 768px;
 
+  /* 共通のスペーシング */
+  --spacing-xs: 0.5rem;
+  --spacing-sm: 1rem;
+  --spacing-md: 2rem;
+  --spacing-lg: 3rem;
+  --spacing-xl: 4rem;
+  --spacing-xxl: 6rem;
+
+  /* フォントサイズ */
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.875rem;
+  --font-size-base: 1rem;
+  --font-size-lg: 1.125rem;
+  --font-size-xl: 1.25rem;
+  --font-size-2xl: 1.5rem;
+  --font-size-3xl: 2rem;
+  --font-size-4xl: 2.5rem;
+
+  /* 角丸 */
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+  --radius-xl: 15px;
+  --radius-full: 50%;
+
+  /* 影 */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.15);
+  --shadow-lg: 0 8px 24px rgba(var(--gray), 33%);
+
+  /* トランジション */
+  --transition-fast: 0.15s ease;
+  --transition-normal: 0.2s ease;
+  --transition-slow: 0.3s ease;
+
   /* 共通の背景と境界線 */
   --card-background: rgba(var(--gray-light), 20%);
   --card-border: 1px solid rgba(var(--gray), 10%);

@@ -30,10 +30,10 @@ const { post, currentTag } = Astro.props;
       </div>
       <h2>{post.data.title}</h2>
       <p class="post-description">{post.data.description}</p>
-      <div class="post-tags">
+      <div class="post-tags tag-list">
         {
           post.data.tags.map((tag: string) => (
-            <span class={`tag ${tag === currentTag ? 'current-tag' : ''}`}>{tag}</span>
+            <span class={`tag ${tag === currentTag ? 'current' : ''}`}>{tag}</span>
           ))
         }
       </div>
@@ -125,20 +125,6 @@ const { post, currentTag } = Astro.props;
     flex-wrap: wrap;
     gap: 0.5rem;
     margin-top: auto;
-  }
-
-  .tag {
-    background: rgba(var(--accent), 0.1);
-    color: var(--accent);
-    padding: 0.3rem 0.8rem;
-    border-radius: 15px;
-    font-size: 0.8rem;
-    font-weight: 500;
-  }
-
-  .current-tag {
-    background: var(--accent);
-    color: white;
   }
 
   /* Responsive */
