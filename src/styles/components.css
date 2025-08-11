@@ -179,44 +179,15 @@
   transform: translateY(-2px);
 }
 
-/* Table Styles */
-.table-container {
-  width: 100%;
-  overflow-x: auto;
-  margin-bottom: 2rem;
-}
-
+/* Legacy Table Styles for backward compatibility */
 .styled-table {
-  width: 100%;
-  border-collapse: collapse;
+  /* Use default table styles from global.css */
   margin-bottom: var(--spacing-md);
-  font-size: var(--font-size-sm);
-}
-
-.styled-table th,
-.styled-table td {
-  border: 1px solid #ccc;
-  padding: 0.6rem 1rem;
-  vertical-align: top;
-}
-
-.styled-table th {
-  background: #f0f4f8;
-}
-
-.styled-table tbody tr td:first-of-type {
-  font-weight: normal;
-  background: transparent;
-}
-
-.styled-table tbody tr td[rowspan] {
-  font-weight: bold;
-  background: #f9fafb;
-  white-space: nowrap;
 }
 
 .styled-table .icon {
   margin-right: var(--spacing-xs);
+  vertical-align: middle;
 }
 
 /* Responsive Styles */
