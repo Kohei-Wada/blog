@@ -6,7 +6,8 @@
       "Bash(npm run test:run:*)",
       "Bash(npm run lint)",
       "Bash(find:*)",
-      "Bash(sed:*)"
+      "Bash(sed:*)",
+      "Bash(mkdir:*)"
     ],
     "deny": []
   }

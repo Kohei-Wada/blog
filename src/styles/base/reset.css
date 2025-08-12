@@ -1,0 +1,73 @@
+/*
+ * Reset and Base Element Styles
+ * Basic HTML element styling and resets
+ */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Atkinson', sans-serif;
+  margin: 0;
+  padding: 0;
+  text-align: left;
+  background: linear-gradient(var(--gray-gradient)) no-repeat;
+  background-size: 100% 600px;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  overflow-x: hidden;
+  color: rgb(var(--gray-dark));
+  font-size: 18px;
+  line-height: 1.7;
+}
+
+main {
+  width: var(--content-max-width);
+  max-width: calc(100% - 2em);
+  margin: auto;
+  padding: 3em 1em;
+}
+
+a {
+  color: var(--accent);
+}
+
+a:hover {
+  color: var(--accent);
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+hr {
+  border: none;
+  border-top: 1px solid rgb(var(--gray-light));
+}
+
+textarea {
+  width: 100%;
+  font-size: 16px;
+}
+
+input {
+  font-size: 16px;
+}
+
+code {
+  padding: 2px 5px;
+  background-color: rgb(var(--gray-light));
+  border-radius: 2px;
+}
+
+pre {
+  padding: 1.5em;
+  border-radius: 8px;
+}
+
+pre > code {
+  all: unset;
+}
