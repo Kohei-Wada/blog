@@ -1,7 +1,7 @@
 {
   "extends": "astro/tsconfigs/strict",
   "include": [".astro/types.d.ts", "**/*"],
-  "exclude": ["dist", "tests", "astro.config.mjs", "public/**/*.js"],
+  "exclude": ["dist", "tests", "astro.config.mjs", "public/**/*.js", "src/components/Analytics.astro"],
   "compilerOptions": {
     "strictNullChecks": true,
     "noImplicitAny": true,

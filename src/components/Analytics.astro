@@ -1,19 +1,17 @@
 ---
-import { ANALYTICS } from '../constants/api.js';
+import { ANALYTICS } from '../constants/api';
 
-const isProduction: boolean = process.env.CONTEXT === 'production';
+const isProduction: boolean = import.meta.env.PROD;
+const measurementId = ANALYTICS.GA_MEASUREMENT_ID;
 ---
 {isProduction && (
   <>
-    <script is:inline async src={`${ANALYTICS.GOOGLE_TAG_MANAGER}?id=${ANALYTICS.GA_MEASUREMENT_ID}`}></script>
-    <script is:inline define:vars={{ measurementId: ANALYTICS.GA_MEASUREMENT_ID }}>
+    <script async src={`https://www.googletagmanager.com/gtag/js?id=${measurementId}`}></script>
+    <script>
       window.dataLayer = window.dataLayer || [];
-      function gtag() {
-        var args = Array.prototype.slice.call(arguments);
-        window.dataLayer.push(args);
-      }
+      function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-      gtag('config', measurementId);
+      gtag('config', 'G-XGH4QVLSMS');
     </script>
   </>
 )}

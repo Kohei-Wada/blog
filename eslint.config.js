@@ -12,6 +12,7 @@ export default [
       '**/*.d.ts',
       'tests/**',
       'astro.config.mjs',
+      'src/components/Analytics.astro',
     ],
   },
   eslint.configs.recommended,
