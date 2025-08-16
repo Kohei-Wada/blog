@@ -30,7 +30,7 @@ const posts = [...featuredPosts, ...otherPosts]
       font-size: var(--font-size-3xl);
       margin-bottom: var(--spacing-md);
       text-align: center;
-      color: rgb(var(--black));
+      color: var(--color-text);
     }
 
     /* Tech Stack Section */
@@ -45,12 +45,12 @@ const posts = [...featuredPosts, ...otherPosts]
     .tech-stack h2 {
       font-size: var(--font-size-2xl);
       margin-bottom: var(--spacing-md);
-      color: rgb(var(--black));
+      color: var(--color-text);
     }
 
     .tech-stack p {
       font-size: var(--font-size-lg);
-      color: rgb(var(--gray-dark));
+      color: var(--color-text);
       margin-bottom: var(--spacing-sm);
       line-height: 1.6;
     }
@@ -68,20 +68,20 @@ const posts = [...featuredPosts, ...otherPosts]
       align-items: center;
       gap: var(--spacing-xs);
       padding: var(--spacing-xs) var(--spacing-sm);
-      background: white;
-      color: rgb(var(--black));
+      background: var(--color-bg);
+      color: var(--color-text);
       text-decoration: none;
       border-radius: var(--radius-sm);
       font-size: var(--font-size-sm);
       font-weight: 500;
       transition: all var(--transition-normal);
-      box-shadow: var(--shadow-xs);
-      border: 1px solid var(--border-color);
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--color-border-light);
     }
 
     .tech-badge:hover {
-      background: var(--accent);
-      color: white;
+      background: var(--color-link);
+      color: var(--color-bg);
       transform: translateY(-1px);
       box-shadow: var(--shadow-sm);
     }

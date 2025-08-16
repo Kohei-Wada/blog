@@ -57,7 +57,7 @@ const currentUrl = new URL(Astro.url.pathname, Astro.site).toString();
       width: 100%;
       margin: 0;
       padding: 0;
-      color: rgb(var(--gray-dark));
+      color: var(--color-text);
     }
     .title {
       margin-bottom: 1em;
@@ -70,7 +70,7 @@ const currentUrl = new URL(Astro.url.pathname, Astro.site).toString();
     }
     .date {
       margin-bottom: 0.5em;
-      color: rgb(var(--gray));
+      color: var(--color-text-secondary);
     }
     .last-updated-on {
       font-style: bold;

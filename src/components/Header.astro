@@ -1,7 +1,7 @@
 ---
 import HeaderLink from './HeaderLink.astro';
-import GitHubIcon from './GitHubIcon.astro';
-import { SITE_TITLE, GITHUB_URL } from '../consts';
+import ThemeToggle from './ThemeToggle.astro';
+import { SITE_TITLE } from '../consts';
 ---
 
 <header>
@@ -105,9 +105,7 @@ import { SITE_TITLE, GITHUB_URL } from '../consts';
       </HeaderLink>
     </div>
     <div class="nav-right">
-      <a href={GITHUB_URL} target="_blank" aria-label="Visit GitHub profile (opens in new tab)">
-        <GitHubIcon />
-      </a>
+      <ThemeToggle />
     </div>
   </nav>
 </header>
@@ -115,8 +113,8 @@ import { SITE_TITLE, GITHUB_URL } from '../consts';
   header {
     margin: 0;
     width: 100%;
-    background: white;
-    box-shadow: 0 2px 8px rgba(var(--black), 5%);
+    background: var(--header-bg);
+    box-shadow: var(--header-shadow);
   }
 
   nav {
@@ -141,6 +139,7 @@ import { SITE_TITLE, GITHUB_URL } from '../consts';
   .nav-right {
     display: flex;
     align-items: center;
+    gap: 0.5rem;
   }
 
   h2 {
@@ -156,13 +155,13 @@ import { SITE_TITLE, GITHUB_URL } from '../consts';
     display: inline-flex;
     align-items: center;
     padding: 1em 0.5em;
-    color: var(--black);
+    color: var(--color-text);
     border-bottom: 4px solid transparent;
     text-decoration: none;
   }
   nav a.active {
     text-decoration: none;
-    border-bottom-color: var(--accent);
+    border-bottom-color: var(--color-link);
   }
   .nav-right,
   .nav-right a {

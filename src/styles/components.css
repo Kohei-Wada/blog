@@ -20,7 +20,7 @@
   font-size: var(--font-size-3xl);
   margin-bottom: var(--spacing-md);
   text-align: center;
-  color: rgb(var(--black));
+  color: var(--color-text);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -34,7 +34,7 @@
 
 .page-description {
   text-align: center;
-  color: rgb(var(--gray));
+  color: var(--color-text-secondary);
   font-size: var(--font-size-lg);
   line-height: 1.6;
   margin-bottom: var(--spacing-lg);
@@ -75,25 +75,25 @@
 }
 
 .btn-primary {
-  background: var(--accent);
-  color: white;
+  background: var(--color-link);
+  color: var(--color-bg);
 }
 
 .btn-primary:hover {
-  background: var(--accent-dark);
+  background: var(--color-link-hover);
   transform: translateY(-2px);
   box-shadow: var(--shadow-md);
 }
 
 .btn-secondary {
   background: transparent;
-  color: var(--accent);
-  border: 2px solid var(--accent);
+  color: var(--color-link);
+  border: 2px solid var(--color-link);
 }
 
 .btn-secondary:hover {
-  background: var(--accent);
-  color: white;
+  background: var(--color-link);
+  color: var(--color-bg);
   transform: translateY(-2px);
   box-shadow: var(--shadow-md);
 }
@@ -113,8 +113,8 @@
 }
 
 .tag {
-  background: rgba(var(--accent), 0.1);
-  color: var(--accent);
+  background: var(--active-background);
+  color: var(--color-link);
   padding: 0.3rem 0.8rem;
   border-radius: var(--radius-xl);
   font-size: var(--font-size-sm);
@@ -125,36 +125,36 @@
 }
 
 .tag:hover {
-  background: var(--accent);
-  color: white;
+  background: var(--color-link);
+  color: var(--color-bg);
 }
 
 .tag.solid {
-  background: var(--accent);
-  color: white;
+  background: var(--color-link);
+  color: var(--color-bg);
   border-radius: var(--radius-xl);
 }
 
 .tag.solid:hover {
-  background: var(--accent-dark);
+  background: var(--color-link-hover);
 }
 
 .tag.current {
-  background: var(--accent);
-  color: white;
+  background: var(--color-link);
+  color: var(--color-bg);
 }
 
 .tag.blog-post {
-  background-color: rgb(var(--gray-light));
-  color: var(--accent);
+  background-color: var(--card-background);
+  color: var(--color-link);
   padding: 0.25em 0.75em;
   border-radius: var(--radius-sm);
   margin: 0 var(--spacing-xs) var(--spacing-xs);
 }
 
 .tag.blog-post:hover {
-  background-color: var(--accent);
-  color: #fff;
+  background-color: var(--color-link);
+  color: var(--color-bg);
 }
 
 /* Social Links */
@@ -165,7 +165,7 @@
 }
 
 .social-link {
-  color: rgb(var(--gray));
+  color: var(--color-text-secondary);
   transition: all var(--transition-normal);
   display: flex;
   align-items: center;
@@ -175,7 +175,7 @@
 }
 
 .social-link:hover {
-  color: var(--accent);
+  color: var(--color-link);
   transform: translateY(-2px);
 }
 
