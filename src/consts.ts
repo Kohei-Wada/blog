@@ -9,5 +9,6 @@ export const SITE_HERO_DESCRIPTION: string =
   'ソフトウェア開発、技術記事、そして個人的な学びについて発信しています。';
 export const GITHUB_URL: string = 'https://github.com/Kohei-Wada';
 export const ZENN_URL: string = 'https://zenn.dev/koheiwada';
+export const QIITA_URL: string = 'https://qiita.com/program3152019';
 export const GOOGLE_FORMS_URL: string =
   'https://docs.google.com/forms/d/e/1FAIpQLSdM92biXp5IHHCE_-_jk1EQgP_ULQ3mGIPsfJVlPayWfK7pSA/viewform?embedded=true';

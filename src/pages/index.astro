@@ -1,6 +1,13 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { SITE_TITLE, SITE_SUBTITLE, SITE_DESCRIPTION, GITHUB_URL, ZENN_URL } from '../consts';
+import {
+  SITE_TITLE,
+  SITE_SUBTITLE,
+  SITE_DESCRIPTION,
+  GITHUB_URL,
+  ZENN_URL,
+  QIITA_URL,
+} from '../consts';
 import { getCollection } from 'astro:content';
 import PostsGrid from '../components/PostsGrid.astro';
 import HeroSection from '../components/HeroSection.astro';
@@ -115,8 +122,9 @@ const posts = [...featuredPosts, ...otherPosts]
         { text: '⭐ おすすめ記事', href: '#featured-posts' },
       ]}
       socialLinks={[
-        { text: 'GitHub', href: GITHUB_URL },
+        { text: 'GitHub', href: GITHUB_URL, icon: '💻' },
         { text: 'Zenn', href: ZENN_URL, icon: '📝' },
+        { text: 'Qiita', href: QIITA_URL, icon: '📗' },
       ]}
     />
 
