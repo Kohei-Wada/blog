@@ -45,9 +45,83 @@ import PageHeader from '../components/PageHeader.astro';
       border-bottom-color: var(--accent);
     }
 
+    .skills-section {
+      margin: var(--spacing-lg) 0;
+    }
+
+    .skill-category {
+      margin-bottom: var(--spacing-lg);
+    }
+
+    .skill-category h3 {
+      font-size: var(--font-size-xl);
+      color: var(--color-link);
+      margin-bottom: var(--spacing-sm);
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-xs);
+      border-bottom: 1px solid var(--color-border-light);
+      padding-bottom: var(--spacing-xs);
+    }
+
+    .skill-table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--color-bg);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .skill-table th {
+      background: var(--card-background);
+      padding: var(--spacing-sm);
+      text-align: left;
+      font-weight: 600;
+      color: var(--color-text);
+      font-size: var(--font-size-sm);
+      border-bottom: 1px solid var(--color-border-light);
+    }
+
+    .skill-table td {
+      padding: var(--spacing-sm);
+      border-bottom: 1px solid var(--color-border-light);
+      line-height: 1.6;
+    }
+
+    .skill-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .skill-table tr:hover {
+      background: var(--hover-background);
+    }
+
+    .skill-table td:first-child {
+      font-weight: 600;
+      color: var(--color-text);
+    }
+
+    .skill-table td:last-child {
+      color: var(--color-text-secondary);
+    }
+
     @media (max-width: var(--tablet-breakpoint)) {
       .about h2 {
         font-size: var(--font-size-xl);
+      }
+
+      .skill-category h3 {
+        font-size: var(--font-size-lg);
+      }
+
+      .skill-table {
+        font-size: var(--font-size-sm);
+      }
+
+      .skill-table th,
+      .skill-table td {
+        padding: var(--spacing-xs);
       }
     }
   </style>
@@ -77,102 +151,133 @@ import PageHeader from '../components/PageHeader.astro';
       </p>
 
       <h2>スキルセット</h2>
-      <table class="styled-table">
-        <thead>
-          <tr>
-            <th>カテゴリ</th>
-            <th>使用技術・ツール</th>
-            <th>経験・備考</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td rowspan="8">
-              <span class="icon">💻</span>言語
-            </td>
-            <td>Rust</td>
-            <td>CLIツールや自動処理用に使用</td>
-          </tr>
-          <tr>
-            <td>Python</td>
-            <td>スクリプト作成・グラフ描画など</td>
-          </tr>
-          <tr>
-            <td>C</td>
-            <td>言語処理系・ドライバの自作経験あり</td>
-          </tr>
-          <tr>
-            <td>Bash / ShellScript</td>
-            <td>障害対応・自動処理・即興スクリプト作成に精通</td>
-          </tr>
-          <tr>
-            <td>PHP</td>
-            <td>業務で日常的に使用</td>
-          </tr>
-          <tr>
-            <td>C#</td>
-            <td>Windowsフォームアプリ開発経験あり（業務）</td>
-          </tr>
-          <tr>
-            <td>Lua</td>
-            <td
-              >Neovimプラグインを自作。公式プラグインや周辺ツールに対してPRを提出・マージされた実績あり</td
-            >
-          </tr>
-          <tr>
-            <td>Haskell / PureScript / Java</td>
-            <td>個人学習・試作レベル。関数型や静的型付けに関心</td>
-          </tr>
+      <div class="skills-section">
+        <div class="skill-category">
+          <h3><span class="icon">💻</span>言語</h3>
+          <table class="skill-table">
+            <thead>
+              <tr>
+                <th>技術・ツール</th>
+                <th>経験・備考</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Rust</td>
+                <td>CLIツールや自動処理用に使用</td>
+              </tr>
+              <tr>
+                <td>Python</td>
+                <td>スクリプト作成・グラフ描画など</td>
+              </tr>
+              <tr>
+                <td>C</td>
+                <td>言語処理系・ドライバの自作経験あり</td>
+              </tr>
+              <tr>
+                <td>TypeScript/JavaScript</td>
+                <td>このブログに使用&簡単なスクリプト作成など</td>
+              </tr>
+              <tr>
+                <td>Bash / ShellScript</td>
+                <td>障害対応・自動処理・即興スクリプト作成に精通</td>
+              </tr>
+              <tr>
+                <td>PHP</td>
+                <td>業務で日常的に使用</td>
+              </tr>
+              <tr>
+                <td>C#</td>
+                <td>Windowsフォームアプリ開発経験あり（業務）</td>
+              </tr>
+              <tr>
+                <td>Lua</td>
+                <td
+                  >Neovimプラグインを自作。公式プラグインや周辺ツールに対してPRを提出・マージされた実績あり</td
+                >
+              </tr>
+              <tr>
+                <td>Haskell / PureScript / Java</td>
+                <td>個人学習・試作レベル。関数型や静的型付けに関心</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
 
-          <tr>
-            <td rowspan="4">
-              <span class="icon">🧰</span>フレームワーク
-            </td>
-            <td>Laravel</td>
-            <td>業務で日常的に使用。バックエンド開発・保守に対応</td>
-          </tr>
-          <tr>
-            <td>FastAPI</td>
-            <td>画像生成やAPI作成</td>
-          </tr>
-          <tr>
-            <td>Astro</td>
-            <td>このブログに使用</td>
-          </tr>
-          <tr>
-            <td>その他（自作）</td>
-            <td>RustやPythonでの軽量CLIやAPIツールなど</td>
-          </tr>
+        <div class="skill-category">
+          <h3><span class="icon">🧰</span>フレームワーク</h3>
+          <table class="skill-table">
+            <thead>
+              <tr>
+                <th>技術・ツール</th>
+                <th>経験・備考</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Laravel</td>
+                <td>業務で日常的に使用。バックエンド開発・保守に対応</td>
+              </tr>
+              <tr>
+                <td>FastAPI</td>
+                <td>画像生成やAPI作成</td>
+              </tr>
+              <tr>
+                <td>Astro</td>
+                <td>このブログに使用</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
 
-          <tr>
-            <td rowspan="3">
-              <span class="icon">☁️</span>インフラ / クラウド
-            </td>
-            <td>AWS（EC2, RDS）</td>
-            <td>業務で使用</td>
-          </tr>
-          <tr>
-            <td>Docker / GitHub Actions / k3s</td>
-            <td>軽量なCI/CD構成、Raspberry Pi運用</td>
-          </tr>
-          <tr>
-            <td>Ansible</td>
-            <td>構成管理</td>
-          </tr>
+        <div class="skill-category">
+          <h3><span class="icon">☁️</span>インフラ / クラウド</h3>
+          <table class="skill-table">
+            <thead>
+              <tr>
+                <th>技術・ツール</th>
+                <th>経験・備考</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>AWS（EC2, RDS）</td>
+                <td>業務で使用</td>
+              </tr>
+              <tr>
+                <td>Docker / GitHub Actions / k3s</td>
+                <td>軽量なCI/CD構成、Raspberry Pi運用</td>
+              </tr>
+              <tr>
+                <td>Ansible</td>
+                <td>構成管理</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
 
-          <tr>
-            <td rowspan="2">
-              <span class="icon">🔧</span>その他
-            </td>
-            <td>Neovim</td>
-            <td>メインエディター、Luaプラグイン活用</td>
-          </tr>
-          <tr>
-            <td>Hyprland</td>
-            <td>Wayland環境での軽量WM</td>
-          </tr>
-        </tbody>
-      </table>
+        <div class="skill-category">
+          <h3><span class="icon">🔧</span>その他</h3>
+          <table class="skill-table">
+            <thead>
+              <tr>
+                <th>技術・ツール</th>
+                <th>経験・備考</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Neovim</td>
+                <td>メインエディター、Luaプラグイン活用</td>
+              </tr>
+              <tr>
+                <td>Hyprland</td>
+                <td>Wayland環境での軽量WM</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
 
       <h2>趣味・関心ごと</h2>
       <p>
