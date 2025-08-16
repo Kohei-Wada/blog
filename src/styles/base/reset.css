@@ -7,17 +7,34 @@
   box-sizing: border-box;
 }
 
+/* ルートレベルでのテーマトランジション設定 */
+html {
+  transition: background-color var(--theme-transition);
+}
+
+html.theme-transitioning *,
+html.theme-transitioning *::before,
+html.theme-transitioning *::after {
+  transition:
+    color var(--theme-transition),
+    background-color var(--theme-transition),
+    background-image var(--theme-transition),
+    border-color var(--theme-transition),
+    box-shadow var(--theme-transition),
+    fill var(--theme-transition),
+    stroke var(--theme-transition) !important;
+}
+
 body {
   font-family: 'Atkinson', sans-serif;
   margin: 0;
   padding: 0;
   text-align: left;
-  background: linear-gradient(var(--gray-gradient)) no-repeat;
-  background-size: 100% 600px;
+  background-color: var(--color-bg);
   word-wrap: break-word;
   overflow-wrap: break-word;
   overflow-x: hidden;
-  color: rgb(var(--gray-dark));
+  color: var(--color-text);
   font-size: 18px;
   line-height: 1.7;
 }
@@ -30,11 +47,11 @@ main {
 }
 
 a {
-  color: var(--accent);
+  color: var(--color-link);
 }
 
 a:hover {
-  color: var(--accent);
+  color: var(--color-link-hover);
 }
 
 img {
@@ -45,7 +62,7 @@ img {
 
 hr {
   border: none;
-  border-top: 1px solid rgb(var(--gray-light));
+  border-top: var(--separator-border);
 }
 
 textarea {
@@ -59,7 +76,7 @@ input {
 
 code {
   padding: 2px 5px;
-  background-color: rgb(var(--gray-light));
+  background-color: var(--card-background);
   border-radius: 2px;
 }
 

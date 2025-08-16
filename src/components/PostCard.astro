@@ -43,11 +43,11 @@ const { post, currentTag } = Astro.props;
 
 <style>
   .post-card {
-    background: rgb(var(--gray-light));
+    background: var(--card-background);
     border-radius: 12px;
     overflow: hidden;
     transition: all 0.3s ease;
-    border: 1px solid rgba(var(--accent-light), 0.1);
+    border: var(--card-border);
     max-height: 400px;
     display: flex;
     flex-direction: column;
@@ -55,8 +55,8 @@ const { post, currentTag } = Astro.props;
 
   .post-card:hover {
     transform: translateY(-4px);
-    box-shadow: 0 12px 24px rgba(var(--accent), 0.1);
-    border-color: var(--accent);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--color-link);
   }
 
   .post-card a {
@@ -82,7 +82,7 @@ const { post, currentTag } = Astro.props;
   }
 
   .post-meta {
-    color: var(--accent);
+    color: var(--color-link);
     font-size: 0.9rem;
     font-weight: 600;
     margin-bottom: 1rem;
@@ -92,8 +92,8 @@ const { post, currentTag } = Astro.props;
   }
 
   .featured-badge {
-    background: var(--accent);
-    color: white;
+    background: var(--color-link);
+    color: var(--color-bg);
     padding: 0.2rem 0.5rem;
     border-radius: 4px;
     font-size: 0.8rem;
@@ -104,12 +104,12 @@ const { post, currentTag } = Astro.props;
     font-size: 1.2rem;
     margin: 0 0 0.8rem;
     line-height: 1.3;
-    color: rgb(var(--black));
+    color: var(--color-text);
     flex-grow: 1;
   }
 
   .post-description {
-    color: rgb(var(--gray));
+    color: var(--color-text-secondary);
     line-height: 1.5;
     margin-bottom: 1rem;
     display: -webkit-box;

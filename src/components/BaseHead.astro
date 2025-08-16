@@ -73,4 +73,22 @@ const { title, description, image = FallbackImage, isArticle = false, publishedT
 <meta property="twitter:image:alt" content={`${title} - ${SITE_TITLE}`} />
 <meta property="twitter:creator" content="@Kohei_Wada" />
 <meta property="twitter:site" content="@Kohei_Wada" />
+
+<!-- Theme initialization (must run before body renders to prevent flash) -->
+<script is:inline>
+  const storageKey = 'theme-preference';
+
+  // Get theme preference
+  const getThemePreference = () => {
+    if (typeof localStorage !== 'undefined' && localStorage.getItem(storageKey)) {
+      return localStorage.getItem(storageKey);
+    }
+    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  };
+
+  // Apply theme immediately
+  const theme = getThemePreference();
+  document.documentElement.setAttribute('data-theme', theme);
+</script>
+
 <Analytics />
