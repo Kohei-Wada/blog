@@ -13,3 +13,10 @@ export const ZENN_URL: string = 'https://zenn.dev/koheiwada';
 export const QIITA_URL: string = 'https://qiita.com/program3152019';
 export const GOOGLE_FORMS_URL: string =
   'https://docs.google.com/forms/d/e/1FAIpQLSdM92biXp5IHHCE_-_jk1EQgP_ULQ3mGIPsfJVlPayWfK7pSA/viewform?embedded=true';
+
+// Author information for structured data
+export const AUTHOR_NAME: string = 'Kohei Wada';
+export const AUTHOR_BIO: string =
+  'ソフトウェアエンジニア。Web開発、クラウドインフラ、関数型プログラミングに興味があります。';
+export const AUTHOR_IMAGE_URL: string = 'https://github.com/Kohei-Wada.png';
+export const AUTHOR_JOB_TITLE: string = 'Software Engineer';
