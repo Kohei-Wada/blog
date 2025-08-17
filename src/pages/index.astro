@@ -2,6 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import {
   SITE_TITLE,
+  HOME_TITLE,
   SITE_SUBTITLE,
   SITE_DESCRIPTION,
   GITHUB_URL,
@@ -113,10 +114,10 @@ const posts = [...featuredPosts, ...otherPosts]
   <div class="page-container">
     <!-- Hero Section -->
     <HeroSection
-      title={SITE_TITLE}
+      title={HOME_TITLE}
       subtitle={SITE_SUBTITLE}
       description="ソフトウェア開発、技術記事、そして個人的な学びについて発信しています。このブログはAstroで自作しています。"
-      avatar="KW"
+      avatar="WD"
       buttons={[
         { text: '📖 ブログを読む', href: '/blog/', primary: true },
         { text: '⭐ おすすめ記事', href: '#featured-posts' },

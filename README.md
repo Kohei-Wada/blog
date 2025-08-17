@@ -1,8 +1,8 @@
-# Kohei Wada's Personal Blog
+# wada-dev Blog
 
 A modern, bilingual (Japanese/English) personal blog built with [Astro](https://astro.build/), featuring tag-based categorization, RSS feed support, and a clean, minimalist design.
 
-🌐 **Live Site**: [https://kohei-wada-blog.netlify.app/](https://kohei-wada-blog.netlify.app/)
+🌐 **Live Site**: [https://wada-dev.com/](https://wada-dev.com/)
 
 ## Features
 

@@ -8,7 +8,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is a personal blog built with Astro, a modern static site generator. The site is deployed to Netlify at <https://kohei-wada-blog.netlify.app/>. It features a bilingual blog (Japanese/English) with tag-based categorization and RSS feed support.
+This is a personal blog built with Astro, a modern static site generator. The site is deployed to Netlify at <https://wada-dev.com/>. It features a bilingual blog (Japanese/English) with tag-based categorization and RSS feed support.
 
 ## Development Commands
 

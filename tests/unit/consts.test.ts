@@ -9,7 +9,7 @@ import {
 
 describe('consts', () => {
   it('should export correct site title', () => {
-    expect(SITE_TITLE).toBe('Kohei Wada');
+    expect(SITE_TITLE).toBe('wada-dev');
     expect(typeof SITE_TITLE).toBe('string');
   });
 

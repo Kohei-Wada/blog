@@ -3,7 +3,7 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../../src/consts';
 
 describe('RSS Feed', () => {
   it('should use correct site metadata', () => {
-    expect(SITE_TITLE).toBe('Kohei Wada');
+    expect(SITE_TITLE).toBe('wada-dev');
     expect(SITE_DESCRIPTION).toContain('ようこそ');
   });
 
