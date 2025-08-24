@@ -2,6 +2,7 @@
 import { type CollectionEntry, getCollection } from 'astro:content';
 import BlogPost from '../../layouts/BlogPost.astro';
 import { render } from 'astro:content';
+import { getRelatedPosts } from '../../utils/related-posts';
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog');
@@ -14,8 +15,12 @@ type Props = CollectionEntry<'blog'>;
 
 const post = Astro.props;
 const { Content, headings } = await render(post);
+
+// 関連記事を取得
+const allPosts = await getCollection('blog');
+const relatedPosts = getRelatedPosts(post, allPosts, 3);
 ---
 
-<BlogPost {...post.data} headings={headings}>
+<BlogPost {...post.data} headings={headings} relatedPosts={relatedPosts}>
   <Content />
 </BlogPost>
