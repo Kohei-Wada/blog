@@ -10,8 +10,8 @@ import {
   QIITA_URL,
 } from '../consts';
 import { getCollection } from 'astro:content';
-import PostsGrid from '../components/PostsGrid.astro';
-import HeroSection from '../components/HeroSection.astro';
+import PostsGrid from '../components/blog/content/PostsGrid.astro';
+import HeroSection from '../components/shared/layout/HeroSection.astro';
 
 // Featured Posts: featuredフラグがtrueの記事を優先、その後は日付順
 const featuredPosts = (await getCollection('blog')).filter(post => post.data.featured);

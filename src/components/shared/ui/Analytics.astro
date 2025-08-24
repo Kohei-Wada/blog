@@ -1,5 +1,5 @@
 ---
-import { ANALYTICS } from '../constants/api';
+import { ANALYTICS } from '../../../constants/api';
 
 const isProduction: boolean = import.meta.env.PROD;
 const measurementId = ANALYTICS.GA_MEASUREMENT_ID;
@@ -7,7 +7,8 @@ const measurementId = ANALYTICS.GA_MEASUREMENT_ID;
 {isProduction && (
   <>
     <script async src={`https://www.googletagmanager.com/gtag/js?id=${measurementId}`}></script>
-    <script>
+    <script is:inline>
+      /* eslint-disable */
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());

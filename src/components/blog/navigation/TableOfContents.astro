@@ -1,5 +1,5 @@
 ---
-import type { MarkdownHeading, TocItem } from '../types/index.js';
+import type { MarkdownHeading, TocItem } from '../../../types/index.js';
 
 interface Props {
   headings: MarkdownHeading[];
@@ -63,7 +63,7 @@ const hasToc = tocStructure.length > 0;
               </a>
               {item.subheadings.length > 0 && (
                 <ol class="toc-sublist">
-                  {item.subheadings.map(subItem => (
+                  {item.subheadings.map((subItem: TocItem) => (
                     <li>
                       <a href={`#${subItem.slug}`} class="toc-sublink">
                         {subItem.text}

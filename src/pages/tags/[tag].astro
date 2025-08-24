@@ -2,8 +2,8 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { SITE_TITLE, SITE_DESCRIPTION } from '../../consts';
 import { getCollection } from 'astro:content';
-import PageHeader from '../../components/PageHeader.astro';
-import PostsGrid from '../../components/PostsGrid.astro';
+import PageHeader from '../../components/shared/layout/PageHeader.astro';
+import PostsGrid from '../../components/blog/content/PostsGrid.astro';
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog');
