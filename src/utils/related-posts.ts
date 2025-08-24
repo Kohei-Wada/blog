@@ -16,7 +16,8 @@ export function calculateSimilarityScore(
 
   let tagScore = 0;
   if (currentTags.length > 0 && otherTags.length > 0) {
-    const commonTags = currentTags.filter(tag => otherTags.includes(tag));
+    const otherTagsSet = new Set(otherTags);
+    const commonTags = currentTags.filter(tag => otherTagsSet.has(tag));
     const uniqueTags = new Set([...currentTags, ...otherTags]);
     tagScore = commonTags.length / uniqueTags.size;
   }
