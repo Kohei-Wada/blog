@@ -9,6 +9,7 @@ A modern, bilingual (Japanese/English) personal blog built with [Astro](https://
 - 🚀 **Fast & Modern**: Built with Astro for optimal performance
 - 🌍 **Bilingual**: Japanese and English content support
 - 🏷️ **Tag System**: Organize posts with tags and browse by category
+- 📅 **Monthly Archives**: Browse posts by year and month with statistics
 - 📱 **Responsive**: Mobile-first design with clean typography
 - 📊 **Social Sharing**: Built-in share buttons for major platforms
 - 📡 **RSS Feed**: Automatic RSS feed generation
@@ -67,28 +68,28 @@ This will:
 │   ├── components/           # Reusable Astro components
 │   │   ├── shared/           # Shared components
 │   │   │   ├── layout/       # Layout components
-│   │   │   │   ├── BaseHead.astro   # HTML head with meta tags
-│   │   │   │   ├── Header.astro     # Site navigation
-│   │   │   │   └── Footer.astro     # Site footer
+│   │   │   │   ├── BaseHead.Astro   # HTML head with meta tags
+│   │   │   │   ├── Header.Astro     # Site navigation
+│   │   │   │   └── Footer.Astro     # Site footer
 │   │   │   └── ui/           # UI components
-│   │   │       ├── Analytics.astro      # Google Analytics
-│   │   │       ├── FormattedDate.astro  # Date formatting component
-│   │   │       ├── HeroSection.astro    # Homepage hero section
-│   │   │       └── PageHeader.astro     # Page headers with icons
+│   │   │       ├── Analytics.Astro      # Google Analytics
+│   │   │       ├── FormattedDate.Astro  # Date formatting component
+│   │   │       ├── HeroSection.Astro    # Homepage hero section
+│   │   │       └── PageHeader.Astro     # Page headers with icons
 │   │   ├── blog/             # Blog-specific components
 │   │   │   ├── content/      # Blog content components
-│   │   │   │   ├── PostCard.astro    # Blog post preview card
-│   │   │   │   ├── PostsGrid.astro   # Grid layout for posts
-│   │   │   │   └── RelatedPosts.astro # Related posts display
+│   │   │   │   ├── PostCard.Astro    # Blog post preview card
+│   │   │   │   ├── PostsGrid.Astro   # Grid layout for posts
+│   │   │   │   └── RelatedPosts.Astro # Related posts display
 │   │   │   └── navigation/   # Blog navigation components
-│   │   │       ├── Sidebar.astro     # Blog sidebar with tags
-│   │   │       └── TableOfContents.astro # Dynamic TOC
+│   │   │       ├── Sidebar.Astro     # Blog sidebar with tags
+│   │   │       └── TableOfContents.Astro # Dynamic TOC
 │   │   └── integrations/     # External service integrations
-│   │       ├── ShareButtons.astro    # Social media share buttons
-│   │       ├── GitHubIcon.astro      # GitHub icon component
-│   │       ├── GitHubActivity.astro  # GitHub activity display
-│   │       ├── GitHubActiveRepos.astro # Active repos
-│   │       └── GitHubRecentCommits.astro # Recent commits
+│   │       ├── ShareButtons.Astro    # Social media share buttons
+│   │       ├── GitHubIcon.Astro      # GitHub icon component
+│   │       ├── GitHubActivity.Astro  # GitHub activity display
+│   │       ├── GitHubActiveRepos.Astro # Active repos
+│   │       └── GitHubRecentCommits.Astro # Recent commits
 │   ├── content/              # Content collections
 │   │   ├── blog/             # Blog post markdown files
 │   │   └── blog-template.md  # Template for new posts
@@ -96,6 +97,9 @@ This will:
 │   │   ├── BaseLayout.Astro  # Base layout with common elements
 │   │   └── BlogPost.Astro    # Blog post layout
 │   ├── pages/                # File-based routing
+│   │   ├── archives/         # Monthly archive routes
+│   │   │   ├── index.Astro   # Archive listing page
+│   │   │   └── [yearmonth].Astro # Monthly archive pages
 │   │   ├── blog/             # Blog routes
 │   │   ├── tags/             # Tag-based routes
 │   │   ├── about.Astro       # About page
@@ -104,6 +108,10 @@ This will:
 │   │   └── RSS.xml.js        # RSS feed generator
 │   ├── styles/
 │   │   └── global.CSS        # Global styles
+│   ├── types/                # TypeScript type definitions
+│   │   └── index.ts          # Shared type definitions
+│   ├── utils/                # Utility functions
+│   │   └── archive-utils.ts  # Monthly archive utilities
 │   ├── consts.ts             # Site configuration constants
 │   └── content.config.ts     # Content schema definition
 ├── scripts/
@@ -124,38 +132,43 @@ This will:
 ### Shared Components
 
 #### Layout Components (`shared/layout/`)
-- **`BaseHead.astro`**: Common HTML head elements including meta tags, SEO, and analytics
-- **`Header.astro`**: Site navigation with active page detection
-- **`Footer.astro`**: Site footer with social links
+
+- **`BaseHead.Astro`**: Common HTML head elements including meta tags, SEO, and analytics
+- **`Header.Astro`**: Site navigation with active page detection
+- **`Footer.Astro`**: Site footer with social links
 
 #### UI Components (`shared/ui/`)
-- **`Analytics.astro`**: Google Analytics integration
-- **`FormattedDate.astro`**: Consistent date formatting across the site
-- **`HeroSection.astro`**: Homepage hero section with avatar and links
-- **`PageHeader.astro`**: Page headers with icons and descriptions
+
+- **`Analytics.Astro`**: Google Analytics integration
+- **`FormattedDate.Astro`**: Consistent date formatting across the site
+- **`HeroSection.Astro`**: Homepage hero section with avatar and links
+- **`PageHeader.Astro`**: Page headers with icons and descriptions
 
 ### Blog Components
 
 #### Content Components (`blog/content/`)
-- **`PostCard.astro`**: Blog post preview cards
-- **`PostsGrid.astro`**: Grid layout for post listings
-- **`RelatedPosts.astro`**: Related posts display based on tags and date proximity
+
+- **`PostCard.Astro`**: Blog post preview cards
+- **`PostsGrid.Astro`**: Grid layout for post listings
+- **`RelatedPosts.Astro`**: Related posts display based on tags and date proximity
 
 #### Navigation Components (`blog/navigation/`)
-- **`Sidebar.astro`**: Blog sidebar with GitHub activity and tag cloud
-- **`TableOfContents.astro`**: Dynamic table of contents with scroll tracking
+
+- **`Sidebar.Astro`**: Blog sidebar with monthly archives, GitHub activity, and tag cloud
+- **`TableOfContents.Astro`**: Dynamic table of contents with scroll tracking
 
 ### Integration Components (`integrations/`)
-- **`ShareButtons.astro`**: Social media sharing (Twitter/X, Facebook, LinkedIn, Hatena, Pocket)
-- **`GitHubIcon.astro`**: GitHub icon SVG component
-- **`GitHubActivity.astro`**: GitHub activity dashboard
-- **`GitHubActiveRepos.astro`**: Active repositories list
-- **`GitHubRecentCommits.astro`**: Recent commits display
+
+- **`ShareButtons.Astro`**: Social media sharing (Twitter/X, Facebook, LinkedIn, Hatena, Pocket)
+- **`GitHubIcon.Astro`**: GitHub icon SVG component
+- **`GitHubActivity.Astro`**: GitHub activity dashboard
+- **`GitHubActiveRepos.Astro`**: Active repositories list
+- **`GitHubRecentCommits.Astro`**: Recent commits display
 
 ### Layouts
 
-- **`BaseLayout.astro`**: Common page structure with header and footer
-- **`BlogPost.astro`**: Blog post layout with metadata, content, and share buttons
+- **`BaseLayout.Astro`**: Common page structure with header and footer
+- **`BlogPost.Astro`**: Blog post layout with metadata, content, and share buttons
 
 ## Content Management
 
@@ -212,6 +225,7 @@ tests/
 │   ├── HeaderLink.test.ts
 │   └── ShareButtons.test.ts
 ├── unit/                 # Unit tests
+│   ├── archive-utils.test.ts  # Archive utility tests
 │   ├── consts.test.ts
 │   ├── content.config.test.ts
 │   ├── pages.test.ts

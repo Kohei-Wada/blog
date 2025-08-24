@@ -1,4 +1,14 @@
 // 共通の型定義
+import type { CollectionEntry } from 'astro:content';
+
+export interface ArchiveMonth {
+  year: number;
+  month: number;
+  posts: CollectionEntry<'blog'>[];
+  count: number;
+  label: string;
+  slug: string;
+}
 
 export interface MarkdownHeading {
   depth: number;
