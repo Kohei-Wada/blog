@@ -1,9 +1,9 @@
 ---
 import BaseLayout from './BaseLayout.astro';
-import FormattedDate from '../components/FormattedDate.astro';
-import ShareButtons from '../components/ShareButtons.astro';
-import TableOfContents from '../components/TableOfContents.astro';
-import RelatedPosts from '../components/RelatedPosts.astro';
+import FormattedDate from '../components/shared/ui/FormattedDate.astro';
+import ShareButtons from '../components/integrations/ShareButtons.astro';
+import TableOfContents from '../components/blog/navigation/TableOfContents.astro';
+import RelatedPosts from '../components/blog/content/RelatedPosts.astro';
 import { Image } from 'astro:assets';
 import type { CollectionEntry } from 'astro:content';
 
@@ -137,4 +137,4 @@ const currentUrl = new URL(Astro.url.pathname, Astro.site).toString();
 </BaseLayout>
 
 <!-- Code copy functionality for blog posts only -->
-<script src="/copy-code.js" defer></script>
+<script src="/copy-code.js" is:inline defer></script>

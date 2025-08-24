@@ -1,7 +1,7 @@
 ---
 // Import the global.css file here so that it is included on
 // all pages through the use of the <BaseHead /> component.
-import '../styles/global.css';
+import '../../../styles/global.css';
 import {
   SITE_TITLE,
   SITE_DESCRIPTION,
@@ -12,17 +12,17 @@ import {
   AUTHOR_IMAGE_URL,
   AUTHOR_JOB_TITLE,
   AUTHOR_BIO,
-} from '../consts';
-import FallbackImage from '../assets/blog-placeholder-1.jpg';
+} from '../../../consts';
+import FallbackImage from '../../../assets/blog-placeholder-1.jpg';
 import type { ImageMetadata } from 'astro';
-import Analytics from '../components/Analytics.astro';
+import Analytics from '../ui/Analytics.astro';
 import {
   generateBlogPostingSchema,
   generateWebSiteSchema,
   generateOrganizationSchema,
   generatePersonSchema,
   combineSchemas,
-} from '../utils/jsonld';
+} from '../../../utils/jsonld';
 
 interface Props {
   title: string;
@@ -156,4 +156,4 @@ if (isArticle && publishedTime) {
 <Analytics />
 
 <!-- Structured Data (JSON-LD) -->
-<script type="application/ld+json" set:html={JSON.stringify(jsonLdData)} />
+<script type="application/ld+json" is:inline set:html={JSON.stringify(jsonLdData)} />

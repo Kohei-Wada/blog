@@ -65,13 +65,30 @@ This will:
 ├── src/
 │   ├── assets/               # Blog images and assets
 │   ├── components/           # Reusable Astro components
-│   │   ├── Analytics.Astro   # Google Analytics
-│   │   ├── BaseHead.Astro    # HTML head with meta tags
-│   │   ├── Footer.Astro      # Site footer
-│   │   ├── FormattedDate.Astro # Date formatting component
-│   │   ├── Header.Astro      # Site navigation
-│   │   ├── HeaderLink.Astro  # Navigation link with active state
-│   │   └── ShareButtons.Astro # Social media share buttons
+│   │   ├── shared/           # Shared components
+│   │   │   ├── layout/       # Layout components
+│   │   │   │   ├── BaseHead.astro   # HTML head with meta tags
+│   │   │   │   ├── Header.astro     # Site navigation
+│   │   │   │   └── Footer.astro     # Site footer
+│   │   │   └── ui/           # UI components
+│   │   │       ├── Analytics.astro      # Google Analytics
+│   │   │       ├── FormattedDate.astro  # Date formatting component
+│   │   │       ├── HeroSection.astro    # Homepage hero section
+│   │   │       └── PageHeader.astro     # Page headers with icons
+│   │   ├── blog/             # Blog-specific components
+│   │   │   ├── content/      # Blog content components
+│   │   │   │   ├── PostCard.astro    # Blog post preview card
+│   │   │   │   ├── PostsGrid.astro   # Grid layout for posts
+│   │   │   │   └── RelatedPosts.astro # Related posts display
+│   │   │   └── navigation/   # Blog navigation components
+│   │   │       ├── Sidebar.astro     # Blog sidebar with tags
+│   │   │       └── TableOfContents.astro # Dynamic TOC
+│   │   └── integrations/     # External service integrations
+│   │       ├── ShareButtons.astro    # Social media share buttons
+│   │       ├── GitHubIcon.astro      # GitHub icon component
+│   │       ├── GitHubActivity.astro  # GitHub activity display
+│   │       ├── GitHubActiveRepos.astro # Active repos
+│   │       └── GitHubRecentCommits.astro # Recent commits
 │   ├── content/              # Content collections
 │   │   ├── blog/             # Blog post markdown files
 │   │   └── blog-template.md  # Template for new posts
@@ -104,22 +121,41 @@ This will:
 
 ## Components Overview
 
-### Core Components
+### Shared Components
 
-- **`BaseHead.Astro`**: Common HTML head elements including meta tags, SEO, and analytics
-- **`Header.Astro`**: Site navigation with active page detection
-- **`Footer.Astro`**: Site footer with social links
-- **`FormattedDate.Astro`**: Consistent date formatting across the site
+#### Layout Components (`shared/layout/`)
+- **`BaseHead.astro`**: Common HTML head elements including meta tags, SEO, and analytics
+- **`Header.astro`**: Site navigation with active page detection
+- **`Footer.astro`**: Site footer with social links
 
-### Blog-Specific Components
+#### UI Components (`shared/ui/`)
+- **`Analytics.astro`**: Google Analytics integration
+- **`FormattedDate.astro`**: Consistent date formatting across the site
+- **`HeroSection.astro`**: Homepage hero section with avatar and links
+- **`PageHeader.astro`**: Page headers with icons and descriptions
 
-- **`ShareButtons.Astro`**: Social media sharing (Twitter/X, Facebook, LinkedIn, Hatena, Pocket)
-- **`HeaderLink.Astro`**: Navigation links with active state styling
+### Blog Components
+
+#### Content Components (`blog/content/`)
+- **`PostCard.astro`**: Blog post preview cards
+- **`PostsGrid.astro`**: Grid layout for post listings
+- **`RelatedPosts.astro`**: Related posts display based on tags and date proximity
+
+#### Navigation Components (`blog/navigation/`)
+- **`Sidebar.astro`**: Blog sidebar with GitHub activity and tag cloud
+- **`TableOfContents.astro`**: Dynamic table of contents with scroll tracking
+
+### Integration Components (`integrations/`)
+- **`ShareButtons.astro`**: Social media sharing (Twitter/X, Facebook, LinkedIn, Hatena, Pocket)
+- **`GitHubIcon.astro`**: GitHub icon SVG component
+- **`GitHubActivity.astro`**: GitHub activity dashboard
+- **`GitHubActiveRepos.astro`**: Active repositories list
+- **`GitHubRecentCommits.astro`**: Recent commits display
 
 ### Layouts
 
-- **`BaseLayout.Astro`**: Common page structure with header and footer
-- **`BlogPost.Astro`**: Blog post layout with metadata, content, and share buttons
+- **`BaseLayout.astro`**: Common page structure with header and footer
+- **`BlogPost.astro`**: Blog post layout with metadata, content, and share buttons
 
 ## Content Management
 
