@@ -99,7 +99,7 @@ export function parseArchiveSlug(slug: string): { year: number; month: number } 
   const year = parseInt(match[1]);
   const month = parseInt(match[2]);
 
-  if (month < 1 || month > 12) {
+  if (isNaN(year) || year < 1900 || year > 2100 || month < 1 || month > 12) {
     return null;
   }
 

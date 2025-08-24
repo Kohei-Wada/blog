@@ -5,6 +5,7 @@ import {
   formatArchiveLabel,
   generateArchiveSlug,
   getRecentArchiveMonths,
+  parseArchiveSlug,
 } from '../../src/utils/archive-utils';
 
 // モックデータの作成
@@ -132,6 +133,34 @@ describe('archive-utils', () => {
     it('should zero-pad single digit months', () => {
       expect(generateArchiveSlug(2025, 1)).toBe('2025-01');
       expect(generateArchiveSlug(2025, 9)).toBe('2025-09');
+    });
+  });
+
+  describe('parseArchiveSlug', () => {
+    it('should parse valid year-month slugs', () => {
+      expect(parseArchiveSlug('2025-08')).toEqual({ year: 2025, month: 8 });
+      expect(parseArchiveSlug('2024-12')).toEqual({ year: 2024, month: 12 });
+      expect(parseArchiveSlug('2000-01')).toEqual({ year: 2000, month: 1 });
+    });
+
+    it('should return null for invalid formats', () => {
+      expect(parseArchiveSlug('2025-8')).toBeNull(); // 月が0埋めされていない
+      expect(parseArchiveSlug('25-08')).toBeNull(); // 年が4桁でない
+      expect(parseArchiveSlug('2025/08')).toBeNull(); // 区切り文字が違う
+      expect(parseArchiveSlug('invalid')).toBeNull(); // 完全に無効
+      expect(parseArchiveSlug('')).toBeNull(); // 空文字
+    });
+
+    it('should return null for invalid years', () => {
+      expect(parseArchiveSlug('1899-08')).toBeNull(); // 1900年未満
+      expect(parseArchiveSlug('2101-08')).toBeNull(); // 2100年超過
+      expect(parseArchiveSlug('abcd-08')).toBeNull(); // 年が数値でない
+    });
+
+    it('should return null for invalid months', () => {
+      expect(parseArchiveSlug('2025-00')).toBeNull(); // 月が0
+      expect(parseArchiveSlug('2025-13')).toBeNull(); // 月が13
+      expect(parseArchiveSlug('2025-ab')).toBeNull(); // 月が数値でない
     });
   });
 
