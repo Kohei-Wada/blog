@@ -1,0 +1,59 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import PostsGrid from './PostsGrid.astro';
+
+export interface Props {
+  posts: CollectionEntry<'blog'>[];
+  currentTags?: string[];
+}
+
+const { posts, currentTags = [] } = Astro.props;
+---
+
+{
+  posts.length > 0 && (
+    <section class="related-posts">
+      <h2>関連記事</h2>
+      <PostsGrid posts={posts} currentTag={currentTags[0]} />
+    </section>
+  )
+}
+
+<style>
+  .related-posts {
+    margin-top: 4rem;
+    padding-top: 2rem;
+    border-top: 2px solid var(--color-border);
+  }
+
+  .related-posts h2 {
+    margin-bottom: 1.5rem;
+    font-size: 1.5rem;
+    color: var(--color-text);
+  }
+
+  /* モバイル対応 */
+  @media (max-width: 768px) {
+    .related-posts {
+      margin-top: 3rem;
+      padding-top: 1.5rem;
+    }
+
+    .related-posts h2 {
+      font-size: 1.3rem;
+      margin-bottom: 1.25rem;
+    }
+  }
+
+  /* 小型モバイル対応 */
+  @media (max-width: 480px) {
+    .related-posts {
+      margin-top: 2.5rem;
+    }
+
+    .related-posts h2 {
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+    }
+  }
+</style>

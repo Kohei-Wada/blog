@@ -3,7 +3,9 @@ import BaseLayout from './BaseLayout.astro';
 import FormattedDate from '../components/FormattedDate.astro';
 import ShareButtons from '../components/ShareButtons.astro';
 import TableOfContents from '../components/TableOfContents.astro';
+import RelatedPosts from '../components/RelatedPosts.astro';
 import { Image } from 'astro:assets';
+import type { CollectionEntry } from 'astro:content';
 
 interface Props {
   title: string;
@@ -13,6 +15,7 @@ interface Props {
   heroImage?: any;
   tags?: string[];
   headings?: import('../types/index.js').MarkdownHeading[];
+  relatedPosts?: CollectionEntry<'blog'>[];
 }
 
 const {
@@ -23,6 +26,7 @@ const {
   heroImage,
   tags = [],
   headings = [],
+  relatedPosts = [],
 } = Astro.props;
 
 // 現在のページのURLを取得
@@ -126,6 +130,7 @@ const currentUrl = new URL(Astro.url.pathname, Astro.site).toString();
 
         <slot />
         <ShareButtons title={title} description={description} url={currentUrl} />
+        <RelatedPosts posts={relatedPosts} currentTags={tags} />
       </div>
     </article>
   </div>
