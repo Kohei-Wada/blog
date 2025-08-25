@@ -5,7 +5,7 @@ describe('getRandomHeroImage', () => {
   test('should return an image object', () => {
     const result = getRandomHeroImage('test-post-id');
     expect(result).toBeDefined();
-    // テスト環境では画像が文字列として扱われる場合がある
+    // Images may be treated as strings in test environment
     expect(typeof result === 'object' || typeof result === 'string').toBe(true);
   });
 
@@ -29,8 +29,8 @@ describe('getRandomHeroImage', () => {
     const results = [result1, result2, result3, result4, result5, result6, result7];
     const uniqueResults = new Set(results);
 
-    // 7つの異なるpostIdに対して、少なくとも2つの異なる画像が返されることを確認
-    // （完全に異なるとは限らないが、ハッシュ関数により分散されるはず）
+    // Verify that at least two different images are returned for seven different postIds
+    // (They may not be completely different, but should be distributed by the hash function)
     expect(uniqueResults.size).toBeGreaterThan(1);
   });
 

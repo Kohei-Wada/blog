@@ -6,19 +6,19 @@ import placeholder5 from '../assets/hero-images/blog-placeholder-5.jpg';
 const placeholderImages = [placeholder2, placeholder3, placeholder4, placeholder5];
 
 /**
- * 記事IDに基づいてランダムなヒーロー画像を選択する
- * 同じ記事IDに対しては常に同じ画像を返す
+ * Select a random hero image based on post ID
+ * Always returns the same image for the same post ID
  */
 export function getRandomHeroImage(postId: string) {
-  // 記事IDから一意性のあるハッシュ値を生成
+  // Generate a unique hash value from post ID
   let hash = 0;
   for (let i = 0; i < postId.length; i++) {
     const char = postId.charCodeAt(i);
     hash = (hash << 5) - hash + char;
-    hash = hash | 0; // 32bit整数に変換
+    hash = hash | 0; // Convert to 32-bit integer
   }
 
-  // 絶対値を取って配列のインデックスとして使用
+  // Use absolute value as array index
   const index = Math.abs(hash) % placeholderImages.length;
   return placeholderImages[index];
 }

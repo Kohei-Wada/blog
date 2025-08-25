@@ -1,11 +1,11 @@
 import { describe, test, expect } from 'vitest';
 import { getRandomHeroImage } from '../../src/utils/random-hero-image';
 
-describe('getRandomHeroImage - 詳細テスト', () => {
-  // 使用可能な画像が4つあることを前提
+describe('getRandomHeroImage - Detailed Tests', () => {
+  // Assumes there are 4 available images
   const TOTAL_IMAGES = 4;
 
-  test('異なるpostIdで適切に分散されているか', () => {
+  test('should distribute properly across different postIds', () => {
     const postIds = [
       'first-post',
       'bread-compression-calorie-reduction',
@@ -31,16 +31,16 @@ describe('getRandomHeroImage - 詳細テスト', () => {
     const imageResults = postIds.map(id => getRandomHeroImage(id));
     const uniqueImages = new Set(imageResults);
 
-    // 20個の異なるpostIdで、少なくとも3つ（75%）の異なる画像が選ばれることを確認
+    // Verify at least 3 different images (75%) are selected for 20 different postIds
     expect(uniqueImages.size).toBeGreaterThanOrEqual(3);
 
-    // すべての結果が有効な画像であることを確認
+    // Verify all results are valid images
     imageResults.forEach(image => {
       expect(image).toBeDefined();
     });
   });
 
-  test('実際のブログ記事IDでの選択結果', () => {
+  test('should select images for actual blog post IDs', () => {
     const actualPostIds = [
       'first-post',
       'bread-compression-calorie-reduction',
@@ -54,11 +54,11 @@ describe('getRandomHeroImage - 詳細テスト', () => {
       const image = getRandomHeroImage(postId);
       results[postId] = image;
 
-      // 各記事に対して画像が選択されていることを確認
+      // Verify image is selected for each post
       expect(image).toBeDefined();
     });
 
-    // 少なくとも2つの異なる画像が選択されることを確認
+    // Verify at least 2 different images are selected
     const uniqueActualImages = new Set(Object.values(results));
     expect(uniqueActualImages.size).toBeGreaterThanOrEqual(2);
   });

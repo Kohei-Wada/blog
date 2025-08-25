@@ -10,7 +10,7 @@ export interface Props {
 
 const { post, currentTag } = Astro.props;
 
-// heroImageが未指定の場合はランダム画像を使用
+// Use random image when heroImage is unspecified
 const heroImage = post.data.heroImage || getRandomHeroImage(post.id);
 ---
 
