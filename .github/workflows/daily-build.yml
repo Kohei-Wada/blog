@@ -12,13 +12,14 @@ env:
 jobs:
   test:
     name: 🧪 Run Tests
+    if: github.ref == 'refs/heads/main' # Only run on main branch
     uses: ./.github/workflows/test.yml # Reuse existing test workflow
 
   deploy:
     name: 🚀 Trigger Netlify Build
     needs: test # Only run if tests pass
     runs-on: ubuntu-latest
-    if: success() # Explicitly require success
+    if: success() && github.ref == 'refs/heads/main' # Explicitly require success and main branch
 
     steps:
       - name: 🔔 Trigger Netlify build hook
