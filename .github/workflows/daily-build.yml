@@ -1,0 +1,51 @@
+name: 🏗️ Daily Build & Deploy
+
+on:
+  schedule:
+    # Run at 00:00 JST (15:00 UTC) every day
+    - cron: '0 15 * * *'
+  workflow_dispatch: # Allow manual trigger
+
+env:
+  URL: ${{ secrets.NETLIFY_BUILD_HOOK_URL }}
+
+jobs:
+  test:
+    name: 🧪 Run Tests
+    if: github.ref == 'refs/heads/main' # Only run on main branch
+    uses: ./.github/workflows/test.yml # Reuse existing test workflow
+
+  deploy:
+    name: 🚀 Trigger Netlify Build
+    needs: test # Only run if tests pass
+    runs-on: ubuntu-latest
+    if: success() && github.ref == 'refs/heads/main' # Explicitly require success and main branch
+
+    steps:
+      - name: 🔔 Trigger Netlify build hook
+        run: |
+          # Trigger Netlify build with retry mechanism
+          MAX_RETRIES=3
+          RETRY_COUNT=0
+
+          while [ $RETRY_COUNT -lt $MAX_RETRIES ]; do
+            echo "Attempt $((RETRY_COUNT + 1)) of $MAX_RETRIES"
+
+            if curl --fail --silent --show-error \
+                    --request POST \
+                    --header "Content-Type: application/json" \
+                    --data '{}' \
+                    "$URL"; then
+              echo "✅ Successfully triggered Netlify build"
+              exit 0
+            else
+              RETRY_COUNT=$((RETRY_COUNT + 1))
+              if [ $RETRY_COUNT -lt $MAX_RETRIES ]; then
+                echo "⚠️ Build trigger failed, retrying in 10 seconds..."
+                sleep 10
+              fi
+            fi
+          done
+
+          echo "❌ Failed to trigger build after $MAX_RETRIES attempts"
+          exit 1
