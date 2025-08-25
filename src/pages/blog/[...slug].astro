@@ -3,6 +3,7 @@ import { type CollectionEntry, getCollection } from 'astro:content';
 import BlogPost from '../../layouts/BlogPost.astro';
 import { render } from 'astro:content';
 import { getRelatedPosts } from '../../utils/related-posts';
+import { getRandomHeroImage } from '../../utils/random-hero-image';
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog');
@@ -16,11 +17,14 @@ type Props = CollectionEntry<'blog'>;
 const post = Astro.props;
 const { Content, headings } = await render(post);
 
-// 関連記事を取得
+// Use random image when heroImage is unspecified
+const heroImage = post.data.heroImage || getRandomHeroImage(post.id);
+
+// Get related posts
 const allPosts = await getCollection('blog');
 const relatedPosts = getRelatedPosts(post, allPosts, 3);
 ---
 
-<BlogPost {...post.data} headings={headings} relatedPosts={relatedPosts}>
+<BlogPost {...post.data} heroImage={heroImage} headings={headings} relatedPosts={relatedPosts}>
   <Content />
 </BlogPost>

@@ -4,7 +4,6 @@ description: 'HaskellをUnixパイプラインに持ち込む'
 pubDate: 'Aug 10 2025'
 updatedDate: 'Aug 10 2025'
 tags: ['Haskell', 'ghci', 'shell芸']
-heroImage: '../../assets/blog-placeholder-2.jpg'
 featured: true
 ---
 

@@ -4,7 +4,6 @@ description: 'このブログを作った目的を忘れないために書きま
 pubDate: '2025-08-11'
 updatedDate: '2025-08-11'
 tags: ['blog', 'astro', 'frontend']
-heroImage: '../../assets/blog-placeholder-3.jpg'
 ---
 
 ## 導入
