@@ -1,5 +1,5 @@
 import type { GitHubEvent, GitHubRepo } from '../types/index.js';
-import { GITHUB_API_ENDPOINTS, GITHUB_API_PARAMS } from '../constants/api.js';
+import GitHubCacheManager from './github-cache-manager.js';
 
 // 開発環境用のモックデータ
 function getMockData() {
@@ -70,7 +70,7 @@ function getMockData() {
   return { events: mockEvents, repos: mockRepos };
 }
 
-// GitHub APIからデータ取得
+// GitHub APIからデータ取得（キャッシュ機能付き）
 export async function fetchGitHubData() {
   // 開発環境でGitHub APIを無効化
   if (import.meta.env.PUBLIC_DISABLE_GITHUB_API === 'true') {
@@ -78,50 +78,9 @@ export async function fetchGitHubData() {
     return getMockData();
   }
 
-  try {
-    // 最近のイベント取得
-    const eventsResponse = await globalThis.fetch(
-      `${GITHUB_API_ENDPOINTS.EVENTS}?per_page=${GITHUB_API_PARAMS.EVENTS_PER_PAGE}`
-    );
-
-    if (!eventsResponse.ok) {
-      // レート制限の場合は警告レベルでログ出力
-      if (eventsResponse.status === 403) {
-        console.warn(`GitHub API rate limit exceeded. Status: ${eventsResponse.status}`);
-      } else {
-        console.error(`Events API error: ${eventsResponse.status} ${eventsResponse.statusText}`);
-      }
-      return { events: [], repos: [] };
-    }
-
-    const events: GitHubEvent[] = await eventsResponse.json();
-
-    // 最近更新されたリポジトリ取得
-    const reposResponse = await globalThis.fetch(
-      `${GITHUB_API_ENDPOINTS.REPOS}?sort=${GITHUB_API_PARAMS.REPOS_SORT}&per_page=${GITHUB_API_PARAMS.REPOS_PER_PAGE}`
-    );
-
-    if (!reposResponse.ok) {
-      // レート制限の場合は警告レベルでログ出力
-      if (reposResponse.status === 403) {
-        console.warn(`GitHub API rate limit exceeded. Status: ${reposResponse.status}`);
-      } else {
-        console.error(`Repos API error: ${reposResponse.status} ${reposResponse.statusText}`);
-      }
-      return { events, repos: [] };
-    }
-
-    const repos: GitHubRepo[] = await reposResponse.json();
-
-    return { events, repos };
-  } catch (error) {
-    // ネットワークエラーやJSONパースエラーなど
-    console.warn(
-      'GitHub API unavailable:',
-      error instanceof Error ? error.message : 'Unknown error'
-    );
-    return { events: [], repos: [] };
-  }
+  // プロダクション環境ではキャッシュマネージャーを使用
+  const cacheManager = GitHubCacheManager.getInstance();
+  return await cacheManager.getOrFetch();
 }
 
 // 日付フォーマット
