@@ -80,7 +80,7 @@ This is a personal blog built with Astro, a modern static site generator. The si
 - Automated testing on Node.js 18 & 20
 - Quality checks: typecheck → lint → test → build
 - Automatic PR validation and deployment previews
-- Additional workflows: gitleaks security scan, pre-commit auto-update
+- Additional workflows: gitleaks security scan, pre-commit auto-update, daily Netlify deploy
 
 ## Architecture
 
@@ -114,7 +114,7 @@ src/components/
 │       ├── FormattedDate.Astro  # Consistent date formatting
 │       ├── HeroSection.Astro    # Homepage hero banner
 │       ├── PageHeader.Astro     # Page title headers
-│       ├── ThemeToggle.Astro    # Dark/light theme switch
+│       ├── ThemeToggle.Astro     # Dark/light theme switch
 │       └── Analytics.Astro      # Analytics tracking
 ├── blog/
 │   ├── content/             # Blog content components
@@ -150,6 +150,9 @@ src/pages/
 ├── blog/
 │   ├── index.Astro     # Blog listing page
 │   └── [...slug].Astro # Dynamic blog post routes
+├── archives/           # Monthly archive pages
+│   ├── index.Astro     # Archive listing
+│   └── [yearmonth].Astro # Posts by year/month
 └── tags/
     ├── index.Astro     # All tags listing
     └── [tag].Astro     # Posts filtered by tag
@@ -170,6 +173,7 @@ src/pages/
 3. **Static Generation**: All routes pre-rendered to HTML
 4. **Sitemap Generation**: Automatic sitemap.xml creation
 5. **Deployment**: Netlify CI/CD on push to main branch
+6. **Daily Build**: Scheduled build at 00:00 JST via GitHub Actions
 
 ## Site Configuration
 
@@ -206,6 +210,7 @@ tags: ['tag1', 'tag2'] # Array for categorization
 ```yaml
 updatedDate: '2024-01-02' # Shows "Updated on" if present
 heroImage: '../../assets/image.jpg' # Relative path from content file
+featured: true # Highlight as featured post
 ```
 
 ### Content Features
@@ -214,23 +219,27 @@ heroImage: '../../assets/image.jpg' # Relative path from content file
 - **Syntax Highlighting**: Rehype Pretty Code with GitHub Dark theme
 - **Table of Contents**: Auto-generated from h2/h3 headings
 - **Image Optimization**: Automatic processing with Sharp
+- **Related Posts**: Auto-suggested based on tags and date proximity
 
 ## CI/CD & Quality Gates
 
-### GitHub Actions Workflow
+### GitHub Actions Workflows
 
 - **Test Matrix**: Node.js 18 & 20 on Ubuntu
 - **Quality Pipeline**: typecheck → lint → test → build
+- **Daily Netlify Deploy**: Scheduled build at 00:00 JST with test validation
 - **Additional Workflows**:
   - Gitleaks for security scanning
   - Pre-commit hooks auto-update
   - Automatic PR validation
 
-### Pre-commit Hooks (Husky + lint-staged)
+### Pre-commit Hooks (via .pre-commit-config.YAML)
 
-- **JS/TS/Astro files**: ESLint fix → Prettier format
-- **Markdown files**: Markdownlint fix → Prettier format
-- Runs automatically before each commit
+- **Code Quality**: trailing-whitespace, end-of-file-fixer, check-JSON
+- **Security**: gitleaks for secret detection
+- **Linting**: yamllint, actionlint for GitHub Actions
+- **Lint-staged**: ESLint fix → Prettier format for JS/TS/Astro/MD files
+- **Quality Checks**: typecheck, test:run, build verification
 
 ## Important Notes
 
@@ -239,3 +248,4 @@ heroImage: '../../assets/image.jpg' # Relative path from content file
 - **Component Tests**: Focus on logic testing, not rendering (no DOM mounting)
 - **Mock Data**: Use `PUBLIC_DISABLE_GITHUB_API=true` in development to avoid rate limits
 - **Deployment**: Automatic to Netlify on push to main branch
+- **Daily Build**: Automatic rebuild at 00:00 JST to refresh GitHub activity data

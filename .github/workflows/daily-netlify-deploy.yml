@@ -24,6 +24,16 @@ jobs:
     steps:
       - name: 🔔 Trigger Netlify build hook
         run: |
+          # Check if the URL is configured
+          if [ -z "$URL" ]; then
+            echo "❌ Error: NETLIFY_BUILD_HOOK_URL secret is not configured"
+            echo "Please add the Netlify build hook URL to your repository secrets:"
+            echo "1. Go to Settings → Secrets and variables → Actions"
+            echo "2. Add a new secret named NETLIFY_BUILD_HOOK_URL"
+            echo "3. Get the webhook URL from Netlify: Site settings → Build & deploy → Build hooks"
+            exit 1
+          fi
+
           # Trigger Netlify build with retry mechanism
           MAX_RETRIES=3
           RETRY_COUNT=0
