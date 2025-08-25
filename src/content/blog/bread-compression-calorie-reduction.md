@@ -4,7 +4,6 @@ description: 'パンの圧縮による正味カロリー低減の可能性'
 pubDate: '2025-08-16'
 updatedDate: '2025-08-16'
 tags: ['ネタ記事', 'idea']
-heroImage: '../../assets/blog-placeholder-3.jpg'
 ---
 
 ## はじめに

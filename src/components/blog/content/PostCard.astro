@@ -1,6 +1,7 @@
 ---
 import FormattedDate from '../../shared/ui/FormattedDate.astro';
 import { Image } from 'astro:assets';
+import { getRandomHeroImage } from '../../../utils/random-hero-image';
 
 export interface Props {
   post: any;
@@ -8,21 +9,14 @@ export interface Props {
 }
 
 const { post, currentTag } = Astro.props;
+
+// heroImageが未指定の場合はランダム画像を使用
+const heroImage = post.data.heroImage || getRandomHeroImage(post.id);
 ---
 
 <article class="post-card">
   <a href={`/blog/${post.id}/`}>
-    {
-      post.data.heroImage && (
-        <Image
-          src={post.data.heroImage}
-          alt={post.data.title}
-          width={400}
-          height={200}
-          class="post-image"
-        />
-      )
-    }
+    <Image src={heroImage} alt={post.data.title} width={400} height={200} class="post-image" />
     <div class="post-content">
       <div class="post-meta">
         <FormattedDate date={post.data.pubDate} />
