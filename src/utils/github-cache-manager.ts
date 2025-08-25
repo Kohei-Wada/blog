@@ -37,24 +37,32 @@ class GitHubCacheManager {
     // キャッシュがある場合は即座に返す
     if (this.cachedData) {
       this.cacheHits++;
-      console.log(`📦 GitHub API cache hit (${this.cacheHits})`);
+      if (process.env.NODE_ENV !== 'production') {
+        console.log(`📦 GitHub API cache hit (${this.cacheHits})`);
+      }
       return this.cachedData;
     }
 
     // 既にfetch中の場合は同じPromiseを返す（重複API呼び出し防止）
     if (this.fetchPromise) {
-      console.log('⏳ GitHub API fetch in progress, waiting...');
+      if (process.env.NODE_ENV !== 'production') {
+        console.log('⏳ GitHub API fetch in progress, waiting...');
+      }
       return this.fetchPromise;
     }
 
     // 初回API呼び出し
-    console.log('🌐 GitHub API first fetch - will be cached for subsequent requests');
+    if (process.env.NODE_ENV !== 'production') {
+      console.log('🌐 GitHub API first fetch - will be cached for subsequent requests');
+    }
     this.fetchPromise = this.fetchFromAPI();
 
     try {
       this.cachedData = await this.fetchPromise;
       this.fetchCount++;
-      console.log(`✅ GitHub API fetched and cached (fetch #${this.fetchCount})`);
+      if (process.env.NODE_ENV !== 'production') {
+        console.log(`✅ GitHub API fetched and cached (fetch #${this.fetchCount})`);
+      }
       return this.cachedData;
     } catch (error) {
       // エラーの場合はPromiseをリセットして次回再試行可能にする
@@ -76,9 +84,9 @@ class GitHubCacheManager {
       if (!eventsResponse.ok) {
         // レート制限の場合は警告レベルでログ出力
         if (eventsResponse.status === 403) {
-          console.warn(`GitHub API rate limit exceeded. Status: ${eventsResponse.status}`);
+          console.warn('GitHub API rate limit exceeded');
         } else {
-          console.error(`Events API error: ${eventsResponse.status} ${eventsResponse.statusText}`);
+          console.error(`Events API error: HTTP ${eventsResponse.status}`);
         }
         return { events: [], repos: [] };
       }
@@ -93,9 +101,9 @@ class GitHubCacheManager {
       if (!reposResponse.ok) {
         // レート制限の場合は警告レベルでログ出力
         if (reposResponse.status === 403) {
-          console.warn(`GitHub API rate limit exceeded. Status: ${reposResponse.status}`);
+          console.warn('GitHub API rate limit exceeded');
         } else {
-          console.error(`Repos API error: ${reposResponse.status} ${reposResponse.statusText}`);
+          console.error(`Repos API error: HTTP ${reposResponse.status}`);
         }
         return { events, repos: [] };
       }

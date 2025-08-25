@@ -25,7 +25,6 @@ export function logGitHubApiStats() {
   if (stats.fetchCount > 0 && stats.cacheHits > 0) {
     const savedCalls = stats.cacheHits;
     console.log(`✅ API calls saved by caching: ${savedCalls}`);
-    console.log(`⚡ Performance improvement: ~${savedCalls * 100}ms saved`);
   }
 
   console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n');

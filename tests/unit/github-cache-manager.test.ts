@@ -42,6 +42,8 @@ describe('GitHubCacheManager', () => {
     // Clear cache before each test
     GitHubCacheManager.getInstance().clearCache();
     mockFetch.mockClear();
+    // Set NODE_ENV to test to enable debug logging
+    process.env.NODE_ENV = 'test';
   });
 
   afterEach(() => {
