@@ -15,7 +15,7 @@ export function getRandomHeroImage(postId: string) {
   for (let i = 0; i < postId.length; i++) {
     const char = postId.charCodeAt(i);
     hash = (hash << 5) - hash + char;
-    hash = hash & hash; // 32bit整数に変換
+    hash = hash | 0; // 32bit整数に変換
   }
 
   // 絶対値を取って配列のインデックスとして使用

@@ -58,12 +58,6 @@ describe('getRandomHeroImage - 詳細テスト', () => {
       expect(image).toBeDefined();
     });
 
-    // 実際の記事IDでの選択結果をログ出力（デバッグ用）
-    console.log('実際の記事IDでの画像選択結果:');
-    Object.entries(results).forEach(([postId, image]) => {
-      console.log(`  ${postId}: ${typeof image === 'string' ? image : 'ImageObject'}`);
-    });
-
     // 少なくとも2つの異なる画像が選択されることを確認
     const uniqueActualImages = new Set(Object.values(results));
     expect(uniqueActualImages.size).toBeGreaterThanOrEqual(2);
@@ -131,12 +125,6 @@ describe('getRandomHeroImage - 詳細テスト', () => {
     results.forEach(image => {
       const key = typeof image === 'string' ? image : image.toString();
       imageCounts[key] = (imageCounts[key] || 0) + 1;
-    });
-
-    console.log('100個のテストIDでの画像選択分布:');
-    Object.entries(imageCounts).forEach(([image, count]) => {
-      const percentage = ((count / 100) * 100).toFixed(1);
-      console.log(`  ${image}: ${count}回 (${percentage}%)`);
     });
 
     // 4つの画像すべてが選択されることを確認
