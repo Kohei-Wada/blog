@@ -2,6 +2,18 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## 📚 Documentation Reference
+
+For detailed information, see the comprehensive documentation in `docs/`:
+
+- **Development workflows**: [docs/development.md](./docs/development.md)
+- **System architecture**: [docs/architecture.md](./docs/architecture.md)
+- **Testing strategies**: [docs/testing.md](./docs/testing.md)
+- **Deployment processes**: [docs/deployment.md](./docs/deployment.md)
+- **Content management**: [docs/content-creation.md](./docs/content-creation.md)
+- **API specifications**: [docs/API-specifications.md](./docs/api-specifications.md)
+- **Troubleshooting**: [docs/troubleshooting.md](./docs/troubleshooting.md)
+
 ## Communication
 
 - 常に日本語で会話する
@@ -240,6 +252,13 @@ featured: true # Highlight as featured post
 - **Linting**: yamllint, actionlint for GitHub Actions
 - **Lint-staged**: ESLint fix → Prettier format for JS/TS/Astro/MD files
 - **Quality Checks**: typecheck, test:run, build verification
+
+## Important Instruction Reminders
+
+Do what has been asked; nothing more, nothing less.
+NEVER create files unless they're absolutely necessary for achieving your goal.
+ALWAYS prefer editing an existing file to creating a new one.
+NEVER proactively create documentation files (\*.md) or README files. Only create documentation files if explicitly requested by the User.
 
 ## Important Notes
 
