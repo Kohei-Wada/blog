@@ -7,8 +7,8 @@ export interface GitHubData {
 }
 
 /**
- * GitHubデータのキャッシュ管理を行うシングルトンクラス
- * ビルド時に複数のページで同じデータが必要な場合、1回のAPI呼び出しで全体をまかなう
+ * Singleton class for managing GitHub data cache
+ * When multiple pages need the same data during build, serves all requests with a single API call
  */
 class GitHubCacheManager {
   private static instance: GitHubCacheManager | null = null;
@@ -20,7 +20,7 @@ class GitHubCacheManager {
   private constructor() {}
 
   /**
-   * シングルトンインスタンスを取得
+   * Get singleton instance
    */
   static getInstance(): GitHubCacheManager {
     if (!GitHubCacheManager.instance) {
@@ -30,11 +30,11 @@ class GitHubCacheManager {
   }
 
   /**
-   * キャッシュからデータを取得、なければAPIから取得
-   * 複数の同時呼び出しでも1回のAPI呼び出しに集約される
+   * Get data from cache, or fetch from API if not cached
+   * Multiple concurrent calls are consolidated into a single API request
    */
   async getOrFetch(): Promise<GitHubData> {
-    // キャッシュがある場合は即座に返す
+    // Return immediately if data is cached
     if (this.cachedData) {
       this.cacheHits++;
       if (process.env.NODE_ENV !== 'production') {
@@ -43,7 +43,7 @@ class GitHubCacheManager {
       return this.cachedData;
     }
 
-    // 既にfetch中の場合は同じPromiseを返す（重複API呼び出し防止）
+    // Return the same Promise if already fetching (prevents duplicate API calls)
     if (this.fetchPromise) {
       if (process.env.NODE_ENV !== 'production') {
         console.log('⏳ GitHub API fetch in progress, waiting...');
@@ -51,7 +51,7 @@ class GitHubCacheManager {
       return this.fetchPromise;
     }
 
-    // 初回API呼び出し
+    // First API call
     if (process.env.NODE_ENV !== 'production') {
       console.log('🌐 GitHub API first fetch - will be cached for subsequent requests');
     }
@@ -65,24 +65,24 @@ class GitHubCacheManager {
       }
       return this.cachedData;
     } catch (error) {
-      // エラーの場合はPromiseをリセットして次回再試行可能にする
+      // Reset Promise on error to allow retry on next call
       this.fetchPromise = null;
       throw error;
     }
   }
 
   /**
-   * GitHub APIから実際にデータを取得
+   * Actually fetch data from GitHub API
    */
   private async fetchFromAPI(): Promise<GitHubData> {
     try {
-      // 最近のイベント取得
+      // Fetch recent events
       const eventsResponse = await globalThis.fetch(
         `${GITHUB_API_ENDPOINTS.EVENTS}?per_page=${GITHUB_API_PARAMS.EVENTS_PER_PAGE}`
       );
 
       if (!eventsResponse.ok) {
-        // レート制限の場合は警告レベルでログ出力
+        // Log warning for rate limiting
         if (eventsResponse.status === 403) {
           console.warn('GitHub API rate limit exceeded');
         } else {
@@ -93,13 +93,13 @@ class GitHubCacheManager {
 
       const events: GitHubEvent[] = await eventsResponse.json();
 
-      // 最近更新されたリポジトリ取得
+      // Fetch recently updated repositories
       const reposResponse = await globalThis.fetch(
         `${GITHUB_API_ENDPOINTS.REPOS}?sort=${GITHUB_API_PARAMS.REPOS_SORT}&per_page=${GITHUB_API_PARAMS.REPOS_PER_PAGE}`
       );
 
       if (!reposResponse.ok) {
-        // レート制限の場合は警告レベルでログ出力
+        // Log warning for rate limiting
         if (reposResponse.status === 403) {
           console.warn('GitHub API rate limit exceeded');
         } else {
@@ -112,7 +112,7 @@ class GitHubCacheManager {
 
       return { events, repos };
     } catch (error) {
-      // ネットワークエラーやJSONパースエラーなど
+      // Network errors, JSON parse errors, etc.
       console.warn(
         'GitHub API unavailable:',
         error instanceof Error ? error.message : 'Unknown error'
@@ -122,7 +122,7 @@ class GitHubCacheManager {
   }
 
   /**
-   * キャッシュ統計を取得（デバッグ用）
+   * Get cache statistics (for debugging)
    */
   getStats() {
     return {
@@ -133,7 +133,7 @@ class GitHubCacheManager {
   }
 
   /**
-   * キャッシュをクリア（テスト用）
+   * Clear cache (for testing)
    */
   clearCache() {
     this.cachedData = null;

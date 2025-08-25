@@ -1,14 +1,14 @@
 import GitHubCacheManager from './github-cache-manager.js';
 
 /**
- * ビルド完了時にGitHub API使用統計を表示
+ * Display GitHub API usage statistics on build completion
  */
 export function logGitHubApiStats() {
   const cacheManager = GitHubCacheManager.getInstance();
   const stats = cacheManager.getStats();
 
   if (stats.fetchCount === 0 && stats.cacheHits === 0) {
-    // API使用なし（モックデータのみ）
+    // No API usage (mock data only)
     return;
   }
 

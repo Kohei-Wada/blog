@@ -6,7 +6,7 @@ import GitHubIcon from './GitHubIcon.astro';
 import GitHubRecentCommits from './GitHubRecentCommits.astro';
 import GitHubActiveRepos from './GitHubActiveRepos.astro';
 
-// データ取得を安全に実行
+// Safely execute data fetching
 let events: GitHubEvent[] = [];
 let repos: GitHubRepo[] = [];
 
@@ -15,18 +15,18 @@ try {
   events = data.events;
   repos = data.repos;
 
-  // ビルド時統計を出力（開発環境以外）
+  // Output build statistics (except in development)
   if (import.meta.env.PUBLIC_DISABLE_GITHUB_API !== 'true') {
-    // グローバルな統計情報をクリーンアップ処理で出力
+    // Output global statistics in cleanup process
     if (typeof globalThis !== 'undefined' && !(globalThis as any)._githubStatsLogged) {
       (globalThis as any)._githubStatsLogged = true;
-      // プロセス終了時に統計を表示
+      // Display statistics on process exit
       process?.on?.('exit', logGitHubApiStats);
     }
   }
 } catch (error) {
   console.error('Critical error in GitHubActivity component:', error);
-  // エラーが発生してもコンポーネント全体がクラッシュしないよう空のデータで継続
+  // Continue with empty data so component doesn't crash on error
 }
 ---
 
@@ -47,7 +47,7 @@ try {
 </section>
 
 <style>
-  /* 既存のサイドバーセクションスタイルを継承 */
+  /* Inherit existing sidebar section styles */
   .github-activity {
     margin-bottom: 2rem;
     padding: 1.5rem;
