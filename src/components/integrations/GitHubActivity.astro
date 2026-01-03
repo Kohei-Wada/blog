@@ -1,5 +1,5 @@
 ---
-import type { GitHubEvent, GitHubRepo } from '../../types/index.js';
+import type { GitHubEvent, GitHubRepo, GlobalThisWithStats } from '../../types/index.js';
 import { fetchGitHubData } from '../../utils/github-api.js';
 import { logGitHubApiStats } from '../../utils/build-stats.js';
 import GitHubIcon from './GitHubIcon.astro';
@@ -18,8 +18,9 @@ try {
   // Output build statistics (except in development)
   if (import.meta.env.PUBLIC_DISABLE_GITHUB_API !== 'true') {
     // Output global statistics in cleanup process
-    if (typeof globalThis !== 'undefined' && !(globalThis as any)._githubStatsLogged) {
-      (globalThis as any)._githubStatsLogged = true;
+    const globalStats = globalThis as unknown as GlobalThisWithStats;
+    if (typeof globalThis !== 'undefined' && !globalStats._githubStatsLogged) {
+      globalStats._githubStatsLogged = true;
       // Display statistics on process exit
       process?.on?.('exit', logGitHubApiStats);
     }

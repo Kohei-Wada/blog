@@ -1,8 +1,9 @@
 ---
 import PostCard from './PostCard.astro';
+import type { CollectionEntry } from 'astro:content';
 
 export interface Props {
-  posts: any[];
+  posts: CollectionEntry<'blog'>[];
   currentTag?: string;
 }
 

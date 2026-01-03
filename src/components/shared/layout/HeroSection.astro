@@ -5,7 +5,7 @@ export interface Props {
   description?: string;
   avatar?: string;
   buttons?: { text: string; href: string; primary?: boolean }[];
-  socialLinks?: { text: string; href: string; icon?: any }[];
+  socialLinks?: { text: string; href: string; icon?: string }[];
 }
 
 const { title, subtitle, description, avatar, buttons = [], socialLinks = [] } = Astro.props;

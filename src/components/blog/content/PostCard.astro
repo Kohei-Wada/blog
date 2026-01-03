@@ -2,9 +2,10 @@
 import FormattedDate from '../../shared/ui/FormattedDate.astro';
 import { Image } from 'astro:assets';
 import { getRandomHeroImage } from '../../../utils/random-hero-image';
+import type { CollectionEntry } from 'astro:content';
 
 export interface Props {
-  post: any;
+  post: CollectionEntry<'blog'>;
   currentTag?: string;
 }
 

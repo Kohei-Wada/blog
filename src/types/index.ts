@@ -54,3 +54,7 @@ export interface GitHubRepo {
   updated_at: string;
   pushed_at: string;
 }
+
+export interface GlobalThisWithStats {
+  _githubStatsLogged?: boolean;
+}
