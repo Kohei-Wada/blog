@@ -104,48 +104,25 @@
 </style>
 
 <script>
+  type Theme = 'light' | 'dark';
+
   const toggle = document.getElementById('theme-toggle');
-  const storageKey = 'theme-preference';
 
-  // Get theme preference
-  const getThemePreference = (): string => {
-    if (typeof localStorage !== 'undefined' && localStorage.getItem(storageKey)) {
-      return localStorage.getItem(storageKey) || 'light';
-    }
-    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-  };
-
-  // Set theme
-  const setTheme = (theme: string) => {
-    document.documentElement.setAttribute('data-theme', theme);
-    localStorage.setItem(storageKey, theme);
-  };
-
-  // Set theme with transition
-  const setThemeWithTransition = (theme: string) => {
-    // 一時的にトランジションクラスを追加
+  // Set theme with transition (UI-specific logic)
+  const setThemeWithTransition = (theme: Theme) => {
     document.documentElement.classList.add('theme-transitioning');
-
-    // テーマを設定
-    document.documentElement.setAttribute('data-theme', theme);
-    localStorage.setItem(storageKey, theme);
-
-    // トランジション完了後にクラスを削除
+    window.theme.setTheme(theme);
     setTimeout(() => {
       document.documentElement.classList.remove('theme-transitioning');
-    }, 300); // --theme-transitionと同じ時間
+    }, 300);
   };
 
-  // Toggle theme
+  // Toggle theme with transition
   const toggleTheme = () => {
-    const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
-    const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+    const currentTheme = (document.documentElement.getAttribute('data-theme') || 'light') as Theme;
+    const newTheme: Theme = currentTheme === 'light' ? 'dark' : 'light';
     setThemeWithTransition(newTheme);
   };
-
-  // Set initial theme (this runs after the inline script in BaseHead)
-  const theme = getThemePreference();
-  setTheme(theme);
 
   // Add click listener
   toggle?.addEventListener('click', toggleTheme);
@@ -153,7 +130,7 @@
   // Listen for system theme changes
   window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
     // Only update if user hasn't manually set a preference
-    if (!localStorage.getItem(storageKey)) {
+    if (!window.theme.getStoredTheme()) {
       setThemeWithTransition(e.matches ? 'dark' : 'light');
     }
   });
