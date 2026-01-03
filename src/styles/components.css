@@ -245,3 +245,36 @@
     padding: 0 0.25rem;
   }
 }
+
+/* List Reset - リストの基本スタイルをリセット */
+.list-reset {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* List Item - セパレーター付きリストアイテム */
+.list-item {
+  margin-bottom: 0.75rem;
+  padding-bottom: 0.75rem;
+  border-bottom: var(--separator-border);
+}
+
+.list-item:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+/* List Item Large - やや大きめの間隔 */
+.list-item-lg {
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: var(--separator-border);
+}
+
+.list-item-lg:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}

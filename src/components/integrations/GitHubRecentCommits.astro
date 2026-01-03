@@ -26,9 +26,9 @@ const recentCommits = events
   recentCommits.length > 0 && (
     <div class="github-section">
       <h4>最近のコミット</h4>
-      <ul class="commit-list">
+      <ul class="commit-list list-reset">
         {recentCommits.map(commit => (
-          <li>
+          <li class="list-item-lg">
             <div class="commit-repo">{commit.repo.split('/')[1]}</div>
             <div class="commit-message">{commit.message}</div>
             <div class="commit-date">{formatRelativeDate(commit.date)}</div>
@@ -53,24 +53,6 @@ const recentCommits = events
     margin: 0 0 0.75rem 0;
     color: var(--color-text);
     font-weight: 600;
-  }
-
-  .commit-list {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-
-  .commit-list li {
-    margin-bottom: 1rem;
-    padding-bottom: 1rem;
-    border-bottom: var(--separator-border);
-  }
-
-  .commit-list li:last-child {
-    border-bottom: none;
-    margin-bottom: 0;
-    padding-bottom: 0;
   }
 
   .commit-repo {

@@ -24,9 +24,9 @@ const recentArchives = getRecentArchiveMonths(allArchives, 6);
     <h3><a href="/archives/">月別アーカイブ</a></h3>
     {
       recentArchives.length > 0 ? (
-        <ul class="archive-list">
+        <ul class="archive-list list-reset">
           {recentArchives.map(archive => (
-            <li>
+            <li class="list-item">
               <a href={`/archives/${archive.slug}/`}>
                 <span class="archive-month">{archive.label}</span>
                 <span class="archive-count">({archive.count})</span>
@@ -87,24 +87,6 @@ const recentArchives = getRecentArchiveMonths(allArchives, 6);
 
   .sidebar-section h3 a:hover {
     color: var(--color-link);
-  }
-
-  .archive-list {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-
-  .archive-list li {
-    margin-bottom: 0.75rem;
-    padding-bottom: 0.75rem;
-    border-bottom: var(--separator-border);
-  }
-
-  .archive-list li:last-child {
-    border-bottom: none;
-    margin-bottom: 0;
-    padding-bottom: 0;
   }
 
   .archive-list a {
