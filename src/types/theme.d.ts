@@ -3,8 +3,8 @@ export type Theme = 'light' | 'dark';
 export interface ThemeAPI {
   STORAGE_KEY: string;
   getSystemTheme: () => Theme;
-  getStoredTheme: () => string | null;
-  getTheme: () => string;
+  getStoredTheme: () => Theme | null;
+  getTheme: () => Theme;
   setTheme: (theme: Theme) => void;
   toggle: () => void;
 }

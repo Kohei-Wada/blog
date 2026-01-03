@@ -25,19 +25,21 @@ const localStorageMock = (() => {
   };
 })();
 
+type Theme = 'light' | 'dark';
+
 // window.theme API の実装（テスト用）
 // 実際の実装は BaseHead.astro の is:inline スクリプト内にあります
 function createThemeAPI(storage: typeof localStorageMock) {
   const STORAGE_KEY = 'theme-preference';
 
-  const getSystemTheme = (): 'light' | 'dark' =>
+  const getSystemTheme = (): Theme =>
     window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
 
-  const getStoredTheme = (): string | null => storage.getItem(STORAGE_KEY);
+  const getStoredTheme = (): Theme | null => storage.getItem(STORAGE_KEY) as Theme | null;
 
-  const getTheme = (): string => getStoredTheme() || getSystemTheme();
+  const getTheme = (): Theme => getStoredTheme() || getSystemTheme();
 
-  const setTheme = (theme: 'light' | 'dark'): void => {
+  const setTheme = (theme: Theme): void => {
     document.documentElement.setAttribute('data-theme', theme);
     storage.setItem(STORAGE_KEY, theme);
     window.dispatchEvent(new CustomEvent('theme-changed', { detail: { theme } }));
