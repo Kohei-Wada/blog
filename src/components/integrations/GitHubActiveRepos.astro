@@ -16,7 +16,7 @@ const activeRepos = repos.slice(0, GITHUB_ACTIVITY_CONFIG.MAX_ACTIVE_REPOS);
   activeRepos.length > 0 && (
     <div class="github-section">
       <h4>アクティブなリポジトリ</h4>
-      <ul class="repo-list">
+      <ul class="repo-list list-reset">
         {activeRepos.map(repo => (
           <li>
             <a href={repo.html_url} target="_blank" rel="noopener noreferrer">
@@ -47,12 +47,6 @@ const activeRepos = repos.slice(0, GITHUB_ACTIVITY_CONFIG.MAX_ACTIVE_REPOS);
     margin: 0 0 0.75rem 0;
     color: var(--color-text);
     font-weight: 600;
-  }
-
-  .repo-list {
-    list-style: none;
-    margin: 0;
-    padding: 0;
   }
 
   .repo-list li {
