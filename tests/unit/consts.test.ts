@@ -1,11 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import {
-  SITE_TITLE,
-  SITE_DESCRIPTION,
-  GITHUB_URL,
-  GOOGLE_FORMS_URL,
-  ZENN_URL,
-} from '../../src/consts';
+import { SITE_TITLE, SITE_DESCRIPTION, GITHUB_URL, ZENN_URL } from '../../src/consts';
 
 describe('consts', () => {
   it('should export correct site title', () => {
@@ -24,11 +18,6 @@ describe('consts', () => {
     expect(GITHUB_URL).toMatch(/^https:\/\/github\.com\/[\w-]+$/);
   });
 
-  it('should export valid Google Forms URL', () => {
-    expect(GOOGLE_FORMS_URL).toContain('docs.google.com/forms');
-    expect(GOOGLE_FORMS_URL).toMatch(/^https:\/\/docs\.google\.com\/forms/);
-  });
-
   it('should export valid Zenn URL', () => {
     expect(ZENN_URL).toBe('https://zenn.dev/koheiwada');
     expect(ZENN_URL).toMatch(/^https:\/\/zenn\.dev\/[\w]+$/);
@@ -38,7 +27,6 @@ describe('consts', () => {
     expect(typeof SITE_TITLE).toBe('string');
     expect(typeof SITE_DESCRIPTION).toBe('string');
     expect(typeof GITHUB_URL).toBe('string');
-    expect(typeof GOOGLE_FORMS_URL).toBe('string');
     expect(typeof ZENN_URL).toBe('string');
   });
 });

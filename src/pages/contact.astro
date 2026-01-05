@@ -1,6 +1,5 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { GOOGLE_FORMS_URL } from '../consts';
 import PageHeader from '../components/shared/layout/PageHeader.astro';
 ---
 
@@ -14,34 +13,87 @@ import PageHeader from '../components/shared/layout/PageHeader.astro';
       margin-bottom: var(--spacing-xl);
     }
 
-    .contact-iframe {
-      width: 100%;
-      height: 650px;
-      border: none;
-      border-radius: var(--radius-lg);
-      box-shadow: var(--shadow-sm);
-      background: var(--color-bg);
-    }
-
-    .loading-message {
+    .contact-form {
       display: flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 400px;
+      flex-direction: column;
+      gap: var(--spacing-md);
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-xs);
+    }
+
+    .form-label {
+      font-weight: 600;
+      color: var(--color-text);
+      font-size: var(--font-size-sm);
+    }
+
+    .form-label .required {
+      color: #e53e3e;
+      margin-left: 0.25rem;
+    }
+
+    .form-input,
+    .form-textarea {
+      padding: 0.75rem 1rem;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      background: var(--color-bg);
+      color: var(--color-text);
+      font-size: var(--font-size-base);
+      font-family: inherit;
+      transition:
+        border-color var(--transition-fast),
+        box-shadow var(--transition-fast);
+    }
+
+    .form-input:focus,
+    .form-textarea:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(35, 55, 255, 0.1);
+    }
+
+    .form-input::placeholder,
+    .form-textarea::placeholder {
       color: var(--color-text-secondary);
-      font-size: var(--font-size-lg);
+      opacity: 0.6;
     }
 
-    @media (max-width: var(--tablet-breakpoint)) {
-      .contact-iframe {
-        height: 550px;
-      }
+    .form-textarea {
+      min-height: 180px;
+      resize: vertical;
     }
 
-    @media (max-width: var(--mobile-breakpoint)) {
-      .contact-iframe {
-        height: 500px;
-        border-radius: var(--radius-md);
+    .submit-button {
+      align-self: flex-start;
+      padding: 0.75rem 2rem;
+      background: var(--accent);
+      color: white;
+      border: none;
+      border-radius: var(--radius-md);
+      font-size: var(--font-size-base);
+      font-weight: 600;
+      cursor: pointer;
+      transition:
+        background var(--transition-fast),
+        transform var(--transition-fast);
+    }
+
+    .submit-button:hover {
+      background: var(--accent-dark);
+    }
+
+    .submit-button:active {
+      transform: scale(0.98);
+    }
+
+    @media (max-width: 720px) {
+      .submit-button {
+        width: 100%;
       }
     }
   </style>
@@ -54,16 +106,64 @@ import PageHeader from '../components/shared/layout/PageHeader.astro';
     />
 
     <div class="contact-container">
-      <iframe
-        src={GOOGLE_FORMS_URL}
-        class="contact-iframe"
-        title="お問い合わせフォーム"
-        loading="lazy"
-        allow="forms"
-        aria-label="Google Forms お問い合わせフォーム"
+      <form
+        name="contact"
+        method="POST"
+        data-netlify="true"
+        netlify-honeypot="bot-field"
+        class="contact-form"
       >
-        Loading contact form...
-      </iframe>
+        <input type="hidden" name="form-name" value="contact" />
+        <p hidden>
+          <label>
+            Don't fill this out: <input name="bot-field" />
+          </label>
+        </p>
+
+        <div class="form-group">
+          <label for="name" class="form-label">お名前</label>
+          <input type="text" id="name" name="name" class="form-input" placeholder="山田 太郎" />
+        </div>
+
+        <div class="form-group">
+          <label for="email" class="form-label">
+            メールアドレス<span class="required">*</span>
+          </label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            class="form-input"
+            placeholder="example@email.com"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="subject" class="form-label">件名</label>
+          <input
+            type="text"
+            id="subject"
+            name="subject"
+            class="form-input"
+            placeholder="お問い合わせの件名"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="message" class="form-label">
+            メッセージ<span class="required">*</span>
+          </label>
+          <textarea
+            id="message"
+            name="message"
+            class="form-textarea"
+            placeholder="お問い合わせ内容をご記入ください"
+            required></textarea>
+        </div>
+
+        <button type="submit" class="submit-button">送信する</button>
+      </form>
     </div>
   </div>
 </BaseLayout>
