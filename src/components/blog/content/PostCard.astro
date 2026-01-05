@@ -21,9 +21,9 @@ const { post, currentTag } = Astro.props;
           <div class="post-meta">
             <CalendarIcon />
             <FormattedDate date={post.data.pubDate} />
-            {post.data.featured && <span class="featured-badge">おすすめ</span>}
           </div>
           <div class="post-tags tag-list">
+            {post.data.featured && <span class="tag featured">おすすめ</span>}
             {
               post.data.tags.map((tag: string) => (
                 <span class={`tag ${tag === currentTag ? 'current' : ''}`}>{tag}</span>
@@ -82,13 +82,9 @@ const { post, currentTag } = Astro.props;
     gap: 0.4rem;
   }
 
-  .featured-badge {
+  .tag.featured {
     background: var(--color-link);
     color: var(--color-bg);
-    padding: 0.15rem 0.4rem;
-    border-radius: 4px;
-    font-size: 0.75rem;
-    font-weight: 600;
   }
 
   .post-card h2 {
