@@ -1,6 +1,8 @@
 ---
 import BaseLayout from './BaseLayout.astro';
 import FormattedDate from '../components/shared/ui/FormattedDate.astro';
+import CalendarIcon from '../components/shared/icons/CalendarIcon.astro';
+import UpdateIcon from '../components/shared/icons/UpdateIcon.astro';
 import ShareButtons from '../components/integrations/ShareButtons.astro';
 import TableOfContents from '../components/blog/navigation/TableOfContents.astro';
 import RelatedPosts from '../components/blog/content/RelatedPosts.astro';
@@ -76,13 +78,17 @@ const currentUrl = new URL(Astro.url.pathname, Astro.site).toString();
     .date {
       margin-bottom: 0.5em;
       color: var(--color-text-secondary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
     }
-    .last-updated-on {
-      font-style: bold;
-    }
-
+    .last-updated-on,
     .published-on {
-      font-style: bold;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
     }
   </style>
 
@@ -97,7 +103,7 @@ const currentUrl = new URL(Astro.url.pathname, Astro.site).toString();
             {
               pubDate && (
                 <div class="published-on">
-                  Published on:
+                  <CalendarIcon />
                   <FormattedDate date={pubDate} />
                 </div>
               )
@@ -106,7 +112,8 @@ const currentUrl = new URL(Astro.url.pathname, Astro.site).toString();
             {
               updatedDate && (
                 <div class="last-updated-on">
-                  Updated on : <FormattedDate date={updatedDate} />
+                  <UpdateIcon />
+                  <FormattedDate date={updatedDate} />
                 </div>
               )
             }
