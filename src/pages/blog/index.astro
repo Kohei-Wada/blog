@@ -1,22 +1,18 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
+import BlogListLayout from '../../layouts/BlogListLayout.astro';
 import { SITE_TITLE, SITE_DESCRIPTION } from '../../consts';
 import { getCollection } from 'astro:content';
-import PageHeader from '../../components/shared/layout/PageHeader.astro';
-import PostsGrid from '../../components/blog/content/PostsGrid.astro';
 
 const posts = (await getCollection('blog')).sort(
   (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
 );
 ---
 
-<BaseLayout title={SITE_TITLE} description={SITE_DESCRIPTION} showSidebar={true}>
-  <div class="page-container with-bottom-margin">
-    <PageHeader
-      title="全ての記事"
-      icon="📚"
-      description="技術記事から個人的な学びまで、これまでに書いた記事をすべてご覧いただけます。気になる記事があれば、ぜひクリックして詳細をお読みください。"
-    />
-    <PostsGrid posts={posts} />
-  </div>
-</BaseLayout>
+<BlogListLayout
+  title={SITE_TITLE}
+  description={SITE_DESCRIPTION}
+  posts={posts}
+  headerTitle="全ての記事"
+  headerIcon="📚"
+  headerDescription="技術記事から個人的な学びまで、これまでに書いた記事をすべてご覧いただけます。気になる記事があれば、ぜひクリックして詳細をお読みください。"
+/>

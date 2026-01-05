@@ -1,9 +1,7 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
+import BlogListLayout from '../../layouts/BlogListLayout.astro';
 import { SITE_TITLE } from '../../consts';
 import { getCollection } from 'astro:content';
-import PageHeader from '../../components/shared/layout/PageHeader.astro';
-import PostsGrid from '../../components/blog/content/PostsGrid.astro';
 import { groupPostsByMonth, parseArchiveSlug, formatArchiveLabel } from '../../utils/archive-utils';
 
 export async function getStaticPaths() {
@@ -30,14 +28,12 @@ const title = `${formatArchiveLabel(year, month)} - ${SITE_TITLE}`;
 const description = `${formatArchiveLabel(year, month)}に投稿された記事一覧です。`;
 ---
 
-<BaseLayout title={title} description={description} showSidebar={true}>
-  <div class="page-container">
-    <PageHeader
-      title={formatArchiveLabel(year, month)}
-      icon="📅"
-      description={`${formatArchiveLabel(year, month)}に投稿された記事の一覧です。${archive.count}件の記事があります。`}
-    />
-
-    <PostsGrid posts={archive.posts} />
-  </div>
-</BaseLayout>
+<BlogListLayout
+  title={title}
+  description={description}
+  posts={archive.posts}
+  headerTitle={formatArchiveLabel(year, month)}
+  headerIcon="📅"
+  headerDescription={`${formatArchiveLabel(year, month)}に投稿された記事の一覧です。${archive.count}件の記事があります。`}
+  withBottomMargin={false}
+/>
