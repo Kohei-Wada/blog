@@ -1,8 +1,6 @@
 ---
 import FormattedDate from '../../shared/ui/FormattedDate.astro';
 import CalendarIcon from '../../shared/icons/CalendarIcon.astro';
-import { Image } from 'astro:assets';
-import { getRandomHeroImage } from '../../../utils/random-hero-image';
 import type { CollectionEntry } from 'astro:content';
 
 export interface Props {
@@ -11,28 +9,28 @@ export interface Props {
 }
 
 const { post, currentTag } = Astro.props;
-
-// Use random image when heroImage is unspecified
-const heroImage = post.data.heroImage || getRandomHeroImage(post.id);
 ---
 
 <article class="post-card">
   <a href={`/blog/${post.id}/`}>
-    <Image src={heroImage} alt={post.data.title} width={400} height={200} class="post-image" />
     <div class="post-content">
-      <div class="post-meta">
-        <CalendarIcon />
-        <FormattedDate date={post.data.pubDate} />
-        {post.data.featured && <span class="featured-badge">おすすめ</span>}
-      </div>
-      <h2>{post.data.title}</h2>
-      <p class="post-description">{post.data.description}</p>
-      <div class="post-tags tag-list">
-        {
-          post.data.tags.map((tag: string) => (
-            <span class={`tag ${tag === currentTag ? 'current' : ''}`}>{tag}</span>
-          ))
-        }
+      <div class="post-main">
+        <h2>{post.data.title}</h2>
+        {post.data.description && <p class="post-description">{post.data.description}</p>}
+        <div class="post-footer">
+          <div class="post-meta">
+            <CalendarIcon />
+            <FormattedDate date={post.data.pubDate} />
+          </div>
+          <div class="post-tags tag-list">
+            {post.data.featured && <span class="tag featured">おすすめ</span>}
+            {
+              post.data.tags.map((tag: string) => (
+                <span class={`tag ${tag === currentTag ? 'current' : ''}`}>{tag}</span>
+              ))
+            }
+          </div>
+        </div>
       </div>
     </div>
   </a>
@@ -43,15 +41,11 @@ const heroImage = post.data.heroImage || getRandomHeroImage(post.id);
     background: var(--card-background);
     border-radius: 12px;
     overflow: hidden;
-    transition: all 0.3s ease;
+    transition: all 0.2s ease;
     border: var(--card-border);
-    max-height: 400px;
-    display: flex;
-    flex-direction: column;
   }
 
   .post-card:hover {
-    transform: translateY(-4px);
     box-shadow: var(--shadow-lg);
     border-color: var(--color-link);
   }
@@ -59,58 +53,58 @@ const heroImage = post.data.heroImage || getRandomHeroImage(post.id);
   .post-card a {
     text-decoration: none;
     color: inherit;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-  }
-
-  .post-image {
-    width: 100%;
-    height: 150px;
-    object-fit: cover;
     display: block;
   }
 
   .post-content {
-    padding: 1.5rem;
-    flex: 1;
+    padding: 1.25rem 1.5rem;
+  }
+
+  .post-main {
     display: flex;
     flex-direction: column;
   }
 
-  .post-meta {
-    color: var(--color-link);
-    font-size: 0.9rem;
-    font-weight: 600;
-    margin-bottom: 1rem;
+  .post-footer {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: 0.5rem;
   }
 
-  .featured-badge {
+  .post-meta {
+    color: var(--color-link);
+    font-size: 0.85rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+
+  .tag.featured {
     background: var(--color-link);
     color: var(--color-bg);
-    padding: 0.2rem 0.5rem;
-    border-radius: 4px;
-    font-size: 0.8rem;
-    font-weight: 600;
   }
 
   .post-card h2 {
-    font-size: 1.2rem;
-    margin: 0 0 0.8rem;
-    line-height: 1.3;
+    font-size: 1.1rem;
+    margin: 0 0 0.5rem;
+    line-height: 1.4;
+    height: calc(1.1rem * 1.4 * 2); /* 2行分の高さを固定 */
     color: var(--color-text);
-    flex-grow: 1;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
   }
 
   .post-description {
     color: var(--color-text-secondary);
     line-height: 1.5;
-    margin-bottom: 1rem;
+    margin: 0;
     display: -webkit-box;
-    -webkit-line-clamp: 2;
+    -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -120,46 +114,28 @@ const heroImage = post.data.heroImage || getRandomHeroImage(post.id);
   .post-tags {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.5rem;
-    margin-top: auto;
+    gap: 0.4rem;
+    justify-content: flex-end;
   }
 
-  /* Responsive */
-  @media (max-width: 1024px) and (min-width: 769px) {
-    .post-content {
-      padding: 1.25rem;
-    }
-
-    .post-card h2 {
-      font-size: 1.15rem;
-    }
-
-    .post-description {
-      font-size: 0.88rem;
-    }
-  }
-
+  /* Responsive - タブレット以下 */
   @media (max-width: 768px) {
     .post-content {
       padding: 1rem;
     }
 
-    .post-image {
-      height: 120px;
+    .post-footer {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.5rem;
     }
 
-    .post-card {
-      max-height: 320px;
-    }
-
-    .post-card h2 {
-      font-size: 1.1rem;
-      margin-bottom: 0.6rem;
+    .post-tags {
+      justify-content: flex-start;
     }
 
     .post-description {
-      font-size: 0.85rem;
-      margin-bottom: 0.8rem;
+      -webkit-line-clamp: 2;
     }
   }
 
@@ -168,28 +144,17 @@ const heroImage = post.data.heroImage || getRandomHeroImage(post.id);
       padding: 0.75rem;
     }
 
-    .post-image {
-      height: 100px;
-    }
-
-    .post-card {
-      max-height: 280px;
-    }
-
     .post-card h2 {
       font-size: 1rem;
-      margin-bottom: 0.5rem;
+      height: calc(1rem * 1.4 * 2);
     }
 
     .post-description {
-      font-size: 0.8rem;
-      margin-bottom: 0.6rem;
-      -webkit-line-clamp: 2;
+      font-size: 0.85rem;
     }
 
     .post-meta {
       font-size: 0.8rem;
-      margin-bottom: 0.75rem;
     }
   }
 </style>

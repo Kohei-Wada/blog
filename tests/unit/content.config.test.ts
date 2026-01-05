@@ -3,15 +3,12 @@ import { z } from 'zod';
 
 describe('Content Config Schema', () => {
   // ブログポストのスキーマテスト
-  const mockImageFunction = () => z.any();
-
   const blogSchema = z.object({
     title: z.string(),
     description: z.string(),
     pubDate: z.coerce.date(),
     tags: z.array(z.string()).default([]),
     updatedDate: z.coerce.date().optional(),
-    heroImage: mockImageFunction().optional(),
   });
 
   it('should validate valid blog post frontmatter', () => {

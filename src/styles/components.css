@@ -45,18 +45,10 @@
 
 /* Posts Grid Layout */
 .posts-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  display: flex;
+  flex-direction: column;
   gap: var(--spacing-md);
   margin-top: var(--spacing-md);
-}
-
-/* 中間サイズでのレスポンシブ調整 */
-@media (max-width: 1024px) and (min-width: 769px) {
-  .posts-grid {
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: var(--spacing-sm);
-  }
 }
 
 /* Button Styles */
@@ -197,7 +189,6 @@
   }
 
   .posts-grid {
-    grid-template-columns: 1fr;
     gap: var(--spacing-sm);
     margin-top: var(--spacing-sm);
   }
@@ -225,7 +216,6 @@
 /* Additional mobile styles for very small screens */
 @media (max-width: var(--mobile-breakpoint)) {
   .posts-grid {
-    grid-template-columns: 1fr;
     gap: var(--spacing-sm);
   }
 

@@ -1,6 +1,6 @@
 ---
 title: 'GitHub ActionsでNetlifyを定期的に自動デプロイする方法'
-description: ''
+description: 'NetlifyのビルドフックとGitHub Actionsを連携して、定期的な自動デプロイを実現する方法を解説します。'
 pubDate: '2025-08-26'
 tags: ['github-actions', 'netlify', '自動化', 'blog']
 ---
