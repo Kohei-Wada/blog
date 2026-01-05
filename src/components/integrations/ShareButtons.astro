@@ -1,5 +1,6 @@
 ---
 import { SOCIAL_SHARE_URLS } from '../../constants/api.js';
+import XIcon from './XIcon.astro';
 
 interface Props {
   title: string;
@@ -9,11 +10,11 @@ interface Props {
 
 const { title, description, url } = Astro.props;
 
-// エンコードされたURL用のパラメータ
+// Encoded parameters for share URLs
 const encodedUrl = encodeURIComponent(url);
 const encodedText = encodeURIComponent(`${title} - ${description}`);
 
-// シェア用URL
+// Share URLs
 const twitterUrl = `${SOCIAL_SHARE_URLS.TWITTER}?text=${encodedText}&url=${encodedUrl}`;
 const facebookUrl = `${SOCIAL_SHARE_URLS.FACEBOOK}?u=${encodedUrl}`;
 const lineUrl = `${SOCIAL_SHARE_URLS.LINE}?url=${encodedUrl}&text=${encodedText}`;
@@ -24,12 +25,7 @@ const linkedinUrl = `${SOCIAL_SHARE_URLS.LINKEDIN}?url=${encodedUrl}`;
   <h3>Share this post</h3>
   <div class="buttons">
     <a href={twitterUrl} target="_blank" rel="noopener noreferrer" aria-label="Share on Twitter">
-      <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
-        <path
-          fill="currentColor"
-          d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"
-        ></path>
-      </svg>
+      <XIcon width={20} height={20} />
       Twitter
     </a>
     <a href={facebookUrl} target="_blank" rel="noopener noreferrer" aria-label="Share on Facebook">
