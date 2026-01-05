@@ -12,7 +12,6 @@
 
 /* Import component styles */
 @import './components/tables.css';
-@import './components/code-blocks.css';
 @import './components/layout.css';
 
 /* Import existing components */
