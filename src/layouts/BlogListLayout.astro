@@ -1,0 +1,37 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import BaseLayout from './BaseLayout.astro';
+import PageHeader from '../components/shared/layout/PageHeader.astro';
+import PostsGrid from '../components/blog/content/PostsGrid.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  posts: CollectionEntry<'blog'>[];
+  headerTitle: string;
+  headerIcon?: string;
+  headerDescription?: string;
+  currentTag?: string;
+  withBottomMargin?: boolean;
+}
+
+const {
+  title,
+  description,
+  posts,
+  headerTitle,
+  headerIcon,
+  headerDescription,
+  currentTag,
+  withBottomMargin = true,
+} = Astro.props;
+
+const containerClass = withBottomMargin ? 'page-container with-bottom-margin' : 'page-container';
+---
+
+<BaseLayout title={title} description={description} showSidebar={true}>
+  <div class={containerClass}>
+    <PageHeader title={headerTitle} icon={headerIcon} description={headerDescription} />
+    <PostsGrid posts={posts} currentTag={currentTag} />
+  </div>
+</BaseLayout>
