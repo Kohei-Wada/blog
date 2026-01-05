@@ -8,7 +8,7 @@ interface Props {
 
 const { repos } = Astro.props;
 
-// アクティブなリポジトリ
+// Active repositories
 const activeRepos = repos.slice(0, GITHUB_ACTIVITY_CONFIG.MAX_ACTIVE_REPOS);
 ---
 
@@ -34,21 +34,6 @@ const activeRepos = repos.slice(0, GITHUB_ACTIVITY_CONFIG.MAX_ACTIVE_REPOS);
 }
 
 <style>
-  .github-section {
-    margin-bottom: 1.25rem;
-  }
-
-  .github-section:last-of-type {
-    margin-bottom: 1rem;
-  }
-
-  .github-section h4 {
-    font-size: 0.95em;
-    margin: 0 0 0.75rem 0;
-    color: var(--color-text);
-    font-weight: 600;
-  }
-
   .repo-list li {
     margin-bottom: 0.75rem;
   }

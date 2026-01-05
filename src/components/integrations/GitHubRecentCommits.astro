@@ -9,14 +9,14 @@ interface Props {
 
 const { events } = Astro.props;
 
-// イベントをフィルタリングして最新コミットを取得
+// Filter events and get recent commits
 const recentCommits = events
   .filter(event => event.type === 'PushEvent')
   .slice(0, GITHUB_ACTIVITY_CONFIG.MAX_RECENT_COMMITS)
   .flatMap(event =>
     (event.payload.commits || []).slice(0, 1).map(commit => ({
       repo: event.repo.name,
-      message: commit.message.split('\n')[0], // 最初の行のみ
+      message: commit.message.split('\n')[0], // First line only
       date: new Date(event.created_at),
     }))
   );
@@ -40,21 +40,6 @@ const recentCommits = events
 }
 
 <style>
-  .github-section {
-    margin-bottom: 1.25rem;
-  }
-
-  .github-section:last-of-type {
-    margin-bottom: 1rem;
-  }
-
-  .github-section h4 {
-    font-size: 0.95em;
-    margin: 0 0 0.75rem 0;
-    color: var(--color-text);
-    font-weight: 600;
-  }
-
   .commit-repo {
     font-size: 0.9em;
     font-weight: 600;

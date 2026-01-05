@@ -48,7 +48,6 @@ try {
 </section>
 
 <style>
-  /* Inherit existing sidebar section styles */
   .github-activity {
     margin-bottom: 2rem;
     padding: 1.5rem;
@@ -70,6 +69,22 @@ try {
   .github-icon {
     width: 18px;
     height: 18px;
+  }
+
+  /* Shared styles for child section components */
+  .github-activity :global(.github-section) {
+    margin-bottom: 1.25rem;
+  }
+
+  .github-activity :global(.github-section:last-of-type) {
+    margin-bottom: 1rem;
+  }
+
+  .github-activity :global(.github-section h4) {
+    font-size: 0.95em;
+    margin: 0 0 0.75rem 0;
+    color: var(--color-text);
+    font-weight: 600;
   }
 
   .github-link {
