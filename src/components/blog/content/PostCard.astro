@@ -16,7 +16,7 @@ const { post, currentTag } = Astro.props;
     <div class="post-content">
       <div class="post-main">
         <h2>{post.data.title}</h2>
-        <p class="post-description">{post.data.description}</p>
+        {post.data.description && <p class="post-description">{post.data.description}</p>}
       </div>
       <div class="post-aside">
         <div class="post-meta">
@@ -60,8 +60,9 @@ const { post, currentTag } = Astro.props;
     padding: 1.25rem 1.5rem;
     display: flex;
     justify-content: space-between;
-    align-items: flex-start;
+    align-items: center;
     gap: 2rem;
+    min-height: 4.5rem;
   }
 
   .post-main {
