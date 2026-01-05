@@ -14,6 +14,9 @@ export async function getStaticPaths() {
 }
 
 const { tag } = Astro.params;
+if (!tag) {
+  throw new Error('Tag parameter is required');
+}
 const allPosts = await getCollection('blog');
 const posts = getPostsByTag(allPosts, tag).sort(
   (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
