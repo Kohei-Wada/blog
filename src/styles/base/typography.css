@@ -72,3 +72,12 @@ blockquote {
   margin: 0px;
   font-size: 1.333em;
 }
+
+/* 記事内の見出しに上部間隔を追加 */
+.prose h2,
+.prose h3,
+.prose h4,
+.prose h5,
+.prose h6 {
+  margin-top: 2em;
+}
