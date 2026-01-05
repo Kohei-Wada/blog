@@ -2,19 +2,13 @@
 import { getCollection } from 'astro:content';
 import GitHubActivity from '../../integrations/GitHubActivity.astro';
 import { groupPostsByMonth, getRecentArchiveMonths } from '../../../utils/archive-utils';
+import { getAllTags, getTagCounts } from '../../../utils/content-aggregation';
 
 const allPosts = await getCollection('blog');
-const allTags = [...new Set(allPosts.flatMap(post => post.data.tags))].sort();
+const allTags = getAllTags(allPosts);
+const tagCounts = getTagCounts(allPosts);
 
-const tagCounts = allTags.reduce(
-  (acc, tag) => {
-    acc[tag] = allPosts.filter(post => post.data.tags.includes(tag)).length;
-    return acc;
-  },
-  {} as Record<string, number>
-);
-
-// 月別アーカイブを取得
+// Get monthly archives
 const allArchives = groupPostsByMonth(allPosts);
 const recentArchives = getRecentArchiveMonths(allArchives, 6);
 ---
