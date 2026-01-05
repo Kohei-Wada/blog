@@ -8,6 +8,7 @@ import {
   GITHUB_URL,
   ZENN_URL,
   QIITA_URL,
+  X_URL,
 } from '../consts';
 import { getCollection } from 'astro:content';
 import PostsGrid from '../components/blog/content/PostsGrid.astro';
@@ -127,6 +128,7 @@ const posts = [...featuredPosts, ...otherPosts]
         { text: 'GitHub', href: GITHUB_URL, icon: '💻' },
         { text: 'Zenn', href: ZENN_URL, icon: '📝' },
         { text: 'Qiita', href: QIITA_URL, icon: '📗' },
+        { text: 'X', href: X_URL, icon: '🐦' },
       ]}
     />
 
