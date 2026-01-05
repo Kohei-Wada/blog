@@ -1,16 +1,19 @@
 import type { CollectionEntry } from 'astro:content';
+import { SIMILARITY_WEIGHTS, type SimilarityWeights } from '../constants/similarity';
 
 /**
- * 2つの記事間の類似度スコアを計算する
- * @param currentPost 現在の記事
- * @param otherPost 比較対象の記事
- * @returns 0から1の間のスコア（1が最も類似）
+ * Calculate similarity score between two posts
+ * @param currentPost The current post
+ * @param otherPost The post to compare against
+ * @param weights Scoring weights (injectable for testing)
+ * @returns Score between 0 and 1 (1 being most similar)
  */
 export function calculateSimilarityScore(
   currentPost: CollectionEntry<'blog'>,
-  otherPost: CollectionEntry<'blog'>
+  otherPost: CollectionEntry<'blog'>,
+  weights: SimilarityWeights = SIMILARITY_WEIGHTS
 ): number {
-  // タグベースのスコア（重み: 70%）
+  // Tag-based score
   const currentTags = currentPost.data.tags || [];
   const otherTags = otherPost.data.tags || [];
 
@@ -22,51 +25,52 @@ export function calculateSimilarityScore(
     tagScore = commonTags.length / uniqueTags.size;
   }
 
-  // 日付の近さベースのスコア（重み: 30%）
+  // Date proximity score
   const currentDate = currentPost.data.pubDate.getTime();
   const otherDate = otherPost.data.pubDate.getTime();
   const daysDiff = Math.abs(currentDate - otherDate) / (1000 * 60 * 60 * 24);
 
-  // 30日以内を1.0、365日で0.0になるような減衰関数
+  // Decay function: 1.0 within RECENT_DAYS, 0.0 at MAX_DAYS
+  const decayRange = weights.MAX_DAYS - weights.RECENT_DAYS;
   let dateScore = 0;
-  if (daysDiff <= 30) {
+  if (daysDiff <= weights.RECENT_DAYS) {
     dateScore = 1.0;
-  } else if (daysDiff <= 365) {
-    dateScore = 1.0 - (daysDiff - 30) / 335;
+  } else if (daysDiff <= weights.MAX_DAYS) {
+    dateScore = 1.0 - (daysDiff - weights.RECENT_DAYS) / decayRange;
   } else {
     dateScore = 0;
   }
 
-  // 重み付けされた総合スコア
-  const totalScore = tagScore * 0.7 + dateScore * 0.3;
+  // Weighted total score
+  const totalScore = tagScore * weights.TAG_WEIGHT + dateScore * weights.DATE_WEIGHT;
 
-  return Math.max(0, Math.min(1, totalScore)); // 0から1の範囲に制限
+  return Math.max(0, Math.min(1, totalScore)); // Clamp to 0-1 range
 }
 
 /**
- * 現在の記事に関連する記事を取得する
- * @param currentPost 現在の記事
- * @param allPosts すべての記事
- * @param limit 取得する関連記事の最大数
- * @returns 関連度の高い順にソートされた記事の配列
+ * Get related posts for the current post
+ * @param currentPost The current post
+ * @param allPosts All available posts
+ * @param limit Maximum number of related posts to return
+ * @returns Posts sorted by relevance score (highest first)
  */
 export function getRelatedPosts(
   currentPost: CollectionEntry<'blog'>,
   allPosts: CollectionEntry<'blog'>[],
   limit: number = 3
 ): CollectionEntry<'blog'>[] {
-  // 現在の記事を除外
+  // Exclude current post
   const otherPosts = allPosts.filter(post => post.id !== currentPost.id);
 
-  // 各記事のスコアを計算
+  // Calculate score for each post
   const postsWithScores = otherPosts.map(post => ({
     post,
     score: calculateSimilarityScore(currentPost, post),
   }));
 
-  // スコアの高い順にソート
+  // Sort by score descending
   postsWithScores.sort((a, b) => b.score - a.score);
 
-  // 指定された数だけ取得
+  // Return top N posts
   return postsWithScores.slice(0, limit).map(item => item.post);
 }

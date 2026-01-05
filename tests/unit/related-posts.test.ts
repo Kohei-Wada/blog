@@ -1,8 +1,9 @@
 import { describe, it, expect } from 'vitest';
 import { getRelatedPosts, calculateSimilarityScore } from '@/utils/related-posts';
+import { SIMILARITY_WEIGHTS } from '@/constants/similarity';
 import type { CollectionEntry } from 'astro:content';
 
-// モックデータの作成
+// Create mock post data
 const createMockPost = (
   id: string,
   title: string,
@@ -23,7 +24,7 @@ const createMockPost = (
 
 describe('Related Posts Utility', () => {
   describe('calculateSimilarityScore', () => {
-    it('共通タグが多いほど高いスコアを返す', () => {
+    it('returns higher score for more common tags', () => {
       const currentPost = createMockPost(
         'current',
         'Current Post',
@@ -34,14 +35,14 @@ describe('Related Posts Utility', () => {
       const relatedPost1 = createMockPost(
         'related1',
         'Related Post 1',
-        ['javascript', 'react', 'astro'], // 3つ全て一致
+        ['javascript', 'react', 'astro'], // All 3 match
         new Date('2025-01-15')
       );
 
       const relatedPost2 = createMockPost(
         'related2',
         'Related Post 2',
-        ['javascript', 'vue'], // 1つだけ一致
+        ['javascript', 'vue'], // Only 1 match
         new Date('2025-01-15')
       );
 
@@ -51,7 +52,7 @@ describe('Related Posts Utility', () => {
       expect(score1).toBeGreaterThan(score2);
     });
 
-    it('日付が近いほど高いスコアを返す', () => {
+    it('returns higher score for closer dates', () => {
       const currentPost = createMockPost(
         'current',
         'Current Post',
@@ -63,14 +64,14 @@ describe('Related Posts Utility', () => {
         'recent',
         'Recent Post',
         ['javascript'],
-        new Date('2025-01-14') // 1日前
+        new Date('2025-01-14') // 1 day ago
       );
 
       const oldPost = createMockPost(
         'old',
         'Old Post',
         ['javascript'],
-        new Date('2024-12-01') // 1ヶ月以上前
+        new Date('2024-12-01') // Over 1 month ago
       );
 
       const recentScore = calculateSimilarityScore(currentPost, recentPost);
@@ -79,7 +80,7 @@ describe('Related Posts Utility', () => {
       expect(recentScore).toBeGreaterThan(oldScore);
     });
 
-    it('タグの重みが日付の重みより大きい', () => {
+    it('tag weight is higher than date weight', () => {
       const currentPost = createMockPost(
         'current',
         'Current Post',
@@ -90,15 +91,15 @@ describe('Related Posts Utility', () => {
       const sameTagsOldPost = createMockPost(
         'same-tags-old',
         'Same Tags Old Post',
-        ['javascript', 'react'], // タグは完全一致
-        new Date('2024-06-01') // 古い日付
+        ['javascript', 'react'], // Tags fully match
+        new Date('2024-06-01') // Old date
       );
 
       const differentTagsRecentPost = createMockPost(
         'different-tags-recent',
         'Different Tags Recent Post',
-        ['python', 'django'], // タグは一致しない
-        new Date('2025-01-14') // 新しい日付
+        ['python', 'django'], // Tags don't match
+        new Date('2025-01-14') // Recent date
       );
 
       const sameTagsScore = calculateSimilarityScore(currentPost, sameTagsOldPost);
@@ -107,7 +108,7 @@ describe('Related Posts Utility', () => {
       expect(sameTagsScore).toBeGreaterThan(differentTagsScore);
     });
 
-    it('タグがない記事でも動作する', () => {
+    it('works with posts that have no tags', () => {
       const noTagsPost1 = createMockPost('no-tags-1', 'No Tags Post 1', [], new Date('2025-01-15'));
 
       const noTagsPost2 = createMockPost('no-tags-2', 'No Tags Post 2', [], new Date('2025-01-14'));
@@ -116,10 +117,72 @@ describe('Related Posts Utility', () => {
       expect(score).toBeGreaterThanOrEqual(0);
       expect(score).toBeLessThanOrEqual(1);
     });
+
+    it('allows custom weights to be injected', () => {
+      const currentPost = createMockPost(
+        'current',
+        'Current Post',
+        ['javascript'],
+        new Date('2025-01-15')
+      );
+
+      const otherPost = createMockPost(
+        'other',
+        'Other Post',
+        ['javascript'],
+        new Date('2025-01-15')
+      );
+
+      // Tag only weights (100% tag, 0% date)
+      const tagOnlyWeights = {
+        TAG_WEIGHT: 1.0,
+        DATE_WEIGHT: 0.0,
+        RECENT_DAYS: 30,
+        MAX_DAYS: 365,
+      } as const;
+
+      const scoreWithTagOnly = calculateSimilarityScore(currentPost, otherPost, tagOnlyWeights);
+
+      // Date only weights (0% tag, 100% date)
+      const dateOnlyWeights = {
+        TAG_WEIGHT: 0.0,
+        DATE_WEIGHT: 1.0,
+        RECENT_DAYS: 30,
+        MAX_DAYS: 365,
+      } as const;
+
+      const scoreWithDateOnly = calculateSimilarityScore(currentPost, otherPost, dateOnlyWeights);
+
+      // Same tags, same date - tag only should give 1.0 (100% match)
+      expect(scoreWithTagOnly).toBe(1.0);
+      // Same date within RECENT_DAYS - date only should give 1.0
+      expect(scoreWithDateOnly).toBe(1.0);
+    });
+
+    it('uses SIMILARITY_WEIGHTS as default', () => {
+      const currentPost = createMockPost(
+        'current',
+        'Current Post',
+        ['javascript', 'react'],
+        new Date('2025-01-15')
+      );
+
+      const otherPost = createMockPost(
+        'other',
+        'Other Post',
+        ['javascript', 'react'],
+        new Date('2025-01-15')
+      );
+
+      const scoreDefault = calculateSimilarityScore(currentPost, otherPost);
+      const scoreExplicit = calculateSimilarityScore(currentPost, otherPost, SIMILARITY_WEIGHTS);
+
+      expect(scoreDefault).toBe(scoreExplicit);
+    });
   });
 
   describe('getRelatedPosts', () => {
-    it('現在の記事を除外する', () => {
+    it('excludes the current post', () => {
       const currentPost = createMockPost(
         'current',
         'Current Post',
@@ -138,7 +201,7 @@ describe('Related Posts Utility', () => {
       expect(relatedPosts).not.toContainEqual(expect.objectContaining({ id: 'current' }));
     });
 
-    it('指定した数の関連記事を返す', () => {
+    it('returns the specified number of related posts', () => {
       const currentPost = createMockPost(
         'current',
         'Current Post',
@@ -158,7 +221,7 @@ describe('Related Posts Utility', () => {
       expect(relatedPosts).toHaveLength(2);
     });
 
-    it('利用可能な記事数より多く要求した場合、利用可能な数だけ返す', () => {
+    it('returns available posts when requesting more than available', () => {
       const currentPost = createMockPost(
         'current',
         'Current Post',
@@ -175,7 +238,7 @@ describe('Related Posts Utility', () => {
       expect(relatedPosts).toHaveLength(1);
     });
 
-    it('スコアの高い順に記事を返す', () => {
+    it('returns posts sorted by score descending', () => {
       const currentPost = createMockPost(
         'current',
         'Current Post',
@@ -202,7 +265,7 @@ describe('Related Posts Utility', () => {
       expect(relatedPosts[2].id).toBe('low');
     });
 
-    it('現在の記事のみの場合、空配列を返す', () => {
+    it('returns empty array when only current post exists', () => {
       const currentPost = createMockPost(
         'current',
         'Current Post',
@@ -216,7 +279,7 @@ describe('Related Posts Utility', () => {
       expect(relatedPosts).toEqual([]);
     });
 
-    it('スコアが0の記事も含める', () => {
+    it('includes posts with zero score', () => {
       const currentPost = createMockPost(
         'current',
         'Current Post',
