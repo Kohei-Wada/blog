@@ -100,6 +100,7 @@ const { post, currentTag } = Astro.props;
     font-size: 1.1rem;
     margin: 0 0 0.5rem;
     line-height: 1.4;
+    height: calc(1.1rem * 1.4 * 2); /* 2行分の高さを固定 */
     color: var(--color-text);
     display: -webkit-box;
     -webkit-line-clamp: 2;
@@ -157,6 +158,7 @@ const { post, currentTag } = Astro.props;
 
     .post-card h2 {
       font-size: 1rem;
+      height: calc(1rem * 1.4 * 2);
     }
 
     .post-description {
