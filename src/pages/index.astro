@@ -12,6 +12,7 @@ import {
 import { getCollection } from 'astro:content';
 import PostsGrid from '../components/blog/content/PostsGrid.astro';
 import HeroSection from '../components/shared/layout/HeroSection.astro';
+import blogIcon from '../assets/blog-icon.jpg';
 
 // Featured Posts: featuredフラグがtrueの記事を優先、その後は日付順
 const featuredPosts = (await getCollection('blog')).filter(post => post.data.featured);
@@ -117,7 +118,7 @@ const posts = [...featuredPosts, ...otherPosts]
       title={HOME_TITLE}
       subtitle={SITE_SUBTITLE}
       description="ソフトウェア開発、技術記事、そして個人的な学びについて発信しています。このブログはAstroで自作しています。"
-      avatar="WD"
+      avatarImage={blogIcon}
       buttons={[
         { text: '📖 ブログを読む', href: '/blog/', primary: true },
         { text: '⭐ おすすめ記事', href: '#featured-posts' },
