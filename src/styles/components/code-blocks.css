@@ -1,97 +1,16 @@
 /*
  * Code Block Styles
- * Syntax highlighting and code display
+ * Expressive Code customizations
  */
 
-/* Code block styles for rehype-pretty-code */
-.code-block-wrapper {
-  position: relative;
-  margin: 1.5em 0;
-}
-
-pre.astro-code {
+/* Base code block styles */
+pre {
   overflow-x: auto;
   border-radius: 8px;
-  padding: 1rem;
   line-height: 1.4;
-  margin: 0;
-  background: var(--code-bg) !important;
-  color: var(--code-text) !important;
-  transition: background-color var(--transition-normal), color var(--transition-normal);
 }
 
-pre.astro-code code {
+pre code {
   font-family: 'Courier New', Consolas, monospace;
   font-size: 0.875rem;
-  color: var(--code-text) !important;
-}
-
-.highlighted {
-  background: rgba(200, 200, 200, 0.1);
-  border-left: 3px solid var(--color-link);
-  padding-left: 0.5rem;
-}
-
-.chars {
-  background: rgba(200, 200, 200, 0.2);
-  border-radius: 4px;
-  padding: 0.125rem 0.25rem;
-}
-
-/* Copy button styles */
-.copy-code-button {
-  position: absolute;
-  top: 0.5rem;
-  right: 0.5rem;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.25rem;
-  padding: 0.25rem 0.75rem;
-  background-color: var(--color-bg-secondary);
-  color: var(--color-text);
-  text-decoration: none;
-  border: 1px solid var(--color-border-light);
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 0.75rem;
-  font-family: inherit;
-  backdrop-filter: blur(8px);
-  transition: all 0.2s ease;
-  transform: translateY(0);
-  z-index: 1;
-}
-
-.copy-code-button:hover {
-  background-color: var(--hover-background);
-  border-color: var(--color-link);
-  color: var(--color-link);
-  transform: translateY(-1px);
-  box-shadow: var(--shadow-md);
-}
-
-.copy-code-button:focus {
-  outline: 2px solid var(--color-link);
-  outline-offset: 2px;
-}
-
-.copy-code-button.copied {
-  background-color: var(--color-link);
-  color: var(--color-bg);
-  border-color: var(--accent);
-}
-
-.copy-code-button svg {
-  width: 12px;
-  height: 12px;
-  flex-shrink: 0;
-}
-
-@media (max-width: var(--mobile-breakpoint)) {
-  .copy-code-button .copy-text {
-    display: none;
-  }
-
-  .copy-code-button {
-    padding: 0.25rem;
-  }
 }
