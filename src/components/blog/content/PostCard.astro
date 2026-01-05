@@ -1,5 +1,6 @@
 ---
 import FormattedDate from '../../shared/ui/FormattedDate.astro';
+import CalendarIcon from '../../shared/icons/CalendarIcon.astro';
 import { Image } from 'astro:assets';
 import { getRandomHeroImage } from '../../../utils/random-hero-image';
 import type { CollectionEntry } from 'astro:content';
@@ -20,6 +21,7 @@ const heroImage = post.data.heroImage || getRandomHeroImage(post.id);
     <Image src={heroImage} alt={post.data.title} width={400} height={200} class="post-image" />
     <div class="post-content">
       <div class="post-meta">
+        <CalendarIcon />
         <FormattedDate date={post.data.pubDate} />
         {post.data.featured && <span class="featured-badge">おすすめ</span>}
       </div>
