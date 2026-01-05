@@ -1,0 +1,57 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHeader from '../../components/shared/layout/PageHeader.astro';
+---
+
+<BaseLayout
+  title="送信完了 - Kohei Wada"
+  description="お問い合わせありがとうございます。"
+  showSidebar={true}
+>
+  <style>
+    .thanks-container {
+      text-align: center;
+      padding: var(--spacing-xl) 0;
+    }
+
+    .thanks-message {
+      font-size: var(--font-size-lg);
+      color: var(--color-text);
+      line-height: 1.8;
+      margin-bottom: var(--spacing-lg);
+    }
+
+    .back-link {
+      display: inline-block;
+      padding: 0.75rem 2rem;
+      background: var(--accent);
+      color: white;
+      border-radius: var(--radius-md);
+      text-decoration: none;
+      font-weight: 600;
+      transition:
+        background var(--transition-fast),
+        transform var(--transition-fast);
+    }
+
+    .back-link:hover {
+      background: var(--accent-dark);
+    }
+
+    .back-link:active {
+      transform: scale(0.98);
+    }
+  </style>
+
+  <div class="page-container">
+    <PageHeader title="送信完了" icon="✅" description="お問い合わせを受け付けました。" />
+
+    <div class="thanks-container">
+      <p class="thanks-message">
+        メッセージをお送りいただきありがとうございます。<br />
+        内容を確認の上、折り返しご連絡いたします。
+      </p>
+      <a href="/" class="back-link">トップページへ戻る</a>
+    </div>
+  </div>
+</BaseLayout>
