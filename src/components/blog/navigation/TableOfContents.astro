@@ -1,43 +1,12 @@
 ---
 import type { MarkdownHeading, TocItem } from '../../../types/index.js';
+import { buildTocStructure } from '../../../utils/toc-builder.js';
 
 interface Props {
   headings: MarkdownHeading[];
 }
 
 const { headings } = Astro.props;
-
-function buildTocStructure(headings: MarkdownHeading[]): TocItem[] {
-  const toc: TocItem[] = [];
-  const stack: TocItem[] = [];
-
-  for (const heading of headings) {
-    // h1は除外（記事タイトルなので）
-    if (heading.depth === 1) continue;
-
-    const tocItem: TocItem = {
-      ...heading,
-      subheadings: [],
-    };
-
-    // スタックから現在の深度より深いものを削除
-    while (stack.length > 0 && stack[stack.length - 1].depth >= heading.depth) {
-      stack.pop();
-    }
-
-    if (stack.length === 0) {
-      // ルートレベル（h2）
-      toc.push(tocItem);
-    } else {
-      // 親見出しの子として追加
-      stack[stack.length - 1].subheadings.push(tocItem);
-    }
-
-    stack.push(tocItem);
-  }
-
-  return toc;
-}
 
 const tocStructure = buildTocStructure(headings);
 
