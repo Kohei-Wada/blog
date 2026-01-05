@@ -3,21 +3,11 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import { SITE_TITLE, SITE_DESCRIPTION } from '../../consts';
 import { getCollection } from 'astro:content';
 import PageHeader from '../../components/shared/layout/PageHeader.astro';
+import { getTagCounts, getTagsSortedByCount } from '../../utils/content-aggregation';
 
 const posts = await getCollection('blog');
-
-// タグの投稿数をカウント
-const tagCounts: Record<string, number> = {};
-posts.forEach(post => {
-  post.data.tags.forEach(tag => {
-    tagCounts[tag] = (tagCounts[tag] ?? 0) + 1;
-  });
-});
-
-// 投稿数の多い順にソートしたタグリスト
-const tags = Object.entries(tagCounts)
-  .sort(([, a], [, b]) => b - a)
-  .map(([tag]) => tag);
+const tagCounts = getTagCounts(posts);
+const tags = getTagsSortedByCount(posts);
 ---
 
 <BaseLayout title={SITE_TITLE} description={SITE_DESCRIPTION} showSidebar={true}>
