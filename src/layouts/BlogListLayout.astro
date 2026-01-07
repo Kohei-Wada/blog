@@ -1,8 +1,10 @@
 ---
 import type { CollectionEntry } from 'astro:content';
+import type { Page } from 'astro';
 import BaseLayout from './BaseLayout.astro';
 import PageHeader from '../components/shared/layout/PageHeader.astro';
 import PostsGrid from '../components/blog/content/PostsGrid.astro';
+import Pagination from '../components/shared/ui/Pagination.astro';
 
 interface Props {
   title: string;
@@ -13,6 +15,8 @@ interface Props {
   headerDescription?: string;
   currentTag?: string;
   withBottomMargin?: boolean;
+  page?: Page<CollectionEntry<'blog'>>;
+  baseUrl?: string;
 }
 
 const {
@@ -24,6 +28,8 @@ const {
   headerDescription,
   currentTag,
   withBottomMargin = true,
+  page,
+  baseUrl = '/blog/',
 } = Astro.props;
 
 const containerClass = withBottomMargin ? 'page-container with-bottom-margin' : 'page-container';
@@ -33,5 +39,16 @@ const containerClass = withBottomMargin ? 'page-container with-bottom-margin' : 
   <div class={containerClass}>
     <PageHeader title={headerTitle} icon={headerIcon} description={headerDescription} />
     <PostsGrid posts={posts} currentTag={currentTag} />
+    {
+      page && (
+        <Pagination
+          currentPage={page.currentPage}
+          lastPage={page.lastPage}
+          prevUrl={page.url.prev}
+          nextUrl={page.url.next}
+          baseUrl={baseUrl}
+        />
+      )
+    }
   </div>
 </BaseLayout>
