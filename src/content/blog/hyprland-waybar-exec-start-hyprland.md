@@ -5,7 +5,7 @@ pubDate: 'Jan 07 2026'
 tags: ['Linux', 'Hyprland', 'Arch Linux', 'wayland']
 ---
 
-最近 Hyprland を触っていて、「あっこれ仕組みを知ると腑に落ちるな」という発見があったのでまとめておきます。
+最近 Hyprland を触っていて、しょうもないことにハマったので共有します。
 
 ## ずっと Hyprland を直接起動していた
 
