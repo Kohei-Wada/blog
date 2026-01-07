@@ -23,13 +23,15 @@ const pages = Array.from({ length: lastPage }, (_, i) => i + 1);
 {
   showPagination && (
     <nav class="pagination" aria-label="ページナビゲーション">
-      <a
-        href={prevUrl}
-        class:list={['pagination-btn', 'prev', { disabled: !prevUrl }]}
-        aria-disabled={!prevUrl}
-      >
-        &larr;
-      </a>
+      {prevUrl ? (
+        <a href={prevUrl} class="pagination-btn prev">
+          &larr;
+        </a>
+      ) : (
+        <span class="pagination-btn prev disabled" aria-disabled="true">
+          &larr;
+        </span>
+      )}
 
       <div class="pagination-numbers">
         {pages.map(page => (
@@ -43,13 +45,15 @@ const pages = Array.from({ length: lastPage }, (_, i) => i + 1);
         ))}
       </div>
 
-      <a
-        href={nextUrl}
-        class:list={['pagination-btn', 'next', { disabled: !nextUrl }]}
-        aria-disabled={!nextUrl}
-      >
-        &rarr;
-      </a>
+      {nextUrl ? (
+        <a href={nextUrl} class="pagination-btn next">
+          &rarr;
+        </a>
+      ) : (
+        <span class="pagination-btn next disabled" aria-disabled="true">
+          &rarr;
+        </span>
+      )}
     </nav>
   )
 }

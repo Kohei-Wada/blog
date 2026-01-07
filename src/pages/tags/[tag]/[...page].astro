@@ -21,12 +21,11 @@ export const getStaticPaths = (async ({ paginate }) => {
 }) satisfies GetStaticPaths;
 
 const { tag } = Astro.params;
-const { page } = Astro.props;
-
 if (!tag) {
   throw new Error('Tag parameter is required');
 }
 
+const { page } = Astro.props;
 const title = `${tag} - ${SITE_TITLE}`;
 const description = SITE_DESCRIPTION;
 ---
