@@ -28,7 +28,7 @@ if (!yearMonthParam) {
 
 const parsed = parseArchiveSlug(yearMonthParam);
 if (!parsed) {
-  return Astro.redirect('/404');
+  throw new Error(`Invalid year-month format: ${yearMonthParam}`);
 }
 
 const { page } = Astro.props;
