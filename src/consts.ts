@@ -19,3 +19,6 @@ export const AUTHOR_BIO: string =
   'ソフトウェアエンジニア。Web開発、クラウドインフラ、関数型プログラミングに興味があります。';
 export const AUTHOR_IMAGE_URL: string = 'https://github.com/Kohei-Wada.png';
 export const AUTHOR_JOB_TITLE: string = 'Software Engineer';
+
+// Pagination
+export const POSTS_PER_PAGE: number = 6;

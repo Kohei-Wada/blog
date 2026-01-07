@@ -1,0 +1,43 @@
+---
+import type { GetStaticPaths } from 'astro';
+import BlogListLayout from '../../../layouts/BlogListLayout.astro';
+import { SITE_TITLE, SITE_DESCRIPTION, POSTS_PER_PAGE } from '../../../consts';
+import { getCollection } from 'astro:content';
+import { getAllTags, getPostsByTag } from '../../../utils/content-aggregation';
+
+export const getStaticPaths = (async ({ paginate }) => {
+  const posts = await getCollection('blog');
+  const tags = getAllTags(posts);
+
+  return tags.flatMap(tag => {
+    const tagPosts = getPostsByTag(posts, tag).sort(
+      (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+    );
+    return paginate(tagPosts, {
+      params: { tag },
+      pageSize: POSTS_PER_PAGE,
+    });
+  });
+}) satisfies GetStaticPaths;
+
+const { tag } = Astro.params;
+if (!tag) {
+  throw new Error('Tag parameter is required');
+}
+
+const { page } = Astro.props;
+const title = `${tag} - ${SITE_TITLE}`;
+const description = SITE_DESCRIPTION;
+---
+
+<BlogListLayout
+  title={title}
+  description={description}
+  posts={page.data}
+  headerTitle={`${tag}タグの記事`}
+  headerIcon="🏷️"
+  headerDescription={`${tag}に関する記事一覧です。${page.total}件の記事があります。気になる記事があれば、ぜひクリックして詳細をお読みください。`}
+  currentTag={tag}
+  page={page}
+  baseUrl={`/tags/${tag}/`}
+/>
