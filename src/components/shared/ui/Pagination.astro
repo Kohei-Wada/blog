@@ -28,7 +28,7 @@ const pages = Array.from({ length: lastPage }, (_, i) => i + 1);
         class:list={['pagination-btn', 'prev', { disabled: !prevUrl }]}
         aria-disabled={!prevUrl}
       >
-        &larr; 前へ
+        &larr;
       </a>
 
       <div class="pagination-numbers">
@@ -48,7 +48,7 @@ const pages = Array.from({ length: lastPage }, (_, i) => i + 1);
         class:list={['pagination-btn', 'next', { disabled: !nextUrl }]}
         aria-disabled={!nextUrl}
       >
-        次へ &rarr;
+        &rarr;
       </a>
     </nav>
   )
