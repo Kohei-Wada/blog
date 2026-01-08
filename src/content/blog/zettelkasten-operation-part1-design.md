@@ -2,6 +2,7 @@
 title: 'Zettelkasten 運用記録 Part 1: 設計編'
 description: 'Zettelkastenを2年運用して落ち着いたフォルダ構造・タグ設計・MOCの運用方法を紹介'
 pubDate: 'Jan 08 2026'
+updatedDate: 'Jan 08 2026'
 tags: ['Zettelkasten', 'Obsidian', 'Markdown', 'ナレッジマネジメント']
 ---
 
@@ -202,12 +203,6 @@ Reference Note が増えてきたら MOC を作って整理します。
 
 ---
 
-## 次回予告
+## 続き
 
-Part 2 では分析編を書きます。Makefile で自分の活動を可視化する話です。
-
-- 曜日×時間のヒートマップ
-- ノート数の推移グラフ
-- タグの偏り分析
-
-必要かと言われると微妙ですが、こういうの作るのが好きなんですよね。
+- [Zettelkasten 運用記録 Part 2: 分析編](/blog/zettelkasten-operation-part2-analysis/)
