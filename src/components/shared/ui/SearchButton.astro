@@ -1,0 +1,63 @@
+---
+
+---
+
+<button
+  id="search-button"
+  class="search-button"
+  aria-label="検索"
+  title="検索 (Ctrl+K)"
+  aria-haspopup="dialog"
+>
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="20"
+    height="20"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="2"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  >
+    <circle cx="11" cy="11" r="8"></circle>
+    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+  </svg>
+</button>
+
+<style>
+  .search-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: none;
+    padding: 0.5rem;
+    cursor: pointer;
+    color: var(--color-text);
+    transition:
+      color var(--transition-fast),
+      transform var(--transition-fast);
+  }
+
+  .search-button:hover {
+    color: var(--color-link);
+    transform: scale(1.1);
+  }
+
+  .search-button:active {
+    transform: scale(0.95);
+  }
+
+  .search-button svg {
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+
+  @media (max-width: 640px) {
+    .search-button svg {
+      width: 1.1rem;
+      height: 1.1rem;
+    }
+  }
+</style>
