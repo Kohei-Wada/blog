@@ -3,6 +3,7 @@ import type { GitHubEvent, GitHubRepo, GlobalThisWithStats } from '../../types/i
 import { fetchGitHubData } from '../../utils/github-api.js';
 import { logGitHubApiStats } from '../../utils/build-stats.js';
 import { isGitHubStatsLogged } from '../../utils/type-guards.js';
+import { formatErrorForLog } from '../../utils/error-utils.js';
 import GitHubIcon from './GitHubIcon.astro';
 import GitHubRecentCommits from './GitHubRecentCommits.astro';
 import GitHubActiveRepos from './GitHubActiveRepos.astro';
@@ -25,8 +26,8 @@ try {
       process?.on?.('exit', logGitHubApiStats);
     }
   }
-} catch (error) {
-  console.error('Critical error in GitHubActivity component:', error);
+} catch (error: unknown) {
+  console.error(formatErrorForLog(error, 'Critical error in GitHubActivity component'));
   // Continue with empty data so component doesn't crash on error
 }
 ---
