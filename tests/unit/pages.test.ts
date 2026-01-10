@@ -8,7 +8,7 @@ import {
   getUniqueTagsFromPosts,
   testUrlEncoding,
   createTestDate,
-} from '../../src/test/helpers.js';
+} from '../../src/test/helpers';
 
 describe('Page Logic', () => {
   describe('Blog Index Page', () => {

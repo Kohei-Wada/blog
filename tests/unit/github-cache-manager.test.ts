@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach, vi, afterEach } from 'vitest';
-import GitHubCacheManager from '../../src/utils/github-cache-manager.js';
+import GitHubCacheManager from '../../src/utils/github-cache-manager';
 
 // Mock data for testing
 const mockGitHubData = {

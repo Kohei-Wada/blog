@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
-import { createConsoleMock, createFetchMock } from '../../src/test/helpers.js';
+import { createConsoleMock, createFetchMock } from '../../src/test/helpers';
 
 describe('GitHubActivity 環境変数制御', () => {
   let consoleMock: ReturnType<typeof createConsoleMock>;

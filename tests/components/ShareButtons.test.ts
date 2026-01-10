@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { testUrlEncoding } from '../../src/test/helpers.js';
+import { testUrlEncoding } from '../../src/test/helpers';
 
 describe('ShareButtons Logic', () => {
   const mockUrl = 'https://example.com/blog/test-post';

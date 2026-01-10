@@ -1,4 +1,4 @@
-import type { MarkdownHeading, TocItem } from '../types/index.js';
+import type { MarkdownHeading, TocItem } from '../types/index';
 
 /**
  * Build a hierarchical table of contents structure from markdown headings
