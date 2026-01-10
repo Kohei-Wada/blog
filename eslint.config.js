@@ -36,6 +36,7 @@ export default [
         KeyboardEvent: 'readonly',
         NodeListOf: 'readonly',
         Element: 'readonly',
+        CSS: 'readonly',
       },
     },
     plugins: {

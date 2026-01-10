@@ -74,7 +74,7 @@ export function updateTocLinkActiveState(
 
   // Add active class to current section link
   if (activeId) {
-    const activeLink = document.querySelector(`a[href="#${activeId}"]`);
+    const activeLink = document.querySelector(`a[href="#${CSS.escape(activeId)}"]`);
     activeLink?.classList.add('active');
   }
 }
