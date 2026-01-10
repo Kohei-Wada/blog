@@ -1,6 +1,7 @@
 import type { APIRoute } from 'astro';
 import { getCollection } from 'astro:content';
 import type { SearchItem } from '../utils/search';
+import { formatErrorForLog } from '../utils/error-utils';
 
 export const GET: APIRoute = async () => {
   try {
@@ -20,8 +21,8 @@ export const GET: APIRoute = async () => {
         'Content-Type': 'application/json',
       },
     });
-  } catch (error) {
-    console.error('Failed to generate search index:', error);
+  } catch (error: unknown) {
+    console.error(formatErrorForLog(error, 'Failed to generate search index'));
     return new Response(JSON.stringify({ error: 'Failed to generate search index' }), {
       status: 500,
       headers: {

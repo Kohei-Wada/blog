@@ -1,5 +1,7 @@
 import type { GitHubEvent, GitHubRepo } from '../types/index.js';
 import { GITHUB_API_ENDPOINTS, GITHUB_API_PARAMS } from '../constants/api.js';
+import { getErrorMessage } from './error-utils.js';
+import { parseGitHubEvents, parseGitHubRepos } from '../schemas/github.js';
 
 export interface GitHubData {
   events: GitHubEvent[];
@@ -64,7 +66,7 @@ class GitHubCacheManager {
         console.log(`✅ GitHub API fetched and cached (fetch #${this.fetchCount})`);
       }
       return this.cachedData;
-    } catch (error) {
+    } catch (error: unknown) {
       // Reset Promise on error to allow retry on next call
       this.fetchPromise = null;
       throw error;
@@ -91,7 +93,8 @@ class GitHubCacheManager {
         return { events: [], repos: [] };
       }
 
-      const events: GitHubEvent[] = await eventsResponse.json();
+      const eventsData: unknown = await eventsResponse.json();
+      const events: GitHubEvent[] = parseGitHubEvents(eventsData);
 
       // Fetch recently updated repositories
       const reposResponse = await globalThis.fetch(
@@ -108,15 +111,13 @@ class GitHubCacheManager {
         return { events, repos: [] };
       }
 
-      const repos: GitHubRepo[] = await reposResponse.json();
+      const reposData: unknown = await reposResponse.json();
+      const repos: GitHubRepo[] = parseGitHubRepos(reposData);
 
       return { events, repos };
-    } catch (error) {
+    } catch (error: unknown) {
       // Network errors, JSON parse errors, etc.
-      console.warn(
-        'GitHub API unavailable:',
-        error instanceof Error ? error.message : 'Unknown error'
-      );
+      console.warn('GitHub API unavailable:', getErrorMessage(error));
       return { events: [], repos: [] };
     }
   }

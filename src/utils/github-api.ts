@@ -1,5 +1,6 @@
 import type { GitHubEvent, GitHubRepo } from '../types/index.js';
 import GitHubCacheManager from './github-cache-manager.js';
+import { TIME_MS } from '../constants/time.js';
 
 // 開発環境用のモックデータ
 function getMockData() {
@@ -22,7 +23,7 @@ function getMockData() {
       id: 'mock-2',
       type: 'PushEvent',
       repo: { name: 'Kohei-Wada/sample-project' },
-      created_at: new Date(Date.now() - 86400000).toISOString(),
+      created_at: new Date(Date.now() - TIME_MS.ONE_DAY).toISOString(),
       payload: {
         commits: [
           {
@@ -52,8 +53,8 @@ function getMockData() {
       description: 'サンプルプロジェクト',
       stargazers_count: 12,
       language: 'JavaScript',
-      updated_at: new Date(Date.now() - 86400000).toISOString(),
-      pushed_at: new Date(Date.now() - 86400000).toISOString(),
+      updated_at: new Date(Date.now() - TIME_MS.ONE_DAY).toISOString(),
+      pushed_at: new Date(Date.now() - TIME_MS.ONE_DAY).toISOString(),
     },
     {
       name: 'learning-rust',
@@ -62,8 +63,8 @@ function getMockData() {
       description: 'Rust学習用リポジトリ',
       stargazers_count: 3,
       language: 'Rust',
-      updated_at: new Date(Date.now() - 172800000).toISOString(),
-      pushed_at: new Date(Date.now() - 172800000).toISOString(),
+      updated_at: new Date(Date.now() - TIME_MS.TWO_DAYS).toISOString(),
+      pushed_at: new Date(Date.now() - TIME_MS.TWO_DAYS).toISOString(),
     },
   ];
 
@@ -87,7 +88,7 @@ export async function fetchGitHubData() {
 export function formatRelativeDate(date: Date): string {
   const now = new Date();
   const diff = now.getTime() - date.getTime();
-  const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+  const days = Math.floor(diff / TIME_MS.ONE_DAY);
 
   if (days === 0) return '今日';
   if (days === 1) return '昨日';

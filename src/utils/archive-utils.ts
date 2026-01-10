@@ -1,5 +1,6 @@
 import type { CollectionEntry } from 'astro:content';
 import type { ArchiveMonth } from '../types/index';
+import { ARCHIVE_YEAR_RANGE } from '../constants/ui';
 
 /**
  * ブログ記事を年月ごとにグループ化する
@@ -99,7 +100,13 @@ export function parseArchiveSlug(slug: string): { year: number; month: number } 
   const year = parseInt(match[1]);
   const month = parseInt(match[2]);
 
-  if (isNaN(year) || year < 1900 || year > 2100 || month < 1 || month > 12) {
+  if (
+    isNaN(year) ||
+    year < ARCHIVE_YEAR_RANGE.MIN ||
+    year > ARCHIVE_YEAR_RANGE.MAX ||
+    month < 1 ||
+    month > 12
+  ) {
     return null;
   }
 
