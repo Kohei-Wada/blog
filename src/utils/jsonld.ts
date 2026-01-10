@@ -1,5 +1,12 @@
 import type { ImageMetadata } from 'astro';
 import { SITE_TITLE, GITHUB_URL, ZENN_URL, QIITA_URL } from '../consts';
+import type {
+  BlogPostingSchema,
+  WebSiteSchema,
+  OrganizationSchema,
+  PersonSchema,
+  JsonLdSchema,
+} from '../types';
 
 interface BlogPostingProps {
   title: string;
@@ -35,9 +42,8 @@ interface PersonProps {
   description?: string;
 }
 
-export function generateBlogPostingSchema(props: BlogPostingProps): object {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const schema: any = {
+export function generateBlogPostingSchema(props: BlogPostingProps): BlogPostingSchema {
+  const schema: BlogPostingSchema = {
     '@context': 'https://schema.org',
     '@type': 'BlogPosting',
     headline: props.title,
@@ -50,7 +56,7 @@ export function generateBlogPostingSchema(props: BlogPostingProps): object {
       name: props.authorName,
       url: props.authorUrl,
       image: props.authorImage,
-      sameAs: [GITHUB_URL, ZENN_URL, QIITA_URL].filter(Boolean),
+      sameAs: [GITHUB_URL, ZENN_URL, QIITA_URL].filter((x): x is string => Boolean(x)),
     },
     publisher: {
       '@type': 'Organization',
@@ -75,7 +81,7 @@ export function generateBlogPostingSchema(props: BlogPostingProps): object {
   return schema;
 }
 
-export function generateWebSiteSchema(props: WebSiteProps): object {
+export function generateWebSiteSchema(props: WebSiteProps): WebSiteSchema {
   return {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
@@ -93,9 +99,8 @@ export function generateWebSiteSchema(props: WebSiteProps): object {
   };
 }
 
-export function generateOrganizationSchema(props: OrganizationProps): object {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const schema: any = {
+export function generateOrganizationSchema(props: OrganizationProps): OrganizationSchema {
+  const schema: OrganizationSchema = {
     '@context': 'https://schema.org',
     '@type': 'Organization',
     name: props.name,
@@ -113,9 +118,8 @@ export function generateOrganizationSchema(props: OrganizationProps): object {
   return schema;
 }
 
-export function generatePersonSchema(props: PersonProps): object {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const schema: any = {
+export function generatePersonSchema(props: PersonProps): PersonSchema {
+  const schema: PersonSchema = {
     '@context': 'https://schema.org',
     '@type': 'Person',
     name: props.name,
@@ -130,12 +134,11 @@ export function generatePersonSchema(props: PersonProps): object {
   return schema;
 }
 
-export function combineSchemas(schemas: object[]): object {
+export function combineSchemas(schemas: JsonLdSchema[]): object {
   return {
     '@context': 'https://schema.org',
-    '@graph': schemas.map(schema => {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unused-vars
-      const { '@context': _, ...rest } = schema as any;
+    '@graph': schemas.map(({ '@context': _context, ...rest }) => {
+      void _context;
       return rest;
     }),
   };
