@@ -1,6 +1,8 @@
 ---
 import HeaderLink from './HeaderLink.astro';
 import ThemeToggle from '../ui/ThemeToggle.astro';
+import SearchButton from '../ui/SearchButton.astro';
+import SearchModal from '../ui/SearchModal.astro';
 import { SITE_TITLE } from '../../../consts';
 ---
 
@@ -103,10 +105,12 @@ import { SITE_TITLE } from '../../../consts';
         <span class="nav-text">Contact</span>
       </HeaderLink>
       <span class="nav-divider"></span>
+      <SearchButton />
       <ThemeToggle />
     </div>
   </nav>
 </header>
+<SearchModal />
 <style>
   header {
     position: sticky;
