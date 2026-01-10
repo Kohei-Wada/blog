@@ -287,10 +287,20 @@ import { SITE_TITLE } from '../../../consts';
     ticking = false;
   }
 
-  window.addEventListener('scroll', () => {
+  function handleScroll() {
     if (!ticking) {
       requestAnimationFrame(updateHeader);
       ticking = true;
     }
-  });
+  }
+
+  function cleanup() {
+    window.removeEventListener('scroll', handleScroll);
+  }
+
+  window.addEventListener('scroll', handleScroll);
+
+  // Cleanup on page unload or navigation
+  window.addEventListener('beforeunload', cleanup);
+  document.addEventListener('astro:before-preparation', cleanup);
 </script>
