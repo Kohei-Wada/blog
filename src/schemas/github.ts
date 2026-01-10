@@ -10,26 +10,28 @@ export const GitHubEventSchema = z.object({
     name: z.string(),
   }),
   created_at: z.string(),
-  payload: z.object({
-    commits: z
-      .array(
-        z.object({
-          message: z.string(),
-          sha: z.string(),
+  payload: z
+    .object({
+      commits: z
+        .array(
+          z.object({
+            message: z.string(),
+            sha: z.string(),
+          })
+        )
+        .optional(),
+      pull_request: z
+        .object({
+          title: z.string(),
         })
-      )
-      .optional(),
-    pull_request: z
-      .object({
-        title: z.string(),
-      })
-      .optional(),
-    issue: z
-      .object({
-        title: z.string(),
-      })
-      .optional(),
-  }),
+        .optional(),
+      issue: z
+        .object({
+          title: z.string(),
+        })
+        .optional(),
+    })
+    .passthrough(), // Allow other fields for diverse event types
 });
 
 /**
