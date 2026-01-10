@@ -1,5 +1,6 @@
 import type { CollectionEntry } from 'astro:content';
 import { SIMILARITY_WEIGHTS, type SimilarityWeights } from '../constants/similarity';
+import { TIME_MS } from '../constants/time';
 
 /**
  * Calculate similarity score between two posts
@@ -28,7 +29,7 @@ export function calculateSimilarityScore(
   // Date proximity score
   const currentDate = currentPost.data.pubDate.getTime();
   const otherDate = otherPost.data.pubDate.getTime();
-  const daysDiff = Math.abs(currentDate - otherDate) / (1000 * 60 * 60 * 24);
+  const daysDiff = Math.abs(currentDate - otherDate) / TIME_MS.ONE_DAY;
 
   // Decay function: 1.0 within RECENT_DAYS, 0.0 at MAX_DAYS
   const decayRange = weights.MAX_DAYS - weights.RECENT_DAYS;

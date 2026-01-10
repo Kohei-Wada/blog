@@ -220,7 +220,15 @@ const hasToc = tocStructure.length > 0;
 </style>
 
 <script>
-  // TOC機能の初期化
+  import {
+    TocStateManager,
+    isMobileViewport,
+    shouldCollapseOnInit,
+    findActiveHeadingId,
+    updateTocLinkActiveState,
+  } from '../../../utils/toc-controller';
+
+  // TOC initialization
   document.addEventListener('DOMContentLoaded', () => {
     const tocDetails = document.querySelector('.toc-details') as HTMLDetailsElement;
     const tocLinks = document.querySelectorAll('.toc-link, .toc-sublink');
@@ -228,58 +236,32 @@ const hasToc = tocStructure.length > 0;
 
     if (!tocDetails) return;
 
-    // localStorageから折り畳み状態を復元
-    const storageKey = 'toc-collapsed';
-    const isCollapsed = localStorage.getItem(storageKey) === 'true';
-
-    // レスポンシブな初期状態設定
-    const isMobile = window.innerWidth <= 768;
-    const shouldBeCollapsed = isCollapsed || isMobile;
-
-    if (shouldBeCollapsed) {
+    // Restore collapsed state
+    const initialCollapsed = TocStateManager.getCollapsedState();
+    if (shouldCollapseOnInit()) {
       tocDetails.removeAttribute('open');
     } else {
       tocDetails.setAttribute('open', '');
     }
 
-    // 折り畳み状態の変更をlocalStorageに保存
+    // Save collapsed state on toggle
     tocDetails.addEventListener('toggle', () => {
-      localStorage.setItem(storageKey, (!tocDetails.open).toString());
+      TocStateManager.setCollapsedState(!tocDetails.open);
     });
 
-    // アクティブセクションのハイライト
+    // Update active section highlight
     function updateActiveTocLink() {
-      let currentActiveId = '';
-
-      // 現在見えている見出しを特定
-      for (const heading of headings) {
-        const rect = heading.getBoundingClientRect();
-        if (rect.top <= 100) {
-          currentActiveId = heading.id;
-        }
-      }
-
-      // 全てのリンクからactiveクラスを削除
-      tocLinks.forEach(link => link.classList.remove('active'));
-
-      // 現在のセクションのリンクにactiveクラスを追加
-      if (currentActiveId) {
-        const activeLink = document.querySelector(`a[href="#${currentActiveId}"]`);
-        if (activeLink) {
-          activeLink.classList.add('active');
-        }
-      }
+      const activeId = findActiveHeadingId(headings);
+      updateTocLinkActiveState(tocLinks, activeId);
     }
 
-    // スクロール時にアクティブセクションを更新
+    // Scroll listener
     window.addEventListener('scroll', updateActiveTocLink);
-    updateActiveTocLink(); // 初期化
+    updateActiveTocLink();
 
-    // ウィンドウリサイズ時の対応
+    // Responsive collapse on resize
     window.addEventListener('resize', () => {
-      const newIsMobile = window.innerWidth <= 768;
-      if (newIsMobile && !isCollapsed && tocDetails.open) {
-        // デスクトップからモバイルに変わった時、展開されていれば折り畳む
+      if (isMobileViewport() && !initialCollapsed && tocDetails.open) {
         tocDetails.removeAttribute('open');
       }
     });

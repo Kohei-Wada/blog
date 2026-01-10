@@ -29,6 +29,13 @@ export default [
         process: 'readonly',
         Response: 'readonly',
         fetch: 'readonly',
+        // Browser globals for client-side controllers
+        document: 'readonly',
+        window: 'readonly',
+        localStorage: 'readonly',
+        KeyboardEvent: 'readonly',
+        NodeListOf: 'readonly',
+        Element: 'readonly',
       },
     },
     plugins: {
