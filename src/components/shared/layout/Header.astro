@@ -6,10 +6,9 @@ import { SITE_TITLE } from '../../../consts';
 
 <header>
   <nav aria-label="Main navigation">
-    <div class="nav-left">
-      <h2><a href="/">{SITE_TITLE}</a></h2>
-    </div>
-    <div class="nav-center">
+    <div class="nav-pills">
+      <a href="/" class="site-title">{SITE_TITLE}</a>
+      <span class="nav-divider"></span>
       <HeaderLink href="/">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -103,92 +102,117 @@ import { SITE_TITLE } from '../../../consts';
         </svg>
         <span class="nav-text">Contact</span>
       </HeaderLink>
-    </div>
-    <div class="nav-right">
+      <span class="nav-divider"></span>
       <ThemeToggle />
     </div>
   </nav>
 </header>
 <style>
   header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 100;
     margin: 0;
     width: 100%;
-    background: var(--header-bg);
-    box-shadow: var(--header-shadow);
+    padding: 0.75rem 0;
+    pointer-events: none;
+    transform: translateY(0);
+    transition: transform 0.3s ease;
+  }
+
+  header.header-hidden {
+    transform: translateY(-100%);
   }
 
   nav {
     width: 100%;
-    padding: 0 1rem;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
   }
 
-  .nav-left {
+  .nav-pills {
     display: flex;
     align-items: center;
+    background: var(--header-bg);
+    border-radius: 9999px;
+    padding: 0.25rem 0.5rem;
+    gap: 0.25rem;
+    box-shadow: var(--shadow-md);
+    pointer-events: auto;
   }
 
-  .nav-center {
-    display: flex;
-    align-items: center;
-    gap: 0;
-  }
-
-  .nav-right {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-  }
-
-  h2 {
-    margin: 0;
-    font-size: 1em;
-  }
-
-  h2 a,
-  h2 a.active {
-    text-decoration: none;
-  }
-  nav a {
+  .site-title {
     display: inline-flex;
     align-items: center;
-    padding: 1em 0.5em;
+    padding: 0.5em 0.75em;
     color: var(--color-text);
-    border-bottom: 4px solid transparent;
     text-decoration: none;
+    font-weight: 600;
+    border-radius: 9999px;
+    transition: background var(--transition-fast);
   }
-  nav a.active {
+
+  .site-title:hover {
+    background: var(--hover-background);
+  }
+
+  .nav-divider {
+    width: 1px;
+    height: 1.2em;
+    background: var(--color-border);
+    margin: 0 0.25rem;
+  }
+
+  .nav-pills a {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.5em 0.75em;
+    color: var(--color-text);
     text-decoration: none;
-    border-bottom-color: var(--color-link);
+    border-radius: 9999px;
+    transition: background var(--transition-fast);
   }
-  .nav-right,
-  .nav-right a {
-    display: flex;
+
+  .nav-pills a:hover {
+    background: var(--hover-background);
   }
+
+  .nav-pills a.active {
+    background: var(--active-background);
+    color: var(--color-link);
+  }
+
   .nav-icon {
     width: 1em;
     height: 1em;
     margin-right: 0.25em;
   }
 
-  /* 中画面（641px-768px）: コンテンツ圧縮 */
-  @media (max-width: var(--tablet-breakpoint)) and (min-width: 641px) {
-    .nav-center {
-      flex-shrink: 1;
-      min-width: 0;
+  /* Medium screens (641px-768px): compress content */
+  @media (max-width: 768px) and (min-width: 641px) {
+    .nav-pills a {
+      padding: 0.5em 0.5em;
+      font-size: 0.9em;
     }
-    nav a {
-      padding: 1em 0.3em;
+    .site-title {
+      padding: 0.5em 0.5em;
       font-size: 0.9em;
     }
   }
 
-  /* 小画面（640px以下）: 全アイコン表示、テキスト非表示 */
+  /* Small screens (640px and below): icons only, hide text */
   @media (max-width: 640px) {
-    nav a {
-      padding: 1em 0.35em;
+    .nav-pills {
+      padding: 0.2rem 0.3rem;
+    }
+    .nav-pills a {
+      padding: 0.5em 0.5em;
+    }
+    .site-title {
+      padding: 0.5em 0.5em;
+      font-size: 0.85em;
     }
     .nav-text {
       display: none;
@@ -198,52 +222,75 @@ import { SITE_TITLE } from '../../../consts';
       width: 1.2em;
       height: 1.2em;
     }
-    h2 {
-      font-size: 0.9em;
-    }
   }
 
-  /* 超小画面（480px以下）: よりコンパクトに */
+  /* Extra small screens (480px and below): more compact */
   @media (max-width: 480px) {
-    nav {
-      padding: 0 0.5rem;
+    .nav-pills {
+      padding: 0.15rem 0.25rem;
     }
-    nav a {
-      padding: 1em 0.25em;
+    .nav-pills a {
+      padding: 0.4em 0.4em;
+    }
+    .site-title {
+      padding: 0.4em 0.4em;
+      font-size: 0.8em;
     }
     .nav-icon {
       width: 1.1em;
       height: 1.1em;
     }
-    h2 {
-      font-size: 0.85em;
+    .nav-divider {
+      margin: 0 0.15rem;
     }
   }
 
-  /* 極小画面（380px以下）: 最小限のパディング */
+  /* Tiny screens (380px and below): minimal padding */
   @media (max-width: 380px) {
-    nav {
-      padding: 0 0.25rem;
+    .nav-pills {
+      padding: 0.1rem 0.2rem;
     }
-    nav a {
-      padding: 1em 0.2em;
+    .nav-pills a {
+      padding: 0.35em 0.35em;
+    }
+    .site-title {
+      padding: 0.35em 0.35em;
+      font-size: 0.75em;
     }
     .nav-icon {
       width: 1em;
       height: 1em;
     }
-    h2 {
-      font-size: 0.8em;
-    }
-  }
-
-  @media (max-width: var(--tablet-breakpoint)) {
-    nav {
-      padding: 0 var(--spacing-xs);
-    }
-
-    .nav-right {
-      display: none;
+    .nav-divider {
+      margin: 0 0.1rem;
     }
   }
 </style>
+
+<script>
+  const header = document.querySelector('header');
+  let lastScrollY = window.scrollY;
+  let ticking = false;
+
+  function updateHeader() {
+    const currentScrollY = window.scrollY;
+
+    if (currentScrollY > lastScrollY && currentScrollY > 100) {
+      // Scrolling down: hide header
+      header?.classList.add('header-hidden');
+    } else {
+      // Scrolling up: show header
+      header?.classList.remove('header-hidden');
+    }
+
+    lastScrollY = currentScrollY;
+    ticking = false;
+  }
+
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      requestAnimationFrame(updateHeader);
+      ticking = true;
+    }
+  });
+</script>
