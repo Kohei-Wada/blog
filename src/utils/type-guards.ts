@@ -1,4 +1,4 @@
-import type { GlobalThisWithStats } from '../types/index.js';
+import type { GlobalThisWithStats } from '../types/index';
 
 export function hasGitHubStats(
   obj: typeof globalThis

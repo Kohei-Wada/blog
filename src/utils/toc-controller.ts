@@ -2,7 +2,6 @@ import { UI_CONFIG } from '../constants/ui';
 
 // Constants
 const STORAGE_KEY = 'toc-collapsed';
-const MOBILE_BREAKPOINT = 768;
 
 /**
  * TOC state manager for localStorage operations
@@ -30,7 +29,7 @@ export const TocStateManager = {
  */
 export function isMobileViewport(): boolean {
   if (typeof window === 'undefined') return false;
-  return window.innerWidth <= MOBILE_BREAKPOINT;
+  return window.innerWidth <= UI_CONFIG.MOBILE_BREAKPOINT;
 }
 
 /**

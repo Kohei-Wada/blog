@@ -6,6 +6,9 @@ export const UI_CONFIG = {
   // Search modal settings
   SEARCH_MAX_RESULTS: 10,
   SEARCH_DEBOUNCE_MS: 200,
+
+  // Responsive breakpoint (pixels)
+  MOBILE_BREAKPOINT: 768,
 } as const;
 
 // Archive year range validation

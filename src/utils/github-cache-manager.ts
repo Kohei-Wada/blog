@@ -1,7 +1,7 @@
-import type { GitHubEvent, GitHubRepo } from '../types/index.js';
-import { GITHUB_API_ENDPOINTS, GITHUB_API_PARAMS } from '../constants/api.js';
-import { getErrorMessage } from './error-utils.js';
-import { parseGitHubEvents, parseGitHubRepos } from '../schemas/github.js';
+import type { GitHubEvent, GitHubRepo } from '../types/index';
+import { GITHUB_API_ENDPOINTS, GITHUB_API_PARAMS } from '../constants/api';
+import { getErrorMessage } from './error-utils';
+import { parseGitHubEvents, parseGitHubRepos } from '../schemas/github';
 
 export interface GitHubData {
   events: GitHubEvent[];

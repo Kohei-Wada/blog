@@ -1,4 +1,4 @@
-import GitHubCacheManager from './github-cache-manager.js';
+import GitHubCacheManager from './github-cache-manager';
 
 /**
  * Display GitHub API usage statistics on build completion

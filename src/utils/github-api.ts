@@ -1,6 +1,6 @@
-import type { GitHubEvent, GitHubRepo } from '../types/index.js';
-import GitHubCacheManager from './github-cache-manager.js';
-import { TIME_MS } from '../constants/time.js';
+import type { GitHubEvent, GitHubRepo } from '../types/index';
+import GitHubCacheManager from './github-cache-manager';
+import { TIME_MS } from '../constants/time';
 
 // 開発環境用のモックデータ
 function getMockData() {
