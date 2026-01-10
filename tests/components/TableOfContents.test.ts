@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import type { MarkdownHeading, TocItem } from '../types/index.js';
+import type { MarkdownHeading, TocItem } from '../../src/types/index.js';
 
 // TableOfContentsコンポーネントから関数を抽出してテスト
 function buildTocStructure(headings: MarkdownHeading[]): TocItem[] {
