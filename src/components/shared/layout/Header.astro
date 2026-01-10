@@ -109,9 +109,8 @@ import { SITE_TITLE } from '../../../consts';
 </header>
 <style>
   header {
-    position: fixed;
+    position: sticky;
     top: 0;
-    left: 0;
     z-index: 100;
     margin: 0;
     width: 100%;
@@ -123,6 +122,13 @@ import { SITE_TITLE } from '../../../consts';
 
   header.header-hidden {
     transform: translateY(-100%);
+  }
+
+  /* Spacer to prevent content jump when header hides */
+  header::before {
+    content: '';
+    display: block;
+    height: 0;
   }
 
   nav {
