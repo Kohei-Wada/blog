@@ -126,50 +126,64 @@
 
   .search-result-item {
     display: block;
-    padding: 0.75rem 1rem;
-    border-radius: var(--radius-md);
+    background: var(--card-background);
+    border-radius: 12px;
+    border: var(--card-border);
     text-decoration: none;
     color: var(--color-text);
     cursor: pointer;
-    transition: background var(--transition-fast);
+    transition: all 0.2s ease;
+    margin-bottom: 0.5rem;
   }
 
   .search-result-item:hover,
   .search-result-item[aria-selected='true'] {
-    background: var(--hover-background);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--color-link);
   }
 
-  .search-result-item[aria-selected='true'] {
-    outline: 2px solid var(--color-link);
-    outline-offset: -2px;
+  .search-result-content {
+    padding: 1rem 1.25rem;
   }
 
   .search-result-title {
+    font-size: 1.1rem;
     font-weight: 600;
-    margin-bottom: 0.25rem;
+    margin: 0 0 0.5rem;
+    line-height: 1.4;
+    color: var(--color-text);
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
   }
 
   .search-result-description {
-    font-size: 0.875rem;
+    font-size: 0.9rem;
     color: var(--color-text-secondary);
+    line-height: 1.5;
+    margin: 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
     overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
   }
 
   .search-result-tags {
     display: flex;
-    gap: 0.5rem;
-    margin-top: 0.5rem;
     flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-top: 0.75rem;
   }
 
   .search-result-tag {
-    font-size: 0.75rem;
-    padding: 0.125rem 0.5rem;
-    background: var(--subtle-background);
-    border-radius: var(--radius-full);
-    color: var(--color-text-secondary);
+    background: var(--active-background);
+    color: var(--color-link);
+    padding: 0.3rem 0.8rem;
+    border-radius: var(--radius-xl);
+    font-size: 0.8rem;
+    font-weight: 500;
+    transition: all var(--transition-fast);
   }
 
   .search-footer {
@@ -301,15 +315,17 @@
           aria-selected="${index === selectedIndex}"
           data-index="${index}"
         >
-          <div class="search-result-title">${escapeHtml(result.item.title)}</div>
-          <div class="search-result-description">${escapeHtml(result.item.description)}</div>
-          ${
-            result.item.tags.length > 0
-              ? `<div class="search-result-tags">
-              ${result.item.tags.map((tag: string) => `<span class="search-result-tag">${escapeHtml(tag)}</span>`).join('')}
-            </div>`
-              : ''
-          }
+          <div class="search-result-content">
+            <div class="search-result-title">${escapeHtml(result.item.title)}</div>
+            <div class="search-result-description">${escapeHtml(result.item.description)}</div>
+            ${
+              result.item.tags.length > 0
+                ? `<div class="search-result-tags">
+                ${result.item.tags.map((tag: string) => `<span class="search-result-tag">${escapeHtml(tag)}</span>`).join('')}
+              </div>`
+                : ''
+            }
+          </div>
         </a>
       `
       )
