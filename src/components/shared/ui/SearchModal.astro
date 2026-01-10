@@ -221,30 +221,8 @@
 </style>
 
 <script>
-  import Fuse, { type IFuseOptions, type FuseResult } from 'fuse.js';
-
-  interface SearchItem {
-    id: string;
-    title: string;
-    description: string;
-    tags: string[];
-    pubDate: string;
-    url: string;
-  }
-
-  type SearchResult = FuseResult<SearchItem>;
-
-  const FUSE_OPTIONS: IFuseOptions<SearchItem> = {
-    keys: [
-      { name: 'title', weight: 0.4 },
-      { name: 'description', weight: 0.3 },
-      { name: 'tags', weight: 0.3 },
-    ],
-    threshold: 0.4,
-    includeScore: true,
-    ignoreLocation: true,
-    minMatchCharLength: 2,
-  };
+  import Fuse from 'fuse.js';
+  import { FUSE_OPTIONS, type SearchItem, type SearchResult } from '../../../utils/search';
 
   const modal = document.getElementById('search-modal');
   const overlay = modal?.querySelector('.search-overlay');
@@ -309,7 +287,7 @@
       .map(
         (result, index) => `
         <a
-          href="${result.item.url}"
+          href="${escapeHtml(result.item.url)}"
           class="search-result-item"
           role="option"
           aria-selected="${index === selectedIndex}"
