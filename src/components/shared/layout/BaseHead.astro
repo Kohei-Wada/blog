@@ -16,6 +16,7 @@ import {
 import FallbackImage from '../../../assets/avatar.png';
 import type { ImageMetadata } from 'astro';
 import Analytics from '../ui/Analytics.astro';
+import AdSenseScript from '../../integrations/AdSenseScript.astro';
 import {
   generateBlogPostingSchema,
   generateWebSiteSchema,
@@ -170,6 +171,7 @@ if (isArticle && publishedTime) {
 </script>
 
 <Analytics />
+<AdSenseScript />
 
 <!-- Structured Data (JSON-LD) -->
 <script type="application/ld+json" is:inline set:html={JSON.stringify(jsonLdData)} />

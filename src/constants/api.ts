@@ -29,6 +29,12 @@ export const ANALYTICS = {
   GA_MEASUREMENT_ID: 'G-XGH4QVLSMS',
 } as const;
 
+// Google AdSense設定
+export const ADSENSE = {
+  PUBLISHER_ID: 'ca-pub-4511202161965241',
+  SCRIPT_URL: 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js',
+} as const;
+
 // GitHub関連の表示設定
 export const GITHUB_ACTIVITY_CONFIG = {
   MAX_RECENT_COMMITS: 3,
