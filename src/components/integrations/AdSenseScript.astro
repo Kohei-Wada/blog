@@ -1,0 +1,12 @@
+---
+import { ADSENSE } from '../../constants/api';
+
+const isProduction: boolean = import.meta.env.PROD;
+const publisherId = ADSENSE.PUBLISHER_ID;
+---
+
+{
+  isProduction && (
+    <script async src={`${ADSENSE.SCRIPT_URL}?client=${publisherId}`} crossorigin="anonymous" />
+  )
+}
