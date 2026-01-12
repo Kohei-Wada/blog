@@ -1,4 +1,7 @@
 ---
+// Import the global.css file here so that it is included on
+// all pages through the use of the <BaseHead /> component.
+import '../../../styles/global.css';
 import {
   SITE_TITLE,
   SITE_DESCRIPTION,
@@ -81,17 +84,12 @@ if (isArticle && publishedTime) {
 ---
 
 <!--
-  FOUC Prevention: Hide page until theme is initialized.
-  This must be the FIRST element in head to prevent flash of unstyled content.
+  FOUC Prevention + Theme Initialization
+  These MUST be the first elements in <head> to prevent flash of unstyled content.
+  The script sets data-theme before any CSS is parsed.
 -->
-<style>
-  html:not([data-theme]) {
-    visibility: hidden;
-  }
-</style>
-
-<!-- Theme initialization (MUST run before CSS loads to prevent FOUC) -->
 <script is:inline>
+  // Theme initialization - runs synchronously before CSS
   window.theme ??= (() => {
     const STORAGE_KEY = 'theme-preference';
 
@@ -122,14 +120,6 @@ if (isArticle && publishedTime) {
   // Apply theme immediately (before CSS parses)
   document.documentElement.setAttribute('data-theme', window.theme.getTheme());
 </script>
-
-<!--
-  Import global CSS AFTER theme initialization.
-  This ensures data-theme attribute is set before CSS variables are evaluated.
--->
-<style>
-  @import '../../../styles/global.css';
-</style>
 
 <!-- Global Metadata -->
 <meta charset="utf-8" />
