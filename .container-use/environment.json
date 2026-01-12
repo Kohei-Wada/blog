@@ -1,0 +1,11 @@
+{
+  "workdir": "/workdir",
+  "base_image": "node:20",
+  "install_commands": [
+    "npm install"
+  ],
+  "env": [
+    "PUBLIC_DISABLE_GITHUB_API=true",
+    "PUBLIC_DISABLE_ADSENSE=true"
+  ]
+}
