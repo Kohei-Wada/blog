@@ -236,11 +236,8 @@ const hasToc = tocStructure.length > 0;
 
     if (!tocDetails) return;
 
-    // Restore collapsed state
-    const initialCollapsed = TocStateManager.getCollapsedState();
-    if (shouldCollapseOnInit()) {
-      tocDetails.removeAttribute('open');
-    } else {
+    // Open TOC if user hasn't collapsed it and not on mobile
+    if (!shouldCollapseOnInit()) {
       tocDetails.setAttribute('open', '');
     }
 
