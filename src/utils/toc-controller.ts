@@ -1,44 +1,5 @@
 import { UI_CONFIG } from '../constants/ui';
 
-// Constants
-const STORAGE_KEY = 'toc-collapsed';
-
-/**
- * TOC state manager for localStorage operations
- */
-export const TocStateManager = {
-  /**
-   * Get collapsed state from localStorage
-   */
-  getCollapsedState(): boolean {
-    if (typeof localStorage === 'undefined') return false;
-    return localStorage.getItem(STORAGE_KEY) === 'true';
-  },
-
-  /**
-   * Save collapsed state to localStorage
-   */
-  setCollapsedState(collapsed: boolean): void {
-    if (typeof localStorage === 'undefined') return;
-    localStorage.setItem(STORAGE_KEY, collapsed.toString());
-  },
-};
-
-/**
- * Check if current viewport is mobile size
- */
-export function isMobileViewport(): boolean {
-  if (typeof window === 'undefined') return false;
-  return window.innerWidth <= UI_CONFIG.MOBILE_BREAKPOINT;
-}
-
-/**
- * Determine if TOC should be initially collapsed
- */
-export function shouldCollapseOnInit(): boolean {
-  return TocStateManager.getCollapsedState() || isMobileViewport();
-}
-
 /**
  * Find the currently active heading based on scroll position
  * @param headings - Array of heading elements with id attributes

@@ -17,34 +17,27 @@ const hasToc = tocStructure.length > 0;
 {
   hasToc && (
     <nav class="table-of-contents">
-      <details class="toc-details" open>
-        <summary class="toc-summary" role="button" aria-label="目次の表示/非表示を切り替え">
-          <span class="toc-title">目次</span>
-          <span class="toc-toggle" aria-hidden="true">
-            ▼
-          </span>
-        </summary>
-        <ol class="toc-list">
-          {tocStructure.map(item => (
-            <li>
-              <a href={`#${item.slug}`} class="toc-link">
-                {item.text}
-              </a>
-              {item.subheadings.length > 0 && (
-                <ol class="toc-sublist">
-                  {item.subheadings.map((subItem: TocItem) => (
-                    <li>
-                      <a href={`#${subItem.slug}`} class="toc-sublink">
-                        {subItem.text}
-                      </a>
-                    </li>
-                  ))}
-                </ol>
-              )}
-            </li>
-          ))}
-        </ol>
-      </details>
+      <h2 class="toc-title">目次</h2>
+      <ol class="toc-list">
+        {tocStructure.map(item => (
+          <li>
+            <a href={`#${item.slug}`} class="toc-link">
+              {item.text}
+            </a>
+            {item.subheadings.length > 0 && (
+              <ol class="toc-sublist">
+                {item.subheadings.map((subItem: TocItem) => (
+                  <li>
+                    <a href={`#${subItem.slug}`} class="toc-sublink">
+                      {subItem.text}
+                    </a>
+                  </li>
+                ))}
+              </ol>
+            )}
+          </li>
+        ))}
+      </ol>
     </nav>
   )
 }
@@ -58,53 +51,13 @@ const hasToc = tocStructure.length > 0;
     border: var(--card-border);
   }
 
-  .toc-details {
-    border: none;
-    margin: 0;
-    padding: 0;
-  }
-
-  .toc-summary {
-    list-style: none;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin: 0 0 1rem 0;
-    padding: 0.75rem 0 0.5rem 0;
-    border-bottom: 2px solid var(--color-link);
-    transition: all 0.2s ease;
-    user-select: none;
-    outline: none;
-  }
-
-  .toc-summary:hover {
-    color: var(--color-link);
-  }
-
-  .toc-summary::-webkit-details-marker {
-    display: none;
-  }
-
   .toc-title {
     font-size: 1.1em;
     color: var(--color-text);
     font-weight: 600;
-  }
-
-  .toc-toggle {
-    font-size: 0.9em;
-    color: var(--color-link);
-    transition: transform 0.3s ease;
-    display: inline-block;
-  }
-
-  .toc-details:not([open]) .toc-toggle {
-    transform: rotate(-90deg);
-  }
-
-  .toc-details[open] .toc-toggle {
-    transform: rotate(0deg);
+    margin: 0 0 1rem 0;
+    padding: 0.75rem 0 0.5rem 0;
+    border-bottom: 2px solid var(--color-link);
   }
 
   .toc-list {
@@ -220,34 +173,12 @@ const hasToc = tocStructure.length > 0;
 </style>
 
 <script>
-  import {
-    TocStateManager,
-    isMobileViewport,
-    shouldCollapseOnInit,
-    findActiveHeadingId,
-    updateTocLinkActiveState,
-  } from '../../../utils/toc-controller';
+  import { findActiveHeadingId, updateTocLinkActiveState } from '../../../utils/toc-controller';
 
   // TOC initialization
   document.addEventListener('DOMContentLoaded', () => {
-    const tocDetails = document.querySelector('.toc-details') as HTMLDetailsElement;
     const tocLinks = document.querySelectorAll('.toc-link, .toc-sublink');
     const headings = document.querySelectorAll('h2[id], h3[id]');
-
-    if (!tocDetails) return;
-
-    // Restore collapsed state
-    const initialCollapsed = TocStateManager.getCollapsedState();
-    if (shouldCollapseOnInit()) {
-      tocDetails.removeAttribute('open');
-    } else {
-      tocDetails.setAttribute('open', '');
-    }
-
-    // Save collapsed state on toggle
-    tocDetails.addEventListener('toggle', () => {
-      TocStateManager.setCollapsedState(!tocDetails.open);
-    });
 
     // Update active section highlight
     function updateActiveTocLink() {
@@ -258,13 +189,6 @@ const hasToc = tocStructure.length > 0;
     // Scroll listener
     window.addEventListener('scroll', updateActiveTocLink);
     updateActiveTocLink();
-
-    // Responsive collapse on resize
-    window.addEventListener('resize', () => {
-      if (isMobileViewport() && !initialCollapsed && tocDetails.open) {
-        tocDetails.removeAttribute('open');
-      }
-    });
   });
 </script>
 
