@@ -14,4 +14,9 @@ export default defineConfig({
     mdx(),
     sitemap(),
   ],
+  vite: {
+    build: {
+      assetsInlineLimit: 100000,
+    },
+  },
 });
