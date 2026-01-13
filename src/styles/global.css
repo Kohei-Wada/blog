@@ -4,15 +4,11 @@
   License MIT: https://github.com/HermanMartinus/bearblog/blob/master/LICENSE.md
  */
 
-/* Import base styles */
-@import './base/variables.css';
-@import './base/reset.css';
-@import './base/typography.css';
-@import './base/responsive.css';
+/*
+  NOTE: CSS files are now imported directly in BaseHead.astro
+  instead of using @import here. This prevents FOUC (Flash of
+  Unstyled Content) in Firefox by allowing Vite to optimize
+  the CSS bundling.
 
-/* Import component styles */
-@import './components/tables.css';
-@import './components/layout.css';
-
-/* Import existing components */
-@import './components.css';
+  See: src/components/shared/layout/BaseHead.astro
+ */
