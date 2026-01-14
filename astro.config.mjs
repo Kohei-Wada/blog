@@ -12,7 +12,28 @@ export default defineConfig({
       themes: ['github-dark'],
     }),
     mdx(),
-    sitemap(),
+    sitemap({
+      changefreq: 'weekly',
+      priority: 0.7,
+      serialize(item) {
+        // Homepage has highest priority
+        if (item.url === 'https://wada-dev.com/') {
+          item.priority = 1.0;
+          item.changefreq = 'daily';
+        }
+        // Blog posts have medium priority
+        else if (item.url.includes('/blog/')) {
+          item.priority = 0.8;
+          item.changefreq = 'monthly';
+        }
+        // Tag and archive pages have lower priority
+        else if (item.url.includes('/tags/') || item.url.includes('/archives/')) {
+          item.priority = 0.5;
+          item.changefreq = 'weekly';
+        }
+        return item;
+      },
+    }),
   ],
   vite: {
     build: {

@@ -1,5 +1,5 @@
 # robots.txt for Kohei Wada's Blog
-# https://kohei-wada-blog.netlify.app/
+# https://wada-dev.com/
 
 User-agent: *
 
@@ -22,8 +22,7 @@ Allow: /contact/
 Allow: /rss.xml
 
 # Sitemap location
-Sitemap: https://kohei-wada-blog.netlify.app/sitemap-index.xml
-Sitemap: https://kohei-wada-blog.netlify.app/sitemap-0.xml
+Sitemap: https://wada-dev.com/sitemap-index.xml
 
 # Crawl-delay to be respectful (optional)
 # Crawl-delay: 1
