@@ -122,27 +122,27 @@ import { SITE_TITLE } from '../../../consts';
 </header>
 <SearchModal />
 <style>
+  /* Offset for fixed header */
+  :global(body) {
+    padding-top: 4rem;
+  }
+
   header {
-    position: sticky;
+    position: fixed;
     top: 0;
+    left: 0;
+    right: 0;
     z-index: 100;
     margin: 0;
-    width: 100%;
     padding: 0.75rem 0;
     pointer-events: none;
-    transform: translateY(0);
-    transition: transform 0.3s ease;
+    transform: translate3d(0, 0, 0);
+    transition: transform 0.25s ease;
+    will-change: transform;
   }
 
   header.header-hidden {
-    transform: translateY(-100%);
-  }
-
-  /* Spacer to prevent content jump when header hides */
-  header::before {
-    content: '';
-    display: block;
-    height: 0;
+    transform: translate3d(0, -110%, 0);
   }
 
   nav {
@@ -288,39 +288,35 @@ import { SITE_TITLE } from '../../../consts';
 </style>
 
 <script>
-  const header = document.querySelector('header');
-  let lastScrollY = window.scrollY;
-  let ticking = false;
+  let header: HTMLElement | null;
+  let lastY = window.scrollY;
 
   function updateHeader() {
-    const currentScrollY = window.scrollY;
+    const y = window.scrollY;
+    if (!header) return;
 
-    if (currentScrollY > lastScrollY && currentScrollY > 100) {
-      // Scrolling down: hide header
-      header?.classList.add('header-hidden');
+    const down = y > lastY;
+
+    if (y > 100 && down) {
+      // Scrolling down past threshold: hide
+      header.classList.add('header-hidden');
     } else {
-      // Scrolling up: show header
-      header?.classList.remove('header-hidden');
+      // Scrolling up or at top: show
+      header.classList.remove('header-hidden');
     }
 
-    lastScrollY = currentScrollY;
-    ticking = false;
+    lastY = y;
   }
 
-  function handleScroll() {
-    if (!ticking) {
-      requestAnimationFrame(updateHeader);
-      ticking = true;
-    }
+  function init() {
+    header = document.querySelector('header');
+    lastY = window.scrollY;
+    updateHeader();
   }
 
-  function cleanup() {
-    window.removeEventListener('scroll', handleScroll);
-  }
+  window.addEventListener('scroll', updateHeader);
+  window.addEventListener('pageshow', init);
+  document.addEventListener('astro:page-load', init);
 
-  window.addEventListener('scroll', handleScroll);
-
-  // Cleanup on page unload or navigation
-  window.addEventListener('beforeunload', cleanup);
-  document.addEventListener('astro:before-preparation', cleanup);
+  init();
 </script>
