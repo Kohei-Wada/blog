@@ -9,6 +9,9 @@ import { GITHUB_URL, ZENN_URL, X_URL } from '../../../consts';
 <footer>
   <div class="footer-content">
     &copy; {today.getFullYear()} wada. All rights reserved.
+    <div class="footer-links">
+      <a href="/privacy">プライバシーポリシー</a>
+    </div>
     <div class="social-links">
       <a href={GITHUB_URL} target="_blank" aria-label="Visit GitHub profile">
         <GitHubIcon />
@@ -37,6 +40,18 @@ import { GITHUB_URL, ZENN_URL, X_URL } from '../../../consts';
     max-width: var(--content-max-width);
     margin: 0 auto;
     padding: 0 1rem;
+  }
+  .footer-links {
+    margin-top: 0.75em;
+  }
+  .footer-links a {
+    color: var(--color-text-secondary);
+    text-decoration: none;
+    font-size: var(--font-size-sm);
+    transition: color var(--transition-normal);
+  }
+  .footer-links a:hover {
+    color: var(--color-text);
   }
   .social-links {
     display: flex;
