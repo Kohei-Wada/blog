@@ -1,6 +1,7 @@
 import type { CollectionEntry } from 'astro:content';
 import type { ArchiveMonth } from '../types/index';
 import { ARCHIVE_YEAR_RANGE } from '../constants/ui';
+import { sortPostsByDate } from './sorting';
 
 /**
  * ブログ記事を年月ごとにグループ化する
@@ -24,21 +25,19 @@ export function groupPostsByMonth(posts: CollectionEntry<'blog'>[]): ArchiveMont
   });
 
   // アーカイブデータを生成
-  const archives: ArchiveMonth[] = Array.from(groups.entries()).map(([key, posts]) => {
+  const archives: ArchiveMonth[] = Array.from(groups.entries()).map(([key, groupPosts]) => {
     const [yearStr, monthStr] = key.split('-');
     const year = parseInt(yearStr);
     const month = parseInt(monthStr);
 
     // 月内の記事を日付順でソート（新しい順）
-    const sortedPosts = posts.sort(
-      (a, b) => new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime()
-    );
+    const sortedPosts = sortPostsByDate(groupPosts);
 
     return {
       year,
       month,
       posts: sortedPosts,
-      count: posts.length,
+      count: groupPosts.length,
       label: formatArchiveLabel(year, month),
       slug: generateArchiveSlug(year, month),
     };

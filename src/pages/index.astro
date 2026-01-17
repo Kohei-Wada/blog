@@ -14,18 +14,11 @@ import { getCollection } from 'astro:content';
 import PostsGrid from '../components/blog/content/PostsGrid.astro';
 import HeroSection from '../components/shared/layout/HeroSection.astro';
 import avatarImage from '../assets/avatar.png';
+import { sortPostsByFeaturedThenDate } from '../utils/sorting';
 
 // Featured Posts: featuredフラグがtrueの記事を優先、その後は日付順
-const featuredPosts = (await getCollection('blog')).filter(post => post.data.featured);
-const otherPosts = (await getCollection('blog')).filter(post => !post.data.featured);
-const posts = [...featuredPosts, ...otherPosts]
-  .sort((a, b) => {
-    // featuredが優先、同じfeatured状態なら日付順
-    if (a.data.featured && !b.data.featured) return -1;
-    if (!a.data.featured && b.data.featured) return 1;
-    return b.data.pubDate.valueOf() - a.data.pubDate.valueOf();
-  })
-  .slice(0, 4);
+const allPosts = await getCollection('blog');
+const posts = sortPostsByFeaturedThenDate(allPosts).slice(0, 4);
 ---
 
 <BaseLayout title={SITE_TITLE} description={SITE_DESCRIPTION} showSidebar={true}>

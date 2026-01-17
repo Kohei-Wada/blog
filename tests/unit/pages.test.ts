@@ -1,7 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import {
   createTestPost,
-  createTestPosts,
   sortPostsByDate,
   filterPostsByTag,
   countTagsFromPosts,

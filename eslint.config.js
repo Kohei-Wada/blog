@@ -10,7 +10,6 @@ export default [
       'dist/**',
       '.astro/**',
       '**/*.d.ts',
-      'tests/**',
       'astro.config.mjs',
       'src/components/Analytics.astro',
     ],
@@ -37,6 +36,44 @@ export default [
         NodeListOf: 'readonly',
         Element: 'readonly',
         CSS: 'readonly',
+      },
+    },
+    plugins: {
+      '@typescript-eslint': tsPlugin,
+    },
+    rules: {
+      ...tsPlugin.configs.recommended.rules,
+      '@typescript-eslint/no-unused-vars': 'error',
+      '@typescript-eslint/no-explicit-any': 'warn',
+    },
+  },
+  // テストファイル用の設定
+  {
+    files: ['tests/**/*.{js,ts}'],
+    languageOptions: {
+      parser: tsParser,
+      parserOptions: {
+        ecmaVersion: 'latest',
+        sourceType: 'module',
+      },
+      globals: {
+        console: 'readonly',
+        process: 'readonly',
+        // Vitest globals
+        describe: 'readonly',
+        it: 'readonly',
+        expect: 'readonly',
+        vi: 'readonly',
+        beforeEach: 'readonly',
+        afterEach: 'readonly',
+        beforeAll: 'readonly',
+        afterAll: 'readonly',
+        // Browser/Node globals for tests
+        setTimeout: 'readonly',
+        CustomEvent: 'readonly',
+        document: 'readonly',
+        window: 'readonly',
+        localStorage: 'readonly',
       },
     },
     plugins: {

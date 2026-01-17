@@ -3,6 +3,7 @@ import { getCollection } from 'astro:content';
 import GitHubActivity from '../../integrations/GitHubActivity.astro';
 import { groupPostsByMonth, getRecentArchiveMonths } from '../../../utils/archive-utils';
 import { getAllTags, getTagCounts } from '../../../utils/content-aggregation';
+import { getTagUrl, getArchiveUrl } from '../../../utils/url-builders';
 
 const allPosts = await getCollection('blog');
 const allTags = getAllTags(allPosts);
@@ -21,7 +22,7 @@ const recentArchives = getRecentArchiveMonths(allArchives, 6);
         <ul class="archive-list list-reset">
           {recentArchives.map(archive => (
             <li class="list-item">
-              <a href={`/archives/${archive.slug}/`}>
+              <a href={getArchiveUrl(archive.year, archive.month)}>
                 <span class="archive-month">{archive.label}</span>
                 <span class="archive-count">({archive.count})</span>
               </a>
@@ -41,7 +42,7 @@ const recentArchives = getRecentArchiveMonths(allArchives, 6);
     <div class="tag-cloud tag-list">
       {
         allTags.map(tag => (
-          <a href={`/tags/${tag}/`} class="tag solid" data-count={tagCounts[tag]}>
+          <a href={getTagUrl(tag)} class="tag solid" data-count={tagCounts[tag]}>
             {tag} ({tagCounts[tag]})
           </a>
         ))

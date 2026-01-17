@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { buildTocStructure } from '../../src/utils/toc-builder';
-import type { MarkdownHeading, TocItem } from '../../src/types';
+import type { MarkdownHeading } from '../../src/types';
 
 describe('toc-builder', () => {
   describe('buildTocStructure', () => {

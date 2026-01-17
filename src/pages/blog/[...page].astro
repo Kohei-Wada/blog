@@ -3,11 +3,10 @@ import type { GetStaticPaths } from 'astro';
 import BlogListLayout from '../../layouts/BlogListLayout.astro';
 import { SITE_TITLE, SITE_DESCRIPTION, POSTS_PER_PAGE } from '../../consts';
 import { getCollection } from 'astro:content';
+import { sortPostsByDate } from '../../utils/sorting';
 
 export const getStaticPaths = (async ({ paginate }) => {
-  const posts = (await getCollection('blog')).sort(
-    (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
-  );
+  const posts = sortPostsByDate(await getCollection('blog'));
   return paginate(posts, { pageSize: POSTS_PER_PAGE });
 }) satisfies GetStaticPaths;
 
