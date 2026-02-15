@@ -159,11 +159,11 @@ fetch https://download.freebsd.org/releases/amd64/14.0-RELEASE/base.txz
 tar -xf base.txz -C /jail/testjail
 
 ### DNS情報コピー
-cp /etc/resolv.conf /jail/myjail/etc/
+cp /etc/resolv.conf /jail/testjail/etc/
 
 ### 設定作成
 cat <<EOF | tee /etc/jail.conf
-myjail {
+testjail {
     host.hostname = "testjail";
     ip4.addr = "192.168.1.100";
     path = "/jail/testjail";
