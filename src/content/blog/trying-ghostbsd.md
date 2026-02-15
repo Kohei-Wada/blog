@@ -94,9 +94,6 @@ EOF
 
 chmod +x /usr/local/sbin/lid-desktop.sh
 
-```
-
-```bash
 sudo tee /usr/local/etc/devd/lid-desktop.conf << 'EOF'
 notify 10 {
     match "system"          "ACPI";
