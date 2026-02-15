@@ -27,9 +27,10 @@
 </button>
 
 <script>
-  const kbd = document.querySelector('.search-shortcut');
+  const button = document.getElementById('search-button');
+  const kbd = button?.querySelector('.search-shortcut');
   if (kbd) {
-    const isMac = /Mac|iPhone|iPad|iPod/.test(navigator.platform);
+    const isMac = /(Mac|iPhone|iPad|iPod)/.test(navigator.userAgent);
     kbd.textContent = isMac ? '⌘K' : 'Ctrl K';
   }
 </script>
