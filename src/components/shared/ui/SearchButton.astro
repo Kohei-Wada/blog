@@ -23,7 +23,16 @@
     <circle cx="11" cy="11" r="8"></circle>
     <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
   </svg>
+  <kbd class="search-shortcut">Ctrl K</kbd>
 </button>
+
+<script>
+  const kbd = document.querySelector('.search-shortcut');
+  if (kbd) {
+    const isMac = /Mac|iPhone|iPad|iPod/.test(navigator.platform);
+    kbd.textContent = isMac ? '⌘K' : 'Ctrl K';
+  }
+</script>
 
 <style>
   .search-button {
@@ -54,10 +63,26 @@
     height: 1.25rem;
   }
 
+  .search-shortcut {
+    padding: 0.125rem 0.375rem;
+    background: var(--subtle-background);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    font-size: 0.7rem;
+    font-family: inherit;
+    color: var(--color-text-secondary);
+    pointer-events: none;
+    line-height: 1;
+  }
+
   @media (max-width: 640px) {
     .search-button svg {
       width: 1.1rem;
       height: 1.1rem;
+    }
+
+    .search-shortcut {
+      display: none;
     }
   }
 </style>
