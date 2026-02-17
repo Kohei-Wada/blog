@@ -82,7 +82,7 @@ gsettings set org.mate.power-manager button-lid-ac "'nothing'"
 
 蓋を閉じたら画面をロックするようにdevdを設定。
 
-```bash
+```bash frame="terminal"
 cat <<EOF | tee /usr/local/sbin/lid-desktop.sh
 #!/bin/sh
 sleep 1
