@@ -17,5 +17,4 @@ export const ARCHIVE_YEAR_RANGE = {
   MAX: 2100,
 } as const;
 
-export type UiConfig = typeof UI_CONFIG;
 export type ArchiveYearRange = typeof ARCHIVE_YEAR_RANGE;

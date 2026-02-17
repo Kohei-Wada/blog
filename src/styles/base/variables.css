@@ -43,8 +43,6 @@
 
   /* Layout */
   --content-max-width: 720px;
-  --mobile-breakpoint: 720px;
-  --tablet-breakpoint: 768px;
 
   /* Spacing */
   --spacing-xs: 0.5rem;
