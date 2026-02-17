@@ -118,17 +118,6 @@ export function createConsoleMock() {
   };
 }
 
-// 環境変数モックヘルパー
-export function mockEnvironmentVariable(key: string, value: string) {
-  vi.stubGlobal('import', {
-    meta: {
-      env: {
-        [key]: value,
-      },
-    },
-  });
-}
-
 // fetchモックヘルパー
 export function createFetchMock(responses: MockResponse[] = []) {
   const mockFetch = vi.fn();
