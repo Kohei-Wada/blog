@@ -183,7 +183,7 @@
 }
 
 /* Responsive Styles */
-@media (max-width: var(--tablet-breakpoint)) {
+@media (max-width: 768px) {
   .page-container {
     padding: 0 var(--spacing-sm);
   }
@@ -214,7 +214,7 @@
 }
 
 /* Additional mobile styles for very small screens */
-@media (max-width: var(--mobile-breakpoint)) {
+@media (max-width: 720px) {
   .posts-grid {
     gap: var(--spacing-sm);
   }

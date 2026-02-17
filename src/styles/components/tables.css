@@ -84,7 +84,7 @@ table code {
 }
 
 /* Mobile-specific table adjustments */
-@media (max-width: var(--mobile-breakpoint)) {
+@media (max-width: 720px) {
   table {
     font-size: var(--font-size-sm);
     margin: var(--spacing-sm) 0;

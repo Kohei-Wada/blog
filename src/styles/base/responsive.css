@@ -4,7 +4,7 @@
  */
 
 /* Tablet (768px and below) */
-@media (max-width: var(--tablet-breakpoint)) {
+@media (max-width: 768px) {
   :root {
     --mobile-font-scale: 0.95;
   }
@@ -35,7 +35,7 @@
 }
 
 /* Mobile (720px and below) */
-@media (max-width: var(--mobile-breakpoint)) {
+@media (max-width: 720px) {
   :root {
     --mobile-font-scale: 0.9;
     --font-size-xs: 0.7rem;
