@@ -1,5 +1,6 @@
 ---
-import type { GitHubEvent, GitHubRepo, GlobalThisWithStats } from '../../types/index.js';
+import type { GitHubEvent, GitHubRepo } from '../../schemas/github.js';
+import type { GlobalThisWithStats } from '../../types/index.js';
 import { fetchGitHubData } from '../../utils/github-api.js';
 import { logGitHubApiStats } from '../../utils/build-stats.js';
 import { isGitHubStatsLogged } from '../../utils/type-guards.js';

@@ -1,4 +1,4 @@
-import type { GitHubEvent, GitHubRepo } from '../types/index';
+import type { GitHubEvent, GitHubRepo } from '../schemas/github';
 import { GITHUB_API_ENDPOINTS, GITHUB_API_PARAMS } from '../constants/api';
 import { getErrorMessage } from './error-utils';
 import { parseGitHubEvents, parseGitHubRepos } from '../schemas/github';

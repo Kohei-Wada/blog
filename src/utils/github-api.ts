@@ -1,4 +1,4 @@
-import type { GitHubEvent, GitHubRepo } from '../types/index';
+import type { GitHubEvent, GitHubRepo } from '../schemas/github';
 import GitHubCacheManager from './github-cache-manager';
 import { TIME_MS } from '../constants/time';
 

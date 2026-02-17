@@ -1,50 +1,31 @@
 import { describe, it, expect } from 'vitest';
 import { getRelatedPosts, calculateSimilarityScore } from '@/utils/related-posts';
 import { SIMILARITY_WEIGHTS } from '@/constants/similarity';
-import type { CollectionEntry } from 'astro:content';
-
-// Create mock post data
-const createMockPost = (
-  id: string,
-  title: string,
-  tags: string[],
-  pubDate: Date
-): CollectionEntry<'blog'> => ({
-  id,
-  data: {
-    title,
-    description: `Description for ${title}`,
-    pubDate,
-    tags,
-    featured: false,
-  },
-  collection: 'blog',
-  render: async () => ({ Content: () => null, headings: [] }),
-});
+import { createMockPost } from '../../src/test/helpers';
 
 describe('Related Posts Utility', () => {
   describe('calculateSimilarityScore', () => {
     it('returns higher score for more common tags', () => {
-      const currentPost = createMockPost(
-        'current',
-        'Current Post',
-        ['javascript', 'react', 'astro'],
-        new Date('2025-01-15')
-      );
+      const currentPost = createMockPost({
+        id: 'current',
+        title: 'Current Post',
+        tags: ['javascript', 'react', 'astro'],
+        pubDate: new Date('2025-01-15'),
+      });
 
-      const relatedPost1 = createMockPost(
-        'related1',
-        'Related Post 1',
-        ['javascript', 'react', 'astro'], // All 3 match
-        new Date('2025-01-15')
-      );
+      const relatedPost1 = createMockPost({
+        id: 'related1',
+        title: 'Related Post 1',
+        tags: ['javascript', 'react', 'astro'], // All 3 match
+        pubDate: new Date('2025-01-15'),
+      });
 
-      const relatedPost2 = createMockPost(
-        'related2',
-        'Related Post 2',
-        ['javascript', 'vue'], // Only 1 match
-        new Date('2025-01-15')
-      );
+      const relatedPost2 = createMockPost({
+        id: 'related2',
+        title: 'Related Post 2',
+        tags: ['javascript', 'vue'], // Only 1 match
+        pubDate: new Date('2025-01-15'),
+      });
 
       const score1 = calculateSimilarityScore(currentPost, relatedPost1);
       const score2 = calculateSimilarityScore(currentPost, relatedPost2);
@@ -53,26 +34,26 @@ describe('Related Posts Utility', () => {
     });
 
     it('returns higher score for closer dates', () => {
-      const currentPost = createMockPost(
-        'current',
-        'Current Post',
-        ['javascript'],
-        new Date('2025-01-15')
-      );
+      const currentPost = createMockPost({
+        id: 'current',
+        title: 'Current Post',
+        tags: ['javascript'],
+        pubDate: new Date('2025-01-15'),
+      });
 
-      const recentPost = createMockPost(
-        'recent',
-        'Recent Post',
-        ['javascript'],
-        new Date('2025-01-14') // 1 day ago
-      );
+      const recentPost = createMockPost({
+        id: 'recent',
+        title: 'Recent Post',
+        tags: ['javascript'],
+        pubDate: new Date('2025-01-14'), // 1 day ago
+      });
 
-      const oldPost = createMockPost(
-        'old',
-        'Old Post',
-        ['javascript'],
-        new Date('2024-12-01') // Over 1 month ago
-      );
+      const oldPost = createMockPost({
+        id: 'old',
+        title: 'Old Post',
+        tags: ['javascript'],
+        pubDate: new Date('2024-12-01'), // Over 1 month ago
+      });
 
       const recentScore = calculateSimilarityScore(currentPost, recentPost);
       const oldScore = calculateSimilarityScore(currentPost, oldPost);
@@ -81,26 +62,26 @@ describe('Related Posts Utility', () => {
     });
 
     it('tag weight is higher than date weight', () => {
-      const currentPost = createMockPost(
-        'current',
-        'Current Post',
-        ['javascript', 'react'],
-        new Date('2025-01-15')
-      );
+      const currentPost = createMockPost({
+        id: 'current',
+        title: 'Current Post',
+        tags: ['javascript', 'react'],
+        pubDate: new Date('2025-01-15'),
+      });
 
-      const sameTagsOldPost = createMockPost(
-        'same-tags-old',
-        'Same Tags Old Post',
-        ['javascript', 'react'], // Tags fully match
-        new Date('2024-06-01') // Old date
-      );
+      const sameTagsOldPost = createMockPost({
+        id: 'same-tags-old',
+        title: 'Same Tags Old Post',
+        tags: ['javascript', 'react'], // Tags fully match
+        pubDate: new Date('2024-06-01'), // Old date
+      });
 
-      const differentTagsRecentPost = createMockPost(
-        'different-tags-recent',
-        'Different Tags Recent Post',
-        ['python', 'django'], // Tags don't match
-        new Date('2025-01-14') // Recent date
-      );
+      const differentTagsRecentPost = createMockPost({
+        id: 'different-tags-recent',
+        title: 'Different Tags Recent Post',
+        tags: ['python', 'django'], // Tags don't match
+        pubDate: new Date('2025-01-14'), // Recent date
+      });
 
       const sameTagsScore = calculateSimilarityScore(currentPost, sameTagsOldPost);
       const differentTagsScore = calculateSimilarityScore(currentPost, differentTagsRecentPost);
@@ -109,9 +90,19 @@ describe('Related Posts Utility', () => {
     });
 
     it('works with posts that have no tags', () => {
-      const noTagsPost1 = createMockPost('no-tags-1', 'No Tags Post 1', [], new Date('2025-01-15'));
+      const noTagsPost1 = createMockPost({
+        id: 'no-tags-1',
+        title: 'No Tags Post 1',
+        tags: [],
+        pubDate: new Date('2025-01-15'),
+      });
 
-      const noTagsPost2 = createMockPost('no-tags-2', 'No Tags Post 2', [], new Date('2025-01-14'));
+      const noTagsPost2 = createMockPost({
+        id: 'no-tags-2',
+        title: 'No Tags Post 2',
+        tags: [],
+        pubDate: new Date('2025-01-14'),
+      });
 
       const score = calculateSimilarityScore(noTagsPost1, noTagsPost2);
       expect(score).toBeGreaterThanOrEqual(0);
@@ -119,19 +110,19 @@ describe('Related Posts Utility', () => {
     });
 
     it('allows custom weights to be injected', () => {
-      const currentPost = createMockPost(
-        'current',
-        'Current Post',
-        ['javascript'],
-        new Date('2025-01-15')
-      );
+      const currentPost = createMockPost({
+        id: 'current',
+        title: 'Current Post',
+        tags: ['javascript'],
+        pubDate: new Date('2025-01-15'),
+      });
 
-      const otherPost = createMockPost(
-        'other',
-        'Other Post',
-        ['javascript'],
-        new Date('2025-01-15')
-      );
+      const otherPost = createMockPost({
+        id: 'other',
+        title: 'Other Post',
+        tags: ['javascript'],
+        pubDate: new Date('2025-01-15'),
+      });
 
       // Tag only weights (100% tag, 0% date)
       const tagOnlyWeights = {
@@ -160,19 +151,19 @@ describe('Related Posts Utility', () => {
     });
 
     it('uses SIMILARITY_WEIGHTS as default', () => {
-      const currentPost = createMockPost(
-        'current',
-        'Current Post',
-        ['javascript', 'react'],
-        new Date('2025-01-15')
-      );
+      const currentPost = createMockPost({
+        id: 'current',
+        title: 'Current Post',
+        tags: ['javascript', 'react'],
+        pubDate: new Date('2025-01-15'),
+      });
 
-      const otherPost = createMockPost(
-        'other',
-        'Other Post',
-        ['javascript', 'react'],
-        new Date('2025-01-15')
-      );
+      const otherPost = createMockPost({
+        id: 'other',
+        title: 'Other Post',
+        tags: ['javascript', 'react'],
+        pubDate: new Date('2025-01-15'),
+      });
 
       const scoreDefault = calculateSimilarityScore(currentPost, otherPost);
       const scoreExplicit = calculateSimilarityScore(currentPost, otherPost, SIMILARITY_WEIGHTS);
@@ -183,17 +174,27 @@ describe('Related Posts Utility', () => {
 
   describe('getRelatedPosts', () => {
     it('excludes the current post', () => {
-      const currentPost = createMockPost(
-        'current',
-        'Current Post',
-        ['javascript'],
-        new Date('2025-01-15')
-      );
+      const currentPost = createMockPost({
+        id: 'current',
+        title: 'Current Post',
+        tags: ['javascript'],
+        pubDate: new Date('2025-01-15'),
+      });
 
       const allPosts = [
         currentPost,
-        createMockPost('other1', 'Other Post 1', ['javascript'], new Date('2025-01-14')),
-        createMockPost('other2', 'Other Post 2', ['python'], new Date('2025-01-13')),
+        createMockPost({
+          id: 'other1',
+          title: 'Other Post 1',
+          tags: ['javascript'],
+          pubDate: new Date('2025-01-14'),
+        }),
+        createMockPost({
+          id: 'other2',
+          title: 'Other Post 2',
+          tags: ['python'],
+          pubDate: new Date('2025-01-13'),
+        }),
       ];
 
       const relatedPosts = getRelatedPosts(currentPost, allPosts, 3);
@@ -202,19 +203,39 @@ describe('Related Posts Utility', () => {
     });
 
     it('returns the specified number of related posts', () => {
-      const currentPost = createMockPost(
-        'current',
-        'Current Post',
-        ['javascript'],
-        new Date('2025-01-15')
-      );
+      const currentPost = createMockPost({
+        id: 'current',
+        title: 'Current Post',
+        tags: ['javascript'],
+        pubDate: new Date('2025-01-15'),
+      });
 
       const allPosts = [
         currentPost,
-        createMockPost('other1', 'Other Post 1', ['javascript'], new Date('2025-01-14')),
-        createMockPost('other2', 'Other Post 2', ['python'], new Date('2025-01-13')),
-        createMockPost('other3', 'Other Post 3', ['react'], new Date('2025-01-12')),
-        createMockPost('other4', 'Other Post 4', ['vue'], new Date('2025-01-11')),
+        createMockPost({
+          id: 'other1',
+          title: 'Other Post 1',
+          tags: ['javascript'],
+          pubDate: new Date('2025-01-14'),
+        }),
+        createMockPost({
+          id: 'other2',
+          title: 'Other Post 2',
+          tags: ['python'],
+          pubDate: new Date('2025-01-13'),
+        }),
+        createMockPost({
+          id: 'other3',
+          title: 'Other Post 3',
+          tags: ['react'],
+          pubDate: new Date('2025-01-12'),
+        }),
+        createMockPost({
+          id: 'other4',
+          title: 'Other Post 4',
+          tags: ['vue'],
+          pubDate: new Date('2025-01-11'),
+        }),
       ];
 
       const relatedPosts = getRelatedPosts(currentPost, allPosts, 2);
@@ -222,16 +243,21 @@ describe('Related Posts Utility', () => {
     });
 
     it('returns available posts when requesting more than available', () => {
-      const currentPost = createMockPost(
-        'current',
-        'Current Post',
-        ['javascript'],
-        new Date('2025-01-15')
-      );
+      const currentPost = createMockPost({
+        id: 'current',
+        title: 'Current Post',
+        tags: ['javascript'],
+        pubDate: new Date('2025-01-15'),
+      });
 
       const allPosts = [
         currentPost,
-        createMockPost('other1', 'Other Post 1', ['javascript'], new Date('2025-01-14')),
+        createMockPost({
+          id: 'other1',
+          title: 'Other Post 1',
+          tags: ['javascript'],
+          pubDate: new Date('2025-01-14'),
+        }),
       ];
 
       const relatedPosts = getRelatedPosts(currentPost, allPosts, 5);
@@ -239,23 +265,33 @@ describe('Related Posts Utility', () => {
     });
 
     it('returns posts sorted by score descending', () => {
-      const currentPost = createMockPost(
-        'current',
-        'Current Post',
-        ['javascript', 'react', 'astro'],
-        new Date('2025-01-15')
-      );
+      const currentPost = createMockPost({
+        id: 'current',
+        title: 'Current Post',
+        tags: ['javascript', 'react', 'astro'],
+        pubDate: new Date('2025-01-15'),
+      });
 
       const allPosts = [
         currentPost,
-        createMockPost('low', 'Low Relevance', ['python'], new Date('2024-01-01')),
-        createMockPost(
-          'high',
-          'High Relevance',
-          ['javascript', 'react', 'astro'],
-          new Date('2025-01-14')
-        ),
-        createMockPost('medium', 'Medium Relevance', ['javascript'], new Date('2025-01-10')),
+        createMockPost({
+          id: 'low',
+          title: 'Low Relevance',
+          tags: ['python'],
+          pubDate: new Date('2024-01-01'),
+        }),
+        createMockPost({
+          id: 'high',
+          title: 'High Relevance',
+          tags: ['javascript', 'react', 'astro'],
+          pubDate: new Date('2025-01-14'),
+        }),
+        createMockPost({
+          id: 'medium',
+          title: 'Medium Relevance',
+          tags: ['javascript'],
+          pubDate: new Date('2025-01-10'),
+        }),
       ];
 
       const relatedPosts = getRelatedPosts(currentPost, allPosts, 3);
@@ -266,12 +302,12 @@ describe('Related Posts Utility', () => {
     });
 
     it('returns empty array when only current post exists', () => {
-      const currentPost = createMockPost(
-        'current',
-        'Current Post',
-        ['javascript'],
-        new Date('2025-01-15')
-      );
+      const currentPost = createMockPost({
+        id: 'current',
+        title: 'Current Post',
+        tags: ['javascript'],
+        pubDate: new Date('2025-01-15'),
+      });
 
       const allPosts = [currentPost];
 
@@ -280,16 +316,21 @@ describe('Related Posts Utility', () => {
     });
 
     it('includes posts with zero score', () => {
-      const currentPost = createMockPost(
-        'current',
-        'Current Post',
-        ['javascript'],
-        new Date('2025-01-15')
-      );
+      const currentPost = createMockPost({
+        id: 'current',
+        title: 'Current Post',
+        tags: ['javascript'],
+        pubDate: new Date('2025-01-15'),
+      });
 
       const allPosts = [
         currentPost,
-        createMockPost('no-match', 'No Match', ['python'], new Date('2024-01-01')),
+        createMockPost({
+          id: 'no-match',
+          title: 'No Match',
+          tags: ['python'],
+          pubDate: new Date('2024-01-01'),
+        }),
       ];
 
       const relatedPosts = getRelatedPosts(currentPost, allPosts, 1);

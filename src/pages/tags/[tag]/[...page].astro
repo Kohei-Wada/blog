@@ -3,16 +3,14 @@ import type { GetStaticPaths } from 'astro';
 import BlogListLayout from '../../../layouts/BlogListLayout.astro';
 import { SITE_TITLE, SITE_DESCRIPTION, POSTS_PER_PAGE } from '../../../consts';
 import { getCollection } from 'astro:content';
-import { getAllTags, getPostsByTag } from '../../../utils/content-aggregation';
+import { getAllTags, getPostsByTag, sortPostsByDate } from '../../../utils/content-aggregation';
 
 export const getStaticPaths = (async ({ paginate }) => {
   const posts = await getCollection('blog');
   const tags = getAllTags(posts);
 
   return tags.flatMap(tag => {
-    const tagPosts = getPostsByTag(posts, tag).sort(
-      (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
-    );
+    const tagPosts = sortPostsByDate(getPostsByTag(posts, tag));
     return paginate(tagPosts, {
       params: { tag },
       pageSize: POSTS_PER_PAGE,

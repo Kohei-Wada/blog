@@ -12,9 +12,8 @@ import '../../../styles/components.css';
 import {
   SITE_TITLE,
   SITE_DESCRIPTION,
-  GITHUB_URL,
-  ZENN_URL,
-  QIITA_URL,
+  SOCIAL_LINKS,
+  X_HANDLE,
   AUTHOR_NAME,
   AUTHOR_IMAGE_URL,
   AUTHOR_JOB_TITLE,
@@ -74,14 +73,14 @@ if (isArticle && publishedTime) {
   const organizationSchema = generateOrganizationSchema({
     name: SITE_TITLE,
     url: siteUrl,
-    sameAs: [GITHUB_URL, ZENN_URL, QIITA_URL].filter(Boolean),
+    sameAs: SOCIAL_LINKS,
   });
 
   const personSchema = generatePersonSchema({
     name: AUTHOR_NAME,
     url: siteUrl,
     image: AUTHOR_IMAGE_URL,
-    sameAs: [GITHUB_URL, ZENN_URL, QIITA_URL].filter(Boolean),
+    sameAs: SOCIAL_LINKS,
     jobTitle: AUTHOR_JOB_TITLE,
     description: AUTHOR_BIO,
   });
@@ -131,7 +130,7 @@ if (isArticle && publishedTime) {
     <meta property="article:published_time" content={publishedTime.toISOString()} />
   )
 }
-{isArticle && <meta property="article:author" content="Kohei Wada" />}
+{isArticle && <meta property="article:author" content={AUTHOR_NAME} />}
 {isArticle && <meta property="article:section" content="Technology" />}
 
 <!-- Twitter -->
@@ -141,8 +140,8 @@ if (isArticle && publishedTime) {
 <meta property="twitter:description" content={description} />
 <meta property="twitter:image" content={new URL(image.src, Astro.url)} />
 <meta property="twitter:image:alt" content={`${title} - ${SITE_TITLE}`} />
-<meta property="twitter:creator" content="@Kohei_Wada" />
-<meta property="twitter:site" content="@Kohei_Wada" />
+<meta property="twitter:creator" content={X_HANDLE} />
+<meta property="twitter:site" content={X_HANDLE} />
 
 <!-- Theme initialization (must run before body renders to prevent flash) -->
 <script is:inline>

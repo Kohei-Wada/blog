@@ -54,38 +54,29 @@ export const GitHubRepoSchema = z.object({
 export const GitHubEventsResponseSchema = z.array(GitHubEventSchema);
 export const GitHubReposResponseSchema = z.array(GitHubRepoSchema);
 
-// Type exports (for compatibility with existing types/index.ts)
-export type GitHubEventFromSchema = z.infer<typeof GitHubEventSchema>;
-export type GitHubRepoFromSchema = z.infer<typeof GitHubRepoSchema>;
+// Canonical type exports derived from Zod schemas
+export type GitHubEvent = z.infer<typeof GitHubEventSchema>;
+export type GitHubRepo = z.infer<typeof GitHubRepoSchema>;
 
 /**
- * Safely parse API response
- * @param data GitHub Events API response
- * @returns Parsed result. Returns empty array on failure
+ * Safely parse an array response with a Zod schema.
+ * Returns empty array on failure, logs warning in non-production.
  */
-export function parseGitHubEvents(data: unknown): GitHubEventFromSchema[] {
-  const result = GitHubEventsResponseSchema.safeParse(data);
+function safeParseArray<T>(schema: z.ZodType<T[]>, data: unknown, label: string): T[] {
+  const result = schema.safeParse(data);
   if (!result.success) {
     if (process.env.NODE_ENV !== 'production') {
-      console.warn('GitHub Events parse error:', result.error.message);
+      console.warn(`${label} parse error:`, result.error.message);
     }
     return [];
   }
   return result.data;
 }
 
-/**
- * Safely parse API response
- * @param data GitHub Repos API response
- * @returns Parsed result. Returns empty array on failure
- */
-export function parseGitHubRepos(data: unknown): GitHubRepoFromSchema[] {
-  const result = GitHubReposResponseSchema.safeParse(data);
-  if (!result.success) {
-    if (process.env.NODE_ENV !== 'production') {
-      console.warn('GitHub Repos parse error:', result.error.message);
-    }
-    return [];
-  }
-  return result.data;
+export function parseGitHubEvents(data: unknown): GitHubEvent[] {
+  return safeParseArray(GitHubEventsResponseSchema, data, 'GitHub Events');
+}
+
+export function parseGitHubRepos(data: unknown): GitHubRepo[] {
+  return safeParseArray(GitHubReposResponseSchema, data, 'GitHub Repos');
 }
