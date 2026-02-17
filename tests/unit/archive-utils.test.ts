@@ -1,5 +1,4 @@
 import { describe, it, expect } from 'vitest';
-import type { CollectionEntry } from 'astro:content';
 import {
   groupPostsByMonth,
   formatArchiveLabel,
@@ -7,29 +6,14 @@ import {
   getRecentArchiveMonths,
   parseArchiveSlug,
 } from '../../src/utils/archive-utils';
-
-// モックデータの作成
-const createMockPost = (id: string, title: string, pubDate: string): CollectionEntry<'blog'> => ({
-  id,
-  slug: id,
-  body: '',
-  collection: 'blog' as const,
-  data: {
-    title,
-    description: 'Test description',
-    pubDate: new Date(pubDate),
-    tags: ['test'],
-    featured: false,
-  },
-  render: async () => ({ Content: () => null, headings: [], remarkPluginFrontmatter: {} }),
-});
+import { createMockPost } from '../../src/test/helpers';
 
 const mockPosts = [
-  createMockPost('post-1', '2025年8月の記事1', '2025-08-20'),
-  createMockPost('post-2', '2025年8月の記事2', '2025-08-15'),
-  createMockPost('post-3', '2025年7月の記事', '2025-07-10'),
-  createMockPost('post-4', '2025年6月の記事', '2025-06-05'),
-  createMockPost('post-5', '2024年12月の記事', '2024-12-25'),
+  createMockPost({ id: 'post-1', title: '2025年8月の記事1', pubDate: '2025-08-20' }),
+  createMockPost({ id: 'post-2', title: '2025年8月の記事2', pubDate: '2025-08-15' }),
+  createMockPost({ id: 'post-3', title: '2025年7月の記事', pubDate: '2025-07-10' }),
+  createMockPost({ id: 'post-4', title: '2025年6月の記事', pubDate: '2025-06-05' }),
+  createMockPost({ id: 'post-5', title: '2024年12月の記事', pubDate: '2024-12-25' }),
 ];
 
 describe('archive-utils', () => {
@@ -95,7 +79,9 @@ describe('archive-utils', () => {
     });
 
     it('should handle single post', () => {
-      const singlePost = [createMockPost('single', 'Single Post', '2025-05-15')];
+      const singlePost = [
+        createMockPost({ id: 'single', title: 'Single Post', pubDate: '2025-05-15' }),
+      ];
       const result = groupPostsByMonth(singlePost);
 
       expect(result).toHaveLength(1);
@@ -190,7 +176,11 @@ describe('archive-utils', () => {
     it('should default to 6 months if no limit specified', () => {
       const manyPosts = Array.from({ length: 24 }, (_, i) => {
         const date = new Date(2025, 7 - i, 1); // 8月から遡って24ヶ月
-        return createMockPost(`post-${i}`, `記事${i}`, date.toISOString().split('T')[0]);
+        return createMockPost({
+          id: `post-${i}`,
+          title: `記事${i}`,
+          pubDate: date.toISOString().split('T')[0],
+        });
       });
 
       const archives = groupPostsByMonth(manyPosts);

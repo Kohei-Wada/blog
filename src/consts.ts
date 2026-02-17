@@ -13,6 +13,11 @@ export const ZENN_URL: string = 'https://zenn.dev/koheiwada';
 export const QIITA_URL: string = 'https://qiita.com/program3152019';
 export const X_URL: string = 'https://x.com/koheiwada12';
 
+// Social links for structured data (sameAs)
+export const SOCIAL_LINKS: string[] = [GITHUB_URL, ZENN_URL, QIITA_URL].filter((x): x is string =>
+  Boolean(x)
+);
+
 // Author information for structured data
 export const AUTHOR_NAME: string = 'Kohei Wada';
 export const AUTHOR_BIO: string =

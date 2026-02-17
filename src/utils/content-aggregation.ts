@@ -1,6 +1,13 @@
 import type { CollectionEntry } from 'astro:content';
 
 /**
+ * Sort posts by publication date (newest first)
+ */
+export function sortPostsByDate(posts: CollectionEntry<'blog'>[]): CollectionEntry<'blog'>[] {
+  return [...posts].sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+}
+
+/**
  * Count the number of posts for each tag
  * @param posts Array of blog posts
  * @returns Object with tag names as keys and counts as values

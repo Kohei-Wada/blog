@@ -1,5 +1,5 @@
 import type { ImageMetadata } from 'astro';
-import { SITE_TITLE, GITHUB_URL, ZENN_URL, QIITA_URL } from '../consts';
+import { SITE_TITLE, SOCIAL_LINKS } from '../consts';
 import type {
   BlogPostingSchema,
   WebSiteSchema,
@@ -56,7 +56,7 @@ export function generateBlogPostingSchema(props: BlogPostingProps): BlogPostingS
       name: props.authorName,
       url: props.authorUrl,
       image: props.authorImage,
-      sameAs: [GITHUB_URL, ZENN_URL, QIITA_URL].filter((x): x is string => Boolean(x)),
+      sameAs: SOCIAL_LINKS,
     },
     publisher: {
       '@type': 'Organization',

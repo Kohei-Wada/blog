@@ -1,39 +1,33 @@
 import { describe, it, expect } from 'vitest';
-import type { CollectionEntry } from 'astro:content';
 import {
   getTagCounts,
   getPostsByTag,
   getAllTags,
   getTagsSortedByCount,
 } from '../../src/utils/content-aggregation';
-
-// モックデータの作成
-const createMockPost = (
-  id: string,
-  title: string,
-  pubDate: string,
-  tags: string[]
-): CollectionEntry<'blog'> => ({
-  id,
-  slug: id,
-  body: '',
-  collection: 'blog' as const,
-  data: {
-    title,
-    description: 'Test description',
-    pubDate: new Date(pubDate),
-    tags,
-    featured: false,
-  },
-  render: async () => ({ Content: () => null, headings: [], remarkPluginFrontmatter: {} }),
-});
+import { createMockPost } from '../../src/test/helpers';
 
 const mockPosts = [
-  createMockPost('post-1', '記事1', '2025-08-20', ['TypeScript', 'Astro']),
-  createMockPost('post-2', '記事2', '2025-08-15', ['TypeScript', 'React']),
-  createMockPost('post-3', '記事3', '2025-07-10', ['Astro', 'blog']),
-  createMockPost('post-4', '記事4', '2025-06-05', ['TypeScript', 'Astro', 'blog']),
-  createMockPost('post-5', '記事5', '2024-12-25', ['React']),
+  createMockPost({
+    id: 'post-1',
+    title: '記事1',
+    pubDate: '2025-08-20',
+    tags: ['TypeScript', 'Astro'],
+  }),
+  createMockPost({
+    id: 'post-2',
+    title: '記事2',
+    pubDate: '2025-08-15',
+    tags: ['TypeScript', 'React'],
+  }),
+  createMockPost({ id: 'post-3', title: '記事3', pubDate: '2025-07-10', tags: ['Astro', 'blog'] }),
+  createMockPost({
+    id: 'post-4',
+    title: '記事4',
+    pubDate: '2025-06-05',
+    tags: ['TypeScript', 'Astro', 'blog'],
+  }),
+  createMockPost({ id: 'post-5', title: '記事5', pubDate: '2024-12-25', tags: ['React'] }),
 ];
 
 describe('content-aggregation', () => {
@@ -53,13 +47,22 @@ describe('content-aggregation', () => {
     });
 
     it('should handle posts with no tags', () => {
-      const postsWithNoTags = [createMockPost('no-tags', 'No Tags', '2025-01-01', [])];
+      const postsWithNoTags = [
+        createMockPost({ id: 'no-tags', title: 'No Tags', pubDate: '2025-01-01', tags: [] }),
+      ];
       const result = getTagCounts(postsWithNoTags);
       expect(result).toEqual({});
     });
 
     it('should handle single post with multiple tags', () => {
-      const singlePost = [createMockPost('single', 'Single', '2025-01-01', ['a', 'b', 'c'])];
+      const singlePost = [
+        createMockPost({
+          id: 'single',
+          title: 'Single',
+          pubDate: '2025-01-01',
+          tags: ['a', 'b', 'c'],
+        }),
+      ];
       const result = getTagCounts(singlePost);
 
       expect(result['a']).toBe(1);
@@ -134,7 +137,9 @@ describe('content-aggregation', () => {
     });
 
     it('should handle single tag', () => {
-      const singleTagPosts = [createMockPost('single', 'Single', '2025-01-01', ['only'])];
+      const singleTagPosts = [
+        createMockPost({ id: 'single', title: 'Single', pubDate: '2025-01-01', tags: ['only'] }),
+      ];
       const result = getTagsSortedByCount(singleTagPosts);
 
       expect(result).toEqual(['only']);
