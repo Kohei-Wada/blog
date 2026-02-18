@@ -85,47 +85,59 @@ table code {
 
 /* Mobile-specific table adjustments */
 @media (max-width: 720px) {
-  table {
-    font-size: var(--font-size-sm);
-    margin: var(--spacing-sm) 0;
+  /* Wrap tables in a scrollable container on mobile */
+  .table-container {
+    border: 1px solid var(--color-border-light);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
   }
 
-  th, td {
-    padding: var(--spacing-xs) var(--spacing-xs);
+  table {
+    font-size: var(--font-size-sm);
+    margin: 0;
+    min-width: 100%;
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+
+  thead, tbody, tr {
+    display: block;
   }
 
   thead {
-    display: none;
+    position: sticky;
+    top: 0;
+    background: var(--card-background);
+    z-index: 1;
   }
 
-  tbody tr {
-    display: block;
-    margin-bottom: var(--spacing-sm);
-    border: 1px solid rgba(var(--gray-light), 0.5);
-    border-radius: var(--radius-md);
+  tr {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+  }
+
+  th, td {
     padding: var(--spacing-xs);
+    display: table-cell;
+    min-width: 100px;
   }
 
-  tbody td {
-    display: flex;
-    justify-content: space-between;
-    padding: var(--spacing-xs);
-    border: none;
+  th {
+    font-size: 0.75rem;
   }
 
-  tbody td::before {
-    content: attr(data-label);
-    font-weight: 600;
-    margin-right: var(--spacing-sm);
-    color: var(--color-text);
-  }
-
+  /* Ensure first column is prominent */
   tbody td:first-child {
     font-weight: 600;
-    background: var(--subtle-background);
-    margin: calc(-1 * var(--spacing-xs));
-    margin-bottom: var(--spacing-xs);
-    padding: var(--spacing-xs);
-    border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+    position: sticky;
+    left: 0;
+    background: var(--color-bg);
+    z-index: 1;
+  }
+
+  tbody tr:hover td:first-child {
+    background: var(--hover-background);
   }
 }
