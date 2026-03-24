@@ -132,22 +132,46 @@ import PageHeader from '../components/shared/layout/PageHeader.astro';
     <section class="about">
       <h2>自己紹介</h2>
       <p>
-        東京でリモートワーク中心に活動しているエンジニアです。現在はLaravelを中心としたWebアプリのバックエンド開発を業務で行っています。
-      </p>
-      <p>
+        東京でリモートワーク中心に活動しているエンジニアです。
         もともと数学が好きで、Pythonでグラフ描画を楽しんでいたことがプログラミングの始まりです。
         その後、機械工学の学習を通じてC言語でのデバイス制御やドライバ自作を経験し、
         Web開発分野ではPHPやC#を用いたアプリケーション開発にシフトしてきました。
       </p>
       <p>
-        現在はWebアプリ開発が中心ですが、低レイヤーのシステムプログラミングやインフラ周りに強い関心があります。
-        数学的背景から関数型プログラミングにも親しみがあり、コンパイルが必要な処理ではElixirやOCamlの採用を検討しています。
+        ターミナル向けタスク管理ツール「<a
+          href="https://github.com/Kohei-Wada/taskdog"
+          target="_blank"
+          rel="noopener noreferrer">taskdog</a
+        >」をOSSとして公開し、<a
+          href="https://terminaltrove.com/taskdog/"
+          target="_blank"
+          rel="noopener noreferrer">Terminal Trove</a
+        >および<a
+          href="https://www.linuxlinks.com/taskdog-task-management-system/"
+          target="_blank"
+          rel="noopener noreferrer">LinuxLinks</a
+        >への掲載、およびTextualフレームワークのメンテナーであるWill McGuganに<a
+          href="https://x.com/willmcgugan/status/2027377375156080742?s=20"
+          target="_blank"
+          rel="noopener noreferrer">「ターミナルデザインのセンスが明らかにある」と公式に評価</a
+        >されました。
       </p>
       <p>
-        開発環境はGUI IDEよりもNeovim +
-        CLIを好み、UNIXコマンドを活用した自動処理やトラブル対応が得意です。
-        フロントエンド開発は苦手分野ですが、このブログ作成を通じてAstroに触れ、少しずつ慣れてきました。
+        Clean
+        Architectureを採用したUVワークスペースモノレポ構成で、コア・API・UIを分離して設計しています。設計判断の根拠はDESIGN_PHILOSOPHY.mdとして言語化しており、「何を作るか」だけでなく「何を作らないか」を意識した開発をしています。
       </p>
+      <p>
+        低レイヤー・システムプログラミング・CLI環境に強い関心があり、Neovim +
+        UNIXコマンドを中心とした開発スタイルで、ElixirやOCamlなど関数型言語にも親しみがあります。
+      </p>
+
+      <h2>業務実績</h2>
+      <ul>
+        <li>音声認識WebシステムをLaravelで開発・運用</li>
+        <li>Kubernetes上で音声認識エンジンを構築・運用</li>
+        <li>大規模サーバーのCentOS→AlmaLinux移行をAnsibleで実施</li>
+        <li>WindowsクライアントアプリをC# / .NETで開発</li>
+      </ul>
 
       <h2>スキルセット</h2>
       <div class="skills-section">
@@ -163,11 +187,19 @@ import PageHeader from '../components/shared/layout/PageHeader.astro';
             <tbody>
               <tr>
                 <td>Rust</td>
-                <td>CLIツールや自動処理用に使用</td>
+                <td
+                  ><a
+                    href="https://github.com/Kohei-Wada/fclip"
+                    target="_blank"
+                    rel="noopener noreferrer">fclip</a
+                  >（fzfスタイルのキーボードファーストなクリップボードマネージャー）を開発中</td
+                >
               </tr>
               <tr>
                 <td>Python</td>
-                <td>FastAPI・Textualを用いたアプリ開発、自動処理など幅広く使用</td>
+                <td
+                  >taskdog（CLIタスク管理ツール）をTextual/FastAPIで開発・OSS公開、自動処理など幅広く使用</td
+                >
               </tr>
               <tr>
                 <td>C</td>
@@ -219,7 +251,7 @@ import PageHeader from '../components/shared/layout/PageHeader.astro';
               </tr>
               <tr>
                 <td>FastAPI</td>
-                <td>画像生成やAPI作成</td>
+                <td>taskdogのAPIバックエンド、画像生成APIの開発</td>
               </tr>
               <tr>
                 <td>Astro</td>
@@ -245,15 +277,15 @@ import PageHeader from '../components/shared/layout/PageHeader.astro';
             <tbody>
               <tr>
                 <td>AWS（EC2, RDS）</td>
-                <td>業務で使用</td>
+                <td>EC2/RDSを用いた本番環境の構築・運用（業務）</td>
               </tr>
               <tr>
                 <td>Docker / GitHub Actions</td>
-                <td>CI/CD構成（業務）</td>
+                <td>業務のCI/CDパイプライン構築</td>
               </tr>
               <tr>
                 <td>k3s</td>
-                <td>軽量Kubernetes、Raspberry Pi運用</td>
+                <td>業務でのコンテナオーケストレーション経験あり、Raspberry Piでも運用</td>
               </tr>
               <tr>
                 <td>Home Assistant</td>
@@ -261,7 +293,7 @@ import PageHeader from '../components/shared/layout/PageHeader.astro';
               </tr>
               <tr>
                 <td>Ansible</td>
-                <td>構成管理（業務）</td>
+                <td>サーバーOS移行の構成管理に使用（業務）</td>
               </tr>
             </tbody>
           </table>
@@ -279,7 +311,7 @@ import PageHeader from '../components/shared/layout/PageHeader.astro';
             <tbody>
               <tr>
                 <td>CentOS 7, AlmaLinux 8/9, RHEL 9</td>
-                <td>サーバー運用・保守（業務）</td>
+                <td>CentOS→AlmaLinuxへのサーバー移行を実施（業務）</td>
               </tr>
               <tr>
                 <td>Ubuntu</td>
@@ -330,9 +362,20 @@ import PageHeader from '../components/shared/layout/PageHeader.astro';
         <li>
           <a href="https://github.com/Kohei-Wada/taskdog" target="_blank" rel="noopener noreferrer">
             taskdog
-          </a> – CLI/TUI対応のタスク管理システム。スケジュール最適化やガントチャートなどを備える。Textualの作者であるWill
-          McGugan氏にXで紹介され、「The author of this project has clearly got a good eye for design
-          in the terminal」と評価された。
+          </a> – CLI/TUI対応のタスク管理システム。スケジュール最適化やガントチャートなどを備える。Clean
+          Architectureを採用したUVワークスペースモノレポ構成で設計。
+          <a href="https://terminaltrove.com/taskdog/" target="_blank" rel="noopener noreferrer"
+            >Terminal Trove</a
+          >・<a
+            href="https://www.linuxlinks.com/taskdog-task-management-system/"
+            target="_blank"
+            rel="noopener noreferrer">LinuxLinks</a
+          >に掲載。Textualの作者であるWill McGugan氏に<a
+            href="https://x.com/willmcgugan/status/2027377375156080742?s=20"
+            target="_blank"
+            rel="noopener noreferrer">Xで紹介</a
+          >され、「The author of this project has clearly got a good eye for design in the
+          terminal」と評価された。
         </li>
         <li>
           <a
