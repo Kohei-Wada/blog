@@ -1,83 +1,43 @@
-/*
- * Typography
- * Font definitions and text element styles
- */
-
-/* Font Face Definitions */
-@font-face {
-  font-family: 'Atkinson';
-  src: url('/fonts/atkinson-regular.woff') format('woff');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
+:root {
+  --font-mono:
+    'JetBrains Mono', 'Fira Code', ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+  --font-size-base: 15px;
+  --font-size-sm:   13px;
+  --font-size-lg:   17px;
+  --line-height:    1.6;
+  --line-height-tight: 1.4;
+  --max-content:    80ch;
+  --indent-section: 7ch;
+  --indent-section-sm: 2ch;
 }
 
-@font-face {
-  font-family: 'Atkinson';
-  src: url('/fonts/atkinson-bold.woff') format('woff');
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
+html, body {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-base);
+  line-height: var(--line-height);
+  color: var(--text);
+  background: var(--bg);
 }
 
-/* Headings */
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  margin: 0 0 0.5rem 0;
-  color: var(--color-text);
-  line-height: 1.2;
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-mono);
+  line-height: var(--line-height-tight);
+  margin: 1.5em 0 0.5em;
+  color: var(--text);
 }
 
-h1 {
-  font-size: 2.5em;
+h1 { font-size: 24px; }
+h2 { font-size: 19px; }
+h3 { font-size: 16px; }
+h4 { font-size: 15px; font-weight: 600; }
+
+p, ul, ol, blockquote, pre, table {
+  margin: 0 0 1em;
 }
 
-h2 {
-  font-size: 1.5em;
+a {
+  color: var(--link);
+  text-decoration: underline;
 }
 
-h3 {
-  font-size: 1.4em;
-}
-
-h4 {
-  font-size: 1.3em;
-}
-
-h5 {
-  font-size: 1.2em;
-}
-
-/* Text Elements */
-p {
-  margin-bottom: 1em;
-}
-
-.prose p {
-  margin-bottom: 2em;
-}
-
-strong,
-b {
-  font-weight: 700;
-}
-
-blockquote {
-  border-left: 4px solid var(--accent);
-  padding: 0 0 0 20px;
-  margin: 0px;
-  font-size: 1.333em;
-}
-
-/* 記事内の見出しに上部間隔を追加 */
-.prose h2,
-.prose h3,
-.prose h4,
-.prose h5,
-.prose h6 {
-  margin-top: 2em;
-}
+a:hover { color: var(--accent); }
