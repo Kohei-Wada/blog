@@ -29,6 +29,9 @@ jobs:
       - name: 📦 Install dependencies
         run: npm ci
 
+      - name: 🌐 Blog post locale parity
+        run: npm run check:posts
+
       - name: 🔍 Type check
         run: npm run typecheck
 
