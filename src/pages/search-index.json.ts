@@ -1,6 +1,7 @@
 import type { APIRoute } from 'astro';
 import { getCollection } from 'astro:content';
 import type { SearchItem } from '../utils/search';
+import { truncateBody, stripMarkdown } from '../utils/search';
 import { formatErrorForLog } from '../utils/error-utils';
 import { getPostLang, getPostSlug } from '../utils/post-locale';
 
@@ -16,6 +17,7 @@ export const GET: APIRoute = async () => {
       tags: post.data.tags,
       pubDate: post.data.pubDate.toISOString(),
       url: `/blog/${getPostSlug(post.id)}/`,
+      body: truncateBody(stripMarkdown(post.body ?? '')),
     }));
 
     return new Response(JSON.stringify(searchIndex), {

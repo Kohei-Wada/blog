@@ -35,7 +35,30 @@ const links: Array<{ id: string; label: string; href: string }> = [
       )
     )
   }
+  <button
+    type="button"
+    class="global-nav-search"
+    data-search-trigger
+    aria-label="Open search (press / or Ctrl+K)"
+    title="Open search (/ or Ctrl+K)"
+  >
+    <span class="global-nav-search-prompt" aria-hidden="true">$ man -k</span>
+    <span class="global-nav-search-hint" aria-hidden="true">
+      <kbd>/</kbd>
+      <span class="global-nav-search-hint-sep">·</span>
+      <kbd>Ctrl</kbd>+<kbd>K</kbd>
+    </span>
+  </button>
 </nav>
+
+<script>
+  const triggers = document.querySelectorAll<HTMLButtonElement>('[data-search-trigger]');
+  triggers.forEach(trigger => {
+    trigger.addEventListener('click', () => {
+      window.dispatchEvent(new CustomEvent('search-modal:open'));
+    });
+  });
+</script>
 
 <style>
   .global-nav {
@@ -62,9 +85,51 @@ const links: Array<{ id: string; label: string; href: string }> = [
     color: var(--text);
     font-weight: bold;
   }
+  .global-nav-search {
+    margin-left: auto;
+    display: inline-flex;
+    align-items: baseline;
+    gap: 1ch;
+    background: transparent;
+    border: 1px dashed var(--border);
+    color: var(--text-dim);
+    font: inherit;
+    cursor: pointer;
+    padding: 0 0.5ch;
+  }
+  .global-nav-search:hover,
+  .global-nav-search:focus-visible {
+    color: var(--accent);
+    border-color: var(--accent);
+    outline: none;
+  }
+  .global-nav-search-prompt {
+    color: inherit;
+  }
+  .global-nav-search-hint {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.25ch;
+    color: var(--text-dim);
+    font-size: var(--font-size-xs);
+  }
+  .global-nav-search-hint kbd {
+    border: 1px solid var(--border);
+    padding: 0 0.4ch;
+    font-family: inherit;
+    font-size: var(--font-size-xs);
+    color: var(--text-dim);
+    background: var(--bg-alt);
+  }
+  .global-nav-search-hint-sep {
+    opacity: 0.6;
+  }
   @media (max-width: 600px) {
     .global-nav {
       padding: 0 0.75rem;
+    }
+    .global-nav-search-hint {
+      display: none;
     }
   }
 </style>
