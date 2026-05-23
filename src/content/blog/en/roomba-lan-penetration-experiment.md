@@ -19,14 +19,14 @@ Target info:
 | -------------- | ------------------------------------- |
 | Model          | iRobot Roomba i2 (sku: i215860)       |
 | Firmware       | daredevil+2.6.0+daredevil-release+163 |
-| IP             | 192.168.0.7                           |
+| IP             | 192.168.1.20                          |
 | MAC            | OUI: iRobot                           |
 | Cloud endpoint | AWS IoT (443/tcp)                     |
 
 ## Phase 1: Reconnaissance
 
 - **nmap network scan** → found 16 devices, identified the iRobot from the MAC OUI
-- **UDP 5678 discovery protocol** → `echo -n "irobotmcs" | nc -u -w3 192.168.0.7 5678` exposes the device name, BLID, firmware, and capability list as JSON, in the clear. **No auth required.**
+- **UDP 5678 discovery protocol** → `echo -n "irobotmcs" | nc -u -w3 192.168.1.20 5678` exposes the device name, BLID, firmware, and capability list as JSON, in the clear. **No auth required.**
 - **Port scan (all 65535)** → the only open port is 8883/tcp (MQTT over TLS)
 - **TLS certificate inspection** → pulled iRobot's self-signed chain. Bonus finding: the intermediate CA "Robot Intermediate CA A01" had already expired at the end of 2025.
 
@@ -55,7 +55,7 @@ This is the final exfiltration path. The magic packet the dorita980 community re
 ```python
 import ssl, socket
 
-ROOMBA_IP = "192.168.0.7"
+ROOMBA_IP = "192.168.1.20"
 ctx = ssl.SSLContext(ssl.PROTOCOL_TLS_CLIENT)
 ctx.check_hostname = False
 ctx.verify_mode = ssl.CERT_NONE

@@ -19,14 +19,14 @@ tags: ['セキュリティ', 'IoT', 'リバースエンジニアリング', 'Hom
 | -------------- | ------------------------------------- |
 | モデル         | iRobot Roomba i2 (sku: i215860)       |
 | ファームウェア | daredevil+2.6.0+daredevil-release+163 |
-| IP             | 192.168.0.7                           |
+| IP             | 192.168.1.20                          |
 | MAC            | OUI: iRobot                           |
 | クラウド接続先 | AWS IoT (443/tcp)                     |
 
 ## Phase 1: 偵察
 
 - **nmap でネットワークスキャン** → 16 台のデバイスを発見、MAC の OUI から iRobot を特定
-- **UDP 5678 discovery プロトコル** → `echo -n "irobotmcs" | nc -u -w3 192.168.0.7 5678` で、デバイス名・BLID・ファームウェア・機能一覧が JSON で丸見え。**認証不要**
+- **UDP 5678 discovery プロトコル** → `echo -n "irobotmcs" | nc -u -w3 192.168.1.20 5678` で、デバイス名・BLID・ファームウェア・機能一覧が JSON で丸見え。**認証不要**
 - **ポートスキャン（全 65535）** → 開放ポートは 8883/tcp (MQTT over TLS) のみ
 - **TLS 証明書調査** → iRobot 自己署名のチェーンを取得。中間 CA "Robot Intermediate CA A01" が 2025 年末に失効済みという発見つき
 
@@ -55,7 +55,7 @@ scapy でクラウドサーバーになりすました TCP RST を複数 sequenc
 ```python
 import ssl, socket
 
-ROOMBA_IP = "192.168.0.7"
+ROOMBA_IP = "192.168.1.20"
 ctx = ssl.SSLContext(ssl.PROTOCOL_TLS_CLIENT)
 ctx.check_hostname = False
 ctx.verify_mode = ssl.CERT_NONE
