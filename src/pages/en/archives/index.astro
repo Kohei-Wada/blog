@@ -1,0 +1,169 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { SITE_TITLE } from '../../../consts';
+import { getCollection } from 'astro:content';
+import PageHeader from '../../../components/shared/layout/PageHeader.astro';
+import { groupPostsByMonth } from '../../../utils/archive-utils';
+import { getPostLang } from '../../../utils/post-locale';
+
+const all = await getCollection('blog');
+const posts = all.filter(p => getPostLang(p.id) === 'en');
+const archives = groupPostsByMonth(posts);
+const title = `Archives - ${SITE_TITLE}`;
+const description = 'Monthly archive of English blog posts.';
+
+const groupedByYear = new Map<number, typeof archives>();
+archives.forEach(archive => {
+  if (!groupedByYear.has(archive.year)) {
+    groupedByYear.set(archive.year, []);
+  }
+  groupedByYear.get(archive.year)!.push(archive);
+});
+
+const sortedYears = Array.from(groupedByYear.keys()).sort((a, b) => b - a);
+---
+
+<BaseLayout title={title} description={description} showSidebar={true}>
+  <style>
+    .archives-container {
+      padding-bottom: var(--spacing-xl);
+    }
+
+    .archive-year {
+      margin-bottom: var(--spacing-lg);
+    }
+
+    .year-heading {
+      font-size: var(--font-size-2xl);
+      font-weight: 600;
+      color: var(--color-text);
+      margin-bottom: var(--spacing-md);
+      padding-bottom: var(--spacing-xs);
+      border-bottom: 2px solid var(--color-link);
+    }
+
+    .archive-months {
+      display: grid;
+      gap: var(--spacing-md);
+      margin-left: var(--spacing-md);
+    }
+
+    .archive-month {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: var(--spacing-sm) var(--spacing-md);
+      background: var(--card-background);
+      border-radius: var(--radius-md);
+      text-decoration: none;
+      color: var(--color-text);
+      transition: all var(--transition-normal);
+      border: 1px solid var(--color-border-light);
+    }
+
+    .archive-month:hover {
+      background: var(--hover-background);
+      border-color: var(--color-link);
+      transform: translateX(var(--spacing-xs));
+    }
+
+    .month-info {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-sm);
+    }
+
+    .month-name {
+      font-weight: 500;
+      font-size: var(--font-size-lg);
+    }
+
+    .post-count {
+      background: var(--color-link);
+      color: var(--color-bg);
+      padding: 0.25rem 0.5rem;
+      border-radius: var(--radius-sm);
+      font-size: var(--font-size-sm);
+      font-weight: 500;
+      min-width: 2rem;
+      text-align: center;
+    }
+
+    .total-posts {
+      text-align: center;
+      padding: var(--spacing-lg);
+      background: var(--subtle-background);
+      border-radius: var(--radius-md);
+      margin-bottom: var(--spacing-lg);
+    }
+
+    .total-posts-number {
+      font-size: var(--font-size-3xl);
+      font-weight: 600;
+      color: var(--color-link);
+      margin-bottom: var(--spacing-xs);
+    }
+
+    .total-posts-label {
+      color: var(--color-text-secondary);
+      font-size: var(--font-size-lg);
+    }
+
+    @media (max-width: 768px) {
+      .archive-months {
+        margin-left: 0;
+      }
+
+      .archive-month {
+        padding: var(--spacing-sm);
+      }
+
+      .month-name {
+        font-size: var(--font-size-md);
+      }
+
+      .year-heading {
+        font-size: var(--font-size-xl);
+      }
+
+      .total-posts-number {
+        font-size: var(--font-size-2xl);
+      }
+    }
+  </style>
+
+  <div class="page-container">
+    <PageHeader title="Archives" icon="📅" description="English posts organized by month." />
+
+    <div class="archives-container">
+      <div class="total-posts">
+        <div class="total-posts-number">{posts.length}</div>
+        <div class="total-posts-label">posts published</div>
+      </div>
+
+      {
+        archives.length === 0 ? (
+          <div style="text-align: center; padding: 2rem; color: var(--color-text-secondary);">
+            No posts yet.
+          </div>
+        ) : (
+          sortedYears.map(year => (
+            <div class="archive-year">
+              <h2 class="year-heading">{year}</h2>
+              <div class="archive-months">
+                {groupedByYear.get(year)!.map(archive => (
+                  <a href={`/en/archives/${archive.slug}/`} class="archive-month">
+                    <div class="month-info">
+                      <span class="month-name">{archive.month}</span>
+                    </div>
+                    <span class="post-count">{archive.count}</span>
+                  </a>
+                ))}
+              </div>
+            </div>
+          ))
+        )
+      }
+    </div>
+  </div>
+</BaseLayout>

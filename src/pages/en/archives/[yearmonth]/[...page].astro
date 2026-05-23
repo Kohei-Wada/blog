@@ -1,0 +1,52 @@
+---
+import type { GetStaticPaths } from 'astro';
+import BlogListLayout from '../../../../layouts/BlogListLayout.astro';
+import { SITE_TITLE, POSTS_PER_PAGE } from '../../../../consts';
+import { getCollection } from 'astro:content';
+import {
+  groupPostsByMonth,
+  parseArchiveSlug,
+  formatArchiveLabel,
+} from '../../../../utils/archive-utils';
+import { getPostLang } from '../../../../utils/post-locale';
+
+export const getStaticPaths = (async ({ paginate }) => {
+  const all = await getCollection('blog');
+  const posts = all.filter(p => getPostLang(p.id) === 'en');
+  const archives = groupPostsByMonth(posts);
+
+  return archives.flatMap(archive => {
+    return paginate(archive.posts, {
+      params: { yearmonth: archive.slug },
+      pageSize: POSTS_PER_PAGE,
+    });
+  });
+}) satisfies GetStaticPaths;
+
+const { yearmonth: yearMonthParam } = Astro.params;
+if (!yearMonthParam) {
+  throw new Error('Year-month parameter is required');
+}
+
+const parsed = parseArchiveSlug(yearMonthParam);
+if (!parsed) {
+  throw new Error(`Invalid year-month format: ${yearMonthParam}`);
+}
+
+const { page } = Astro.props;
+const { year, month } = parsed;
+const title = `${formatArchiveLabel(year, month)} - ${SITE_TITLE}`;
+const description = `Posts published in ${formatArchiveLabel(year, month)}.`;
+---
+
+<BlogListLayout
+  title={title}
+  description={description}
+  posts={page.data}
+  headerTitle={formatArchiveLabel(year, month)}
+  headerIcon="📅"
+  headerDescription={`Posts published in ${formatArchiveLabel(year, month)}. ${page.total} post(s).`}
+  withBottomMargin={false}
+  page={page}
+  baseUrl={`/en/archives/${yearMonthParam}/`}
+/>

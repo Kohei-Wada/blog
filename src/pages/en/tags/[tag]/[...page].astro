@@ -1,0 +1,43 @@
+---
+import type { GetStaticPaths } from 'astro';
+import BlogListLayout from '../../../../layouts/BlogListLayout.astro';
+import { SITE_TITLE, SITE_DESCRIPTION, POSTS_PER_PAGE } from '../../../../consts';
+import { getCollection } from 'astro:content';
+import { getAllTags, getPostsByTag, sortPostsByDate } from '../../../../utils/content-aggregation';
+import { getPostLang } from '../../../../utils/post-locale';
+
+export const getStaticPaths = (async ({ paginate }) => {
+  const all = await getCollection('blog');
+  const posts = all.filter(p => getPostLang(p.id) === 'en');
+  const tags = getAllTags(posts);
+
+  return tags.flatMap(tag => {
+    const tagPosts = sortPostsByDate(getPostsByTag(posts, tag));
+    return paginate(tagPosts, {
+      params: { tag },
+      pageSize: POSTS_PER_PAGE,
+    });
+  });
+}) satisfies GetStaticPaths;
+
+const { tag } = Astro.params;
+if (!tag) {
+  throw new Error('Tag parameter is required');
+}
+
+const { page } = Astro.props;
+const title = `${tag} - ${SITE_TITLE}`;
+const description = SITE_DESCRIPTION;
+---
+
+<BlogListLayout
+  title={title}
+  description={description}
+  posts={page.data}
+  headerTitle={`${tag}`}
+  headerIcon="🏷️"
+  headerDescription={`Posts tagged with ${tag}. ${page.total} post(s).`}
+  currentTag={tag}
+  page={page}
+  baseUrl={`/en/tags/${tag}/`}
+/>

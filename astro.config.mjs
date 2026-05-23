@@ -7,6 +7,13 @@ import expressiveCode from 'astro-expressive-code';
 // https://astro.build/config
 export default defineConfig({
   site: 'https://wada-dev.com/',
+  i18n: {
+    defaultLocale: 'ja',
+    locales: ['ja', 'en'],
+    routing: {
+      prefixDefaultLocale: false,
+    },
+  },
   integrations: [
     expressiveCode({
       themes: ['github-dark'],

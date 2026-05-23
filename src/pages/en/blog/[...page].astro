@@ -1,0 +1,27 @@
+---
+import type { GetStaticPaths } from 'astro';
+import BlogListLayout from '../../../layouts/BlogListLayout.astro';
+import { SITE_TITLE, SITE_DESCRIPTION, POSTS_PER_PAGE } from '../../../consts';
+import { getCollection } from 'astro:content';
+import { sortPostsByDate } from '../../../utils/content-aggregation';
+import { getPostLang } from '../../../utils/post-locale';
+
+export const getStaticPaths = (async ({ paginate }) => {
+  const all = await getCollection('blog');
+  const posts = sortPostsByDate(all.filter(p => getPostLang(p.id) === 'en'));
+  return paginate(posts, { pageSize: POSTS_PER_PAGE });
+}) satisfies GetStaticPaths;
+
+const { page } = Astro.props;
+---
+
+<BlogListLayout
+  title={SITE_TITLE}
+  description={SITE_DESCRIPTION}
+  posts={page.data}
+  headerTitle="All Posts"
+  headerIcon="📚"
+  headerDescription="All English posts on this blog."
+  page={page}
+  baseUrl="/en/blog/"
+/>
