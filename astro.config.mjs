@@ -17,8 +17,23 @@ export default defineConfig({
   integrations: [
     expressiveCode({
       themes: ['solarized-light'],
+      // Force a single frame variant across all fenced blocks so shell/bash
+      // blocks don't get a different (terminal) chrome than e.g. ts/js blocks.
+      defaultProps: {
+        frame: 'code',
+      },
       styleOverrides: {
         borderRadius: '4px',
+        // Use the site's primary monospace stack everywhere — without this
+        // override the syntax-highlighted spans fall back to the bundled
+        // `ui-monospace, SFMono-Regular, ...` stack, which clashes with the
+        // surrounding `JetBrains Mono` body text.
+        codeFontFamily: 'var(--font-mono)',
+        uiFontFamily: 'var(--font-mono)',
+        // Match the inline-code background (--bg-alt) so inline and block
+        // code share a single paper tone instead of two slightly different
+        // creams (#ece4cf vs Solarized Light's #fdf6e3).
+        codeBackground: 'var(--bg-alt)',
         frames: {
           shadowColor: 'transparent',
         },

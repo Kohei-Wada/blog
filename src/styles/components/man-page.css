@@ -29,6 +29,15 @@
   overflow-x: auto;
 }
 
+/* astro-expressive-code wraps code blocks in `.expressive-code` with zero
+   vertical margin, leaving the spacing entirely to surrounding `<p>` margins.
+   Because `<p>` has margin-bottom but no margin-top, blocks sit flush against
+   the next paragraph below. Add symmetric vertical margin so above/below
+   gaps match. */
+.man-page .expressive-code {
+  margin: 1em 0;
+}
+
 .man-section {
   margin: 1.5em 0;
 }
