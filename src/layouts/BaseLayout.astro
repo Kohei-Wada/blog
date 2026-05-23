@@ -63,6 +63,7 @@ const headerPath = pathname === '/' || pathname === '/ja/' ? '/' : pathname;
         display: flex;
         justify-content: space-between;
         align-items: baseline;
+        gap: 1ch;
         max-width: var(--max-content);
         margin: 1.5em auto 0;
         padding: 0 1rem;
@@ -73,6 +74,21 @@ const headerPath = pathname === '/' || pathname === '/ja/' ? '/' : pathname;
         font-weight: bold;
         color: var(--text);
         letter-spacing: 0.08em;
+        white-space: nowrap;
+      }
+      /* The path can be arbitrarily long (e.g. /blog/<long-slug>); keep the
+         header on one line by truncating it instead of crowding the
+         LangSwitcher off the edge. */
+      .hdr-prompt {
+        flex: 1 1 auto;
+        min-width: 0;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+      }
+      .man-header :global(.lang-switcher) {
+        flex: 0 0 auto;
+        white-space: nowrap;
       }
     </style>
   </body>
