@@ -1,18 +1,92 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import PageHeader from '../components/shared/layout/PageHeader.astro';
 ---
 
 <BaseLayout
   title="Contact - Kohei Wada"
   description="お問い合わせフォーム。ご質問やご連絡はこちらからどうぞ。"
-  showSidebar={true}
 >
-  <style>
-    .contact-container {
-      margin-bottom: var(--spacing-xl);
-    }
+  <section class="man-section">
+    <h2>NAME</h2>
+    <p>contact — お問い合わせ</p>
+  </section>
 
+  <section class="man-section">
+    <h2>DESCRIPTION</h2>
+    <p>ご質問、フィードバック、お仕事のご依頼など、お気軽にお声をおかけください。</p>
+  </section>
+
+  <section class="man-section">
+    <h2>CHANNELS</h2>
+    <form
+      name="contact"
+      method="POST"
+      data-netlify="true"
+      netlify-honeypot="bot-field"
+      class="contact-form"
+    >
+      <input type="hidden" name="form-name" value="contact" />
+      <p hidden>
+        <label>
+          Don't fill this out: <input name="bot-field" />
+        </label>
+      </p>
+
+      <div class="form-group">
+        <label for="name" class="form-label">お名前</label>
+        <input type="text" id="name" name="name" class="form-input" placeholder="山田 太郎" />
+      </div>
+
+      <div class="form-group">
+        <label for="email" class="form-label">
+          メールアドレス<span class="required">*</span>
+        </label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          class="form-input"
+          placeholder="example@email.com"
+          required
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="subject" class="form-label">件名</label>
+        <input
+          type="text"
+          id="subject"
+          name="subject"
+          class="form-input"
+          placeholder="お問い合わせの件名"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="message" class="form-label">
+          メッセージ<span class="required">*</span>
+        </label>
+        <textarea
+          id="message"
+          name="message"
+          class="form-textarea"
+          placeholder="お問い合わせ内容をご記入ください"
+          required></textarea>
+      </div>
+
+      <button type="submit" class="submit-button">送信する</button>
+    </form>
+  </section>
+
+  <section class="man-section">
+    <h2>SEE ALSO</h2>
+    <p>
+      <a href="/about">about(1)</a>,
+      <a href="/privacy">privacy(1)</a>
+    </p>
+  </section>
+
+  <style>
     .contact-form {
       display: flex;
       flex-direction: column;
@@ -97,73 +171,4 @@ import PageHeader from '../components/shared/layout/PageHeader.astro';
       }
     }
   </style>
-
-  <div class="page-container">
-    <PageHeader
-      title="お問い合わせ"
-      icon="📧"
-      description="ご質問、フィードバック、お仕事のご依頼など、お気軽にお声をおかけください。"
-    />
-
-    <div class="contact-container">
-      <form
-        name="contact"
-        method="POST"
-        data-netlify="true"
-        netlify-honeypot="bot-field"
-        class="contact-form"
-      >
-        <input type="hidden" name="form-name" value="contact" />
-        <p hidden>
-          <label>
-            Don't fill this out: <input name="bot-field" />
-          </label>
-        </p>
-
-        <div class="form-group">
-          <label for="name" class="form-label">お名前</label>
-          <input type="text" id="name" name="name" class="form-input" placeholder="山田 太郎" />
-        </div>
-
-        <div class="form-group">
-          <label for="email" class="form-label">
-            メールアドレス<span class="required">*</span>
-          </label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            class="form-input"
-            placeholder="example@email.com"
-            required
-          />
-        </div>
-
-        <div class="form-group">
-          <label for="subject" class="form-label">件名</label>
-          <input
-            type="text"
-            id="subject"
-            name="subject"
-            class="form-input"
-            placeholder="お問い合わせの件名"
-          />
-        </div>
-
-        <div class="form-group">
-          <label for="message" class="form-label">
-            メッセージ<span class="required">*</span>
-          </label>
-          <textarea
-            id="message"
-            name="message"
-            class="form-textarea"
-            placeholder="お問い合わせ内容をご記入ください"
-            required></textarea>
-        </div>
-
-        <button type="submit" class="submit-button">送信する</button>
-      </form>
-    </div>
-  </div>
 </BaseLayout>

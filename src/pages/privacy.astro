@@ -1,197 +1,136 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import PageHeader from '../components/shared/layout/PageHeader.astro';
 ---
 
 <BaseLayout
   title="プライバシーポリシー"
   description="当サイトのプライバシーポリシーについて。個人情報の取り扱い、Cookie、広告に関する方針を記載しています。"
-  showSidebar={true}
 >
-  <style>
-    .privacy {
-      line-height: 1.8;
-    }
+  <section class="man-section">
+    <h2>NAME</h2>
+    <p>privacy — プライバシーポリシー</p>
+  </section>
 
-    .privacy h2 {
-      font-size: var(--font-size-2xl);
-      margin: var(--spacing-xl) 0 var(--spacing-sm) 0;
-      color: var(--color-text);
-      border-bottom: 2px solid var(--color-link);
-      padding-bottom: var(--spacing-xs);
-    }
+  <section class="man-section">
+    <h2>OVERVIEW</h2>
+    <p>当サイトにおける個人情報の取り扱いについて</p>
+  </section>
 
-    .privacy h2:first-of-type {
-      margin-top: var(--spacing-lg);
-    }
+  <section class="man-section">
+    <h2>COLLECTION</h2>
+    <p>
+      当サイトでは、お問い合わせフォームをご利用いただく際に、以下の個人情報をご提供いただく場合があります。
+    </p>
+    <ul>
+      <li>お名前</li>
+      <li>メールアドレス</li>
+      <li>お問い合わせ内容</li>
+    </ul>
+    <p>
+      ご提供いただいた個人情報は、お問い合わせへの返信およびご連絡のためにのみ使用し、これらの目的以外では利用いたしません。
+      また、法令に基づく場合を除き、ご本人の同意なく第三者に提供することはありません。
+    </p>
+  </section>
 
-    .privacy h3 {
-      font-size: var(--font-size-lg);
-      margin: var(--spacing-md) 0 var(--spacing-xs) 0;
-      color: var(--color-text);
-    }
+  <section class="man-section">
+    <h2>THIRD PARTIES</h2>
+    <h3>Cookie（クッキー）について</h3>
+    <p>
+      当サイトでは、利便性向上やサイト改善のためにCookieを使用しています。
+      Cookieとは、ウェブサイトがお使いのブラウザに送信する小さなテキストファイルで、
+      サイトの利用状況を分析したり、広告を配信したりするために使用されます。
+    </p>
+    <p>
+      ブラウザの設定により、Cookieの受け入れを拒否することも可能ですが、
+      その場合、サイトの一部機能が正常に動作しない可能性があります。
+    </p>
 
-    .privacy p {
-      margin-bottom: var(--spacing-md);
-      line-height: 1.8;
-    }
+    <h3>アクセス解析ツールについて</h3>
+    <p>
+      当サイトでは、Googleによるアクセス解析ツール「Google Analytics」を使用しています。 Google
+      Analyticsはトラフィックデータの収集のためにCookieを使用しています。
+      このトラフィックデータは匿名で収集されており、個人を特定するものではありません。
+    </p>
+    <p>
+      この機能はCookieを無効にすることで収集を拒否することができますので、
+      お使いのブラウザの設定をご確認ください。 Google Analyticsの利用規約については、
+      <a
+        href="https://marketingplatform.google.com/about/analytics/terms/jp/"
+        target="_blank"
+        rel="noopener noreferrer nofollow"
+      >
+        Google アナリティクス利用規約
+      </a>
+      をご参照ください。
+    </p>
 
-    .privacy ul {
-      margin-bottom: var(--spacing-md);
-      padding-left: var(--spacing-lg);
-    }
+    <h3>広告について</h3>
+    <p>
+      当サイトでは、第三者配信の広告サービス「Google AdSense」を利用しています。
+      広告配信事業者は、ユーザーの興味に応じた広告を表示するためにCookieを使用することがあります。
+    </p>
+    <p>
+      Cookieを使用することで、当サイトや他のサイトへのアクセス情報に基づいて、
+      適切な広告をユーザーに表示することが可能になります。
+    </p>
+    <p>
+      パーソナライズ広告を無効にする場合は、
+      <a
+        href="https://www.google.com/settings/ads"
+        target="_blank"
+        rel="noopener noreferrer nofollow"
+      >
+        Googleの広告設定
+      </a>
+      から設定を変更できます。 また、
+      <a href="https://optout.aboutads.info/" target="_blank" rel="noopener noreferrer nofollow">
+        www.aboutads.info
+      </a>
+      にアクセスして、パーソナライズ広告に使用される第三者配信事業者のCookieを無効にすることも可能です。
+    </p>
+  </section>
 
-    .privacy li {
-      margin-bottom: var(--spacing-xs);
-      line-height: 1.7;
-    }
+  <section class="man-section">
+    <h2>RETENTION</h2>
+    <h3>掲載情報について</h3>
+    <p>
+      当サイトに掲載されている情報は、可能な限り正確な情報を提供するよう努めていますが、
+      その正確性や安全性を保証するものではありません。
+      情報が古くなっている場合や、誤りが含まれている可能性があることをご了承ください。
+    </p>
+    <p>
+      当サイトの情報を利用することで生じた損害等について、一切の責任を負いかねますので、
+      ご自身の判断と責任においてご利用ください。
+    </p>
 
-    .privacy a {
-      color: var(--accent);
-      text-decoration: none;
-      border-bottom: 1px solid transparent;
-      transition: all var(--transition-normal);
-    }
+    <h3>外部リンクについて</h3>
+    <p>
+      当サイトには外部サイトへのリンクが含まれている場合があります。
+      リンク先サイトの内容やサービスについては、当サイトでは一切の責任を負いません。
+      リンク先サイトのご利用は、各サイトの利用規約等をご確認の上、ご自身の責任でお願いいたします。
+    </p>
 
-    .privacy a:hover {
-      border-bottom-color: var(--accent);
-    }
+    <h3>著作権について</h3>
+    <p>
+      当サイトに掲載されている記事、画像、その他のコンテンツの著作権は、
+      特に明記がない限り当サイトの運営者に帰属します。 無断転載・複製を禁じます。
+    </p>
+    <p>引用を行う場合は、出典を明記し、引用の範囲内でご利用ください。</p>
 
-    .update-date {
-      color: var(--color-text-secondary);
-      font-size: var(--font-size-sm);
-      margin-top: var(--spacing-xl);
-      padding-top: var(--spacing-md);
-      border-top: 1px solid var(--color-border-light);
-    }
+    <h3>プライバシーポリシーの変更について</h3>
+    <p>
+      当サイトは、必要に応じて本プライバシーポリシーを変更することがあります。
+      変更があった場合は、当ページにて公開いたします。
+    </p>
 
-    @media (max-width: 768px) {
-      .privacy h2 {
-        font-size: var(--font-size-xl);
-      }
+    <p>制定日：2026年1月17日</p>
+  </section>
 
-      .privacy h3 {
-        font-size: var(--font-size-base);
-      }
-    }
-  </style>
-
-  <div class="page-container">
-    <PageHeader
-      title="プライバシーポリシー"
-      icon="🔒"
-      description="当サイトにおける個人情報の取り扱いについて"
-    />
-
-    <section class="privacy">
-      <h2>個人情報の取り扱いについて</h2>
-      <p>
-        当サイトでは、お問い合わせフォームをご利用いただく際に、以下の個人情報をご提供いただく場合があります。
-      </p>
-      <ul>
-        <li>お名前</li>
-        <li>メールアドレス</li>
-        <li>お問い合わせ内容</li>
-      </ul>
-      <p>
-        ご提供いただいた個人情報は、お問い合わせへの返信およびご連絡のためにのみ使用し、これらの目的以外では利用いたしません。
-        また、法令に基づく場合を除き、ご本人の同意なく第三者に提供することはありません。
-      </p>
-
-      <h2>Cookie（クッキー）について</h2>
-      <p>
-        当サイトでは、利便性向上やサイト改善のためにCookieを使用しています。
-        Cookieとは、ウェブサイトがお使いのブラウザに送信する小さなテキストファイルで、
-        サイトの利用状況を分析したり、広告を配信したりするために使用されます。
-      </p>
-      <p>
-        ブラウザの設定により、Cookieの受け入れを拒否することも可能ですが、
-        その場合、サイトの一部機能が正常に動作しない可能性があります。
-      </p>
-
-      <h2>アクセス解析ツールについて</h2>
-      <p>
-        当サイトでは、Googleによるアクセス解析ツール「Google Analytics」を使用しています。 Google
-        Analyticsはトラフィックデータの収集のためにCookieを使用しています。
-        このトラフィックデータは匿名で収集されており、個人を特定するものではありません。
-      </p>
-      <p>
-        この機能はCookieを無効にすることで収集を拒否することができますので、
-        お使いのブラウザの設定をご確認ください。 Google Analyticsの利用規約については、
-        <a
-          href="https://marketingplatform.google.com/about/analytics/terms/jp/"
-          target="_blank"
-          rel="noopener noreferrer nofollow"
-        >
-          Google アナリティクス利用規約
-        </a>
-        をご参照ください。
-      </p>
-
-      <h2>広告について</h2>
-      <p>
-        当サイトでは、第三者配信の広告サービス「Google AdSense」を利用しています。
-        広告配信事業者は、ユーザーの興味に応じた広告を表示するためにCookieを使用することがあります。
-      </p>
-      <p>
-        Cookieを使用することで、当サイトや他のサイトへのアクセス情報に基づいて、
-        適切な広告をユーザーに表示することが可能になります。
-      </p>
-      <p>
-        パーソナライズ広告を無効にする場合は、
-        <a
-          href="https://www.google.com/settings/ads"
-          target="_blank"
-          rel="noopener noreferrer nofollow"
-        >
-          Googleの広告設定
-        </a>
-        から設定を変更できます。 また、
-        <a href="https://optout.aboutads.info/" target="_blank" rel="noopener noreferrer nofollow">
-          www.aboutads.info
-        </a>
-        にアクセスして、パーソナライズ広告に使用される第三者配信事業者のCookieを無効にすることも可能です。
-      </p>
-
-      <h2>免責事項</h2>
-      <h3>掲載情報について</h3>
-      <p>
-        当サイトに掲載されている情報は、可能な限り正確な情報を提供するよう努めていますが、
-        その正確性や安全性を保証するものではありません。
-        情報が古くなっている場合や、誤りが含まれている可能性があることをご了承ください。
-      </p>
-      <p>
-        当サイトの情報を利用することで生じた損害等について、一切の責任を負いかねますので、
-        ご自身の判断と責任においてご利用ください。
-      </p>
-
-      <h3>外部リンクについて</h3>
-      <p>
-        当サイトには外部サイトへのリンクが含まれている場合があります。
-        リンク先サイトの内容やサービスについては、当サイトでは一切の責任を負いません。
-        リンク先サイトのご利用は、各サイトの利用規約等をご確認の上、ご自身の責任でお願いいたします。
-      </p>
-
-      <h2>著作権について</h2>
-      <p>
-        当サイトに掲載されている記事、画像、その他のコンテンツの著作権は、
-        特に明記がない限り当サイトの運営者に帰属します。 無断転載・複製を禁じます。
-      </p>
-      <p>引用を行う場合は、出典を明記し、引用の範囲内でご利用ください。</p>
-
-      <h2>お問い合わせ</h2>
-      <p>
-        プライバシーポリシーに関するお問い合わせは、
-        <a href="/contact">お問い合わせフォーム</a>よりご連絡ください。
-      </p>
-
-      <h2>プライバシーポリシーの変更について</h2>
-      <p>
-        当サイトは、必要に応じて本プライバシーポリシーを変更することがあります。
-        変更があった場合は、当ページにて公開いたします。
-      </p>
-
-      <p class="update-date">制定日：2026年1月17日</p>
-    </section>
-  </div>
+  <section class="man-section">
+    <h2>CONTACT</h2>
+    <p>
+      プライバシーポリシーに関するお問い合わせは、
+      <a href="/contact">お問い合わせフォーム</a>よりご連絡ください。
+    </p>
+  </section>
 </BaseLayout>

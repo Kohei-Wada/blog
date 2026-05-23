@@ -45,11 +45,33 @@ const posts = [...sortPostsByDate(featuredPosts), ...sortPostsByDate(otherPosts)
   </section>
 
   <section class="man-section">
+    <h2>PROJECTS</h2>
+    <ul class="projects">
+      <li><a href="https://github.com/Kohei-Wada/taskdog">taskdog</a> — cli task manager</li>
+      <li><a href="https://github.com/Kohei-Wada/ttymap">ttymap</a> — tmux session viz</li>
+      <li>
+        <a href="https://github.com/Kohei-Wada/knowledge-gardener">knowledge-gardener</a> — obsidian
+        + ai
+      </li>
+    </ul>
+  </section>
+
+  <section class="man-section">
     <h2>NAVIGATION</h2>
     <p>
       <a href="/blog">blog</a> · <a href="/tags/">tags</a> · <a href="/archives/">archives</a> · <a
         href="/en/">en</a
       >
+    </p>
+  </section>
+
+  <section class="man-section">
+    <h2>SEE ALSO</h2>
+    <p>
+      <a href={GITHUB_URL}>github(1)</a>,
+      <a href={ZENN_URL}>zenn(1)</a>,
+      <a href={QIITA_URL}>qiita(1)</a>,
+      <a href={X_URL}>x(1)</a>
     </p>
   </section>
 </BaseLayout>
