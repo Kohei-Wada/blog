@@ -23,8 +23,7 @@ const featuredProjects = allProjects
   .sort((a, b) => {
     if (b.data.order !== a.data.order) return b.data.order - a.data.order;
     return a.data.name.localeCompare(b.data.name);
-  })
-  .slice(0, 3);
+  });
 
 const description = t('siteDescription', lang);
 const other = otherLocale(lang);
