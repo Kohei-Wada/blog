@@ -52,7 +52,7 @@ HA UI → Settings → Add-ons → Advanced SSH & Web Terminal → Configuration
 
 ```text
 Host homeassistant
-  HostName 192.168.0.15
+  HostName 192.168.1.10
   User wada
   IdentityFile ~/.ssh/id_rsa
 ```
