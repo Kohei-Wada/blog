@@ -8,6 +8,7 @@ import '../styles/components/man-page.css';
 
 import BaseHead from '../components/shared/layout/BaseHead.astro';
 import LangSwitcher from '../components/shared/LangSwitcher.astro';
+import GlobalNav from '../components/shared/GlobalNav.astro';
 import type { ImageMetadata } from 'astro';
 
 interface Props {
@@ -44,6 +45,7 @@ const headerPath = pathname === '/' || pathname === '/en/' ? '/' : pathname;
       <span class="hdr-prompt">$ {headerPath}</span>
       <LangSwitcher siblingHref={siblingHref} />
     </header>
+    <GlobalNav />
     <hr class="man-rule" />
     <main class="man-page">
       <slot />
