@@ -25,4 +25,4 @@ export const AUTHOR_IMAGE_URL = 'https://github.com/Kohei-Wada.png';
 export const AUTHOR_JOB_TITLE = 'Software Engineer';
 
 // Pagination
-export const POSTS_PER_PAGE = 6;
+export const POSTS_PER_PAGE = 20;
