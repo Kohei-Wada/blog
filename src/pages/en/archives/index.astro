@@ -37,7 +37,7 @@ const sortedYears = Array.from(groupedByYear.keys()).sort((a, b) => b - a);
         sortedYears.map(year => (
           <div class="archive-year-group">
             <h3>{year}</h3>
-            <ul class="ls-listing">
+            <ul class="ls-listing ls-listing--compact">
               {groupedByYear.get(year)!.map(archive => (
                 <li>
                   <span class="perms">drwxr-xr-x</span>
