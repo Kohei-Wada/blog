@@ -8,9 +8,9 @@ import { getPostLang, getPostSlug } from '../utils/post-locale';
 export const GET: APIRoute = async () => {
   try {
     const posts = await getCollection('blog');
-    const jaPosts = posts.filter(post => getPostLang(post.id) === 'ja');
+    const enPosts = posts.filter(post => getPostLang(post.id) === 'en');
 
-    const searchIndex: SearchItem[] = jaPosts.map(post => ({
+    const searchIndex: SearchItem[] = enPosts.map(post => ({
       id: post.id,
       title: post.data.title,
       description: post.data.description,

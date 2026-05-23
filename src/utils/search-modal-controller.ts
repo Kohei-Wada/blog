@@ -57,7 +57,7 @@ function renderRow(item: SearchItem, index: number, selectedIndex: number, query
 }
 
 export function renderEmptyResultsHtml(): string {
-  return '<div class="search-empty">該当する記事はありません</div>';
+  return '<div class="search-empty">No matching articles</div>';
 }
 
 export function renderResultListHtml(
@@ -82,7 +82,7 @@ export function renderRecentPostsHtml(items: SearchItem[], selectedIndex: number
 
 export function renderPreviewHtml(item: SearchItem | null): string {
   if (!item) {
-    return '<div class="search-preview-empty">記事を選択するとプレビューが表示されます</div>';
+    return '<div class="search-preview-empty">Select an article to preview it</div>';
   }
   const excerpt = item.body.slice(0, PREVIEW_BODY_CHARS);
   const ellipsis = item.body.length > PREVIEW_BODY_CHARS ? '…' : '';
