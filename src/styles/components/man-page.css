@@ -96,6 +96,14 @@
   padding: 0.15em 0;
 }
 
+/* Compact variant: no date column. Used by surfaces whose markup only
+   provides perms / size / title spans (tag index, archive year index).
+   Without this, the title would fall into the 3rd grid column (12ch wide)
+   reserved for the date and wrap prematurely. */
+.ls-listing--compact li {
+  grid-template-columns: 12ch 8ch minmax(0, 1fr);
+}
+
 /* Grid items default to min-width:auto, which makes long Japanese titles
    push the whole grid wider than the parent. Force shrink so the title
    column wraps inside its track. */
