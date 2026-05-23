@@ -43,15 +43,13 @@ const {
     <PostsList posts={posts} />
     {
       page && (
-        <nav class="pagination">
-          <Pagination
-            currentPage={page.currentPage}
-            lastPage={page.lastPage}
-            prevUrl={page.url.prev}
-            nextUrl={page.url.next}
-            baseUrl={baseUrl}
-          />
-        </nav>
+        <Pagination
+          currentPage={page.currentPage}
+          lastPage={page.lastPage}
+          prevUrl={page.url.prev}
+          nextUrl={page.url.next}
+          baseUrl={baseUrl}
+        />
       )
     }
   </section>
