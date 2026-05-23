@@ -1,0 +1,60 @@
+---
+import { localeFromUrl, otherLocale, siblingUrl } from '../../utils/i18n';
+import type { Locale } from '../../i18n/strings';
+
+interface Props {
+  /** Override the auto-computed sibling URL. Pass the other-locale home (e.g. '/en/') when no translation exists. */
+  siblingHref?: string;
+}
+
+const current: Locale = localeFromUrl(Astro.url);
+const other: Locale = otherLocale(current);
+const computedHref = siblingUrl(Astro.url.pathname, current, other);
+const siblingHref = Astro.props.siblingHref ?? computedHref;
+---
+
+<nav class="lang-switcher" aria-label="Language">
+  [
+  {
+    current === 'ja' ? (
+      <span class="lang-active" aria-current="true">
+        ja
+      </span>
+    ) : (
+      <a href={siblingHref}>ja</a>
+    )
+  }
+  <span class="lang-sep">|</span>
+  {
+    current === 'en' ? (
+      <span class="lang-active" aria-current="true">
+        en
+      </span>
+    ) : (
+      <a href={siblingHref}>en</a>
+    )
+  }
+  ]
+</nav>
+
+<style>
+  .lang-switcher {
+    font-family: var(--font-mono);
+    color: var(--text-dim);
+  }
+  .lang-active {
+    font-weight: bold;
+    color: var(--text);
+  }
+  .lang-sep {
+    padding: 0 0.25ch;
+    color: var(--text-dim);
+  }
+  .lang-switcher a {
+    color: var(--text-dim);
+    text-decoration: underline;
+  }
+  .lang-switcher a:hover {
+    color: var(--accent);
+  }
+</style>
