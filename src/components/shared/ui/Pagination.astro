@@ -22,35 +22,35 @@ const pages = Array.from({ length: lastPage }, (_, i) => i + 1);
 
 {
   showPagination && (
-    <nav class="pagination" aria-label="ページナビゲーション">
+    <nav class="pagination" aria-label="pagination">
+      <span class="man-prompt" />
+      <span class="label">ls --page</span>
       {prevUrl ? (
-        <a href={prevUrl} class="pagination-btn prev">
+        <a href={prevUrl} class="arrow" rel="prev">
           &larr;
         </a>
       ) : (
-        <span class="pagination-btn prev disabled" aria-disabled="true">
+        <span class="arrow disabled" aria-disabled="true">
           &larr;
         </span>
       )}
-
-      <div class="pagination-numbers">
-        {pages.map(page => (
-          <a
-            href={getPageUrl(page)}
-            class:list={['pagination-btn', { active: page === currentPage }]}
-            aria-current={page === currentPage ? 'page' : undefined}
-          >
+      {pages.map(page =>
+        page === currentPage ? (
+          <span class="page current" aria-current="page">
+            [{page}]
+          </span>
+        ) : (
+          <a href={getPageUrl(page)} class="page">
             {page}
           </a>
-        ))}
-      </div>
-
+        )
+      )}
       {nextUrl ? (
-        <a href={nextUrl} class="pagination-btn next">
+        <a href={nextUrl} class="arrow" rel="next">
           &rarr;
         </a>
       ) : (
-        <span class="pagination-btn next disabled" aria-disabled="true">
+        <span class="arrow disabled" aria-disabled="true">
           &rarr;
         </span>
       )}
@@ -60,97 +60,48 @@ const pages = Array.from({ length: lastPage }, (_, i) => i + 1);
 
 <style>
   .pagination {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: var(--spacing-sm);
-    margin: var(--spacing-lg) 0;
-    padding: var(--spacing-md) 0;
+    margin: 1.5em 0 0;
+    font-family: var(--font-mono);
+    color: var(--text);
+    line-height: 1.8;
   }
 
-  .pagination-btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 44px;
-    height: 44px;
-    padding: var(--spacing-xs) var(--spacing-sm);
-    background-color: var(--subtle-background);
-    color: var(--color-text);
+  .pagination > * + * {
+    margin-left: 1ch;
+  }
+
+  .label {
+    color: var(--text-dim);
+  }
+
+  .page,
+  .arrow {
+    color: var(--text);
     text-decoration: none;
-    border: 1px solid var(--color-border-light);
-    border-radius: var(--radius-md);
-    font-size: var(--font-size-base);
-    font-weight: 500;
-    transition: all var(--transition-normal);
   }
 
-  .pagination-btn:hover:not(.disabled):not(.active) {
-    background-color: var(--hover-background);
-    color: var(--color-link);
-    border-color: var(--color-link);
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-sm);
+  .page:hover,
+  .arrow:hover {
+    color: var(--accent);
+    text-decoration: underline;
   }
 
-  .pagination-btn:focus {
-    outline: 2px solid var(--color-link);
-    outline-offset: 2px;
+  .current {
+    font-weight: bold;
+    color: var(--accent);
   }
 
-  .pagination-btn.active {
-    background-color: var(--color-link);
-    color: var(--color-bg);
-    border-color: var(--color-link);
-    font-weight: 600;
-  }
-
-  .pagination-btn.disabled {
-    opacity: 0.4;
+  .disabled {
+    color: var(--text-dim);
     cursor: not-allowed;
-    pointer-events: none;
   }
 
-  .pagination-btn.prev,
-  .pagination-btn.next {
-    font-weight: 600;
-  }
-
-  .pagination-numbers {
-    display: flex;
-    gap: var(--spacing-xs);
-  }
-
-  @media (max-width: 768px) {
+  /* On narrow viewports, let it wrap onto two lines rather than overflow. */
+  @media (max-width: 600px) {
     .pagination {
-      margin: var(--spacing-md) 0;
-      gap: var(--spacing-xs);
-    }
-
-    .pagination-btn {
-      min-width: 40px;
-      height: 40px;
-      padding: var(--spacing-xs);
-      font-size: var(--font-size-sm);
-    }
-  }
-
-  @media (max-width: 480px) {
-    .pagination {
+      display: flex;
       flex-wrap: wrap;
-      gap: var(--spacing-xs);
-    }
-
-    .pagination-btn {
-      min-width: 36px;
-      height: 36px;
-      padding: 4px;
-    }
-
-    .pagination-btn.prev,
-    .pagination-btn.next {
-      min-width: auto;
-      padding: 4px var(--spacing-xs);
+      row-gap: 0.25em;
     }
   }
 </style>
