@@ -25,6 +25,7 @@ const projects = defineCollection({
   schema: z.object({
     name: z.string(),
     description: z.string(),
+    description_en: z.string(),
     repo: z.string().url(),
     stack: z.array(z.string()).default([]),
     status: z.enum(['active', 'maintenance', 'archived']).default('active'),
