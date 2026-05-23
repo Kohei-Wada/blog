@@ -66,9 +66,27 @@
   padding-top: 1em;
   border-top: 1px solid var(--border);
   display: flex;
+  flex-wrap: wrap;
+  gap: 0.5em 2ch;
   justify-content: space-between;
+  align-items: baseline;
   color: var(--text-dim);
   font-size: var(--font-size-sm);
+}
+
+.man-footer-links {
+  display: flex;
+  gap: 2ch;
+}
+
+.man-footer-links a {
+  color: var(--text-dim);
+  text-decoration: none;
+}
+
+.man-footer-links a:hover {
+  color: var(--accent);
+  text-decoration: underline;
 }
 
 .man-rule {
