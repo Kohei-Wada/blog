@@ -5,7 +5,7 @@ pubDate: 'Jan 09 2026'
 tags: ['Shell', 'Bash', 'awk', 'Functional Programming', 'Unix']
 ---
 
-A while back I wrote [Beyond AWK: Bringing Haskell to Unix Pipelines](/blog/haskell-unix-pipelines/), about writing pipeline-style processing in Haskell.
+A while back I wrote [Beyond AWK: Bringing Haskell to Unix Pipelines](/en/blog/haskell-unix-pipelines/), about writing pipeline-style processing in Haskell.
 
 But the original idea actually came from what I'm covering in this post. While digging through logs with grep and awk, it hit me: "Wait, I'm just filtering, mapping, and folding." That's where it started.
 
@@ -315,4 +315,4 @@ Personally, once combining these on the fly starts to hurt, I switch to Python. 
 
 ## Related Posts
 
-- [Beyond AWK: Bringing Haskell to Unix Pipelines](/blog/haskell-unix-pipelines/)
+- [Beyond AWK: Bringing Haskell to Unix Pipelines](/en/blog/haskell-unix-pipelines/)

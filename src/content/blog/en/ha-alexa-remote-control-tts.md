@@ -8,7 +8,7 @@ seeAlso: ['ha-claude-code-alexa-report']
 
 ## Introduction
 
-These days Home Assistant has an official Alexa Devices integration — call `notify.<device>_announce` and the Echo Dot speaks. My [setup that has Claude Code read its progress aloud through Alexa](/blog/ha-claude-code-alexa-report) rides on that official path.
+These days Home Assistant has an official Alexa Devices integration — call `notify.<device>_announce` and the Echo Dot speaks. My [setup that has Claude Code read its progress aloud through Alexa](/en/blog/ha-claude-code-alexa-report) rides on that official path.
 
 But until not long ago, there was no easy official way to make an Echo talk from HA. Amazon doesn't offer Alexa's TTS as a public API. What I ran back then was a **self-built setup that drove Amazon's private Alexa API via `alexa-remote-control`**. This post is the record of that "unofficial API era" configuration, and why I eventually moved to the official one.
 

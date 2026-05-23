@@ -5,7 +5,7 @@ pubDate: 'Jan 08 2026'
 tags: ['Zettelkasten', 'Makefile', 'gnuplot', 'CLI']
 ---
 
-In [Part 1 (Design)](/blog/zettelkasten-operation-part1-design/), I wrote about folder structure and tag design. This time it's the analysis installment.
+In [Part 1 (Design)](/en/blog/zettelkasten-operation-part1-design/), I wrote about folder structure and tag design. This time it's the analysis installment.
 
 To be honest, you can live without everything I'm about to show. I just enjoy visualizing my own activity, and before I knew it my Makefile had sprouted all sorts of things.
 
@@ -433,5 +433,5 @@ If this is your kind of hobby too, feel free to use it as a reference.
 
 ## Related posts
 
-- [Zettelkasten Operation Log Part 1: Design](/blog/zettelkasten-operation-part1-design/)
-- [Auto-checking broken links in Obsidian with lychee](/blog/obsidian-lychee-link-checker/)
+- [Zettelkasten Operation Log Part 1: Design](/en/blog/zettelkasten-operation-part1-design/)
+- [Auto-checking broken links in Obsidian with lychee](/en/blog/obsidian-lychee-link-checker/)
