@@ -1,8 +1,13 @@
 ---
+import '../styles/base/variables.css';
+import '../styles/base/reset.css';
+import '../styles/base/typography.css';
+import '../styles/base/responsive.css';
+import '../styles/components.css';
+import '../styles/components/man-page.css';
+
 import BaseHead from '../components/shared/layout/BaseHead.astro';
-import Header from '../components/shared/layout/Header.astro';
-import Footer from '../components/shared/layout/Footer.astro';
-import Sidebar from '../components/blog/navigation/Sidebar.astro';
+import LangSwitcher from '../components/shared/LangSwitcher.astro';
 import type { ImageMetadata } from 'astro';
 
 interface Props {
@@ -11,14 +16,19 @@ interface Props {
   image?: ImageMetadata;
   isArticle?: boolean;
   publishedTime?: Date;
-  showSidebar?: boolean;
+  showSidebar?: boolean; // back-compat: ignored by the new design
+  siblingHref?: string;
 }
 
-const { title, description, image, isArticle, publishedTime, showSidebar = false } = Astro.props;
+const { title, description, image, isArticle, publishedTime, siblingHref } = Astro.props;
+const pathname = Astro.url.pathname;
+const sectionName = 'WADA-DEV(7)';
+const today = new Date().toISOString().slice(0, 10);
+const headerPath = pathname === '/' || pathname === '/en/' ? '/' : pathname;
 ---
 
 <!doctype html>
-<html lang="ja">
+<html lang={pathname.startsWith('/en') ? 'en' : 'ja'}>
   <head>
     <BaseHead
       title={title}
@@ -29,15 +39,37 @@ const { title, description, image, isArticle, publishedTime, showSidebar = false
     />
   </head>
   <body>
-    <Header />
-    <div class={showSidebar ? 'layout-with-sidebar' : 'layout-single'}>
-      {showSidebar && <div class="spacer-left" />}
-      <main class={showSidebar ? 'main-with-sidebar' : ''}>
-        <slot />
-      </main>
-      {showSidebar && <div class="gap-spacer" />}
-      {showSidebar && <Sidebar />}
-    </div>
-    <Footer />
+    <header class="man-header">
+      <span class="hdr-section">{sectionName}</span>
+      <span class="hdr-prompt">$ {headerPath}</span>
+      <LangSwitcher siblingHref={siblingHref} />
+    </header>
+    <hr class="man-rule" />
+    <main class="man-page">
+      <slot />
+    </main>
+    <hr class="man-rule" />
+    <footer class="man-footer">
+      <span>{sectionName}</span>
+      <span>{today}</span>
+    </footer>
+
+    <style>
+      .man-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        max-width: var(--max-content);
+        margin: 1.5em auto 0;
+        padding: 0 1rem;
+        color: var(--text-dim);
+        font-size: var(--font-size-sm);
+      }
+      .hdr-section {
+        font-weight: bold;
+        color: var(--text);
+        letter-spacing: 0.08em;
+      }
+    </style>
   </body>
 </html>
