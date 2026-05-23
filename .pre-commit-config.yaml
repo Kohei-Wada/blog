@@ -32,6 +32,13 @@ repos:
         stages: [pre-commit]
         require_serial: true
 
+      - id: check-posts
+        name: Blog post locale parity
+        entry: npm run check:posts
+        language: system
+        stages: [pre-commit]
+        pass_filenames: false
+
       - id: typecheck
         name: TypeScript Type Check
         entry: npm run typecheck
