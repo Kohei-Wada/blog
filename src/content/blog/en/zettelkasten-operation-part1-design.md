@@ -199,10 +199,10 @@ Nothing fancy. But this structure has held up for two years, so I think it's wor
 
 I cover quality control (broken link checks, pre-commit, GitHub Actions) in detail in a separate post.
 
-- [Automatically checking broken links in Obsidian with lychee](/blog/obsidian-lychee-link-checker/)
+- [Automatically checking broken links in Obsidian with lychee](/en/blog/obsidian-lychee-link-checker/)
 
 ---
 
 ## Next
 
-- [Zettelkasten in Practice Part 2: Analysis](/blog/zettelkasten-operation-part2-analysis/)
+- [Zettelkasten in Practice Part 2: Analysis](/en/blog/zettelkasten-operation-part2-analysis/)

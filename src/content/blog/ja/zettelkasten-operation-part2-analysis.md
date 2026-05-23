@@ -5,7 +5,7 @@ pubDate: 'Jan 08 2026'
 tags: ['Zettelkasten', 'Makefile', 'gnuplot', 'CLI']
 ---
 
-[Part 1（設計編）](/blog/zettelkasten-operation-part1-design/)ではフォルダ構造とタグ設計について書きました。今回は分析編です。
+[Part 1（設計編）](/ja/blog/zettelkasten-operation-part1-design/)ではフォルダ構造とタグ設計について書きました。今回は分析編です。
 
 正直に言うと、この記事で紹介する内容は**なくても困りません**。ただ、自分の活動を可視化するのが好きで、気づいたら Makefile にいろいろ生えていました。
 
@@ -433,5 +433,5 @@ weekly-tags:  ## Tag usage trends for the week
 
 ## 関連記事
 
-- [Zettelkasten 運用記録 Part 1: 設計編](/blog/zettelkasten-operation-part1-design/)
-- [Obsidianのリンク切れをlycheeで自動チェックする](/blog/obsidian-lychee-link-checker/)
+- [Zettelkasten 運用記録 Part 1: 設計編](/ja/blog/zettelkasten-operation-part1-design/)
+- [Obsidianのリンク切れをlycheeで自動チェックする](/ja/blog/obsidian-lychee-link-checker/)

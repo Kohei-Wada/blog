@@ -5,7 +5,7 @@ pubDate: 'Jan 09 2026'
 tags: ['Shell', 'Bash', 'awk', '関数型プログラミング', 'Unix']
 ---
 
-以前、[AWKを超えて：HaskellをUnixパイプラインに持ち込む](/blog/haskell-unix-pipelines/)という記事を書きました。Haskell でパイプライン処理を書く話です。
+以前、[AWKを超えて：HaskellをUnixパイプラインに持ち込む](/ja/blog/haskell-unix-pipelines/)という記事を書きました。Haskell でパイプライン処理を書く話です。
 
 ただ、そもそものアイデアはこの記事の内容でした。ログを grep や awk で漁っていると、「これ、filter して map して fold してるだけだな」と気づいたのが始まりです。
 
@@ -315,4 +315,4 @@ find /data/ -type f | split -l 20 --verbose \
 
 ## 関連記事
 
-- [AWKを超えて：HaskellをUnixパイプラインに持ち込む](/blog/haskell-unix-pipelines/)
+- [AWKを超えて：HaskellをUnixパイプラインに持ち込む](/ja/blog/haskell-unix-pipelines/)

@@ -199,10 +199,10 @@ Reference Note が増えてきたら MOC を作って整理します。
 
 品質管理（リンク切れチェック、pre-commit、GitHub Actions）については、別記事で詳しく書いています。
 
-- [Obsidianのリンク切れをlycheeで自動チェックする](/blog/obsidian-lychee-link-checker/)
+- [Obsidianのリンク切れをlycheeで自動チェックする](/ja/blog/obsidian-lychee-link-checker/)
 
 ---
 
 ## 続き
 
-- [Zettelkasten 運用記録 Part 2: 分析編](/blog/zettelkasten-operation-part2-analysis/)
+- [Zettelkasten 運用記録 Part 2: 分析編](/ja/blog/zettelkasten-operation-part2-analysis/)
