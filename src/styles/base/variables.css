@@ -4,42 +4,33 @@
  */
 
 :root {
-  /* Base Colors (unchanged by theme) */
-  --accent: #2337ff;
-  --accent-dark: #000d8a;
-  --accent-light: #4f5eff;
-  --black: 15, 18, 25;
-  --gray: 96, 115, 159;
-  --gray-light: 229, 233, 240;
-  --gray-dark: 34, 41, 57;
+  /* Paper / Amber palette — primary tokens */
+  --bg:        #f4ecd8;
+  --bg-alt:    #ece4cf;
+  --text:      #2a2826;
+  --text-dim:  #928374;
+  --accent:    #af3a03;
+  --accent-2:  #79740e;
+  --border:    rgba(42, 40, 38, 0.15);
+  --link:      var(--accent);
 
-  /* Light Theme (default) */
-  --color-bg: #ffffff;
-  --color-bg-secondary: #f8f9fa;
-  --color-text: rgb(var(--black));
-  --color-text-secondary: rgb(var(--gray));
-  --color-border: rgba(var(--gray), 20%);
-  --color-border-light: rgba(var(--gray), 10%);
-  --color-link: var(--accent);
-  --color-link-hover: var(--accent-dark);
-  --header-bg: #ffffff;
-  --header-shadow: 0 2px 8px rgba(var(--black), 5%);
-  --code-bg: #1e293b;
-  --code-text: #e2e8f0;
-  --toc-bg: rgba(255, 255, 255, 0.95);
-  --toc-border: rgba(var(--gray), 15%);
-
-  /* Dynamic values based on theme */
-  --gray-gradient: rgba(var(--gray-light), 50%), var(--color-bg);
-  --box-shadow:
-    0 2px 6px rgba(var(--gray), 25%), 0 8px 24px rgba(var(--gray), 33%),
-    0 16px 32px rgba(var(--gray), 33%);
-  --card-background: rgba(var(--gray-light), 35%);
-  --card-border: 1px solid var(--color-border-light);
-  --separator-border: 1px solid var(--color-border);
-  --hover-background: rgba(var(--gray-light), 15%);
-  --subtle-background: rgba(var(--gray-light), 5%);
-  --active-background: rgba(var(--accent), 12%);
+  /* Back-compat aliases — kept until callers migrate */
+  --color-bg:           var(--bg);
+  --color-bg-secondary: var(--bg-alt);
+  --color-text:         var(--text);
+  --color-text-secondary: var(--text-dim);
+  --color-border:       var(--border);
+  --color-border-light: var(--border);
+  --color-link:         var(--link);
+  --color-link-hover:   var(--accent);
+  --accent-dark:        var(--accent);
+  --accent-light:       var(--accent);
+  --header-bg:          var(--bg);
+  --header-shadow:      none;
+  --code-bg:            var(--bg-alt);
+  --code-text:          var(--text);
+  --toc-bg:             var(--bg);
+  --toc-border:         var(--border);
 
   /* Layout */
   --content-max-width: 720px;
@@ -75,46 +66,11 @@
   /* Shadows */
   --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
   --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.15);
-  --shadow-lg: 0 8px 24px rgba(var(--gray), 33%);
+  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.2);
 
   /* Transitions */
   --transition-fast: 0.15s ease;
   --transition-normal: 0.2s ease;
   --transition-slow: 0.3s ease;
   --theme-transition: 0.3s ease;
-}
-
-/* Dark Theme */
-[data-theme="dark"] {
-  --color-bg: #0f1419;
-  --color-bg-secondary: #1a1f2e;
-  --color-text: #e6edf3;
-  --color-text-secondary: #8b949e;
-  --color-border: rgba(139, 148, 158, 30%);
-  --color-border-light: rgba(139, 148, 158, 15%);
-  --color-link: #58a6ff;
-  --color-link-hover: #79c0ff;
-  --header-bg: #161b22;
-  --header-shadow: 0 2px 8px rgba(0, 0, 0, 30%);
-  --code-bg: #0d1117;
-  --code-text: #e6edf3;
-  --toc-bg: rgba(22, 27, 34, 0.95);
-  --toc-border: rgba(139, 148, 158, 20%);
-
-  /* Adjusted dynamic values for dark theme */
-  --gray-gradient: rgba(22, 27, 34, 50%), var(--color-bg);
-  --box-shadow:
-    0 2px 6px rgba(0, 0, 0, 40%), 0 8px 24px rgba(0, 0, 0, 50%),
-    0 16px 32px rgba(0, 0, 0, 60%);
-  --card-background: rgba(139, 148, 158, 8%);
-  --card-border: 1px solid var(--color-border-light);
-  --separator-border: 1px solid var(--color-border);
-  --hover-background: rgba(139, 148, 158, 10%);
-  --subtle-background: rgba(139, 148, 158, 5%);
-  --active-background: rgba(88, 166, 255, 15%);
-
-  /* Dark theme specific shadows */
-  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
-  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
-  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.5);
 }
