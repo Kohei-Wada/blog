@@ -37,6 +37,9 @@ config:
 
   # Proper names should have the correct capitalization
   MD044:
+    # Do not enforce in inline code or code blocks — file names and
+    # code identifiers are case-sensitive (e.g. `variables.css`).
+    code_blocks: false
     names:
       - 'JavaScript'
       - 'TypeScript'
