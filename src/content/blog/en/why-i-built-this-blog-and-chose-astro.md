@@ -8,17 +8,17 @@ tags: ['blog', 'astro', 'frontend']
 
 ## Introduction
 
-I've been bad at frontend for as long as I can remember.
-At work and in my side projects, I somehow always end up building backends and CLI tools, and I barely touch anything on the browser side.
+Frontend has never been my strong suit, for as long as I can remember.
+At work and in my side projects alike, I somehow always end up building backends and CLI tools, and I barely touch anything on the browser side.
 My day-to-day work is almost entirely in the terminal, so I'd been living a life where I didn't even feel the need to learn frontend.
 
 **To be honest, one reason I avoided frontend was a bias I held.**
-"Frontend is a feature for end users of computers, so it's inefficient to build it for them on purpose. It would be more efficient overall if end users studied computers a little themselves."
+"Frontend is just a feature for the end users of computers, so it's inefficient to go out of my way to build it for them. Everyone would be better off overall if end users learned a bit about computers themselves."
 That's the kind of thing I used to think.
 
-But as I gained more real-world experience, I came to realize an obvious fact: **customers don't understand the technical details.**
+But as I gained more real-world experience, an obvious fact finally sank in: **customers don't understand the technical details.**
 No matter how brilliant the algorithms or architecture are under the hood, if the frontend isn't solid, people will think "this service is kind of meh."
-Conversely, even if the backend is unremarkable, a polished UI/UX can earn the service praise as "amazing."
+Conversely, even if the backend is unremarkable, a polished UI/UX can get the service praised as "amazing."
 
 **For customers, the value of a system is judged by the parts they can see.**
 As an engineer, that's a frustrating reality, but in the world of business it's also an unavoidable truth.
@@ -44,7 +44,7 @@ That's this blog.
 The candidates were:
 
 - **Astro**: a newer static site generator I came across while researching
-- **Docusaurus**: often used for Neovim plugin docs I read regularly (lazy.nvim, etc.)
+- **Docusaurus**: often used for the Neovim plugin docs I read regularly (lazy.nvim, etc.)
 - **Hugo**: a fast static site generator written in Go; I'd seen it used here and there
 - **Next.js**: the household-name framework in the React world
 - **Nuxt.js**: the household-name framework in the Vue.js world
@@ -65,18 +65,18 @@ My requirements:
 
 ## Comparison table
 
-| Tech           | Pros                                                                                                         | Cons                                                                                                                   |
-| -------------- | ------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------- |
-| **Astro**      | - Markdown out of the box<br>- Fast SSG<br>- Can mix in React/Vue/Svelte selectively<br>- Zero JS by default | - Newer tech, so less material out there<br>- Especially scarce Japanese-language info                                 |
-| **Docusaurus** | - Optimized for docs sites<br>- Markdown support<br>- Built by Meta, stable<br>- Great i18n support          | - Overkill for a blog<br>- Low flexibility<br>- Designs tend to look alike                                             |
-| **Hugo**       | - Extremely fast (Go)<br>- Feature-rich SSG<br>- Many themes<br>- Runs as a single binary                    | - Have to learn Go templates<br>- HTML and friends are hidden, so you don't really learn<br>- Configuration is complex |
-| **Next.js**    | - Tons of info and examples<br>- Supports SSR / ISR / SSG<br>- React ecosystem<br>- Optimized for Vercel     | - Too much going on, steep learning curve<br>- Lots of backend-leaning features<br>- Overkill                          |
-| **Nuxt.js**    | - Pairs perfectly with the Vue ecosystem<br>- File-based routing<br>- Supports both SSR and SSG              | - Too much going on, steep learning curve<br>- Designed around SSR<br>- Need to learn Vue.js itself first              |
-| **Gatsby**     | - React-based, highly extensible<br>- GraphQL integration<br>- Rich plugin ecosystem<br>- PWA support        | - Heavy builds<br>- GraphQL is mandatory and complex<br>- Easy to over-engineer                                        |
-| **Jekyll**     | - GitHub Pages standard<br>- Long-running and stable<br>- Simple<br>- Free hosting                           | - Requires a Ruby environment<br>- Low extensibility<br>- Lacks modern features                                        |
-| **VitePress**  | - Very lightweight and fast<br>- Built on Vue.js<br>- Excellent Markdown extensions                          | - Docs-focused, not really blog-oriented<br>- Limited customizability                                                  |
-| **WordPress**  | - Get a blog up easily<br>- Tons of plugins<br>- No-code management                                          | - Not educational<br>- Annoying security management<br>- Requires a server                                             |
-| **Laravel**    | - I have job experience with it, so low learning cost<br>- Full-stack<br>- Feature-rich                      | - I don't want to build a backend<br>- Requires a server<br>- Drifts away from the frontend-learning goal              |
+| Tech           | Pros                                                                                                         | Cons                                                                                                                           |
+| -------------- | ------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------ |
+| **Astro**      | - Markdown out of the box<br>- Fast SSG<br>- Can mix in React/Vue/Svelte selectively<br>- Zero JS by default | - Newer tech, so less material out there<br>- Especially little in Japanese                                                    |
+| **Docusaurus** | - Optimized for docs sites<br>- Markdown support<br>- Built by Meta, stable<br>- Great i18n support          | - Overkill for a blog<br>- Low flexibility<br>- Designs tend to look alike                                                     |
+| **Hugo**       | - Extremely fast (Go)<br>- Feature-rich SSG<br>- Many themes<br>- Runs as a single binary                    | - Have to learn Go templates<br>- The HTML and such is hidden away, so you don't really learn it<br>- Configuration is complex |
+| **Next.js**    | - Tons of info and examples<br>- Supports SSR / ISR / SSG<br>- React ecosystem<br>- Optimized for Vercel     | - Too much going on, steep learning curve<br>- Lots of backend-leaning features<br>- Overkill                                  |
+| **Nuxt.js**    | - Pairs perfectly with the Vue ecosystem<br>- File-based routing<br>- Supports both SSR and SSG              | - Too much going on, steep learning curve<br>- Designed around SSR<br>- Need to learn Vue.js itself first                      |
+| **Gatsby**     | - React-based, highly extensible<br>- GraphQL integration<br>- Rich plugin ecosystem<br>- PWA support        | - Heavy builds<br>- GraphQL is mandatory and complex<br>- Easy to over-engineer                                                |
+| **Jekyll**     | - GitHub Pages standard<br>- Long-running and stable<br>- Simple<br>- Free hosting                           | - Requires a Ruby environment<br>- Low extensibility<br>- Lacks modern features                                                |
+| **VitePress**  | - Very lightweight and fast<br>- Built on Vue.js<br>- Excellent Markdown extensions                          | - Docs-focused, not really blog-oriented<br>- Limited customizability                                                          |
+| **WordPress**  | - Get a blog up easily<br>- Tons of plugins<br>- No-code management                                          | - Not educational<br>- Annoying security management<br>- Requires a server                                                     |
+| **Laravel**    | - I have job experience with it, so low learning cost<br>- Full-stack<br>- Feature-rich                      | - I don't want to build a backend<br>- Requires a server<br>- Drifts away from the frontend-learning goal                      |
 
 ## Why Astro
 

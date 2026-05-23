@@ -11,7 +11,7 @@ I had some free time, and I vaguely remembered installing GhostBSD once before b
 
 Just create a bootable USB and boot from it.
 Download the ISO from the [GhostBSD download page](https://www.ghostbsd.org/download) and write it to a USB stick.
-I did this from Linux — be careful, because if you pick the wrong device you're toast.
+I did this from Linux — be careful, because if you pick the wrong device, you're toast.
 
 ```bash
 lsblk # check which device you're writing to
@@ -145,8 +145,8 @@ Wow. It really did restore everything....
 
 ## Trying out jails
 
-One of BSD's killer features is something called jails.
-It's the ancestor of container tech like Docker. Setting one up is a bit tedious — you have to extract a `tar` archive yourself — but the upside is that it's implemented purely in the kernel, so you don't need a `dockerd` running.
+One of BSD's nice features is something called jails.
+It's the ancestor of container tech like Docker. Setting one up is a bit tedious — you have to extract a `tar` archive yourself — but the upside is that it's implemented entirely in the kernel, so you don't need a `dockerd` running.
 Well, podman might be able to do similar things, but still....
 
 Let's give it a shot.
@@ -186,20 +186,20 @@ service jail onestop testjail
 ![Result of running a jail](../../../assets/ghostbsd-jail.png)
 
 It's basically Docker....
-Having tried it, accessing the container is so easy that it doesn't really feel isolated.
-And the config is a bit of a pain. (Apparently a tool called `bastille` makes this easier, so I'll try that next.) Dockerfiles really are convenient, I have to say.
+Now that I've tried it, getting into the container is so easy that it doesn't really feel isolated.
+And the config is a bit of a pain. (Apparently a tool called `bastille` makes this easier, so I'll try that next.) Dockerfiles really are convenient, I have to admit.
 
 ## Things that surprised me
 
-- Newer packages are available than I expected. `pkg install neovim` got me nvim 0.11.6, and the default shell being fish gives a similar impression — they're keeping up with newer software. Possibly even more current than Ubuntu.
-- ZFS is incredible. Snapshots are instant. You could easily try something, then throw it away. I wonder if it could replace full DB backups...?
-- The system feels simpler than Linux. From my limited experience, things like the firewall and sshd configuration all seem to live in one place: `/etc/rc.conf`.
-  Linux only really manages the kernel and device drivers, so userland feels like a patchwork of various packages. BSD manages userland as part of the OS too, and I think that's where this cohesive feel comes from.
+- The packages are newer than I expected. `pkg install neovim` got me nvim 0.11.6, and the default shell being fish gives the same impression — they're keeping up with newer software. Possibly even more current than Ubuntu.
+- ZFS is incredible. Snapshots are instant. You could easily try something out and then throw it away. I wonder if it could even replace full DB backups...?
+- The system feels simpler than Linux. From my limited experience, system-level settings like the firewall and sshd config all seem to live in one place: `/etc/rc.conf`.
+  Linux only really manages the kernel and device drivers, so userland ends up feeling like a patchwork of assorted packages. BSD manages userland as part of the OS too, and I think that's where this cohesive feel comes from.
 
 ## Things that were so-so
 
 - Wi-Fi feels unstable. It keeps dropping. There's a good chance this is just me not understanding the config.
-- Unlike systemd, it doesn't really manage daemon dependencies for you, so startup order matters quite a bit. Again, possibly just me not understanding the config....
+- Unlike systemd, it doesn't really manage daemon dependencies for you, so startup order matters quite a bit. Again, this could just be me not understanding the config....
 
 ## Wrapping up
 

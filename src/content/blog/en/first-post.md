@@ -1,6 +1,6 @@
 ---
-title: 'Starting a Blog with Astro'
-description: 'I started building a blog with Astro'
+title: 'I Started a Blog with Astro'
+description: 'I built myself a blog with Astro'
 pubDate: 'June 9 2025'
 updatedDate: 'June 15 2025'
 tags: ['blog', 'Zettelkasten', 'astro']
@@ -10,17 +10,17 @@ featured: true
 Hi, I'm Kohei.
 
 I work as a programmer in Tokyo, mostly remote.
-My work machine runs Windows, but in practice almost all of my development happens on Arch Linux under WSL.
+My work machine runs Windows, but in practice I do almost all of my development on Arch Linux under WSL.
 My personal setup, on the other hand, is bare-metal Arch Linux — Windows has been wiped off it entirely.
 I like environments that are lightweight and that I can shape with my own hands.
 
-I was originally drawn to math, and I first picked up programming because I wanted to graph functions in Python.
-That pull toward abstract structures is still with me — I'm still interested in functional languages like Haskell.
+I was originally drawn to math, and I first got into programming because I wanted to graph functions in Python.
+That pull toward abstract ideas and structures is still with me — I'm still drawn to functional languages like Haskell.
 
 I touch Laravel and PHP at work sometimes, but they aren't tools I reach for by choice.
 I also prefer a terminal-centric setup I've tuned myself over heavy GUI IDEs like VSCode or Cursor.
 
-I've never put much effort into frontend, but I figured "if I build my own blog, I'll be forced to engage with it" — so I picked Astro and built this site.
+I've never put much effort into frontend, but I figured that building my own blog would force me to engage with it — so I picked Astro and built this site.
 If my dev notes and thinking logs end up being useful to future-me or someone out there, even better.
 
 ## Things I like / tools I use a lot
@@ -50,7 +50,7 @@ My source code and dotfiles are public on GitHub. Feel free to take a look:
 ## About this blog
 
 I built this blog as a place to dump notes from my everyday development and experiments.
-It's not just about organizing things technically — part of the goal is getting feedback from someone reading along.
+It's not just about organizing things technically — part of the goal is to get feedback from people reading along.
 
 I'm not great at frontend, but by deliberately building my own blog I've put myself in a spot where I _have_ to touch it.
 

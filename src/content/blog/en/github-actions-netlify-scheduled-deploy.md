@@ -8,7 +8,7 @@ tags: ['github-actions', 'netlify', 'automation', 'blog']
 ## Introduction
 
 If you run a blog or portfolio on Netlify, you already know how nice it is that "every push to GitHub triggers a deploy automatically."
-But what about when the data you pull from an external API or CMS gets updated? How do you keep the site fresh then? Are you maybe... redeploying by hand?
+But what about when the data you pull from an external API or CMS changes? How do you keep the site fresh then? Are you, maybe, redeploying by hand?
 This post walks through one way to solve that: a scheduled auto-deploy setup that combines Netlify build hooks with GitHub Actions.
 
 ## Why do we need scheduled builds?
@@ -58,7 +58,7 @@ jobs:
         run: curl -X POST $NETLIFY_URL
 ```
 
-That simple version has a few real-world problems.
+This simple version has a few problems once you run it in the real world.
 
 ### Problems
 
@@ -66,7 +66,7 @@ That simple version has a few real-world problems.
 
 - Network errors: A flaky network can cause the `curl` command to fail, and your deploy never gets triggered.
 
-- Unintended deploys: Scheduled runs execute on the default branch, but if you change the repo settings — say, making a development branch the default — you can end up deploying something you didn't mean to. And the deploy still runs even when CI checks are failing.
+- Unintended deploys: Scheduled runs execute on the default branch, so if you change the repo settings — say, making a development branch the default — you can end up deploying something you didn't mean to. And the deploy still runs even when CI checks are failing.
 
 ### Fixes
 
@@ -74,7 +74,7 @@ That simple version has a few real-world problems.
 
 - Retry logic: If `curl` fails, retry a few times to absorb temporary network hiccups.
 
-- Run conditions: Use `if` and `needs` to scope things tightly so a deploy only runs on `main` _and_ only after the test job (`test.yml`) succeeds.
+- Run conditions: Use `if` and `needs` to scope things tightly, so a deploy only runs on `main` _and_ only after the test job (`test.yml`) succeeds.
 
 The code below addresses all of the above.
 Save it under `.github/workflows/` — for example as `daily-deploy.yml`.
@@ -216,11 +216,11 @@ For security reasons, you should never hard-code the build hook URL. Use GitHub 
 
 ## In production
 
-[I'm running this exact setup on my own blog](wada-dev.com): it pulls my latest repository activity (commits, project updates, and so on) from an API and reflects it on the portfolio page. My GitHub activity changes daily, so this auto-deploy setup keeps the blog showing an up-to-date GitHub Activity view at all times.
+[I'm running this exact setup on my own blog](wada-dev.com): it pulls my latest repository activity (commit history, project updates, and so on) from an API and reflects it on the portfolio page. My GitHub activity changes daily, so this auto-deploy setup keeps the blog showing an up-to-date GitHub Activity view at all times.
 
-Since I put this in place, manual deploys have disappeared from my workflow. I just write code, push to GitHub, and by the next day my blog and portfolio are up to date automatically — pretty much the ideal setup.
+Since I put this in place, manual deploys have disappeared from my workflow. I just write code and push to GitHub, and by the next day my blog and portfolio are up to date automatically — pretty much the ideal setup.
 
 ## Wrapping up
 
 Once you've finished these steps, your site will deploy itself every day at 0:00 JST. With this in place, content pulled from external APIs and updates made in your CMS stay fresh on their own. No more redeploying by hand.
-GitHub Actions plus Netlify build hooks is a powerful combo that drastically streamlines site operations. Give it a try in your own projects.
+GitHub Actions plus Netlify build hooks is a powerful combo that dramatically streamlines site operations. Give it a try in your own projects.

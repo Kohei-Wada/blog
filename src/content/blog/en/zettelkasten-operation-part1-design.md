@@ -36,9 +36,9 @@ vault/
 └── 99_Templates/
 ```
 
-**FleetingNotes** holds temporary notes. Place to drop ideas like "look into this later" or "want to try this tool."
+**FleetingNotes** holds temporary notes. It's where I dump quick ideas like "look into this later" or "want to try this tool."
 
-**ReferenceNotes** is the main one. I record technical information I've researched here. In Zettelkasten terminology this is the Literature Note, but I renamed it to match its actual role as a technical reference.
+**ReferenceNotes** is the main one. This is where I record the technical information I've researched. In Zettelkasten terminology this would be the Literature Note, but I renamed it to match its actual role as a technical reference.
 
 **PermanentNotes** holds MOCs (Map of Contents) and notes that consolidate my own takes. They bundle multiple Reference Notes together.
 
@@ -71,7 +71,7 @@ I don't have to rely on Obsidian's search to find things. This ties into the too
 
 ## Tag Design
 
-I design tags along multiple axes.
+I design my tags along multiple axes.
 
 ```yaml
 tags:
@@ -121,7 +121,7 @@ Once notes on the same topic start piling up, I create an MOC.
 
 An MOC isn't just a table of contents — it's use-case-based navigation. You get a bird's-eye view of "what can I do with curl?"
 
-As for when to create one: whenever notes start piling up. I don't have a strict rule. Usually I make one once I've accumulated around five.
+As for when to create one: whenever notes start piling up. I don't have a strict rule, but usually I make one once I've accumulated around five.
 
 ---
 
@@ -145,15 +145,15 @@ Standard Markdown relative links work in GitHub and VSCode too.
 
 ### Minimal Plugins
 
-I only use the git sync plugin. There are tons of useful plugins out there, but leaning on them puts me in a state where I'm stuck without Obsidian.
+I only use the git sync plugin. There are tons of useful plugins out there, but leaning on them leaves me stuck without Obsidian.
 
 ### Search via nvim + telescope
 
 I do use Obsidian's search, but my go-to is telescope in nvim. Filename search and full-text search, yank, paste into the shell, run — that flow is smooth.
 
-For this workflow to work, commands in Reference Notes need to be written generically. Don't hardcode environment variables or paths — record them in a form that runs anywhere.
+For this workflow to work, the commands in Reference Notes need to be written generically. Don't hardcode environment variables or paths — record them in a form that runs anywhere.
 
-Because everything is plain text, `grep` and `rg` work fine. Even if Obsidian disappears, as long as I have my Markdown files and search commands, I'm not in trouble.
+Because everything is plain text, `grep` and `rg` work fine. Even if Obsidian disappeared, I'd be fine as long as I had my Markdown files and search commands.
 
 ---
 

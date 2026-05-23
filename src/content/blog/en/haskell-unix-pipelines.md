@@ -13,13 +13,13 @@ featured: true
 
 For any developer who has tasted the beauty of functional programming, this is a heartfelt wish. But the reality is that Haskell gets shunned as "impractical" or "too expensive to introduce," and there are almost no opportunities to use it at work.
 
-Couldn't we at least use Haskell for the small everyday tasks? When you look at it, a shell pipeline really does resemble function composition.
+Couldn't we at least use Haskell for the small everyday tasks? When you stop and look, a shell pipeline really does resemble function composition.
 
 ```bash
 cat file | grep pattern | sort | uniq
 ```
 
-Pipeline = function composition. This intuition convinced me that Haskell ought to fit right in.
+Pipeline = function composition. The more I sat with that intuition, the more convinced I became that Haskell ought to fit right in.
 
 ### The AWK Wall
 
@@ -28,7 +28,7 @@ When you want to do something a bit longer than a typical one-liner, AWK comes t
 - "How do you write an array in AWK again?"
 - "What's the syntax for a for loop...?"
 
-Haven't you had the experience of wasting time googling, with all the fun of shell trickery slipping away?
+Haven't you ended up wasting time on Google, watching all the fun of shell trickery slip away?
 
 ## 2. The Moment of Inspiration: The Birth of phs
 
@@ -38,11 +38,11 @@ Haven't you had the experience of wasting time googling, with all the fun of she
 2. Wanting more powerful processing inside shell pipelines
 3. Hating having to look up AWK syntax every time
 
-I tried existing options like `stack script` and `cabal script`, but the first-time execution is way too slow. Waiting several seconds for a trivial bit of processing is just not practical.
+I tried existing options like `stack script` and `cabal script`, but the first run is way too slow. Waiting several seconds for a trivial bit of processing just isn't practical.
 
 ### "Haskell ought to be more usable than this"
 
-Convinced of that, I decided **fine, I'll build it myself**. If we use `ghc -e` for immediate execution, couldn't we drop Haskell directly into a pipeline?
+Convinced of that, I figured **fine, I'll just build it myself**. If we use `ghc -e` for immediate execution, couldn't we drop Haskell directly into a pipeline?
 That is **phs** (PipeLine Haskell Script).
 
 ## 3. phs in Everyday Work
@@ -55,7 +55,7 @@ That is **phs** (PipeLine Haskell Script).
 main = interact (show . length . lines)
 ```
 
-This code takes several seconds on first run. As a result, you just go with `wc -l`, and Haskell drifts away from daily life.
+This code takes several seconds on its first run. So you end up reaching for `wc -l` instead, and Haskell drifts further out of daily life.
 
 **With phs, it's instant:**
 
@@ -99,7 +99,7 @@ awk '{sum=0; for(i=1;i<=NF;i++) sum+=$i; print sum}'
 
 ## 4. A Thorough Comparison of AWK and Haskell (phs)
 
-The classic text-processing tool of UNIX culture is AWK. But phs covers AWK's strengths while pushing expressiveness even further.
+The classic text-processing tool of UNIX culture is AWK. But phs covers what AWK is good at while pushing expressiveness even further.
 
 | Item                   | AWK                            | phs (Haskell)                           |
 | ---------------------- | ------------------------------ | --------------------------------------- |
@@ -178,7 +178,7 @@ awk '{print NF}' file.txt
 ./phs 'length . words'
 ```
 
-### A decisive gap on mathematical algorithms
+### Where the gap really shows: mathematical algorithms
 
 #### First 10 terms of the Fibonacci sequence
 
@@ -266,7 +266,7 @@ awk '{printf "%s%s", (NR>1?" ":""), $0} END {print ""}'
 - phs shines at "mathematical or recursive processing," "type-safe aggregation," and "functional transformations," all writable as one-liners
 - Especially for complex algorithms, AWK turns into verbose imperative code, while phs can express the mathematical definition directly
 
-## 5. The Edge on Mathematical Algorithms
+## 5. The Edge in Mathematical Algorithms
 
 ### Collatz conjecture
 
@@ -324,9 +324,9 @@ echo "hello" | ./phs 'id' | tr -d '"'
 
 Problem solved (lol).
 
-The current simple implementation achieves its lightness by uniformly running every result through `show`. It's a design that follows the Unix philosophy of "rather than chasing perfection, just get something working first." Fine-grained adjustments are best resolved by combining other shell tools — that's the Unix way!
+The current simple implementation stays lightweight by running every result through `show` uniformly. It's a design that follows the Unix philosophy of "rather than chasing perfection, get something working first." Any fine-grained tweaking is best handled by combining it with other shell tools — that's the Unix way!
 
-## 7. How phs Differentiates from Existing Tools
+## 7. How phs Sets Itself Apart from Existing Tools
 
 | Approach     | First run   | Subsequent runs | Learning cost     |
 | ------------ | ----------- | --------------- | ----------------- |
@@ -350,7 +350,7 @@ seq 1 1000 | ./phs --all 'let isPerfect n = sum [i | i <- [1..n-1], n `mod` i ==
 
 ## 8. Looking Ahead
 
-phs made "everyday Haskell" a reality:
+phs has made "everyday Haskell" a reality:
 
 - No need to recall AWK syntax
 - The beauty of functional programming, every day

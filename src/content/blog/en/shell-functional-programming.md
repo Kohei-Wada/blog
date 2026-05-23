@@ -7,7 +7,7 @@ tags: ['Shell', 'Bash', 'awk', 'Functional Programming', 'Unix']
 
 A while back I wrote [Beyond AWK: Bringing Haskell to Unix Pipelines](/blog/haskell-unix-pipelines/), about writing pipeline-style processing in Haskell.
 
-But the underlying idea actually came from what I'm covering in this post. While digging through logs with grep and awk, it hit me: "Wait, I'm just filtering, mapping, and folding." That's where it started.
+But the original idea actually came from what I'm covering in this post. While digging through logs with grep and awk, it hit me: "Wait, I'm just filtering, mapping, and folding." That's where it started.
 
 The foundation of functional programming in the shell is to **treat newline-separated text as a list**.
 
@@ -21,7 +21,7 @@ Once you see this as `["a", "b", "c"]`, all that's left is applying map, filter,
 
 We live in an age of structured logs and dedicated tools, but if you think functionally, you can pull off most things with plain old Unix commands.
 
-The goal of this post is to **do as much as possible with as few commands as possible**. Keep the set of commands you have to memorize small, but combine them to accomplish a lot. I've laid out the basic building blocks for that.
+The goal of this post is to **handle as wide a range of operations as possible with as few commands as possible**. Keep the set of commands you have to memorize small, but combine them to accomplish a lot. I've laid out the basic building blocks for that.
 
 ---
 
@@ -77,7 +77,7 @@ xargs -P 4 -I {} bash -c 'process {}'
 
 There's a dedicated tool called GNU parallel, but it isn't installed in most environments. `xargs` ships with virtually every Unix-like system by default.
 
-A couple of caveats: use the `-r` option to read raw when data contains backslashes. For pipeline processing, `while` is more general-purpose than `for`.
+A couple of caveats: use the `-r` option to read input literally when the data contains backslashes. For pipeline processing, `while` is more general-purpose than `for`.
 
 ### Filter
 
@@ -168,7 +168,7 @@ awk '!seen[$2]++'    # uniqBy second column
 
 ## Set Operations
 
-You can do most set-like operations with `comm`.
+You can pull off most set-like operations with `comm`.
 
 ### Union
 
