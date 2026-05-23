@@ -1,7 +1,8 @@
 ---
 import type { GetStaticPaths } from 'astro';
 import BlogListLayout from '../../../../layouts/BlogListLayout.astro';
-import { SITE_TITLE, SITE_DESCRIPTION, POSTS_PER_PAGE } from '../../../../consts';
+import { SITE_TITLE, POSTS_PER_PAGE } from '../../../../consts';
+import { t } from '../../../../i18n/strings';
 import { getCollection } from 'astro:content';
 import { getAllTags, getPostsByTag, sortPostsByDate } from '../../../../utils/content-aggregation';
 import { getPostLang } from '../../../../utils/post-locale';
@@ -27,7 +28,7 @@ if (!tag) {
 
 const { page } = Astro.props;
 const title = `${tag} - ${SITE_TITLE}`;
-const description = SITE_DESCRIPTION;
+const description = t('siteDescription', 'ja');
 ---
 
 <BlogListLayout

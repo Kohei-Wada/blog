@@ -17,6 +17,15 @@ const strings = {
     en: 'No translation — taken to the home page',
   },
   projects: { ja: 'プロジェクト', en: 'Projects' },
+  siteSubtitle: { ja: 'ソフトウェアエンジニア', en: 'Software Engineer' },
+  siteDescription: {
+    ja: 'ようこそ、私の個人的なウェブサイトへ。ここでは、私の技術的な情報やプロジェクト、そして私の個人的な興味について紹介しています。',
+    en: 'Engineer in Yokohama. Notes on building tools (taskdog, ttymap, knowledge-gardener) and what I learned along the way.',
+  },
+  authorBio: {
+    ja: 'ソフトウェアエンジニア。Web開発、クラウドインフラ、関数型プログラミングに興味があります。',
+    en: 'Software engineer interested in web development, cloud infrastructure, and functional programming.',
+  },
   // Test fixture: deliberately ja-only so the fallback test has something to assert.
   jaOnlyFixture: { ja: 'fixture値' },
 } as const;
