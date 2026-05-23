@@ -1,0 +1,68 @@
+---
+import { localeFromUrl } from '../../utils/i18n';
+
+const locale = localeFromUrl(Astro.url);
+const prefix = locale === 'en' ? '/en' : '';
+const stripped = Astro.url.pathname.replace(/^\/en/, '') || '/';
+
+let current: string | null = null;
+if (stripped === '/' || stripped === '') current = 'home';
+else if (stripped.startsWith('/blog')) current = 'blog';
+else if (stripped.startsWith('/tags')) current = 'tags';
+else if (stripped.startsWith('/archives')) current = 'archives';
+else if (stripped.startsWith('/about')) current = 'about';
+
+const links: Array<{ id: string; label: string; href: string }> = [
+  { id: 'home', label: 'home', href: `${prefix}/` },
+  { id: 'blog', label: 'blog', href: `${prefix}/blog` },
+  { id: 'tags', label: 'tags', href: `${prefix}/tags/` },
+  { id: 'archives', label: 'archives', href: `${prefix}/archives/` },
+  { id: 'about', label: 'about', href: `${prefix}/about` },
+];
+---
+
+<nav class="global-nav" aria-label="primary">
+  {
+    links.map(link =>
+      link.id === current ? (
+        <span class="active" aria-current="page">
+          {link.label}
+        </span>
+      ) : (
+        <a href={link.href}>{link.label}</a>
+      )
+    )
+  }
+</nav>
+
+<style>
+  .global-nav {
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: 2ch;
+    row-gap: 0.15em;
+    max-width: var(--max-content);
+    margin: 0.25em auto 0;
+    padding: 0 1rem;
+    font-family: var(--font-mono);
+    font-size: var(--font-size-sm);
+    color: var(--text-dim);
+  }
+  .global-nav a {
+    color: var(--text-dim);
+    text-decoration: none;
+  }
+  .global-nav a:hover {
+    color: var(--accent);
+    text-decoration: underline;
+  }
+  .global-nav .active {
+    color: var(--text);
+    font-weight: bold;
+  }
+  @media (max-width: 600px) {
+    .global-nav {
+      padding: 0 0.75rem;
+    }
+  }
+</style>
