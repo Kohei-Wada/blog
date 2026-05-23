@@ -10,7 +10,7 @@ describe('resolveSeeAlso', () => {
   it('resolves slugs in the same locale to { title, href }', () => {
     const enFixtures = [makeFixture('en/post-a', 'Post A'), makeFixture('en/post-b', 'Post B')];
     const out = resolveSeeAlso(['post-b'], 'en/post-a', enFixtures);
-    expect(out).toEqual([{ title: 'Post B', href: '/blog/post-b' }]);
+    expect(out).toEqual([{ title: 'Post B', href: '/en/blog/post-b' }]);
   });
 
   it('produces /ja/blog/<slug> for ja-locale source posts', () => {
