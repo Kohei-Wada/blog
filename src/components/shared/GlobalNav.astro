@@ -24,48 +24,126 @@ const links: Array<{ id: string; label: string; href: string }> = [
 ---
 
 <nav class="global-nav" aria-label="primary">
-  {
-    links.map(link =>
-      link.id === current ? (
-        <span class="active" aria-current="page">
-          {link.label}
-        </span>
-      ) : (
-        <a href={link.href}>{link.label}</a>
+  <div class="nav-inline">
+    {
+      links.map(link =>
+        link.id === current ? (
+          <span class="active" aria-current="page">
+            {link.label}
+          </span>
+        ) : (
+          <a href={link.href}>{link.label}</a>
+        )
       )
-    )
-  }
+    }
+    <button
+      type="button"
+      class="global-nav-search"
+      data-search-trigger
+      aria-label="Open search (press / or Ctrl+K)"
+      title="Open search (/ or Ctrl+K)"
+    >
+      <span class="global-nav-search-prompt" aria-hidden="true">$ man -k</span>
+      <span class="global-nav-search-hint" aria-hidden="true">
+        <kbd>/</kbd>
+        <span class="global-nav-search-hint-sep">·</span>
+        <kbd>Ctrl</kbd>+<kbd>K</kbd>
+      </span>
+    </button>
+  </div>
+
   <button
     type="button"
-    class="global-nav-search"
-    data-search-trigger
-    aria-label="Open search (press / or Ctrl+K)"
-    title="Open search (/ or Ctrl+K)"
+    class="nav-toggle"
+    data-nav-toggle
+    aria-expanded="false"
+    aria-controls="mobile-menu"
+    aria-label="Menu"
   >
-    <span class="global-nav-search-prompt" aria-hidden="true">$ man -k</span>
-    <span class="global-nav-search-hint" aria-hidden="true">
-      <kbd>/</kbd>
-      <span class="global-nav-search-hint-sep">·</span>
-      <kbd>Ctrl</kbd>+<kbd>K</kbd>
-    </span>
+    <span class="nav-toggle-icon" aria-hidden="true">☰</span>
+    <span class="nav-toggle-label">menu</span>
   </button>
 </nav>
 
+<div id="mobile-menu" class="mobile-menu" data-nav-menu hidden>
+  <ul class="mobile-menu-list">
+    {
+      links.map(link => (
+        <li>
+          <a
+            href={link.href}
+            class={link.id === current ? 'active' : ''}
+            aria-current={link.id === current ? 'page' : undefined}
+          >
+            {link.label}
+          </a>
+        </li>
+      ))
+    }
+    <li>
+      <button type="button" class="mobile-menu-search" data-search-trigger>
+        <span aria-hidden="true">$ man -k</span> search
+      </button>
+    </li>
+  </ul>
+</div>
+
 <script>
-  const triggers = document.querySelectorAll<HTMLButtonElement>('[data-search-trigger]');
-  triggers.forEach(trigger => {
+  const searchTriggers = document.querySelectorAll<HTMLButtonElement>('[data-search-trigger]');
+  searchTriggers.forEach(trigger => {
     trigger.addEventListener('click', () => {
       window.dispatchEvent(new CustomEvent('search-modal:open'));
     });
   });
+
+  const toggle = document.querySelector<HTMLButtonElement>('[data-nav-toggle]');
+  const menu = document.querySelector<HTMLElement>('[data-nav-menu]');
+
+  if (toggle && menu) {
+    const isOpen = () => toggle.getAttribute('aria-expanded') === 'true';
+
+    const open = () => {
+      toggle.setAttribute('aria-expanded', 'true');
+      menu.hidden = false;
+    };
+    const close = () => {
+      toggle.setAttribute('aria-expanded', 'false');
+      menu.hidden = true;
+    };
+
+    toggle.addEventListener('click', () => {
+      if (isOpen()) close();
+      else open();
+    });
+
+    // Selecting a link or the search button closes the menu.
+    menu.addEventListener('click', event => {
+      const target = event.target as HTMLElement | null;
+      if (target?.closest('a, button')) close();
+    });
+
+    document.addEventListener('keydown', event => {
+      if (event.key === 'Escape' && isOpen()) {
+        close();
+        toggle.focus();
+      }
+    });
+
+    document.addEventListener('click', event => {
+      if (!isOpen()) return;
+      const target = event.target as Node;
+      if (!menu.contains(target) && !toggle.contains(target)) close();
+    });
+
+    // Collapse back to the inline nav if the viewport grows past mobile.
+    window.matchMedia('(min-width: 601px)').addEventListener('change', e => {
+      if (e.matches) close();
+    });
+  }
 </script>
 
 <style>
   .global-nav {
-    display: flex;
-    flex-wrap: wrap;
-    column-gap: 2ch;
-    row-gap: 0.15em;
     max-width: var(--max-content);
     margin: 0.25em auto 0;
     padding: 0 1rem;
@@ -73,15 +151,22 @@ const links: Array<{ id: string; label: string; href: string }> = [
     font-size: var(--font-size-sm);
     color: var(--text-dim);
   }
-  .global-nav a {
+  .nav-inline {
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: 2ch;
+    row-gap: 0.15em;
+    align-items: baseline;
+  }
+  .nav-inline a {
     color: var(--text-dim);
     text-decoration: none;
   }
-  .global-nav a:hover {
+  .nav-inline a:hover {
     color: var(--accent);
     text-decoration: underline;
   }
-  .global-nav .active {
+  .nav-inline .active {
     color: var(--text);
     font-weight: bold;
   }
@@ -124,33 +209,93 @@ const links: Array<{ id: string; label: string; href: string }> = [
   .global-nav-search-hint-sep {
     opacity: 0.6;
   }
+
+  /* Hamburger toggle + dropdown are desktop-hidden; revealed ≤600px. */
+  .nav-toggle {
+    display: none;
+  }
+  .mobile-menu {
+    display: none;
+  }
+
   @media (max-width: 600px) {
-    .global-nav {
-      padding: 0 0.75rem;
-      column-gap: 1.5ch;
-      row-gap: 0;
-      font-size: var(--font-size-base);
+    .nav-inline {
+      display: none;
     }
-    .global-nav a,
-    .global-nav .active {
+    /* The nav bar becomes a single right-aligned hamburger row. */
+    .global-nav {
+      display: flex;
+      justify-content: flex-end;
+      padding: 0 0.75rem;
+    }
+    .nav-toggle {
       display: inline-flex;
       align-items: center;
-      justify-content: center;
-      min-width: 44px;
+      gap: 0.75ch;
       min-height: 44px;
-      padding: 0 0.25ch;
+      padding: 0 0.5ch;
+      background: transparent;
+      border: none;
+      color: var(--text);
+      font-family: var(--font-mono);
+      font-size: 1.15rem;
+      cursor: pointer;
     }
-    .global-nav-search {
-      margin-left: 0;
-      flex: 1 1 100%;
-      justify-content: center;
-      align-items: center;
-      min-height: 44px;
-      padding: 0 0.75ch;
-      margin-top: 0.25rem;
+    .nav-toggle-icon {
+      font-size: 1.5rem;
+      line-height: 1;
     }
-    .global-nav-search-hint {
+    .nav-toggle[aria-expanded='true'] {
+      color: var(--accent);
+    }
+
+    .mobile-menu {
+      display: block;
+      max-width: var(--max-content);
+      margin: 0.25rem auto 0;
+      padding: 0 0.75rem;
+    }
+    .mobile-menu[hidden] {
       display: none;
+    }
+    .mobile-menu-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      border-top: 1px dashed var(--border);
+      font-family: var(--font-mono);
+      font-size: 1.25rem;
+    }
+    .mobile-menu-list li {
+      border-bottom: 1px dashed var(--border);
+    }
+    .mobile-menu-list a,
+    .mobile-menu-search {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      min-height: 48px;
+      padding: 0 0.5ch;
+      color: var(--text-dim);
+      text-decoration: none;
+      background: transparent;
+      border: none;
+      font: inherit;
+      text-align: left;
+      cursor: pointer;
+    }
+    .mobile-menu-list a:hover,
+    .mobile-menu-list a.active {
+      color: var(--accent);
+    }
+    .mobile-menu-list a.active {
+      font-weight: bold;
+    }
+    .mobile-menu-search {
+      gap: 1ch;
+    }
+    .mobile-menu-search span {
+      color: var(--accent);
     }
   }
 </style>
