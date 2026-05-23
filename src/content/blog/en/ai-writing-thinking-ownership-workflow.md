@@ -3,6 +3,7 @@ title: 'Letting AI write without losing the "I wrote this" feeling — drawing t
 description: 'The core of "this feels AI-written" is the loss of thinking-ownership. Drawing the AI boundary per-prompt has too high a judgement cost. Fix it at the workflow level (vault → AI summary → blog) and thinking-ownership is preserved structurally.'
 pubDate: 'May 23 2026'
 tags: ['ai-workflow', 'writing', 'zettelkasten', 'personal-projects']
+seeAlso: ['zettelkasten-operation-part1-design']
 ---
 
 ## Introduction
@@ -82,4 +83,4 @@ As a side effect, it dogfoods my own [knowledge-gardener](https://github.com/Koh
 - Fix it at the **workflow level**, not per-prompt: vault → AI summary → blog.
 - What's protected is **vault provenance** — the git history secures "who did the thinking."
 
-The thinking layer of this draft (angle, claims, examples, conclusion) comes from permanent notes in [my Obsidian vault](https://github.com/Kohei-Wada/Obsidian). AI was involved only in dressing up the surface layer — making this post one of the first test pieces of the workflow it describes.
+The thinking layer of this draft (angle, claims, examples, conclusion) comes from permanent notes in my Obsidian vault — [how I run that vault is here](/en/blog/zettelkasten-operation-part1-design/). AI was involved only in dressing up the surface layer — making this post one of the first test pieces of the workflow it describes.

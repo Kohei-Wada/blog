@@ -30,7 +30,7 @@ async function resolveRelated(slugs: string[]): Promise<Array<{ title: string; h
             `Either add the post or remove the slug.`
         );
       }
-      return { title: post.data.title, href: `/blog/${slug}` };
+      return { title: post.data.title, href: `/ja/blog/${slug}` };
     })
   );
   return resolved;
