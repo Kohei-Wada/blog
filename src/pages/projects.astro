@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import ManCommand from '../components/shared/ui/ManCommand.astro';
 import { getCollection } from 'astro:content';
 
 const all = await getCollection('projects');
@@ -42,6 +43,7 @@ const groups = [
         group.items.length > 0 && (
           <section class="man-section">
             <h2>{group.label}</h2>
+            <ManCommand cmd={`ls -l projects/ | grep ${group.id}`} />
             <ul class="projects">
               {group.items.map(item => (
                 <li class="project">

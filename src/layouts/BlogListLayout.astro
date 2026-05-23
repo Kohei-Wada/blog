@@ -4,12 +4,14 @@ import type { Page } from 'astro';
 import BaseLayout from './BaseLayout.astro';
 import PostsList from '../components/blog/content/PostsList.astro';
 import Pagination from '../components/shared/ui/Pagination.astro';
+import ManCommand from '../components/shared/ui/ManCommand.astro';
 
 interface Props {
   title: string;
   description: string;
   posts: CollectionEntry<'blog'>[];
   sectionLabel?: string;
+  command?: string;
   siblingHref?: string;
   page?: Page<CollectionEntry<'blog'>>;
   baseUrl?: string;
@@ -26,6 +28,7 @@ const {
   description,
   posts,
   sectionLabel = 'LISTING',
+  command,
   siblingHref,
   page,
   baseUrl = '/blog/',
@@ -40,6 +43,7 @@ const {
 
   <section class="man-section">
     <h2>{sectionLabel}</h2>
+    {command && <ManCommand cmd={command} />}
     <PostsList posts={posts} />
     {
       page && (

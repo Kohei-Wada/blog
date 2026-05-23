@@ -44,6 +44,7 @@ const description = `Posts published in ${formatArchiveLabel(year, month)}.`;
   description={description}
   posts={page.data}
   sectionLabel="LISTING"
+  command={`ls -l archives/${yearMonthParam}/`}
   siblingHref="/"
   page={page}
   baseUrl={`/archives/${yearMonthParam}/`}

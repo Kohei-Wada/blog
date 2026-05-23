@@ -36,6 +36,7 @@ const description = t('siteDescription', 'ja');
   description={description}
   posts={page.data}
   sectionLabel="APROPOS"
+  command={`ls -l tags/${tag}/`}
   siblingHref="/"
   page={page}
   baseUrl={`/tags/${tag}/`}

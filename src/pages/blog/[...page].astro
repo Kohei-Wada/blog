@@ -20,6 +20,7 @@ const { page } = Astro.props;
   title={SITE_TITLE}
   description={t('siteDescription', 'en')}
   posts={page.data}
+  command="ls -l blog/"
   headerTitle="All Posts"
   headerIcon="📚"
   headerDescription="All English posts on this blog."
