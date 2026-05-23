@@ -25,7 +25,9 @@ pnpm-debug.log*
 
 # test coverage
 coverage/
-.claude
+# Ignore local Claude config but keep version-controlled skills.
+.claude/*
+!.claude/skills/
 
 # git worktrees
 .worktrees/
