@@ -15,7 +15,6 @@
     "lint:fix": "eslint . --fix",
     "typecheck": "astro check",
     "check:posts": "node scripts/check-post-parity.mjs",
-    "new-post": "node scripts/new-post.js",
     "markdown:lint": "markdownlint-cli2 '**/*.md' '!node_modules'",
     "markdown:fix": "markdownlint-cli2 '**/*.md' '!node_modules' --fix",
     "audit": "npm audit",
