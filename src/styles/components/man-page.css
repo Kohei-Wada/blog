@@ -71,7 +71,7 @@
   justify-content: space-between;
   align-items: baseline;
   color: var(--text-dim);
-  font-size: var(--font-size-sm);
+  font-size: var(--font-size-base);
 }
 
 .man-footer-links {

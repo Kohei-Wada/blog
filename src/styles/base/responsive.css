@@ -5,14 +5,6 @@
 
 /* Tablet (768px and below) */
 @media (max-width: 768px) {
-  :root {
-    --mobile-font-scale: 0.95;
-  }
-
-  body {
-    font-size: 17px;
-  }
-
   h1 {
     font-size: 2.2em;
   }
@@ -37,18 +29,16 @@
 /* Mobile (720px and below) */
 @media (max-width: 720px) {
   :root {
-    --mobile-font-scale: 0.95;
-    --font-size-xs: 0.8rem;
-    --font-size-sm: 0.9rem;
-    --font-size-base: 1rem;
-    --font-size-lg: 1.15rem;
-    --font-size-xl: 1.3rem;
-    --font-size-2xl: 1.5rem;
-    --font-size-3xl: 1.8rem;
+    --font-size-xs: 13px;
+    --font-size-sm: 15px;
+    --font-size-base: 17px;
+    --font-size-lg: 19px;
+    --font-size-xl: 21px;
+    --font-size-2xl: 24px;
+    --font-size-3xl: 29px;
   }
 
   body {
-    font-size: 17px;
     line-height: 1.7;
   }
 
@@ -93,18 +83,16 @@
 /* Small Mobile (480px and below) */
 @media (max-width: 480px) {
   :root {
-    --mobile-font-scale: 0.92;
-    --font-size-xs: 0.78rem;
-    --font-size-sm: 0.88rem;
-    --font-size-base: 1rem;
-    --font-size-lg: 1.12rem;
-    --font-size-xl: 1.25rem;
-    --font-size-2xl: 1.45rem;
-    --font-size-3xl: 1.7rem;
+    --font-size-xs: 12px;
+    --font-size-sm: 14px;
+    --font-size-base: 16px;
+    --font-size-lg: 18px;
+    --font-size-xl: 20px;
+    --font-size-2xl: 23px;
+    --font-size-3xl: 27px;
   }
 
   body {
-    font-size: 16px;
     line-height: 1.65;
   }
 
@@ -136,18 +124,16 @@
 /* Extra Small Mobile (380px and below) */
 @media (max-width: 380px) {
   :root {
-    --mobile-font-scale: 0.9;
-    --font-size-xs: 0.75rem;
-    --font-size-sm: 0.85rem;
-    --font-size-base: 0.95rem;
-    --font-size-lg: 1.08rem;
-    --font-size-xl: 1.2rem;
-    --font-size-2xl: 1.4rem;
-    --font-size-3xl: 1.6rem;
+    --font-size-xs: 12px;
+    --font-size-sm: 13px;
+    --font-size-base: 16px;
+    --font-size-lg: 17px;
+    --font-size-xl: 19px;
+    --font-size-2xl: 22px;
+    --font-size-3xl: 26px;
   }
 
   body {
-    font-size: 16px;
     line-height: 1.6;
   }
 
