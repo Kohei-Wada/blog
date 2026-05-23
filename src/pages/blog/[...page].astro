@@ -4,9 +4,11 @@ import BlogListLayout from '../../layouts/BlogListLayout.astro';
 import { SITE_TITLE, SITE_DESCRIPTION, POSTS_PER_PAGE } from '../../consts';
 import { getCollection } from 'astro:content';
 import { sortPostsByDate } from '../../utils/content-aggregation';
+import { getPostLang } from '../../utils/post-locale';
 
 export const getStaticPaths = (async ({ paginate }) => {
-  const posts = sortPostsByDate(await getCollection('blog'));
+  const all = await getCollection('blog');
+  const posts = sortPostsByDate(all.filter(p => getPostLang(p.id) === 'ja'));
   return paginate(posts, { pageSize: POSTS_PER_PAGE });
 }) satisfies GetStaticPaths;
 

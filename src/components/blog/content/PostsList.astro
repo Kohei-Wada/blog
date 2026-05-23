@@ -1,0 +1,37 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { getPostLang, getPostSlug } from '../../../utils/post-locale';
+
+interface Props {
+  posts: CollectionEntry<'blog'>[];
+}
+
+const { posts } = Astro.props;
+
+function formatSize(post: CollectionEntry<'blog'>): string {
+  const length = post.body?.length ?? 0;
+  const kb = Math.max(1, Math.round(length / 1024));
+  return `${kb}.0K`;
+}
+
+function postHref(post: CollectionEntry<'blog'>): string {
+  const lang = getPostLang(post.id);
+  const slug = getPostSlug(post.id);
+  return lang === 'en' ? `/en/blog/${slug}` : `/blog/${slug}`;
+}
+---
+
+<ul class="ls-listing">
+  {
+    posts.map(post => (
+      <li>
+        <span class="perms">-rw-r--r--</span>
+        <span class="size">{formatSize(post)}</span>
+        <span class="date">{post.data.pubDate.toISOString().slice(0, 10)}</span>
+        <span class="title">
+          <a href={postHref(post)}>{post.data.title}</a>
+        </span>
+      </li>
+    ))
+  }
+</ul>

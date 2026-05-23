@@ -1,125 +1,122 @@
 ---
 import BaseLayout from './BaseLayout.astro';
-import FormattedDate from '../components/shared/ui/FormattedDate.astro';
-import CalendarIcon from '../components/shared/icons/CalendarIcon.astro';
-import UpdateIcon from '../components/shared/icons/UpdateIcon.astro';
-import ShareButtons from '../components/integrations/ShareButtons.astro';
-import TableOfContents from '../components/blog/navigation/TableOfContents.astro';
-import RelatedPosts from '../components/blog/content/RelatedPosts.astro';
-import type { CollectionEntry } from 'astro:content';
+import { getCollection } from 'astro:content';
+import { resolveSeeAlso } from '../utils/see-also';
+import { getPostLang, getPostSlug } from '../utils/post-locale';
 
 interface Props {
+  id: string;
   title: string;
   description: string;
   pubDate: Date;
+  tags: string[];
+  featured?: boolean;
   updatedDate?: Date;
-  tags?: string[];
-  headings?: import('../types/index.js').MarkdownHeading[];
-  relatedPosts?: CollectionEntry<'blog'>[];
+  seeAlso?: string[];
+  headings?: { depth: number; slug: string; text: string }[];
+  relatedPosts?: unknown;
 }
 
-const {
-  title,
-  description,
-  pubDate,
-  updatedDate,
-  tags = [],
-  headings = [],
-  relatedPosts = [],
-} = Astro.props;
+const { id, title, description, pubDate, tags, seeAlso = [] } = Astro.props;
 
-// 現在のページのURLを取得
-const currentUrl = new URL(Astro.url.pathname, Astro.site).toString();
+const lang = getPostLang(id);
+const slug = getPostSlug(id);
+const manTitle = slug.toUpperCase().replace(/-/g, '_');
+const pubIso = pubDate.toISOString().slice(0, 10);
+
+const all = await getCollection('blog');
+const seeAlsoEntries = resolveSeeAlso(seeAlso, id, all);
+
+const otherLang = lang === 'ja' ? 'en' : 'ja';
+const hasTranslation = all.some(p => getPostLang(p.id) === otherLang && getPostSlug(p.id) === slug);
+const siblingHref = hasTranslation
+  ? otherLang === 'en'
+    ? `/en/blog/${slug}`
+    : `/blog/${slug}`
+  : otherLang === 'en'
+    ? '/en/'
+    : '/';
 ---
 
-<BaseLayout
-  title={title}
-  description={description}
-  isArticle={true}
-  publishedTime={pubDate}
-  showSidebar={true}
->
-  <style>
-    article {
-      width: 100%;
-    }
-    .prose {
-      width: 100%;
-      margin: 0;
-      padding: 0;
-      color: var(--color-text);
-    }
-    .title {
-      margin-bottom: 1em;
-      padding: 1em 0;
-      text-align: center;
-      line-height: 1;
-    }
-    .title h1 {
-      margin: 0 0 0.5em 0;
-    }
-    .date {
-      margin-bottom: 0.5em;
-      color: var(--color-text-secondary);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 1rem;
-      flex-wrap: wrap;
-    }
-    .last-updated-on,
-    .published-on {
-      display: flex;
-      align-items: center;
-      gap: 0.4rem;
-    }
-  </style>
+<BaseLayout title={title} description={description} siblingHref={siblingHref}>
+  <article>
+    <section class="man-section">
+      <h2>NAME</h2>
+      <p>{slug}</p>
+    </section>
 
-  <div class="page-container">
-    <article>
-      <div class="prose">
-        <div class="title">
-          <div class="date">
-            {
-              pubDate && (
-                <div class="published-on">
-                  <CalendarIcon />
-                  <FormattedDate date={pubDate} />
-                </div>
-              )
-            }
+    <section class="man-section">
+      <h2>SYNOPSIS</h2>
+      <p>{description}</p>
+    </section>
 
-            {
-              updatedDate && (
-                <div class="last-updated-on">
-                  <UpdateIcon />
-                  <FormattedDate date={updatedDate} />
-                </div>
-              )
-            }
-          </div>
-          <h1>{title}</h1>
-          <hr />
-        </div>
+    <section class="man-section man-description">
+      <h2>DESCRIPTION</h2>
+      <div class="post-body">
+        <slot />
+      </div>
+    </section>
 
-        {
-          tags.length > 0 && (
-            <div class="tag-list center">
-              {tags.map((tag: string) => (
-                <a href={`/tags/${tag}/`} class="tag blog-post">
+    {
+      tags.length > 0 && (
+        <section class="man-section">
+          <h2>TAGS</h2>
+          <p>
+            {tags.map((tag, i) => (
+              <span>
+                <a
+                  class="tag-pill"
+                  href={`${lang === 'en' ? '/en' : ''}/tags/${encodeURIComponent(tag)}/`}
+                >
                   {tag}
                 </a>
-              ))}
-            </div>
-          )
-        }
+                {i < tags.length - 1 && <span class="tag-sep"> · </span>}
+              </span>
+            ))}
+          </p>
+        </section>
+      )
+    }
 
-        <TableOfContents headings={headings} />
+    {
+      seeAlsoEntries.length > 0 && (
+        <section class="man-section">
+          <h2>SEE ALSO</h2>
+          <ul class="see-also">
+            {seeAlsoEntries.map(e => (
+              <li>
+                <a href={e.href}>{e.title}</a>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )
+    }
 
-        <slot />
-        <ShareButtons title={title} description={description} url={currentUrl} />
-        <RelatedPosts posts={relatedPosts} currentTags={tags} />
+    <footer class="post-bottom-rule">
+      <hr class="man-rule" />
+      <div class="man-footer">
+        <span>{manTitle}(7)</span>
+        <span>{pubIso}</span>
       </div>
-    </article>
-  </div>
+    </footer>
+  </article>
+
+  <style>
+    .post-body :where(h2, h3, h4) {
+      text-transform: none;
+      letter-spacing: 0;
+    }
+    .see-also {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .see-also li {
+      padding: 0.15em 0;
+    }
+    .tag-sep {
+      color: var(--text-dim);
+    }
+  </style>
 </BaseLayout>

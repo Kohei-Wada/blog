@@ -2,82 +2,26 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 
-<BaseLayout
-  title="404 - Page Not Found"
-  description="お探しのページが見つかりません。"
-  showSidebar={true}
->
+<BaseLayout title="404" description="Page not found">
+  <section class="man-section">
+    <h2>ERROR</h2>
+    <pre
+      class="terminal-block"><span class="man-prompt" />cat {Astro.url.pathname}
+cat: {Astro.url.pathname}: No such file or directory</pre>
+  </section>
+  <section class="man-section">
+    <h2>SEE ALSO</h2>
+    <p>
+      <span class="man-prompt"></span><a href="/">cd /</a> &nbsp;&nbsp;&nbsp;[home]<br />
+      <span class="man-prompt"></span><a href="/blog">ls /blog</a> &nbsp;[posts]
+    </p>
+  </section>
   <style>
-    .error-page {
-      text-align: center;
-      line-height: 1.6;
-    }
-
-    .error-code {
-      font-size: 8rem;
-      font-weight: bold;
-      color: var(--accent);
-      margin: 2rem 0 1rem;
-      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
-    }
-
-    .error-title {
-      font-size: 2rem;
-      margin-bottom: 1rem;
-      color: var(--color-text);
-    }
-
-    .error-description {
-      font-size: 1.1rem;
-      color: var(--color-text-secondary);
-      margin-bottom: 2rem;
-      max-width: 600px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-
-    .back-link {
-      display: inline-block;
-      margin-top: 2rem;
-      padding: 0.5em 1em;
-      background-color: var(--card-background);
-      color: var(--color-link);
-      text-decoration: none;
-      border-radius: 4px;
-      transition:
-        background-color 0.2s ease,
-        color 0.2s ease;
-      font-weight: 500;
-    }
-
-    .back-link:hover {
-      background-color: var(--accent);
-      color: #fff;
-    }
-
-    @media (max-width: 720px) {
-      .error-code {
-        font-size: 6rem;
-      }
-
-      .error-title {
-        font-size: 1.5rem;
-      }
+    .terminal-block {
+      background: var(--bg-alt);
+      padding: 1em;
+      border-left: 2px solid var(--accent);
+      white-space: pre-wrap;
     }
   </style>
-
-  <div class="page-container">
-    <section class="error-page">
-      <div class="error-code">404</div>
-
-      <h1 class="error-title">ページが見つかりません</h1>
-
-      <p class="error-description">
-        申し訳ございません。お探しのページは存在しないか、移動または削除された可能性があります。
-        URLを再度ご確認いただくか、下記のリンクから目的のページをお探しください。
-      </p>
-
-      <a href="javascript:history.back()" class="back-link"> 前のページに戻る </a>
-    </section>
-  </div>
 </BaseLayout>

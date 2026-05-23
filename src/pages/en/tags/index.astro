@@ -1,15 +1,15 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import { SITE_TITLE, SITE_DESCRIPTION } from '../../consts';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { SITE_TITLE, SITE_DESCRIPTION } from '../../../consts';
 import { getCollection } from 'astro:content';
-import { getTagCounts, getTagsSortedByCount } from '../../utils/content-aggregation';
-import { getPostLang } from '../../utils/post-locale';
+import { getTagCounts, getTagsSortedByCount } from '../../../utils/content-aggregation';
+import { getPostLang } from '../../../utils/post-locale';
 
 const all = await getCollection('blog');
-const posts = all.filter(p => getPostLang(p.id) === 'ja');
+const posts = all.filter(p => getPostLang(p.id) === 'en');
 const tagCounts = getTagCounts(posts);
 const tags = getTagsSortedByCount(posts);
-const title = `タグ一覧 - ${SITE_TITLE}`;
+const title = `Tags - ${SITE_TITLE}`;
 ---
 
 <BaseLayout title={title} description={SITE_DESCRIPTION}>
@@ -27,7 +27,7 @@ const title = `タグ一覧 - ${SITE_TITLE}`;
             <span class="perms">drwxr-xr-x</span>
             <span class="size">{tagCounts[tag]}</span>
             <span class="title">
-              <a href={`/tags/${tag}/`}>{tag}</a>
+              <a href={`/en/tags/${tag}/`}>{tag}</a>
             </span>
           </li>
         ))
@@ -38,7 +38,9 @@ const title = `タグ一覧 - ${SITE_TITLE}`;
   <section class="man-section">
     <h2>NAVIGATION</h2>
     <p>
-      <a href="/blog">blog</a> · <a href="/tags/">tags</a> · <a href="/archives/">archives</a>
+      <a href="/en/blog">blog</a> · <a href="/en/tags/">tags</a> · <a href="/en/archives/"
+        >archives</a
+      >
     </p>
   </section>
 </BaseLayout>

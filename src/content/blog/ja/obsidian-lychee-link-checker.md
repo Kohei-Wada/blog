@@ -24,7 +24,7 @@ lycheeを使う上で重要な点があります。Obsidianのデフォルトで
 
 Obsidianの設定で「新しいリンクの形式」を「相対パス」に変更しておくと、新規リンク作成時に自動で標準形式になります。
 
-![Obsidianの設定画面：リンク形式を相対パスに変更](../../assets/obsidian-link-settings.png)
+![Obsidianの設定画面：リンク形式を相対パスに変更](../../../assets/obsidian-link-settings.png)
 
 | 形式         | 例                  | lychee対応 |
 | ------------ | ------------------- | ---------- |
@@ -59,11 +59,11 @@ lychee --offline vault/
 
 リンク切れがある場合、以下のような出力が表示されます：
 
-![lycheeでリンク切れを検出した際のターミナル出力](../../assets/lychee-failed.png)
+![lycheeでリンク切れを検出した際のターミナル出力](../../../assets/lychee-failed.png)
 
 リンクがすべて正常な場合：
 
-![lycheeでリンク切れがない場合のターミナル出力](../../assets/lychee-ok.png)
+![lycheeでリンク切れがない場合のターミナル出力](../../../assets/lychee-ok.png)
 
 ## 標準Markdownリンクの書き方
 

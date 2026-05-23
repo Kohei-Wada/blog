@@ -2,6 +2,7 @@
 import FormattedDate from '../../shared/ui/FormattedDate.astro';
 import CalendarIcon from '../../shared/icons/CalendarIcon.astro';
 import type { CollectionEntry } from 'astro:content';
+import { getPostSlug } from '../../../utils/post-locale';
 
 export interface Props {
   post: CollectionEntry<'blog'>;
@@ -12,7 +13,7 @@ const { post, currentTag } = Astro.props;
 ---
 
 <article class="post-card">
-  <a href={`/blog/${post.id}/`}>
+  <a href={`/blog/${getPostSlug(post.id)}/`}>
     <div class="post-content">
       <div class="post-main">
         <h2>{post.data.title}</h2>

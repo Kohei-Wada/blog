@@ -1,87 +1,301 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import PageHeader from '../components/shared/layout/PageHeader.astro';
+import { AUTHOR_NAME, AUTHOR_BIO, AUTHOR_JOB_TITLE } from '../consts';
 ---
 
-<BaseLayout title="About" description="wadaについて。使用ツールや考え方など。" showSidebar={true}>
+<BaseLayout title="About" description={AUTHOR_BIO}>
+  <section class="man-section">
+    <h2>NAME</h2>
+    <p>whoami — {AUTHOR_NAME}</p>
+  </section>
+
+  <section class="man-section">
+    <h2>DESCRIPTION</h2>
+    <p>
+      {AUTHOR_JOB_TITLE}. {AUTHOR_BIO}
+    </p>
+    <p>
+      東京でリモートワーク中心に活動しているエンジニアです。
+      もともと数学が好きで、Pythonでグラフ描画を楽しんでいたことがプログラミングの始まりです。
+      その後、機械工学の学習を通じてC言語でのデバイス制御やドライバ自作を経験し、
+      Web開発分野ではPHPやC#を用いたアプリケーション開発にシフトしてきました。
+    </p>
+    <p>
+      ターミナル向けタスク管理ツール「<a
+        href="https://github.com/Kohei-Wada/taskdog"
+        target="_blank"
+        rel="noopener noreferrer">taskdog</a
+      >」をOSSとして公開し、<a
+        href="https://terminaltrove.com/taskdog/"
+        target="_blank"
+        rel="noopener noreferrer">Terminal Trove</a
+      >および<a
+        href="https://www.linuxlinks.com/taskdog-task-management-system/"
+        target="_blank"
+        rel="noopener noreferrer">LinuxLinks</a
+      >への掲載、およびTextualフレームワークのメンテナーであるWill McGuganに<a
+        href="https://x.com/willmcgugan/status/2027377375156080742?s=20"
+        target="_blank"
+        rel="noopener noreferrer">「ターミナルデザインのセンスが明らかにある」と公式に評価</a
+      >されました。
+    </p>
+    <p>
+      Clean
+      Architectureを採用したUVワークスペースモノレポ構成で、コア・API・UIを分離して設計しています。設計判断の根拠はDESIGN_PHILOSOPHY.mdとして言語化しており、「何を作るか」だけでなく「何を作らないか」を意識した開発をしています。
+    </p>
+    <p>
+      低レイヤー・システムプログラミング・CLI環境に強い関心があり、Neovim +
+      UNIXコマンドを中心とした開発スタイルで、ElixirやOCamlなど関数型言語にも親しみがあります。
+    </p>
+    <p>
+      日々の情報整理には <strong>Zettelkasten</strong>
+      を用いており、技術・思考の断片をノートとして蓄積するのが習慣です。 抽象的なアイデアを構造化して記録し、あとから発見や接続が得られるようにしています。
+    </p>
+    <p>
+      また、日常の中で感じた小さな不便や繰り返し作業を自動化することが好きで、ちょっとしたシェルスクリプトやCLIツールを自作しては改善を楽しんでいます。
+    </p>
+  </section>
+
+  <section class="man-section">
+    <h2>ACHIEVEMENTS</h2>
+    <ul>
+      <li>音声認識WebシステムをLaravelで開発・運用</li>
+      <li>Kubernetes上で音声認識エンジンを構築・運用</li>
+      <li>大規模サーバーのCentOS→AlmaLinux移行をAnsibleで実施</li>
+      <li>WindowsクライアントアプリをC# / .NETで開発</li>
+    </ul>
+  </section>
+
+  <section class="man-section">
+    <h2>SKILLS</h2>
+    <h3>言語</h3>
+    <table class="skill-table">
+      <thead>
+        <tr>
+          <th>技術・ツール</th>
+          <th>経験・備考</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Rust</td>
+          <td
+            ><a href="https://github.com/Kohei-Wada/fclip" target="_blank" rel="noopener noreferrer"
+              >fclip</a
+            >（fzfスタイルのキーボードファーストなクリップボードマネージャー）を開発中</td
+          >
+        </tr>
+        <tr>
+          <td>Python</td>
+          <td
+            >taskdog（CLIタスク管理ツール）をTextual/FastAPIで開発・OSS公開、自動処理など幅広く使用</td
+          >
+        </tr>
+        <tr>
+          <td>C</td>
+          <td>言語処理系・ドライバの自作経験あり</td>
+        </tr>
+        <tr>
+          <td>TypeScript/JavaScript</td>
+          <td>このブログに使用&簡単なスクリプト作成など</td>
+        </tr>
+        <tr>
+          <td>Bash / ShellScript</td>
+          <td>障害対応・自動処理・即興スクリプト作成に精通</td>
+        </tr>
+        <tr>
+          <td>PHP</td>
+          <td>業務で日常的に使用</td>
+        </tr>
+        <tr>
+          <td>C#</td>
+          <td>Windowsフォームアプリ開発経験あり（業務）</td>
+        </tr>
+        <tr>
+          <td>Lua</td>
+          <td
+            >Neovimプラグインを自作。公式プラグインや周辺ツールに対してPRを提出・マージされた実績あり</td
+          >
+        </tr>
+        <tr>
+          <td>Haskell / PureScript / Java</td>
+          <td>個人学習・試作レベル。関数型や静的型付けに関心</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>フレームワーク</h3>
+    <table class="skill-table">
+      <thead>
+        <tr>
+          <th>技術・ツール</th>
+          <th>経験・備考</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Laravel</td>
+          <td>業務で日常的に使用。バックエンド開発・保守に対応</td>
+        </tr>
+        <tr>
+          <td>FastAPI</td>
+          <td>taskdogのAPIバックエンド、画像生成APIの開発</td>
+        </tr>
+        <tr>
+          <td>Astro</td>
+          <td>このブログに使用</td>
+        </tr>
+        <tr>
+          <td>.NET</td>
+          <td>デスクトップアプリ開発（業務）</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>インフラ / クラウド</h3>
+    <table class="skill-table">
+      <thead>
+        <tr>
+          <th>技術・ツール</th>
+          <th>経験・備考</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>AWS（EC2, RDS）</td>
+          <td>EC2/RDSを用いた本番環境の構築・運用（業務）</td>
+        </tr>
+        <tr>
+          <td>Docker / GitHub Actions</td>
+          <td>業務のCI/CDパイプライン構築</td>
+        </tr>
+        <tr>
+          <td>k3s</td>
+          <td>業務でのコンテナオーケストレーション経験あり、Raspberry Piでも運用</td>
+        </tr>
+        <tr>
+          <td>Home Assistant</td>
+          <td>スマートホーム基盤、2年以上運用</td>
+        </tr>
+        <tr>
+          <td>Ansible</td>
+          <td>サーバーOS移行の構成管理に使用（業務）</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>OS・環境</h3>
+    <table class="skill-table">
+      <thead>
+        <tr>
+          <th>OS・ディストリビューション</th>
+          <th>経験・備考</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>CentOS 7, AlmaLinux 8/9, RHEL 9</td>
+          <td>CentOS→AlmaLinuxへのサーバー移行を実施（業務）</td>
+        </tr>
+        <tr>
+          <td>Ubuntu</td>
+          <td>サーバー運用（業務）、以前の個人環境</td>
+        </tr>
+        <tr>
+          <td>Arch Linux</td>
+          <td>現在の個人開発環境、開発パッケージの豊富さを重視</td>
+        </tr>
+        <tr>
+          <td>WSL (Arch Linux)</td>
+          <td>Windows環境での開発（業務）</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>その他</h3>
+    <table class="skill-table">
+      <thead>
+        <tr>
+          <th>技術・ツール</th>
+          <th>経験・備考</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Neovim</td>
+          <td>メインエディター、Luaプラグインを作成・公開</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="man-section">
+    <h2>CREDENTIALS</h2>
+    <ul>
+      <li>
+        <a href="https://github.com/Kohei-Wada/taskdog" target="_blank" rel="noopener noreferrer">
+          taskdog
+        </a> – CLI/TUI対応のタスク管理システム。スケジュール最適化やガントチャートなどを備える。Clean
+        Architectureを採用したUVワークスペースモノレポ構成で設計。
+        <a href="https://terminaltrove.com/taskdog/" target="_blank" rel="noopener noreferrer"
+          >Terminal Trove</a
+        >・<a
+          href="https://www.linuxlinks.com/taskdog-task-management-system/"
+          target="_blank"
+          rel="noopener noreferrer">LinuxLinks</a
+        >に掲載。Textualの作者であるWill McGugan氏に<a
+          href="https://x.com/willmcgugan/status/2027377375156080742?s=20"
+          target="_blank"
+          rel="noopener noreferrer">Xで紹介</a
+        >され、「The author of this project has clearly got a good eye for design in the
+        terminal」と評価された。
+      </li>
+      <li>
+        <a
+          href="https://github.com/m4xshen/hardtime.nvim"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          hardtime.nvim
+        </a> – Neovimでのタイピング改善プラグイン。イベント周りバグ修正や機能追加を行い、プルリクエストを提出。
+      </li>
+      <li>
+        <a
+          href="https://github.com/CopilotC-Nvim/CopilotChat.nvim"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          CopilotChat.nvim
+        </a> – GitHub CopilotとのNeovim統合。UI改善・Telescope 統合の提案を行い、プルリクエストを提出。
+      </li>
+    </ul>
+  </section>
+
+  <section class="man-section">
+    <h2>CONTACT</h2>
+    <p>
+      <span class="man-prompt"></span>mail program3152019@gmail.com<br />
+      <a href="https://github.com/Kohei-Wada">github.com/Kohei-Wada</a>
+    </p>
+  </section>
+
   <style>
-    .about {
-      line-height: 1.6;
-    }
-
-    .about h2 {
-      font-size: var(--font-size-2xl);
-      margin: var(--spacing-lg) 0 var(--spacing-sm) 0;
-      color: var(--color-text);
-      border-bottom: 2px solid var(--color-link);
-      padding-bottom: var(--spacing-xs);
-    }
-
-    .about p {
-      margin-bottom: var(--spacing-md);
-      line-height: 1.7;
-    }
-
-    .about ul {
-      margin-bottom: var(--spacing-md);
-    }
-
-    .about li {
-      margin-bottom: var(--spacing-xs);
-    }
-
-    .about a {
-      color: var(--accent);
-      text-decoration: none;
-      border-bottom: 1px solid transparent;
-      transition: all var(--transition-normal);
-    }
-
-    .about a:hover {
-      border-bottom-color: var(--accent);
-    }
-
-    .skills-section {
-      margin: var(--spacing-lg) 0;
-    }
-
-    .skill-category {
-      margin-bottom: var(--spacing-lg);
-    }
-
-    .skill-category h3 {
-      font-size: var(--font-size-xl);
-      color: var(--color-link);
-      margin-bottom: var(--spacing-sm);
-      display: flex;
-      align-items: center;
-      gap: var(--spacing-xs);
-      border-bottom: 1px solid var(--color-border-light);
-      padding-bottom: var(--spacing-xs);
-    }
-
     .skill-table {
       width: 100%;
       border-collapse: collapse;
-      background: var(--color-bg);
-      border-radius: var(--radius-md);
-      overflow: hidden;
-      box-shadow: var(--shadow-sm);
+      margin-bottom: 1.5em;
     }
 
     .skill-table th {
-      background: var(--card-background);
-      padding: var(--spacing-sm);
       text-align: left;
       font-weight: 600;
-      color: var(--color-text);
-      font-size: var(--font-size-sm);
-      border-bottom: 1px solid var(--color-border-light);
+      padding: 0.4em 0.75em;
+      border-bottom: 1px solid var(--color-border-light, var(--accent));
     }
 
     .skill-table td {
-      padding: var(--spacing-sm);
-      border-bottom: 1px solid var(--color-border-light);
+      padding: 0.4em 0.75em;
+      border-bottom: 1px solid var(--color-border-light, #e2e8f0);
       line-height: 1.6;
     }
 
@@ -89,313 +303,9 @@ import PageHeader from '../components/shared/layout/PageHeader.astro';
       border-bottom: none;
     }
 
-    .skill-table tr:hover {
-      background: var(--hover-background);
-    }
-
     .skill-table td:first-child {
       font-weight: 600;
-      color: var(--color-text);
-    }
-
-    .skill-table td:last-child {
-      color: var(--color-text-secondary);
-    }
-
-    @media (max-width: 768px) {
-      .about h2 {
-        font-size: var(--font-size-xl);
-      }
-
-      .skill-category h3 {
-        font-size: var(--font-size-lg);
-      }
-
-      .skill-table {
-        font-size: var(--font-size-sm);
-      }
-
-      .skill-table th,
-      .skill-table td {
-        padding: var(--spacing-xs);
-      }
+      white-space: nowrap;
     }
   </style>
-
-  <div class="page-container">
-    <PageHeader
-      title="筆者について"
-      icon="👤"
-      description="wada - エンジニア、技術愛好家、そして自動化とシンプルさを追求する人間として。"
-    />
-
-    <section class="about">
-      <h2>自己紹介</h2>
-      <p>
-        東京でリモートワーク中心に活動しているエンジニアです。
-        もともと数学が好きで、Pythonでグラフ描画を楽しんでいたことがプログラミングの始まりです。
-        その後、機械工学の学習を通じてC言語でのデバイス制御やドライバ自作を経験し、
-        Web開発分野ではPHPやC#を用いたアプリケーション開発にシフトしてきました。
-      </p>
-      <p>
-        ターミナル向けタスク管理ツール「<a
-          href="https://github.com/Kohei-Wada/taskdog"
-          target="_blank"
-          rel="noopener noreferrer">taskdog</a
-        >」をOSSとして公開し、<a
-          href="https://terminaltrove.com/taskdog/"
-          target="_blank"
-          rel="noopener noreferrer">Terminal Trove</a
-        >および<a
-          href="https://www.linuxlinks.com/taskdog-task-management-system/"
-          target="_blank"
-          rel="noopener noreferrer">LinuxLinks</a
-        >への掲載、およびTextualフレームワークのメンテナーであるWill McGuganに<a
-          href="https://x.com/willmcgugan/status/2027377375156080742?s=20"
-          target="_blank"
-          rel="noopener noreferrer">「ターミナルデザインのセンスが明らかにある」と公式に評価</a
-        >されました。
-      </p>
-      <p>
-        Clean
-        Architectureを採用したUVワークスペースモノレポ構成で、コア・API・UIを分離して設計しています。設計判断の根拠はDESIGN_PHILOSOPHY.mdとして言語化しており、「何を作るか」だけでなく「何を作らないか」を意識した開発をしています。
-      </p>
-      <p>
-        低レイヤー・システムプログラミング・CLI環境に強い関心があり、Neovim +
-        UNIXコマンドを中心とした開発スタイルで、ElixirやOCamlなど関数型言語にも親しみがあります。
-      </p>
-
-      <h2>業務実績</h2>
-      <ul>
-        <li>音声認識WebシステムをLaravelで開発・運用</li>
-        <li>Kubernetes上で音声認識エンジンを構築・運用</li>
-        <li>大規模サーバーのCentOS→AlmaLinux移行をAnsibleで実施</li>
-        <li>WindowsクライアントアプリをC# / .NETで開発</li>
-      </ul>
-
-      <h2>スキルセット</h2>
-      <div class="skills-section">
-        <div class="skill-category">
-          <h3><span class="icon">💻</span>言語</h3>
-          <table class="skill-table">
-            <thead>
-              <tr>
-                <th>技術・ツール</th>
-                <th>経験・備考</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Rust</td>
-                <td
-                  ><a
-                    href="https://github.com/Kohei-Wada/fclip"
-                    target="_blank"
-                    rel="noopener noreferrer">fclip</a
-                  >（fzfスタイルのキーボードファーストなクリップボードマネージャー）を開発中</td
-                >
-              </tr>
-              <tr>
-                <td>Python</td>
-                <td
-                  >taskdog（CLIタスク管理ツール）をTextual/FastAPIで開発・OSS公開、自動処理など幅広く使用</td
-                >
-              </tr>
-              <tr>
-                <td>C</td>
-                <td>言語処理系・ドライバの自作経験あり</td>
-              </tr>
-              <tr>
-                <td>TypeScript/JavaScript</td>
-                <td>このブログに使用&簡単なスクリプト作成など</td>
-              </tr>
-              <tr>
-                <td>Bash / ShellScript</td>
-                <td>障害対応・自動処理・即興スクリプト作成に精通</td>
-              </tr>
-              <tr>
-                <td>PHP</td>
-                <td>業務で日常的に使用</td>
-              </tr>
-              <tr>
-                <td>C#</td>
-                <td>Windowsフォームアプリ開発経験あり（業務）</td>
-              </tr>
-              <tr>
-                <td>Lua</td>
-                <td
-                  >Neovimプラグインを自作。公式プラグインや周辺ツールに対してPRを提出・マージされた実績あり</td
-                >
-              </tr>
-              <tr>
-                <td>Haskell / PureScript / Java</td>
-                <td>個人学習・試作レベル。関数型や静的型付けに関心</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
-        <div class="skill-category">
-          <h3><span class="icon">🧰</span>フレームワーク</h3>
-          <table class="skill-table">
-            <thead>
-              <tr>
-                <th>技術・ツール</th>
-                <th>経験・備考</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Laravel</td>
-                <td>業務で日常的に使用。バックエンド開発・保守に対応</td>
-              </tr>
-              <tr>
-                <td>FastAPI</td>
-                <td>taskdogのAPIバックエンド、画像生成APIの開発</td>
-              </tr>
-              <tr>
-                <td>Astro</td>
-                <td>このブログに使用</td>
-              </tr>
-              <tr>
-                <td>.NET</td>
-                <td>デスクトップアプリ開発（業務）</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
-        <div class="skill-category">
-          <h3><span class="icon">☁️</span>インフラ / クラウド</h3>
-          <table class="skill-table">
-            <thead>
-              <tr>
-                <th>技術・ツール</th>
-                <th>経験・備考</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>AWS（EC2, RDS）</td>
-                <td>EC2/RDSを用いた本番環境の構築・運用（業務）</td>
-              </tr>
-              <tr>
-                <td>Docker / GitHub Actions</td>
-                <td>業務のCI/CDパイプライン構築</td>
-              </tr>
-              <tr>
-                <td>k3s</td>
-                <td>業務でのコンテナオーケストレーション経験あり、Raspberry Piでも運用</td>
-              </tr>
-              <tr>
-                <td>Home Assistant</td>
-                <td>スマートホーム基盤、2年以上運用</td>
-              </tr>
-              <tr>
-                <td>Ansible</td>
-                <td>サーバーOS移行の構成管理に使用（業務）</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
-        <div class="skill-category">
-          <h3><span class="icon">🐧</span>OS・環境</h3>
-          <table class="skill-table">
-            <thead>
-              <tr>
-                <th>OS・ディストリビューション</th>
-                <th>経験・備考</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>CentOS 7, AlmaLinux 8/9, RHEL 9</td>
-                <td>CentOS→AlmaLinuxへのサーバー移行を実施（業務）</td>
-              </tr>
-              <tr>
-                <td>Ubuntu</td>
-                <td>サーバー運用（業務）、以前の個人環境</td>
-              </tr>
-              <tr>
-                <td>Arch Linux</td>
-                <td>現在の個人開発環境、開発パッケージの豊富さを重視</td>
-              </tr>
-              <tr>
-                <td>WSL (Arch Linux)</td>
-                <td>Windows環境での開発（業務）</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
-        <div class="skill-category">
-          <h3><span class="icon">🔧</span>その他</h3>
-          <table class="skill-table">
-            <thead>
-              <tr>
-                <th>技術・ツール</th>
-                <th>経験・備考</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Neovim</td>
-                <td>メインエディター、Luaプラグインを作成・公開</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-      <h2>趣味・関心ごと</h2>
-      <p>
-        日々の情報整理には <strong>Zettelkasten</strong>
-        を用いており、技術・思考の断片をノートとして蓄積するのが習慣です。 抽象的なアイデアを構造化して記録し、あとから発見や接続が得られるようにしています。
-      </p>
-      <p>
-        また、日常の中で感じた小さな不便や繰り返し作業を自動化することが好きで、ちょっとしたシェルスクリプトやCLIツールを自作しては改善を楽しんでいます。
-      </p>
-
-      <h2>OSS活動</h2>
-      <ul>
-        <li>
-          <a href="https://github.com/Kohei-Wada/taskdog" target="_blank" rel="noopener noreferrer">
-            taskdog
-          </a> – CLI/TUI対応のタスク管理システム。スケジュール最適化やガントチャートなどを備える。Clean
-          Architectureを採用したUVワークスペースモノレポ構成で設計。
-          <a href="https://terminaltrove.com/taskdog/" target="_blank" rel="noopener noreferrer"
-            >Terminal Trove</a
-          >・<a
-            href="https://www.linuxlinks.com/taskdog-task-management-system/"
-            target="_blank"
-            rel="noopener noreferrer">LinuxLinks</a
-          >に掲載。Textualの作者であるWill McGugan氏に<a
-            href="https://x.com/willmcgugan/status/2027377375156080742?s=20"
-            target="_blank"
-            rel="noopener noreferrer">Xで紹介</a
-          >され、「The author of this project has clearly got a good eye for design in the
-          terminal」と評価された。
-        </li>
-        <li>
-          <a
-            href="https://github.com/m4xshen/hardtime.nvim"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            hardtime.nvim
-          </a> – Neovimでのタイピング改善プラグイン。イベント周りバグ修正や機能追加を行い、プルリクエストを提出。
-        </li>
-        <li>
-          <a
-            href="https://github.com/CopilotC-Nvim/CopilotChat.nvim"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            CopilotChat.nvim
-          </a> – GitHub CopilotとのNeovim統合。UI改善・Telescope 統合の提案を行い、プルリクエストを提出。
-        </li>
-      </ul>
-    </section>
-  </div>
 </BaseLayout>

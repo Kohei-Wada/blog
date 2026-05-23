@@ -7,9 +7,22 @@ import expressiveCode from 'astro-expressive-code';
 // https://astro.build/config
 export default defineConfig({
   site: 'https://wada-dev.com/',
+  i18n: {
+    defaultLocale: 'ja',
+    locales: ['ja', 'en'],
+    routing: {
+      prefixDefaultLocale: false,
+    },
+  },
   integrations: [
     expressiveCode({
-      themes: ['github-dark'],
+      themes: ['solarized-light'],
+      styleOverrides: {
+        borderRadius: '4px',
+        frames: {
+          shadowColor: 'transparent',
+        },
+      },
     }),
     mdx(),
     sitemap({

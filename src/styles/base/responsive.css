@@ -175,3 +175,9 @@
     padding: 0.6em;
   }
 }
+
+@media (max-width: 600px) {
+  :root {
+    --indent-section: var(--indent-section-sm);
+  }
+}
