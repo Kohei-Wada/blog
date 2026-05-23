@@ -35,7 +35,6 @@ body {
   overflow-wrap: break-word;
   overflow-x: hidden;
   color: var(--color-text);
-  font-size: 18px;
   line-height: 1.7;
 }
 

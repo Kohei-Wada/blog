@@ -1,9 +1,7 @@
 :root {
   --font-mono:
     'JetBrains Mono', 'Fira Code', ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
-  --font-size-base: 15px;
-  --font-size-sm:   13px;
-  --font-size-lg:   17px;
+  /* Font sizes are defined once in variables.css — do not redeclare here. */
   --line-height:    1.6;
   --line-height-tight: 1.4;
   --max-content:    80ch;

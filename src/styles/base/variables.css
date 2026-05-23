@@ -52,18 +52,16 @@
   --spacing-xl: 4rem;
   --spacing-xxl: 6rem;
 
-  /* Font Sizes */
-  --font-size-xs: 0.75rem;
-  --font-size-sm: 0.875rem;
-  --font-size-base: 1rem;
-  --font-size-lg: 1.125rem;
-  --font-size-xl: 1.25rem;
-  --font-size-2xl: 1.5rem;
-  --font-size-3xl: 2rem;
-  --font-size-4xl: 2.5rem;
-
-  /* Mobile Font Scale */
-  --mobile-font-scale: 1;
+  /* Font Sizes — single source of truth (px). Responsive overrides live in
+     responsive.css :root media queries; nothing else may redefine these. */
+  --font-size-xs: 11px;
+  --font-size-sm: 13px;
+  --font-size-base: 15px;
+  --font-size-lg: 17px;
+  --font-size-xl: 19px;
+  --font-size-2xl: 22px;
+  --font-size-3xl: 30px;
+  --font-size-4xl: 38px;
 
   /* Border Radius */
   --radius-sm: 4px;
