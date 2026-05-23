@@ -30,11 +30,11 @@ const seeAlsoEntries = resolveSeeAlso(seeAlso, id, all);
 const otherLang = lang === 'ja' ? 'en' : 'ja';
 const hasTranslation = all.some(p => getPostLang(p.id) === otherLang && getPostSlug(p.id) === slug);
 const siblingHref = hasTranslation
-  ? otherLang === 'en'
-    ? `/en/blog/${slug}`
+  ? otherLang === 'ja'
+    ? `/ja/blog/${slug}`
     : `/blog/${slug}`
-  : otherLang === 'en'
-    ? '/en/'
+  : otherLang === 'ja'
+    ? '/ja/'
     : '/';
 ---
 
@@ -66,7 +66,7 @@ const siblingHref = hasTranslation
               <span>
                 <a
                   class="tag-pill"
-                  href={`${lang === 'en' ? '/en' : ''}/tags/${encodeURIComponent(tag)}/`}
+                  href={`${lang === 'ja' ? '/ja' : ''}/tags/${encodeURIComponent(tag)}/`}
                 >
                   {tag}
                 </a>

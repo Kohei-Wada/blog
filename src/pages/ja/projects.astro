@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { getCollection } from 'astro:content';
+import { getCollection, getEntry } from 'astro:content';
 
 const all = await getCollection('projects');
 const sorted = all.sort((a, b) => {
@@ -17,27 +17,56 @@ const groups = [
   },
   { id: 'archived', label: 'ARCHIVED', items: sorted.filter(p => p.data.status === 'archived') },
 ];
+
+// Resolve related-post slugs to title/href so missing slugs fail loudly at build.
+async function resolveRelated(slugs: string[]): Promise<Array<{ title: string; href: string }>> {
+  const resolved = await Promise.all(
+    slugs.map(async slug => {
+      const post = await getEntry('blog', `ja/${slug}`);
+      if (!post) {
+        throw new Error(
+          `project relatedPosts entry "${slug}" did not resolve under blog/ja/. ` +
+            `Either add the post or remove the slug.`
+        );
+      }
+      return { title: post.data.title, href: `/blog/${slug}` };
+    })
+  );
+  return resolved;
+}
+
+const groupsWithRelated = await Promise.all(
+  groups.map(async group => ({
+    ...group,
+    items: await Promise.all(
+      group.items.map(async item => ({
+        ...item,
+        related: await resolveRelated(item.data.relatedPosts),
+      }))
+    ),
+  }))
+);
 ---
 
 <BaseLayout
   title="Projects — wada-dev"
-  description="A showcase of my OSS work. Each project lists what it is, its stack, repo link, and related posts."
+  description="OSS 作品のショーケース。各プロジェクトの概要、技術スタック、リポジトリ、関連記事を一覧。"
 >
   <section class="man-section">
     <h2>NAME</h2>
-    <p>projects — OSS showcase</p>
+    <p>projects — OSS 作品ショーケース</p>
   </section>
 
   <section class="man-section">
     <h2>DESCRIPTION</h2>
     <p>
-      A list of my open-source projects. Each entry includes the description, stack, repository
-      link, and related write-ups (English versions added as they ship).
+      自作の OSS
+      作品を一覧します。各プロジェクトの概要、使用技術、リポジトリへのリンク、関連する制作過程記事をまとめています。
     </p>
   </section>
 
   {
-    groups.map(
+    groupsWithRelated.map(
       group =>
         group.items.length > 0 && (
           <section class="man-section">
@@ -63,6 +92,17 @@ const groups = [
                     <span class="man-prompt" />
                     <a href={item.data.repo}>{item.data.repo.replace(/^https?:\/\//, '')}</a>
                   </p>
+                  {item.related.length > 0 && (
+                    <p class="project-related">
+                      <span class="label">↪ related: </span>
+                      {item.related.map((r, i) => (
+                        <>
+                          <a href={r.href}>{r.title}</a>
+                          {i < item.related.length - 1 && <span> · </span>}
+                        </>
+                      ))}
+                    </p>
+                  )}
                 </li>
               ))}
             </ul>
@@ -74,7 +114,7 @@ const groups = [
   <section class="man-section">
     <h2>SEE ALSO</h2>
     <p>
-      <a href="https://github.com/Kohei-Wada">github(1)</a>, <a href="/en/blog">blog(7)</a>
+      <a href="https://github.com/Kohei-Wada">github(1)</a>, <a href="/ja/blog">blog(7)</a>
     </p>
   </section>
 
@@ -125,6 +165,13 @@ const groups = [
     }
     .project-meta a:hover {
       color: var(--accent);
+    }
+    .project-related {
+      margin: 0.25em 0 0;
+      font-size: var(--font-size-sm);
+    }
+    .project-related .label {
+      color: var(--text-dim);
     }
   </style>
 </BaseLayout>

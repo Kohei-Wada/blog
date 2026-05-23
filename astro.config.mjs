@@ -8,8 +8,8 @@ import expressiveCode from 'astro-expressive-code';
 export default defineConfig({
   site: 'https://wada-dev.com/',
   i18n: {
-    defaultLocale: 'ja',
-    locales: ['ja', 'en'],
+    defaultLocale: 'en',
+    locales: ['en', 'ja'],
     routing: {
       prefixDefaultLocale: false,
     },

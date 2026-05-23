@@ -22,7 +22,7 @@ export function resolveSeeAlso(
           `Either add the post or remove the entry from frontmatter.`
       );
     }
-    const prefix = sourceLang === 'en' ? '/en' : '';
+    const prefix = sourceLang === 'ja' ? '/ja' : '';
     return { title: found.data.title, href: `${prefix}/blog/${slug}` };
   });
 }

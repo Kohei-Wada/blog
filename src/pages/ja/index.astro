@@ -1,24 +1,24 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
 import {
   SITE_TITLE,
   HOME_TITLE,
   SITE_SUBTITLE,
+  SITE_DESCRIPTION,
   GITHUB_URL,
   ZENN_URL,
   QIITA_URL,
   X_URL,
-} from '../consts';
+} from '../../consts';
 import { getCollection } from 'astro:content';
-import { sortPostsByDate } from '../utils/content-aggregation';
-import PostsList from '../components/blog/content/PostsList.astro';
+import { sortPostsByDate } from '../../utils/content-aggregation';
+import PostsList from '../../components/blog/content/PostsList.astro';
+import { getPostLang } from '../../utils/post-locale';
 
 const all = await getCollection('blog');
-// English root surfaces every post regardless of locale so the site is not
-// empty while English translations are filled in. Each row carries an
-// (EN)/(JA) badge via PostsList showLang.
-const featuredPosts = all.filter(post => post.data.featured);
-const otherPosts = all.filter(post => !post.data.featured);
+const allPosts = all.filter(p => getPostLang(p.id) === 'ja');
+const featuredPosts = allPosts.filter(post => post.data.featured);
+const otherPosts = allPosts.filter(post => !post.data.featured);
 const posts = [...sortPostsByDate(featuredPosts), ...sortPostsByDate(otherPosts)].slice(0, 10);
 
 const allProjects = await getCollection('projects');
@@ -29,12 +29,9 @@ const featuredProjects = allProjects
     return a.data.name.localeCompare(b.data.name);
   })
   .slice(0, 3);
-
-const description =
-  'Engineer in Yokohama. Notes on building tools (taskdog, ttymap, knowledge-gardener) and what I learned along the way.';
 ---
 
-<BaseLayout title={SITE_TITLE} description={description}>
+<BaseLayout title={SITE_TITLE} description={SITE_DESCRIPTION}>
   <section class="man-section">
     <h2>NAME</h2>
     <p>{HOME_TITLE} -- {SITE_SUBTITLE}</p>
@@ -52,13 +49,16 @@ const description =
 
   <section class="man-section">
     <h2>DESCRIPTION</h2>
-    <p>{description}</p>
-    <p>Bilingual blog: English by default, 日本語 versions linked via the [en | ja] switcher.</p>
+    <p>{SITE_DESCRIPTION}</p>
+    <p>
+      Notes on building tools (taskdog, ttymap, knowledge-gardener) and what I learned along the
+      way. Bilingual: 日本語 / English.
+    </p>
   </section>
 
   <section class="man-section">
     <h2>RECENT</h2>
-    <PostsList posts={posts} showLang />
+    <PostsList posts={posts} />
   </section>
 
   <section class="man-section">
@@ -73,16 +73,16 @@ const description =
       }
     </ul>
     <p class="see-all">
-      <span class="man-prompt"></span><a href="/projects">ls --all → /projects</a>
+      <span class="man-prompt"></span><a href="/ja/projects">ls --all → /projects</a>
     </p>
   </section>
 
   <section class="man-section">
     <h2>NAVIGATION</h2>
     <p>
-      <a href="/blog">blog</a> · <a href="/tags/">tags</a> · <a href="/archives/">archives</a> · <a
-        href="/ja/">ja</a
-      >
+      <a href="/ja/blog">blog</a> · <a href="/ja/tags/">tags</a> · <a href="/ja/archives/"
+        >archives</a
+      > · <a href="/">en</a>
     </p>
   </section>
 

@@ -6,10 +6,10 @@ import { groupPostsByMonth } from '../../../utils/archive-utils';
 import { getPostLang } from '../../../utils/post-locale';
 
 const all = await getCollection('blog');
-const posts = all.filter(p => getPostLang(p.id) === 'en');
+const posts = all.filter(p => getPostLang(p.id) === 'ja');
 const archives = groupPostsByMonth(posts);
-const title = `Archives - ${SITE_TITLE}`;
-const description = 'Monthly archive of English blog posts.';
+const title = `アーカイブ - ${SITE_TITLE}`;
+const description = 'ブログ記事の月別アーカイブ一覧です。';
 
 const groupedByYear = new Map<number, typeof archives>();
 archives.forEach(archive => {
@@ -32,18 +32,18 @@ const sortedYears = Array.from(groupedByYear.keys()).sort((a, b) => b - a);
     <h2>BY YEAR</h2>
     {
       archives.length === 0 ? (
-        <p>No posts yet.</p>
+        <p>まだ記事が投稿されていません。</p>
       ) : (
         sortedYears.map(year => (
           <div class="archive-year-group">
-            <h3>{year}</h3>
+            <h3>{year}年</h3>
             <ul class="ls-listing ls-listing--compact">
               {groupedByYear.get(year)!.map(archive => (
                 <li>
                   <span class="perms">drwxr-xr-x</span>
                   <span class="size">{archive.count}</span>
                   <span class="title">
-                    <a href={`/en/archives/${archive.slug}/`}>{archive.month}</a>
+                    <a href={`/ja/archives/${archive.slug}/`}>{archive.month}月</a>
                   </span>
                 </li>
               ))}
@@ -57,7 +57,7 @@ const sortedYears = Array.from(groupedByYear.keys()).sort((a, b) => b - a);
   <section class="man-section">
     <h2>NAVIGATION</h2>
     <p>
-      <a href="/en/blog">blog</a> · <a href="/en/tags/">tags</a> · <a href="/en/archives/"
+      <a href="/ja/blog">blog</a> · <a href="/ja/tags/">tags</a> · <a href="/ja/archives/"
         >archives</a
       >
     </p>

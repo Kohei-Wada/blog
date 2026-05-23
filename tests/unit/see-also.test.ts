@@ -8,14 +8,14 @@ const jaFixtures = [makeFixture('ja/post-a', 'Post A'), makeFixture('ja/post-b',
 
 describe('resolveSeeAlso', () => {
   it('resolves slugs in the same locale to { title, href }', () => {
-    const out = resolveSeeAlso(['post-b'], 'ja/post-a', jaFixtures);
+    const enFixtures = [makeFixture('en/post-a', 'Post A'), makeFixture('en/post-b', 'Post B')];
+    const out = resolveSeeAlso(['post-b'], 'en/post-a', enFixtures);
     expect(out).toEqual([{ title: 'Post B', href: '/blog/post-b' }]);
   });
 
-  it('produces /en/blog/<slug> for en-locale source posts', () => {
-    const enFixtures = [makeFixture('en/post-c', 'Post C')];
-    const out = resolveSeeAlso(['post-c'], 'en/post-a', enFixtures);
-    expect(out).toEqual([{ title: 'Post C', href: '/en/blog/post-c' }]);
+  it('produces /ja/blog/<slug> for ja-locale source posts', () => {
+    const out = resolveSeeAlso(['post-b'], 'ja/post-a', jaFixtures);
+    expect(out).toEqual([{ title: 'Post B', href: '/ja/blog/post-b' }]);
   });
 
   it('throws when a slug does not resolve in the same locale', () => {
