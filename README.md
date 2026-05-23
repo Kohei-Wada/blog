@@ -23,8 +23,8 @@ npm install
 npm run dev
 # → http://localhost:4321
 
-# Create new blog post
-npm run new-post
+# Verify ja + en post parity
+npm run check:posts
 
 # Run tests
 npm run test

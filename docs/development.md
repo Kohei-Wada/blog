@@ -43,7 +43,8 @@ npm run markdown:fix  # Fix markdown lint issues
 ### Content Management
 
 ```bash
-npm run new-post    # Create new blog post with interactive prompts
+# New posts are created by hand as a ja + en pair under src/content/blog/{en,ja}/
+npm run check:posts    # verify every slug has both locales
 ```
 
 ### Maintenance
