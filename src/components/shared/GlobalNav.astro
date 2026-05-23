@@ -127,6 +127,27 @@ const links: Array<{ id: string; label: string; href: string }> = [
   @media (max-width: 600px) {
     .global-nav {
       padding: 0 0.75rem;
+      column-gap: 1.5ch;
+      row-gap: 0;
+      font-size: var(--font-size-base);
+    }
+    .global-nav a,
+    .global-nav .active {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 44px;
+      min-height: 44px;
+      padding: 0 0.25ch;
+    }
+    .global-nav-search {
+      margin-left: 0;
+      flex: 1 1 100%;
+      justify-content: center;
+      align-items: center;
+      min-height: 44px;
+      padding: 0 0.75ch;
+      margin-top: 0.25rem;
     }
     .global-nav-search-hint {
       display: none;
