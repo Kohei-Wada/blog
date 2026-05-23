@@ -82,6 +82,8 @@ utility_meter:
 
 This generates a daily consumption sensor that resets at midnight. The 21:00 report covers: today's energy (kWh) / current draw (W) / CO2 intensity (gCO2eq/kWh, via Electricity Maps) / fossil-fuel share (%).
 
+To read this consumption data in the first place, you have to connect to the smart meter's **Route-B (the B-route)** over Wi-SUN. I use RATOC's Wi-SUN USB adapter (RS-WSUHA), which is quietly the priciest part of this whole setup — it cost over ¥20,000. And I'd let it sit idle for a while after buying it, with a low-key guilt of "this tiny USB-stick-looking thing that cost 20k is just gathering dust" (heh). This power report finally started earning it back.
+
 ## Consolidating 64 location notices into 2
 
 After running it a while, I folded the per-"person × zone" automations into 2.
