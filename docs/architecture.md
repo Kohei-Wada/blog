@@ -112,20 +112,23 @@ class GitHubCacheManager {
 
 ### File-Based Routing
 
+Both locales are prefixed (`/en/...`, `/ja/...`); `/` redirects to `/en`. Logic
+pages live once under `[lang]/` and generate both locales via `getStaticPaths`.
+
 ```
 src/pages/
-├── index.Astro              # Homepage (/)
-├── about.Astro              # About page (/about/)
-├── contact.Astro            # Contact (/contact/)
-├── blog/
-│   ├── index.Astro          # Blog listing (/blog/)
-│   └── [...slug].Astro      # Dynamic blog posts (/blog/post-slug/)
-├── archives/
-│   ├── index.Astro          # Archive listing (/archives/)
-│   └── [yearmonth].Astro    # Monthly archives (/archives/2024-01/)
-└── tags/
-    ├── index.Astro          # All tags (/tags/)
-    └── [tag].Astro          # Tag-filtered posts (/tags/JavaScript/)
+├── [lang]/                       # en + ja from one source
+│   ├── index.astro               # Homepage (/en/, /ja/)
+│   ├── blog/[...page].astro       # Blog listing (/en/blog/)
+│   ├── blog/[...slug].astro       # Blog posts (/en/blog/post-slug/)
+│   ├── archives/index.astro       # Archive listing (/en/archives/)
+│   ├── archives/[yearmonth]/[...page].astro # (/en/archives/2024-01/)
+│   ├── tags/index.astro           # All tags (/en/tags/)
+│   ├── tags/[tag]/[...page].astro # Tag-filtered (/en/tags/JavaScript/)
+│   └── search-index.json.ts       # Per-locale search index
+├── en/  · ja/                    # prose pages: about, contact, privacy, projects
+├── 404.astro                     # Custom 404
+└── rss.xml.js                    # RSS feed
 ```
 
 ### Content Collections
@@ -137,11 +140,9 @@ const blogCollection = defineCollection({
   schema: z.object({
     title: z.string(),
     description: z.string(),
-    pubDate: z.date(),
-    tags: z.array(z.string()),
-    updatedDate: z.date().optional(),
-    heroImage: z.string().optional(),
-    featured: z.boolean().optional(),
+    pubDate: z.coerce.date(),
+    tags: z.array(z.string()).default([]),
+    seeAlso: z.array(z.string()).default([]),
   }),
 });
 ```
