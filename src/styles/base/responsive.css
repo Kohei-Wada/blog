@@ -37,19 +37,19 @@
 /* Mobile (720px and below) */
 @media (max-width: 720px) {
   :root {
-    --mobile-font-scale: 0.9;
-    --font-size-xs: 0.7rem;
-    --font-size-sm: 0.8rem;
-    --font-size-base: 0.9rem;
-    --font-size-lg: 1rem;
-    --font-size-xl: 1.1rem;
-    --font-size-2xl: 1.3rem;
-    --font-size-3xl: 1.6rem;
+    --mobile-font-scale: 0.95;
+    --font-size-xs: 0.8rem;
+    --font-size-sm: 0.9rem;
+    --font-size-base: 1rem;
+    --font-size-lg: 1.15rem;
+    --font-size-xl: 1.3rem;
+    --font-size-2xl: 1.5rem;
+    --font-size-3xl: 1.8rem;
   }
 
   body {
-    font-size: 16px;
-    line-height: 1.6;
+    font-size: 17px;
+    line-height: 1.7;
   }
 
   main {
@@ -93,19 +93,19 @@
 /* Small Mobile (480px and below) */
 @media (max-width: 480px) {
   :root {
-    --mobile-font-scale: 0.85;
-    --font-size-xs: 0.65rem;
-    --font-size-sm: 0.75rem;
-    --font-size-base: 0.85rem;
-    --font-size-lg: 0.95rem;
-    --font-size-xl: 1.05rem;
-    --font-size-2xl: 1.2rem;
-    --font-size-3xl: 1.5rem;
+    --mobile-font-scale: 0.92;
+    --font-size-xs: 0.78rem;
+    --font-size-sm: 0.88rem;
+    --font-size-base: 1rem;
+    --font-size-lg: 1.12rem;
+    --font-size-xl: 1.25rem;
+    --font-size-2xl: 1.45rem;
+    --font-size-3xl: 1.7rem;
   }
 
   body {
-    font-size: 15px;
-    line-height: 1.6;
+    font-size: 16px;
+    line-height: 1.65;
   }
 
   h1 {
@@ -136,19 +136,19 @@
 /* Extra Small Mobile (380px and below) */
 @media (max-width: 380px) {
   :root {
-    --mobile-font-scale: 0.8;
-    --font-size-xs: 0.6rem;
-    --font-size-sm: 0.7rem;
-    --font-size-base: 0.8rem;
-    --font-size-lg: 0.9rem;
-    --font-size-xl: 1rem;
-    --font-size-2xl: 1.1rem;
-    --font-size-3xl: 1.4rem;
+    --mobile-font-scale: 0.9;
+    --font-size-xs: 0.75rem;
+    --font-size-sm: 0.85rem;
+    --font-size-base: 0.95rem;
+    --font-size-lg: 1.08rem;
+    --font-size-xl: 1.2rem;
+    --font-size-2xl: 1.4rem;
+    --font-size-3xl: 1.6rem;
   }
 
   body {
-    font-size: 14px;
-    line-height: 1.5;
+    font-size: 16px;
+    line-height: 1.6;
   }
 
   h1 {
