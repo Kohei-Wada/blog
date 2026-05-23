@@ -63,7 +63,7 @@ status:  ## Show vault status
 
 フォルダごとのノート数がわかります。Reference Notes が増えすぎていたら、MOC を作るタイミングかもしれません。
 
-![make statusの実行結果](../../assets/vault-make-status.png)
+![make statusの実行結果](../../../assets/vault-make-status.png)
 
 ---
 
@@ -84,7 +84,7 @@ tag-graph:  ## Meaningful tag usage with ASCII bar chart
 
 どのトピックにノートが集中しているかがわかります。バーが長いタグは、ブログ記事のネタになりやすいトピックです。
 
-![make tag-graphの実行結果](../../assets/vault-make-tag-graph.png)
+![make tag-graphの実行結果](../../../assets/vault-make-tag-graph.png)
 
 ---
 
@@ -101,7 +101,7 @@ growth-graph: ## Show markdown file count growth over time (ASCII graph)
 
 コミットごとの Markdown ファイル数を集計して、成長曲線を描きます。ノートが順調に増えているのを見ると、続けるモチベーションになります。
 
-![make growth-graphの実行結果](../../assets/vault-make-growth-graph.png)
+![make growth-graphの実行結果](../../../assets/vault-make-growth-graph.png)
 
 ---
 
@@ -121,7 +121,7 @@ day-graph:  ## Gnuplot bar chart of commits by day of week
 
 自分の場合、平日より週末のほうがコミットが多いことがわかりました。仕事終わりは疲れていて、あまりノートを書いていないようです。
 
-![make day-graphの実行結果](../../assets/vault-make-day-graph.png)
+![make day-graphの実行結果](../../../assets/vault-make-day-graph.png)
 
 ---
 
@@ -140,7 +140,7 @@ time-graph:  ## Gnuplot line chart of commits by hour
 
 朝型か夜型か、自分の集中できる時間帯が見えてきます。
 
-![make time-graphの実行結果](../../assets/vault-make-time-graph.png)
+![make time-graphの実行結果](../../../assets/vault-make-time-graph.png)
 
 ---
 
@@ -177,7 +177,7 @@ heatmap:  ## Activity heatmap showing day of week vs hour
 
 日曜の午後から夜にかけて集中していることがわかります。GitHub の草と似た感覚ですが、ナレッジベース専用なので、自分の学習パターンがより正確に見えます。
 
-![make heatmapの実行結果](../../assets/vault-make-heatmap.png)
+![make heatmapの実行結果](../../../assets/vault-make-heatmap.png)
 
 ---
 

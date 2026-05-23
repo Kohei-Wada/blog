@@ -2,18 +2,20 @@ import type { APIRoute } from 'astro';
 import { getCollection } from 'astro:content';
 import type { SearchItem } from '../utils/search';
 import { formatErrorForLog } from '../utils/error-utils';
+import { getPostLang, getPostSlug } from '../utils/post-locale';
 
 export const GET: APIRoute = async () => {
   try {
     const posts = await getCollection('blog');
+    const jaPosts = posts.filter(post => getPostLang(post.id) === 'ja');
 
-    const searchIndex: SearchItem[] = posts.map(post => ({
+    const searchIndex: SearchItem[] = jaPosts.map(post => ({
       id: post.id,
       title: post.data.title,
       description: post.data.description,
       tags: post.data.tags,
       pubDate: post.data.pubDate.toISOString(),
-      url: `/blog/${post.id}/`,
+      url: `/blog/${getPostSlug(post.id)}/`,
     }));
 
     return new Response(JSON.stringify(searchIndex), {
