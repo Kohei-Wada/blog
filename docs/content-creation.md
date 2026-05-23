@@ -1,288 +1,95 @@
 # Content Creation Guide
 
-## ✍️ Creating New Blog Posts
+This blog is **bilingual (ja + en)**. Every post must exist in **both** locales
+or it cannot be committed (a pre-commit hook + `npm run check:posts` enforce
+parity). For the full agent-driven workflow see the `write-post` skill
+(`.claude/skills/write-post/SKILL.md`); this doc is the human reference.
 
-### Quick Start
+## Creating a Post
 
-```bash
-# Interactive post creation
-npm run new-post
+A post is two Markdown files sharing one slug:
 
-# Follow prompts:
-# 1. Enter post title
-# 2. Add description
-# 3. Select tags (comma-separated)
-# 4. Post file created with proper frontmatter
-```
+| File                            | Served at         |
+| ------------------------------- | ----------------- |
+| `src/content/blog/en/<slug>.md` | `/en/blog/<slug>` |
+| `src/content/blog/ja/<slug>.md` | `/ja/blog/<slug>` |
 
-### Manual Creation
+There is no `npm run new-post` scaffolder — create the two files directly (copy
+an existing post for the frontmatter shape).
 
-1. Create file in `src/content/blog/your-post-slug.md`
-2. Add required frontmatter
-3. Write content in Markdown/MDX
+## Frontmatter
 
-## 📝 Post Structure
-
-### Required Frontmatter
+### Required
 
 ```yaml
 ---
 title: 'Your Post Title'
 description: 'Brief description for SEO and previews'
-pubDate: '2024-01-25' # ISO date format
-tags: ['JavaScript', 'Astro', 'web-development']
+pubDate: '2024-01-25' # ISO date
+tags: ['shell-tricks', 'astro'] # see Tagging below
 ---
 ```
 
-### Optional Frontmatter
+### Optional
 
 ```yaml
----
-# ... required fields above
-updatedDate: '2024-01-26' # Shows "Updated on" date
-heroImage: '../../assets/blog/hero-image.jpg' # Relative path
-featured: true # Highlight as featured post
----
+seeAlso: ['other-slug'] # shown in SEE ALSO; MUST resolve in the SAME locale
 ```
 
-### Content Guidelines
+There is **no** `heroImage`, `updatedDate`, or `featured` field — they were
+removed. Drafts that carry them must drop them. Frontmatter must be valid YAML.
 
-**Title Best Practices**:
+## Writing Rules
 
-- Clear and descriptive
-- 50-60 characters for SEO
-- Use active voice
-- Include main keyword
+- Plain `## Heading` / `### Subheading`. No emoji section headers, no template
+  scaffolding.
+- Conversational, hands-on voice. Match existing posts.
+- **Internal links are locale-prefixed.** From an en post link to `/en/blog/<slug>`,
+  `/en/tags/<tag>/`; from a ja post use `/ja/...`. A bare `/blog/<slug>` 404s.
+  When translating, re-point internal links to the target locale.
+- Link text must be descriptive (markdownlint MD059 rejects bare `[here]`).
+- Code blocks use ` ```lang `; syntax highlighting is solarized-light via
+  Astro-expressive-code.
 
-**Description Requirements**:
+## Tagging
 
-- 120-160 characters
-- Summarize key points
-- Include primary keyword
-- Avoid duplicate descriptions
+- **Tags are per-locale.** Use Japanese-flavoured tags on ja posts (`個人開発`,
+  `シェル芸`) and English on en posts (`personal-projects`, `shell-tricks`). They
+  need not match across locales.
+- Keep it to a handful of specific tags. Check existing tags at `/en/tags/` and
+  `/ja/tags/` for consistency.
 
-## 🏷️ Tagging System
-
-### Available Tags
-
-Use consistent, lowercase tags:
-
-- `JavaScript`, `TypeScript`, `react`, `Astro`
-- `CSS`, `HTML`, `frontend`, `backend`
-- `tutorial`, `tips`, `review`, `opinion`
-- `productivity`, `tools`, `workflow`
-
-### Tag Guidelines
-
-- **Maximum**: 5 tags per post
-- **Specificity**: Use specific over generic tags
-- **Consistency**: Check existing tags in `/tags/`
-- **Relevance**: Tags should match content
-
-## 🖼️ Images & Assets
-
-### Image Management
-
-**Directory**: `src/assets/blog/` or `src/assets/hero-images/`
-
-**Formats Supported**:
-
-- JPEG/JPG (photographs)
-- PNG (graphics with transparency)
-- WebP (modern format, auto-converted)
-- SVG (vector graphics)
-
-### Hero Images
-
-**Random Selection System**:
-
-```typescript
-// Automatic random hero image if not specified
-const heroImages = [
-  'blog-placeholder-2.jpg',
-  'blog-placeholder-3.jpg',
-  'blog-placeholder-4.jpg',
-  'blog-placeholder-5.jpg',
-];
-```
-
-**Custom Hero Image**:
-
-```yaml
----
-heroImage: '../../assets/blog/my-custom-hero.jpg'
----
-```
-
-### Image Optimization
-
-**Automatic Processing**:
-
-- WebP conversion for modern browsers
-- Responsive size generation
-- Lazy loading implementation
-- Alt text from filename or caption
-
-**Best Practices**:
-
-- Max width: 1200px for hero images
-- Optimize before upload (80-85% JPEG quality)
-- Use descriptive filenames
-- Include alt text for accessibility
-
-## 📊 SEO Optimization
-
-### Meta Tags (Auto-generated)
-
-The blog automatically generates:
-
-- `<title>` from post title + site name
-- `<meta name="description">` from frontmatter
-- Open Graph tags for social sharing
-- Twitter Card metadata
-- Canonical URLs
-
-### Content SEO
-
-**Heading Structure**:
-
-```markdown
-# Main Title (H1) - Auto-generated from frontmatter
-
-## Major Section (H2)
-
-### Subsection (H3)
-
-#### Minor Point (H4)
-```
-
-**Internal Linking**:
-
-```markdown
-<!-- Link to other posts -->
-
-[Previous post about React](../react-hooks-guide/)
-
-<!-- Link to tag pages -->
-
-Check out more [JavaScript posts](/tags/JavaScript/)
-```
-
-**Code Blocks**:
-
-````markdown
-```JavaScript
-// Syntax highlighting included
-const greeting = 'Hello, World!';
-console.log(greeting);
-```
-````
-
-````
-
-## 🔗 Social Sharing
-
-### Share Buttons
-
-Automatically generated for:
-- Twitter/X
-- Facebook
-- LinkedIn
-- Hatena Bookmark (Japanese audience)
-- Pocket
-
-### Custom Share Text
-
-Share buttons use:
-- **Title**: Post title
-- **URL**: Full canonical URL
-- **Description**: Frontmatter description
-
-## 📅 Publishing Workflow
-
-### Development Preview
+## Verify Before Shipping
 
 ```bash
-# Start dev server
-npm run dev
-
-# Navigate to: http://localhost:4321/blog/your-post-slug/
-# Check formatting, links, images
-````
-
-### Pre-publish Checklist
-
-- [ ] Frontmatter complete and valid
-- [ ] Images optimized and loading
-- [ ] Internal/external links working
-- [ ] Code blocks properly highlighted
-- [ ] Tags consistent with existing ones
-- [ ] Description under 160 characters
-- [ ] Spelling and grammar checked
-
-### Publishing
-
-```bash
-# Add and commit new post
-git add src/content/blog/your-new-post.md
-git commit -m "feat: add post about [topic]"
-git push origin main
-
-# Automatic deployment to production
+npm run check:posts   # parity OK (N ja / N en)
+npm run build         # succeeds
+npm run dev           # then open both locale URLs in a browser
 ```
 
-## 🎨 Content Features
+Render and eyeball **both** `/en/blog/<slug>` and `/ja/blog/<slug>`: headings,
+no wrong-language text in `.post-body`, code blocks present, and the LangSwitcher
+points at the sibling (`/en/…` ⇄ `/ja/…`).
 
-### Table of Contents
+## Publishing
 
-Auto-generated from H2 and H3 headings:
+```bash
+git add src/content/blog/en/<slug>.md src/content/blog/ja/<slug>.md
+git commit -m "content: add <topic> post (ja + en)"
+git push   # open a PR; on green CI, squash-merge — Netlify auto-deploys main
+```
 
-- Smooth scrolling navigation
-- Current section highlighting
-- Mobile-responsive collapsible
+After deploy, `curl -sL https://wada-dev.com/en/blog/<slug>` and `/ja/blog/<slug>`
+should both return 200.
 
-### Related Posts
+## Auto-generated Features
 
-Automatic suggestions based on:
-
-- Shared tags (primary factor)
-- Publication date proximity
-- Content similarity
-
-### Syntax Highlighting
-
-**Supported Languages**:
-
-- JavaScript, TypeScript, JSX, TSX
-- Python, Rust, Go, Java, C++
-- HTML, CSS, SCSS, JSON, YAML
-- Bash, Shell, PowerShell
-- And 100+ more via Shiki
-
-**Features**:
-
-- GitHub Dark theme
-- Line highlighting
-- Copy code button
-- Language labels
-
-## 📱 Mobile Optimization
-
-### Responsive Design
-
-All content automatically optimized for:
-
-- **Mobile**: < 768px width
-- **Tablet**: 768px - 1024px width
-- **Desktop**: > 1024px width
-
-### Reading Experience
-
-- Optimized line length (45-75 characters)
-- Comfortable line spacing
-- Touch-friendly navigation
-- Fast loading on mobile networks
+- **Table of Contents**: built from H2/H3 headings.
+- **SEE ALSO**: from the `seeAlso` frontmatter (same-locale slugs).
+- **Meta/SEO**: `<title>`, description, Open Graph, Twitter Card, canonical, and
+  JSON-LD are generated by `BaseHead.astro`.
 
 ---
 
-_See [Development Guide](./development.md) for technical implementation details_
+_See [Architecture](./architecture.md) for routing and [Development](./development.md)
+for tooling._

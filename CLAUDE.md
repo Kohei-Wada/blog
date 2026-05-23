@@ -139,21 +139,31 @@ src/components/
 
 ### Page Routing Strategy
 
+Both locales are served under a prefix (`/en/...`, `/ja/...`); `/` redirects to
+`/en`. The logic pages live once under `[lang]/` and `getStaticPaths` emits both
+locales (filter / hrefs / i18n derived from `Astro.params.lang`). Prose pages stay
+two files (`en/`, `ja/`). Internal links must be locale-prefixed — a bare
+`/blog/<slug>` no longer exists.
+
 ```
 src/pages/
-├── index.Astro          # Homepage with recent posts and projects
-├── about.Astro          # About page
-├── contact.Astro        # Contact form page
-├── 404.Astro           # Custom 404 page
-├── blog/
-│   ├── index.Astro     # Blog listing page
-│   └── [...slug].Astro # Dynamic blog post routes
-├── archives/           # Monthly archive pages
-│   ├── index.Astro     # Archive listing
-│   └── [yearmonth].Astro # Posts by year/month
-└── tags/
-    ├── index.Astro     # All tags listing
-    └── [tag].Astro     # Posts filtered by tag
+├── [lang]/                   # en + ja generated from one source
+│   ├── index.astro           # Homepage (/en/, /ja/)
+│   ├── blog/
+│   │   ├── [...page].astro    # Paginated blog listing
+│   │   └── [...slug].astro    # Blog posts (/en/blog/<slug>, /ja/blog/<slug>)
+│   ├── archives/
+│   │   ├── index.astro
+│   │   └── [yearmonth]/[...page].astro
+│   ├── tags/
+│   │   ├── index.astro
+│   │   └── [tag]/[...page].astro
+│   └── search-index.json.ts  # Per-locale client-search index
+├── en/                       # English prose pages
+│   └── about · contact · privacy · projects
+├── ja/                       # Japanese prose pages (same set)
+├── 404.astro                 # Custom 404 (locale-agnostic)
+└── rss.xml.js                # RSS feed (English posts)
 ```
 
 ### Styling Architecture

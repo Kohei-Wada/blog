@@ -163,9 +163,9 @@ catch (error) {
     <item>
       <title>Post Title</title>
       <description>Post description</description>
-      <link>https://wada-dev.com/blog/post-slug/</link>
+      <link>https://wada-dev.com/en/blog/post-slug/</link>
       <pubDate>Wed, 25 Jan 2024 00:00:00 GMT</pubDate>
-      <guid>https://wada-dev.com/blog/post-slug/</guid>
+      <guid>https://wada-dev.com/en/blog/post-slug/</guid>
     </item>
   </channel>
 </RSS>
@@ -188,7 +188,7 @@ export async function GET(context) {
       title: post.data.title,
       description: post.data.description,
       pubDate: post.data.pubDate,
-      link: `/blog/${post.slug}/`,
+      link: `/en/blog/${getPostSlug(post.id)}/`,
     })),
   });
 }
@@ -204,20 +204,21 @@ export async function GET(context) {
 
 ### Generated URLs
 
-**Static Pages**:
+All URLs are locale-prefixed (`/en/...`, `/ja/...`); `/` redirects to `/en`.
 
-- `/` (homepage)
-- `/about/`
-- `/contact/`
-- `/blog/` (blog index)
-- `/archives/` (archive index)
-- `/tags/` (tags index)
+**Static Pages** (per locale):
 
-**Dynamic Pages**:
+- `/en/`, `/ja/` (homepage)
+- `/en/about/`, `/en/contact/`, `/en/privacy/`, `/en/projects/` (+ `/ja/...`)
+- `/en/blog/` (blog index)
+- `/en/archives/` (archive index)
+- `/en/tags/` (tags index)
 
-- `/blog/[slug]/` (individual posts)
-- `/archives/[yearmonth]/` (monthly archives)
-- `/tags/[tag]/` (tag-filtered posts)
+**Dynamic Pages** (per locale):
+
+- `/en/blog/[slug]/` (individual posts)
+- `/en/archives/[yearmonth]/` (monthly archives)
+- `/en/tags/[tag]/` (tag-filtered posts)
 
 ### Configuration
 

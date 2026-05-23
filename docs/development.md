@@ -136,10 +136,11 @@ npm run typecheck && npm run lint && npm run test:run && npm run build
 
 ### Working with Content
 
-- Blog posts go in `src/content/blog/`
-- Use `npm run new-post` for scaffolding
+- Blog posts go in `src/content/blog/en/` and `src/content/blog/ja/` — both
+  locales required (parity is enforced by `npm run check:posts` + pre-commit)
 - Images in `src/assets/`
-- Follow frontmatter schema in `src/content.config.ts`
+- Follow the frontmatter schema in `src/content.config.ts`
+- See [Content Creation](./content-creation.md) and the `write-post` skill
 
 ### Debugging
 

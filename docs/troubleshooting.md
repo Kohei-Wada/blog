@@ -215,10 +215,11 @@ Error: Expected corresponding JSX closing tag for <Component>
 
 1. Check file path is correct relative to content file
 2. Verify image exists in `src/assets/` directory
-3. Use correct frontmatter syntax:
+3. Reference images from the post body with Markdown (there is no `heroImage`
+   frontmatter field):
 
-   ```yaml
-   heroImage: '../../assets/blog/image.jpg'
+   ```markdown
+   ![alt text](../../assets/blog/image.jpg)
    ```
 
 4. Check image file extensions match exactly
@@ -285,7 +286,7 @@ npm run build
 npm run dev -- --verbose
 
 # Debug specific component
-npm run dev -- --open /blog/test-post/
+npm run dev -- --open /en/blog/test-post/
 
 # Check TypeScript issues
 npm run typecheck -- --watch
