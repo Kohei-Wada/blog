@@ -23,10 +23,6 @@ export interface TocItem {
   subheadings: TocItem[];
 }
 
-export interface GlobalThisWithStats {
-  _githubStatsLogged?: boolean;
-}
-
 // JSON-LD Schema.org types
 export interface JsonLdPerson {
   '@type': 'Person';
