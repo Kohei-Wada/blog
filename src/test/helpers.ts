@@ -11,7 +11,6 @@ export function createMockPost(
     description?: string;
     pubDate?: Date | string;
     tags?: string[];
-    featured?: boolean;
   } = {}
 ): CollectionEntry<'blog'> {
   const id = overrides.id ?? 'test-post';
@@ -28,7 +27,6 @@ export function createMockPost(
       description: overrides.description ?? 'Test description',
       pubDate,
       tags: overrides.tags ?? ['test'],
-      featured: overrides.featured ?? false,
     },
   } as CollectionEntry<'blog'>;
 }

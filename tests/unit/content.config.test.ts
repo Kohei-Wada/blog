@@ -8,7 +8,6 @@ describe('Content Config Schema', () => {
     description: z.string(),
     pubDate: z.coerce.date(),
     tags: z.array(z.string()).default([]),
-    updatedDate: z.coerce.date().optional(),
   });
 
   it('should validate valid blog post frontmatter', () => {
@@ -60,7 +59,6 @@ describe('Content Config Schema', () => {
       title: 'Test Blog Post',
       description: 'A test blog post description',
       pubDate: '2023-12-25T10:30:00Z',
-      updatedDate: '2023-12-26',
     };
 
     const result = blogSchema.safeParse(frontmatter);
@@ -68,7 +66,6 @@ describe('Content Config Schema', () => {
 
     if (result.success) {
       expect(result.data.pubDate).toBeInstanceOf(Date);
-      expect(result.data.updatedDate).toBeInstanceOf(Date);
     }
   });
 });

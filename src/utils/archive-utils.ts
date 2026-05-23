@@ -74,19 +74,6 @@ export function generateArchiveSlug(year: number, month: number): string {
 }
 
 /**
- * 最近のアーカイブ月を取得する
- * @param archives アーカイブデータの配列
- * @param limit 取得する件数（デフォルト：6）
- * @returns 最近のアーカイブ月（新しい順）
- */
-export function getRecentArchiveMonths(
-  archives: ArchiveMonth[],
-  limit: number = 6
-): ArchiveMonth[] {
-  return archives.slice(0, limit);
-}
-
-/**
  * 年月スラグから年と月を抽出する
  * @param slug 年月スラグ（例：「2025-08」）
  * @returns { year, month } オブジェクト、無効な場合は null

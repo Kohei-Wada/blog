@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { getErrorMessage, isError, formatErrorForLog } from '../../src/utils/error-utils';
+import { getErrorMessage, formatErrorForLog } from '../../src/utils/error-utils';
 
 describe('error-utils', () => {
   describe('getErrorMessage', () => {
@@ -31,36 +31,6 @@ describe('error-utils', () => {
 
     it('should return default message for objects', () => {
       expect(getErrorMessage({ foo: 'bar' })).toBe('Unknown error occurred');
-    });
-  });
-
-  describe('isError', () => {
-    it('should return true for Error instances', () => {
-      expect(isError(new Error('test'))).toBe(true);
-    });
-
-    it('should return true for TypeError', () => {
-      expect(isError(new TypeError('test'))).toBe(true);
-    });
-
-    it('should return true for RangeError', () => {
-      expect(isError(new RangeError('test'))).toBe(true);
-    });
-
-    it('should return false for string', () => {
-      expect(isError('string')).toBe(false);
-    });
-
-    it('should return false for null', () => {
-      expect(isError(null)).toBe(false);
-    });
-
-    it('should return false for undefined', () => {
-      expect(isError(undefined)).toBe(false);
-    });
-
-    it('should return false for object with message property', () => {
-      expect(isError({ message: 'fake error' })).toBe(false);
     });
   });
 
