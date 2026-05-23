@@ -5,7 +5,7 @@ pubDate: 'Jan 07 2026'
 tags: ['Linux', 'Hyprland', 'Arch Linux', 'wayland']
 ---
 
-I've been playing with Hyprland recently and got tripped up by something silly, so I figured I'd share.
+I've been playing around with Hyprland recently and got tripped up by something silly, so I figured I'd share.
 
 ## I'd been launching Hyprland directly the whole time
 
@@ -15,23 +15,23 @@ From the Arch Linux tty, I'd always been starting Hyprland like this:
 Hyprland
 ```
 
-I think I just copied this from some wiki or article ages ago and never thought about it again.
+I think I just copied it from some wiki or article ages ago and never thought about it again.
 
 ## One day a "use start-hyprland" warning showed up
 
-At some point, launching Hyprland started spitting out a warning saying I should launch it via `start-hyprland`.
-Looking into it, this turned out to be a breaking change in 0.53. `start-hyprland` became the official launcher, and things like watchdog behavior are now managed there.
+At some point, launching Hyprland started spitting out a warning telling me to launch it via `start-hyprland` instead.
+Looking into it, this turned out to be a breaking change in 0.53: `start-hyprland` became the official launcher, and things like watchdog behavior are now managed there.
 
 ## Around that time, I noticed Waybar wasn't getting killed
 
-I was bouncing in and out of Hyprland repeatedly trying to figure out what `start-hyprland` actually was, and I noticed that even after quitting Hyprland, Waybar and fcitx5 were still alive.
+While bouncing in and out of Hyprland over and over to figure out what `start-hyprland` actually was, I noticed that even after quitting Hyprland, Waybar and fcitx5 were still alive.
 My `hyprland.conf` had this in `exec-once`:
 
 ```bash
 exec-once = waybar & hyprpaper & fcitx5 & swaync & hypridle
 ```
 
-Intuitively you'd expect: Hyprland exits → its child processes (Waybar and friends) exit too. But for some reason Waybar stuck around.
+Intuitively you'd expect: Hyprland exits → its child processes (Waybar and friends) exit too. But for some reason, Waybar stuck around.
 
 ## exec start-hyprland makes everything exit together
 
@@ -41,7 +41,7 @@ I tried this from the tty:
 exec start-hyprland
 ```
 
-And the behavior changed. Quitting Hyprland now logs me out of the tty too, and Waybar and the rest all get killed together. Very satisfying.
+And the behavior changed. Quitting Hyprland now logs me out of the tty too, and Waybar and the rest all get killed along with it. Very satisfying.
 
 ## Why is it different? "Parent dying doesn't kill the child" is just how Linux works
 
@@ -74,7 +74,7 @@ None of these are actually about "the parent process exiting" — they're about 
 
 ## What exec start-hyprland actually does
 
-When you log into a tty, a login shell (e.g. bash) is what runs first. Normally it looks like:
+When you log into a tty, a login shell (e.g. bash) is the first thing that runs. Normally it looks like this:
 
 ```text
 login → bash → Hyprland

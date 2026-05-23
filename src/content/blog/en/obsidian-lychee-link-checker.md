@@ -5,7 +5,7 @@ pubDate: 'Jan 08 2026'
 tags: ['Obsidian', 'lychee', 'Markdown', 'pre-commit', 'Zettelkasten']
 ---
 
-When you manage notes in Obsidian, renaming files or deleting notes can leave broken links behind. In this post, I'll show how to automatically detect them using lychee, a fast link checker written in Rust.
+When you manage notes in Obsidian, renaming or deleting notes can leave broken links behind. In this post, I'll show you how to detect them automatically using lychee, a fast link checker written in Rust.
 
 ## What is lychee?
 
@@ -20,16 +20,16 @@ When you manage notes in Obsidian, renaming files or deleting notes can leave br
 
 ## Prerequisite: Obsidian link formats
 
-There's an important caveat when using lychee. Obsidian's default wiki-link format `[[note]]` is _not_ supported by lychee. To check links with lychee, you need to use standard Markdown link syntax.
+There's an important caveat to be aware of with lychee. Obsidian's default wiki-link format `[[note]]` is _not_ supported. To check links with lychee, you need to use standard Markdown link syntax.
 
-If you flip Obsidian's "New link format" setting to "Relative path", new links will be created in the standard format automatically.
+If you set Obsidian's "New link format" option to "Relative path", new links will be created in the standard format automatically.
 
 ![Obsidian settings: change link format to relative path](../../../assets/obsidian-link-settings.png)
 
 | Format            | Example             | lychee support   |
 | ----------------- | ------------------- | ---------------- |
-| wiki link         | `[[note]]`          | ❌ Not supported |
-| standard Markdown | `[note](./note.md)` | ✅ Supported     |
+| Wiki link         | `[[note]]`          | ❌ Not supported |
+| Standard Markdown | `[note](./note.md)` | ✅ Supported     |
 
 To convert existing wiki links, plugins like [obsidian-link-converter](https://github.com/ozntel/obsidian-link-converter) come in handy.
 
@@ -49,7 +49,7 @@ curl -sSfL https://github.com/lycheeverse/lychee/releases/latest/download/lychee
 
 ## Basic usage
 
-To check the internal links of an Obsidian vault, use the `--offline` option:
+To check the internal links in an Obsidian vault, use the `--offline` option:
 
 ```bash
 lychee --offline vault/
@@ -81,7 +81,7 @@ Using relative paths lets lychee detect broken links accurately.
 
 ## Excluding files
 
-In practice, you'll inevitably want to exclude certain files or directories from the check.
+In practice, there will always be files or directories you want to exclude from the check.
 
 ### Excluding from the command line
 
@@ -113,7 +113,7 @@ vault/98_Templates/
 
 ### Managing settings with lychee.toml
 
-Bundling settings into a file is convenient:
+Keeping your settings in a config file is convenient:
 
 ```toml
 # lychee.toml
@@ -160,7 +160,7 @@ pip install pre-commit
 pre-commit install
 ```
 
-Now link checking runs automatically on every commit, and a commit will be aborted if any broken links are found.
+Now the link check runs automatically on every commit, and the commit will be aborted if any broken links are found.
 
 ## Continuous checking with GitHub Actions
 
@@ -193,7 +193,7 @@ jobs:
 
 ## Running from a Makefile
 
-It's handy to wrap frequently used commands in a Makefile:
+It's handy to wrap commands you use often in a Makefile:
 
 ```makefile
 VAULT_PATH := vault

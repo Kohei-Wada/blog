@@ -51,7 +51,7 @@ But a few things bothered me:
 - Cloud-required (I don't want to hand my task data over to a third party)
 - Black-box AI (you can't tell why it picked this schedule)
 
-Even when told "the AI decided," I felt like I was being handed a schedule I couldn't really agree with.
+Even when told "the AI decided," I felt like I was being handed a schedule I couldn't really get behind.
 
 #### Asana / Jira / ClickUp
 
@@ -59,7 +59,7 @@ I also tried team-oriented tools.
 
 They have tons of features, but they're way too heavy for personal use. Parent-child tasks, subtasks, epics, stories...
 
-A single person doesn't need that kind of complex structure.
+One person working solo doesn't need that kind of complex structure.
 
 #### Notion
 
@@ -179,7 +179,7 @@ I've also implemented `balanced`, `priority_first`, `earliest_deadline`, `round_
 taskdog gantt
 ```
 
-You get a Gantt chart right in the terminal. It also shows daily load, so you can spot "this day is overpacked" at a glance.
+You get a Gantt chart right in the terminal. It also shows the daily load, so you can spot "this day is overpacked" at a glance.
 
 ![Gantt chart view](https://storage.googleapis.com/zenn-user-upload/c08e96e11b74-20251229.png)
 
@@ -190,7 +190,7 @@ taskdog tui
 ```
 
 The look and feel lean toward **Vim/Neovim**.
-You can do real-time task search with `/`, modeled after **telescope.nvim**. Neovim users should feel right at home.
+Real-time task search with `/` is modeled after **telescope.nvim**, so Neovim users should feel right at home.
 
 | Key      | Action          |
 | -------- | --------------- |

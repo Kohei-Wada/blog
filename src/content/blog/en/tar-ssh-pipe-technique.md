@@ -1,6 +1,6 @@
 ---
 title: 'Notes on the tar + ssh pipe technique'
-description: 'A practical streaming-transfer technique using tar + ssh pipes, for environments without rsync or when sudo is required to read the files'
+description: 'A practical streaming-transfer technique with tar + ssh pipes, for when rsync is missing or you need sudo to read the files'
 pubDate: 'Jan 11 2026'
 tags: ['Shell', 'Bash', 'SSH', 'Linux', 'Unix']
 ---
@@ -37,7 +37,7 @@ Tried scp:
 scp: /var/log/nginx/access.log: Permission denied
 ```
 
-The log directory needs root. scp has no way to slip a `sudo` in there.
+The log directory needs root, and scp gives you no way to slip a `sudo` in there.
 
 This is exactly where the tar + ssh pipe earns its keep.
 

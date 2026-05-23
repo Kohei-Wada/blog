@@ -1,11 +1,11 @@
 ---
 title: 'Parallel Development with Claude Code Without git worktree (container-use)'
-description: 'How to do parallel development with Claude Code using Dagger''s MCP tool "container-use" without polluting your directory structure'
+description: 'How to run parallel development with Claude Code using Dagger''s MCP tool "container-use" without cluttering your directory structure'
 pubDate: 'Jan 12 2026'
 tags: ['Claude Code', 'MCP', 'container-use', 'Dagger', 'Git']
 ---
 
-You want to run multiple tasks in parallel with Claude Code, but you don't love how git worktree keeps spawning new directories. This post introduces "container-use," a tool that solves exactly that.
+You want to run multiple tasks in parallel with Claude Code, but you'd rather not have git worktree spawn a new directory every time. This post introduces "container-use," a tool that solves exactly that.
 
 ## Who this article is for
 
@@ -22,7 +22,7 @@ You want to run multiple tasks in parallel with Claude Code, but you don't love 
 | Aspect                 | git worktree               | container-use                  |
 | ---------------------- | -------------------------- | ------------------------------ |
 | Directories            | A new directory is created | Isolated inside a container    |
-| Environment isolation  | Files only                 | The entire environment         |
+| Environment isolation  | Files only                 | The whole environment          |
 | Work log               | Only git history           | Operation history via `cu log` |
 | Compatibility with ghq | Tends to get messy         | No impact                      |
 
@@ -64,7 +64,7 @@ curl https://raw.githubusercontent.com/dagger/container-use/main/rules/agent.md 
 
 ### 4. Allow the tools (optional)
 
-If you'd rather not get a confirmation prompt every single time, launch with the following options.
+If you'd rather not get a confirmation prompt every time, launch with the following options.
 
 ```bash
 claude --allowedTools mcp__container-use__environment_checkpoint,mcp__container-use__environment_create,mcp__container-use__environment_add_service,mcp__container-use__environment_file_delete,mcp__container-use__environment_file_list,mcp__container-use__environment_file_read,mcp__container-use__environment_file_write,mcp__container-use__environment_open,mcp__container-use__environment_run_cmd,mcp__container-use__environment_update
@@ -136,7 +136,7 @@ The more efficient parallel development gets, the faster review requests pile up
 
 - Keep issues small enough to be easy to review
 - Ask Claude Code to self-review and generate a diff summary
-- Decide a rule for reviewing in priority order
+- Set a rule to review in order of priority
 
 ### Don't forget the CLAUDE.md addition
 

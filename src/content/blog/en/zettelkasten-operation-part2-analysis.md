@@ -1,13 +1,13 @@
 ---
 title: 'Zettelkasten Operation Log Part 2: Analysis'
-description: 'Visualizing my own activity with a Makefile. Tag distribution analysis, day-of-week × hour heatmaps, and more.'
+description: 'Visualizing my own activity with a Makefile: tag skew analysis, a day-of-week × hour heatmap, and more.'
 pubDate: 'Jan 08 2026'
 tags: ['Zettelkasten', 'Makefile', 'gnuplot', 'CLI']
 ---
 
-In [Part 1 (Design)](/blog/zettelkasten-operation-part1-design/), I wrote about folder structure and tag design. This time it's the analysis chapter.
+In [Part 1 (Design)](/blog/zettelkasten-operation-part1-design/), I wrote about folder structure and tag design. This time it's the analysis installment.
 
-To be honest, you can live without everything I'm about to show. I just enjoy visualizing my own activity, and before I knew it my Makefile had grown all sorts of things.
+To be honest, you can live without everything I'm about to show. I just enjoy visualizing my own activity, and before I knew it my Makefile had sprouted all sorts of things.
 
 ---
 
@@ -67,7 +67,7 @@ This gives you the note count per folder. If Reference Notes are piling up, it m
 
 ---
 
-## Tag distribution analysis
+## Tag skew analysis
 
 `make tag-graph` visualizes the most-used tags.
 
@@ -175,13 +175,13 @@ heatmap:  ## Activity heatmap showing day of week vs hour
     }'
 ```
 
-It's clear that I concentrate from Sunday afternoon into the evening. The feel is similar to GitHub's contribution grass, but since this one is dedicated to the knowledge base, my learning pattern shows up more accurately.
+It's clear that I focus most from Sunday afternoon into the evening. It feels a lot like GitHub's contribution graph, but since this one is dedicated to the knowledge base, my learning pattern shows up more accurately.
 
 ![Output of make heatmap](../../../assets/vault-make-heatmap.png)
 
 ---
 
-## Expiration check for Fleeting Notes
+## Shelf-life check for Fleeting Notes
 
 `make check-expired` detects Fleeting Notes that have been sitting untouched for more than 14 days.
 
@@ -421,13 +421,13 @@ weekly-tags:  ## Tag usage trends for the week
 ## Wrap-up
 
 - `make status` for note count statistics
-- `make tag-graph` to visualize tag distribution
+- `make tag-graph` to visualize tag skew
 - `make heatmap` for the day-of-week × hour activity pattern
 - `make check-expired` to surface neglected Fleeting Notes
 
 To repeat myself: **none of this is strictly necessary**. I just enjoy visualizing my own activity, so I built it.
 
-If you have the same kind of hobby, feel free to use it as a reference.
+If this is your kind of hobby too, feel free to use it as a reference.
 
 ---
 
