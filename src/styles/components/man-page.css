@@ -1,9 +1,32 @@
 /* ---- man-page semantic primitives ------------------------------------ */
 
 .man-page {
+  /* width: 100% explicitly overrides reset.css's `main { width: var(--content-max-width) }`,
+     which pins main to a fixed 720px and breaks mobile (overflow even with overflow-x:hidden). */
+  width: 100%;
   max-width: var(--max-content);
   margin: 0 auto;
   padding: 0 1rem;
+  /* Prose / long URLs / Japanese titles break inside the column instead of
+     forcing the page wider than the viewport on mobile. */
+  overflow-wrap: anywhere;
+}
+
+/* Media inside the man-page chrome must shrink to the column, not push it. */
+.man-page :where(img, video, iframe, table) {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Code blocks scroll within themselves rather than pushing the parent.
+   astro-expressive-code already provides horizontal scroll inside its frame;
+   these rules ensure the wrapper itself never exceeds the column. */
+.man-page :where(pre, .expressive-code, .frame) {
+  max-width: 100%;
+}
+
+.man-page pre {
+  overflow-x: auto;
 }
 
 .man-section {
@@ -58,25 +81,37 @@
 
 .ls-listing li {
   display: grid;
-  grid-template-columns: 12ch 8ch 12ch 1fr;
+  grid-template-columns: 12ch 8ch 12ch minmax(0, 1fr);
   gap: 1ch;
   align-items: baseline;
   padding: 0.15em 0;
 }
 
+/* Grid items default to min-width:auto, which makes long Japanese titles
+   push the whole grid wider than the parent. Force shrink so the title
+   column wraps inside its track. */
+.ls-listing li > * {
+  min-width: 0;
+}
+
 .ls-listing .perms { color: var(--text-dim); }
 .ls-listing .size  { color: var(--text-dim); text-align: right; }
 .ls-listing .date  { color: var(--text-dim); }
+.ls-listing .title { overflow-wrap: anywhere; }
 .ls-listing .title a { color: var(--text); }
 .ls-listing .title a:hover { color: var(--accent); }
 
 @media (max-width: 600px) {
   .ls-listing li {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
     gap: 0;
   }
   .ls-listing .perms,
   .ls-listing .size { display: none; }
+  /* Slightly tighter horizontal padding so the man-page chrome and content
+     reach closer to the viewport edge on narrow screens. */
+  .man-header { padding: 0 0.75rem; }
+  .man-page   { padding: 0 0.75rem; }
 }
 
 .tag-pill {
