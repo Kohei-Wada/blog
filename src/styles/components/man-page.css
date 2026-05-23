@@ -100,6 +100,17 @@
   color: var(--text-dim);
 }
 
+/* Shell-command annotation under a section heading, sitting just above the
+   listing it describes. Dimmed so the listing stays the focus. */
+.man-command {
+  color: var(--text-dim);
+  margin: 0 0 0.75em;
+  overflow-wrap: anywhere;
+}
+.man-command::before {
+  content: '$ ';
+}
+
 .ls-listing {
   list-style: none;
   padding: 0;

@@ -1,0 +1,10 @@
+---
+// Static shell-command annotation shown under a man-section heading, hinting
+// at the command that would produce the listing below it.
+interface Props {
+  cmd: string;
+}
+const { cmd } = Astro.props;
+---
+
+<p class="man-command">{cmd}</p>

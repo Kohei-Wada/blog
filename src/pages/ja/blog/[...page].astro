@@ -20,6 +20,7 @@ const { page } = Astro.props;
   title={SITE_TITLE}
   description={t('siteDescription', 'ja')}
   posts={page.data}
+  command="ls -l blog/"
   headerTitle="全ての記事"
   headerIcon="📚"
   headerDescription="技術記事から個人的な学びまで、これまでに書いた記事をすべてご覧いただけます。気になる記事があれば、ぜひクリックして詳細をお読みください。"

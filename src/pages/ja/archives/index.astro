@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../../../layouts/BaseLayout.astro';
+import ManCommand from '../../../components/shared/ui/ManCommand.astro';
 import { SITE_TITLE } from '../../../consts';
 import { getCollection } from 'astro:content';
 import { groupPostsByMonth } from '../../../utils/archive-utils';
@@ -30,6 +31,7 @@ const sortedYears = Array.from(groupedByYear.keys()).sort((a, b) => b - a);
 
   <section class="man-section">
     <h2>BY YEAR</h2>
+    <ManCommand cmd={"ls -l blog/ | awk '{print $6}' | cut -d- -f1,2 | sort -r | uniq -c"} />
     {
       archives.length === 0 ? (
         <p>まだ記事が投稿されていません。</p>

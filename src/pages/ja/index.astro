@@ -5,6 +5,7 @@ import { t } from '../../i18n/strings';
 import { getCollection } from 'astro:content';
 import { sortPostsByDate } from '../../utils/content-aggregation';
 import PostsList from '../../components/blog/content/PostsList.astro';
+import ManCommand from '../../components/shared/ui/ManCommand.astro';
 import { getPostLang } from '../../utils/post-locale';
 
 const all = await getCollection('blog');
@@ -50,6 +51,7 @@ const featuredProjects = allProjects
 
   <section class="man-section">
     <h2>RECENT</h2>
+    <ManCommand cmd="ls -lt blog/ | head -n 10" />
     <PostsList posts={posts} />
   </section>
 
