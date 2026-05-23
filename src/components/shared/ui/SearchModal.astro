@@ -53,9 +53,16 @@
     renderResultListHtml,
     renderStatusBarHtml,
   } from '../../../utils/search-modal-controller';
+  import { t } from '../../../i18n/strings';
   import type Fuse from 'fuse.js';
 
   type Mode = 'recent' | 'results';
+
+  // The modal is a single global instance; pick labels + index by the
+  // locale of the current page.
+  const locale = window.location.pathname.startsWith('/ja') ? 'ja' : 'en';
+  const noResultsLabel = t('searchNoResults', locale);
+  const previewPromptLabel = t('searchPreviewPrompt', locale);
 
   const modal = document.getElementById('search-modal');
   const input = document.getElementById('search-input') as HTMLInputElement | null;
@@ -75,7 +82,12 @@
     async function loadIndex(): Promise<void> {
       if (fuse) return;
       if (!indexLoadPromise) {
-        indexLoadPromise = fetch('/search-index.json')
+        // Search the locale matching the current page: /ja/* searches the
+        // Japanese index, everything else (English default) the root index.
+        const indexUrl = window.location.pathname.startsWith('/ja')
+          ? '/ja/search-index.json'
+          : '/search-index.json';
+        indexLoadPromise = fetch(indexUrl)
           .then(r => (r.ok ? (r.json() as Promise<SearchItem[]>) : Promise.reject(r.status)))
           .then(items => {
             recentItems = [...items].sort(
@@ -112,12 +124,17 @@
         resultsEl!.innerHTML = renderResultListHtml(
           state.results,
           state.selectedIndex,
-          input!.value
+          input!.value,
+          noResultsLabel
         );
       } else {
-        resultsEl!.innerHTML = renderRecentPostsHtml(recentItems, state.selectedIndex);
+        resultsEl!.innerHTML = renderRecentPostsHtml(
+          recentItems,
+          state.selectedIndex,
+          noResultsLabel
+        );
       }
-      previewEl!.innerHTML = renderPreviewHtml(currentItem());
+      previewEl!.innerHTML = renderPreviewHtml(currentItem(), previewPromptLabel);
       statusEl!.innerHTML = renderStatusBarHtml(state.selectedIndex, total);
       const id = currentItem() && visibleTotal() > 0 ? `search-result-${state.selectedIndex}` : '';
       input!.setAttribute('aria-activedescendant', id);
