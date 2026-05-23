@@ -2,7 +2,7 @@
 
 **Date**: 2026-05-23
 **Status**: Design approved, ready for implementation plan
-**Target repo**: `GitHub.com/Kohei-Wada/blog` (Astro 5.x)
+**Target repo**: `github.com/Kohei-Wada/blog` (Astro 5.x)
 
 ## Background
 
@@ -30,7 +30,7 @@ Related vault notes:
 - Add a `[ja|en]` language switcher in the header.
 - Move existing 14 posts from `src/content/blog/` to `src/content/blog/ja/`; derive `lang` from the path.
 - Add optional `seeAlso?: string[]` to the blog frontmatter schema (backwards compatible).
-- Switch `Astro-expressive-code` theme to a paper-friendly light theme.
+- Switch `astro-expressive-code` theme to a paper-friendly light theme.
 - Keep `fuse.js` search, RSS, sitemap, featured-posts behavior, tags page, archives page; restyle only.
 - Keep vitest, eslint, prettier, markdownlint-cli2, pre-commit, and the GitHub Actions CI working.
 
@@ -50,19 +50,19 @@ Related vault notes:
 
 | Path                                                           | Change                                                                                                                                              |
 | -------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `src/styles/base/variables.CSS`                                | Replace tokens with Paper/Amber set                                                                                                                 |
-| `src/styles/base/typography.CSS`                               | Monospace primary, man-page heading rules                                                                                                           |
-| `src/styles/base/reset.CSS`                                    | Minor adjustments only                                                                                                                              |
-| `src/styles/base/responsive.CSS`                               | Keep breakpoints, swap internal tokens                                                                                                              |
-| `src/styles/components.CSS` + `components/*.CSS`               | Add `.man-section`, `.man-footer`, `.ls-listing`, `.man-prompt`, `.tag-pill`, `.man-rule` primitives; rewire existing components against new tokens |
-| `src/layouts/BaseLayout.Astro`                                 | New header (man-page title bar + language switcher) and footer                                                                                      |
-| `src/layouts/BlogPost.Astro`                                   | Restructure into NAME / SYNOPSIS / DESCRIPTION / TAGS / SEE ALSO with man-page footer                                                               |
-| `src/layouts/BlogListLayout.Astro`                             | `ls -la`-style listing                                                                                                                              |
-| `src/components/blog/content/PostsGrid.Astro` (and siblings)   | Replace grid with listing; add `PostsList.Astro` if cleaner than retrofitting                                                                       |
-| `src/pages/index.Astro`                                        | Home rebuilt as NAME / SYNOPSIS / DESCRIPTION / RECENT POSTS / PROJECTS / SEE ALSO                                                                  |
-| `src/pages/{about,contact,privacy,404}.Astro`                  | Restyle in man-page layout                                                                                                                          |
+| `src/styles/base/variables.css`                                | Replace tokens with Paper/Amber set                                                                                                                 |
+| `src/styles/base/typography.css`                               | Monospace primary, man-page heading rules                                                                                                           |
+| `src/styles/base/reset.css`                                    | Minor adjustments only                                                                                                                              |
+| `src/styles/base/responsive.css`                               | Keep breakpoints, swap internal tokens                                                                                                              |
+| `src/styles/components.css` + `components/*.css`               | Add `.man-section`, `.man-footer`, `.ls-listing`, `.man-prompt`, `.tag-pill`, `.man-rule` primitives; rewire existing components against new tokens |
+| `src/layouts/BaseLayout.astro`                                 | New header (man-page title bar + language switcher) and footer                                                                                      |
+| `src/layouts/BlogPost.astro`                                   | Restructure into NAME / SYNOPSIS / DESCRIPTION / TAGS / SEE ALSO with man-page footer                                                               |
+| `src/layouts/BlogListLayout.astro`                             | `ls -la`-style listing                                                                                                                              |
+| `src/components/blog/content/PostsGrid.astro` (and siblings)   | Replace grid with listing; add `PostsList.astro` if cleaner than retrofitting                                                                       |
+| `src/pages/index.astro`                                        | Home rebuilt as NAME / SYNOPSIS / DESCRIPTION / RECENT POSTS / PROJECTS / SEE ALSO                                                                  |
+| `src/pages/{about,contact,privacy,404}.astro`                  | Restyle in man-page layout                                                                                                                          |
 | `src/pages/blog/*`, `src/pages/tags/*`, `src/pages/archives/*` | Use the unified listing component                                                                                                                   |
-| `Astro.config.mjs`                                             | Add `i18n: { defaultLocale: 'ja', locales: ['ja', 'en'], routing: { prefixDefaultLocale: false } }`                                                 |
+| `astro.config.mjs`                                             | Add `i18n: { defaultLocale: 'ja', locales: ['ja', 'en'], routing: { prefixDefaultLocale: false } }`                                                 |
 | `src/content.config.ts`                                        | Add optional `seeAlso?: string[]`. Derive `lang` from path. Keep all existing fields.                                                               |
 | `src/consts.ts`                                                | Add `DEFAULT_LANG`, `LOCALES`; route header/footer labels through i18n strings                                                                      |
 
@@ -70,18 +70,18 @@ Related vault notes:
 
 - `src/i18n/strings.ts` — UI strings keyed by locale.
 - `src/utils/i18n.ts` — Locale resolution helpers (current locale from URL, link to other locale, etc).
-- `src/components/shared/LangSwitcher.Astro` — `[ja|en]` toggle.
+- `src/components/shared/LangSwitcher.astro` — `[ja|en]` toggle.
 
 #### Untouched
 
 - `src/content/blog/*.md` post bodies. Frontmatter receives only optional additive fields.
-- `src/pages/RSS.xml.js`, `src/pages/search-index.JSON.ts`, sitemap config.
-- `tests/`, `vitest.config.ts`, `eslint.config.js`, `.prettierrc`, `tsconfig.JSON`, `package.JSON` scripts.
-- `Astro-expressive-code` integration (only its theme value changes).
+- `src/pages/rss.xml.js`, `src/pages/search-index.json.ts`, sitemap config.
+- `tests/`, `vitest.config.ts`, `eslint.config.js`, `.prettierrc`, `tsconfig.json`, `package.json` scripts.
+- `astro-expressive-code` integration (only its theme value changes).
 
 ### Visual system
 
-#### Color tokens (`src/styles/base/variables.CSS`)
+#### Color tokens (`src/styles/base/variables.css`)
 
 ```css
 :root {
@@ -117,7 +117,7 @@ Related vault notes:
 
 #### Code blocks
 
-- `Astro-expressive-code` theme set to a paper-friendly light theme (`solarized-light` or `GitHub-light`; the exact pick is deferred to implementation review).
+- `astro-expressive-code` theme set to a paper-friendly light theme (`solarized-light` or `github-light`; the exact pick is deferred to implementation review).
 - Inline code: `--bg-alt` background, slight size step down.
 
 #### Responsive
@@ -144,17 +144,17 @@ DESCRIPTION
        Bilingual (ja / en).
 
 RECENT POSTS
-       -rw-r--r--  2025-12-29  taskdog CLI task management tool
+       -rw-r--r--  2025-12-29  taskdog cli task management tool
        -rw-r--r--  2025-10-18  tar over ssh pipe technique
        ...                                         (see /blog)
 
 PROJECTS
-       taskdog              CLI task manager
+       taskdog              cli task manager
        ttymap               tmux session viz
        knowledge-gardener   obsidian + ai
 
 SEE ALSO
-       GitHub(1), zenn(1), qiita(1), x(1)
+       github(1), zenn(1), qiita(1), x(1)
 
 ─────────────────────────────────────────────────────────────
 WADA-DEV(7)                                       2026 05 23
@@ -169,7 +169,7 @@ NAME
        posts — all entries (14 ja / 0 en)
 
 LISTING
-       -rw-r--r--  4.2K  2025-12-29  taskdog CLI task management tool
+       -rw-r--r--  4.2K  2025-12-29  taskdog cli task management tool
        -rw-r--r--  3.1K  2025-10-18  tar over ssh pipe technique
        ...
 
@@ -185,7 +185,7 @@ NAVIGATION
 TASKDOG(7)                                   [ja|en]  $ man taskdog
 
 NAME
-       taskdog-CLI-task-management-tool
+       taskdog-cli-task-management-tool
 
 SYNOPSIS
        <description from frontmatter>
@@ -210,7 +210,7 @@ NAME
        <tag> — N entries
 
 APROPOS
-       -rw-r--r--  4.2K  2025-12-29  taskdog CLI task management tool
+       -rw-r--r--  4.2K  2025-12-29  taskdog cli task management tool
 
 SEE ALSO
        all tags: $ ls --tags
@@ -234,7 +234,7 @@ ACHIEVEMENTS
 
 CONTACT
        $ mail program3152019@gmail.com
-       GitHub.com/Kohei-Wada
+       github.com/Kohei-Wada
 ```
 
 ### 404
@@ -274,7 +274,7 @@ All existing JP URLs are preserved (no prefix added to default locale).
 ```
 src/content/blog/
 ├── ja/
-│   ├── taskdog-CLI-task-management-tool.md
+│   ├── taskdog-cli-task-management-tool.md
 │   ├── tar-ssh-pipe-technique.md
 │   └── ... (14 files moved here from src/content/blog/)
 └── en/
@@ -289,7 +289,7 @@ If `ja/<slug>.md` and `en/<slug>.md` both exist, the slug is treated as a transl
 
 ### Language switcher
 
-`src/components/shared/LangSwitcher.Astro`. Header right side, monospace `[ja|en]` text. Current locale is bold; the other locale is underlined link.
+`src/components/shared/LangSwitcher.astro`. Header right side, monospace `[ja|en]` text. Current locale is bold; the other locale is underlined link.
 
 ### UI strings
 
@@ -302,7 +302,7 @@ Note: man-page SECTION names (`NAME`, `SYNOPSIS`, `DESCRIPTION`, `SEE ALSO`, `TA
 1. **File move**: `git mv src/content/blog/*.md src/content/blog/ja/`. 14 files.
 2. **Content config update**: `glob` pattern becomes `**/*.md`; loader derives `lang` from path. Schema gets optional `seeAlso?: string[]`.
 3. **URL preservation**: `getStaticPaths` for `/blog/[slug]` enumerates only the `ja/` collection and yields the same slugs as before. EN counterpart at `/en/blog/[slug]`. Outbound links / search engines see no URL change for existing JP posts.
-4. **Frontmatter compatibility**: existing 14 posts are unchanged. `description` populates SYNOPSIS, body populates DESCRIPTION, `tags` populates TAGS, optional `seeAlso` populates SEE ALSO (section hidden if absent). `seeAlso` is `string[]`; each entry is the slug of another post in the same locale (e.g. `["taskdog-CLI-task-management-tool"]`). The layout resolves the slug to the post's title and URL at build time. Entries that do not resolve cause a build-time error.
+4. **Frontmatter compatibility**: existing 14 posts are unchanged. `description` populates SYNOPSIS, body populates DESCRIPTION, `tags` populates TAGS, optional `seeAlso` populates SEE ALSO (section hidden if absent). `seeAlso` is `string[]`; each entry is the slug of another post in the same locale (e.g. `["taskdog-cli-task-management-tool"]`). The layout resolves the slug to the post's title and URL at build time. Entries that do not resolve cause a build-time error.
 5. **Featured-post behavior**: existing `featured: boolean` is preserved. Home's RECENT POSTS lists featured first, then date-desc.
 6. **Tests**: existing vitest suite must pass green. New unit tests for: `LangSwitcher` link resolution, `/blog/<slug>` route stability, `i18n.strings` lookup, `seeAlso` rendering and omission.
 
@@ -310,7 +310,7 @@ Note: man-page SECTION names (`NAME`, `SYNOPSIS`, `DESCRIPTION`, `SEE ALSO`, `TA
 
 The following are intentionally underspecified at this stage and resolved during implementation:
 
-- Exact `Astro-expressive-code` theme value (pick during PR review by comparing rendered samples).
+- Exact `astro-expressive-code` theme value (pick during PR review by comparing rendered samples).
 - Wording of the man-page footer "page number" (e.g. `1` vs blank vs slug initials).
 - Whether the search input gets a `$ man -k` cosmetic prefix or stays plain (current behavior fine if visually consistent with rest of chrome).
 - Mobile-specific tweaks beyond the 7ch → 2ch indent collapse.
