@@ -20,7 +20,7 @@ const strings = {
   siteSubtitle: { ja: 'ソフトウェアエンジニア', en: 'Software Engineer' },
   siteDescription: {
     ja: 'ようこそ、私の個人的なウェブサイトへ。ここでは、私の技術的な情報やプロジェクト、そして私の個人的な興味について紹介しています。',
-    en: 'Engineer in Yokohama. Notes on building tools (taskdog, ttymap, knowledge-gardener) and what I learned along the way.',
+    en: 'Welcome to my personal site — technical notes, projects, and personal interests from a software engineer in Japan.',
   },
   authorBio: {
     ja: 'ソフトウェアエンジニア。Web開発、クラウドインフラ、関数型プログラミングに興味があります。',
