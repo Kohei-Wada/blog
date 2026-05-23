@@ -56,33 +56,41 @@ function renderRow(item: SearchItem, index: number, selectedIndex: number, query
     ><span class="search-result-prefix" aria-hidden="true">${prefix}</span><span class="search-result-body"><span class="search-result-title">${title}</span><span class="search-result-meta">${escapeHtml(meta)}</span></span></a>`;
 }
 
-export function renderEmptyResultsHtml(): string {
-  return '<div class="search-empty">No matching articles</div>';
+export function renderEmptyResultsHtml(message = 'No matching articles'): string {
+  return `<div class="search-empty">${escapeHtml(message)}</div>`;
 }
 
 export function renderResultListHtml(
   results: SearchResult[],
   selectedIndex: number,
-  query: string
+  query: string,
+  emptyMessage?: string
 ): string {
-  if (results.length === 0) return renderEmptyResultsHtml();
+  if (results.length === 0) return renderEmptyResultsHtml(emptyMessage);
   return results
     .slice(0, UI_CONFIG.SEARCH_MAX_RESULTS)
     .map((r, i) => renderRow(r.item, i, selectedIndex, query))
     .join('');
 }
 
-export function renderRecentPostsHtml(items: SearchItem[], selectedIndex: number): string {
-  if (items.length === 0) return renderEmptyResultsHtml();
+export function renderRecentPostsHtml(
+  items: SearchItem[],
+  selectedIndex: number,
+  emptyMessage?: string
+): string {
+  if (items.length === 0) return renderEmptyResultsHtml(emptyMessage);
   return items
     .slice(0, UI_CONFIG.SEARCH_MAX_RESULTS)
     .map((item, i) => renderRow(item, i, selectedIndex, ''))
     .join('');
 }
 
-export function renderPreviewHtml(item: SearchItem | null): string {
+export function renderPreviewHtml(
+  item: SearchItem | null,
+  emptyMessage = 'Select an article to preview it'
+): string {
   if (!item) {
-    return '<div class="search-preview-empty">Select an article to preview it</div>';
+    return `<div class="search-preview-empty">${escapeHtml(emptyMessage)}</div>`;
   }
   const excerpt = item.body.slice(0, PREVIEW_BODY_CHARS);
   const ellipsis = item.body.length > PREVIEW_BODY_CHARS ? '…' : '';

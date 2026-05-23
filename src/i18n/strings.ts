@@ -26,6 +26,11 @@ const strings = {
     ja: 'ソフトウェアエンジニア。Web開発、クラウドインフラ、関数型プログラミングに興味があります。',
     en: 'Software engineer interested in web development, cloud infrastructure, and functional programming.',
   },
+  searchNoResults: { ja: '該当する記事はありません', en: 'No matching articles' },
+  searchPreviewPrompt: {
+    ja: '記事を選択するとプレビューが表示されます',
+    en: 'Select an article to preview it',
+  },
   // Test fixture: deliberately ja-only so the fallback test has something to assert.
   jaOnlyFixture: { ja: 'fixture値' },
 } as const;
