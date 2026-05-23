@@ -2,53 +2,68 @@
 import type { CollectionEntry } from 'astro:content';
 import type { Page } from 'astro';
 import BaseLayout from './BaseLayout.astro';
-import PageHeader from '../components/shared/layout/PageHeader.astro';
-import PostsGrid from '../components/blog/content/PostsGrid.astro';
+import PostsList from '../components/blog/content/PostsList.astro';
 import Pagination from '../components/shared/ui/Pagination.astro';
 
 interface Props {
   title: string;
   description: string;
   posts: CollectionEntry<'blog'>[];
-  headerTitle: string;
+  sectionLabel?: string;
+  siblingHref?: string;
+  page?: Page<CollectionEntry<'blog'>>;
+  baseUrl?: string;
+  // legacy props kept for call-site compat (ignored)
+  headerTitle?: string;
   headerIcon?: string;
   headerDescription?: string;
   currentTag?: string;
   withBottomMargin?: boolean;
-  page?: Page<CollectionEntry<'blog'>>;
-  baseUrl?: string;
 }
 
 const {
   title,
   description,
   posts,
-  headerTitle,
-  headerIcon,
-  headerDescription,
-  currentTag,
-  withBottomMargin = true,
+  sectionLabel = 'LISTING',
+  siblingHref,
   page,
   baseUrl = '/blog/',
 } = Astro.props;
-
-const containerClass = withBottomMargin ? 'page-container with-bottom-margin' : 'page-container';
 ---
 
-<BaseLayout title={title} description={description} showSidebar={true}>
-  <div class={containerClass}>
-    <PageHeader title={headerTitle} icon={headerIcon} description={headerDescription} />
-    <PostsGrid posts={posts} currentTag={currentTag} />
+<BaseLayout title={title} description={description} siblingHref={siblingHref}>
+  <section class="man-section">
+    <h2>NAME</h2>
+    <p>{title}</p>
+  </section>
+
+  <section class="man-section">
+    <h2>{sectionLabel}</h2>
+    <PostsList posts={posts} />
     {
       page && (
-        <Pagination
-          currentPage={page.currentPage}
-          lastPage={page.lastPage}
-          prevUrl={page.url.prev}
-          nextUrl={page.url.next}
-          baseUrl={baseUrl}
-        />
+        <nav class="pagination">
+          <Pagination
+            currentPage={page.currentPage}
+            lastPage={page.lastPage}
+            prevUrl={page.url.prev}
+            nextUrl={page.url.next}
+            baseUrl={baseUrl}
+          />
+        </nav>
       )
     }
-  </div>
+  </section>
+
+  <section class="man-section">
+    <h2>NAVIGATION</h2>
+    <slot name="navigation">
+      <p>
+        <a href="/blog">blog</a> · <a href="/tags/">tags</a> · <a href="/archives/">archives</a>
+      </p>
+    </slot>
+  </section>
+
+  <slot />
 </BaseLayout>

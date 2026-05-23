@@ -2,7 +2,6 @@
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import { SITE_TITLE, SITE_DESCRIPTION } from '../../../consts';
 import { getCollection } from 'astro:content';
-import PageHeader from '../../../components/shared/layout/PageHeader.astro';
 import { getTagCounts, getTagsSortedByCount } from '../../../utils/content-aggregation';
 import { getPostLang } from '../../../utils/post-locale';
 
@@ -10,49 +9,38 @@ const all = await getCollection('blog');
 const posts = all.filter(p => getPostLang(p.id) === 'en');
 const tagCounts = getTagCounts(posts);
 const tags = getTagsSortedByCount(posts);
+const title = `Tags - ${SITE_TITLE}`;
 ---
 
-<BaseLayout title={SITE_TITLE} description={SITE_DESCRIPTION} showSidebar={true}>
-  <style>
-    .tags-container {
-      padding-bottom: var(--spacing-xl);
-    }
+<BaseLayout title={title} description={SITE_DESCRIPTION}>
+  <section class="man-section">
+    <h2>NAME</h2>
+    <p>{title}</p>
+  </section>
 
-    .tags-cloud {
-      display: flex;
-      flex-wrap: wrap;
-      gap: var(--spacing-sm);
-      justify-content: center;
-      margin-top: var(--spacing-md);
-    }
+  <section class="man-section">
+    <h2>ALL TAGS</h2>
+    <ul class="ls-listing">
+      {
+        tags.map(tag => (
+          <li>
+            <span class="perms">drwxr-xr-x</span>
+            <span class="size">{tagCounts[tag]}</span>
+            <span class="title">
+              <a href={`/en/tags/${tag}/`}>{tag}</a>
+            </span>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
 
-    .tag-with-count {
-      display: flex;
-      align-items: center;
-      gap: 0.25rem;
-    }
-
-    .tag-count {
-      font-size: 0.9em;
-      opacity: 0.8;
-    }
-  </style>
-
-  <div class="page-container">
-    <PageHeader title="Tags" icon="🏷️" description="Browse English posts by tag." />
-    <div class="tags-container">
-      <div class="tags-cloud">
-        {
-          tags.map(tag => (
-            <a href={`/en/tags/${tag}/`} class="tag solid">
-              <span class="tag-with-count">
-                {tag}
-                <span class="tag-count">({tagCounts[tag]})</span>
-              </span>
-            </a>
-          ))
-        }
-      </div>
-    </div>
-  </div>
+  <section class="man-section">
+    <h2>NAVIGATION</h2>
+    <p>
+      <a href="/en/blog">blog</a> · <a href="/en/tags/">tags</a> · <a href="/en/archives/"
+        >archives</a
+      >
+    </p>
+  </section>
 </BaseLayout>

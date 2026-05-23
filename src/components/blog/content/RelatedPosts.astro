@@ -1,20 +1,20 @@
 ---
 import type { CollectionEntry } from 'astro:content';
-import PostsGrid from './PostsGrid.astro';
+import PostsList from './PostsList.astro';
 
 export interface Props {
   posts: CollectionEntry<'blog'>[];
   currentTags?: string[];
 }
 
-const { posts, currentTags = [] } = Astro.props;
+const { posts } = Astro.props;
 ---
 
 {
   posts.length > 0 && (
-    <section class="related-posts">
-      <h2>関連記事</h2>
-      <PostsGrid posts={posts} currentTag={currentTags[0]} />
+    <section class="man-section related-posts">
+      <h2>SEE ALSO</h2>
+      <PostsList posts={posts} />
     </section>
   )
 }

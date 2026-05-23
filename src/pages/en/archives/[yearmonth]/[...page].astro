@@ -43,10 +43,8 @@ const description = `Posts published in ${formatArchiveLabel(year, month)}.`;
   title={title}
   description={description}
   posts={page.data}
-  headerTitle={formatArchiveLabel(year, month)}
-  headerIcon="📅"
-  headerDescription={`Posts published in ${formatArchiveLabel(year, month)}. ${page.total} post(s).`}
-  withBottomMargin={false}
+  sectionLabel="LISTING"
+  siblingHref="/"
   page={page}
   baseUrl={`/en/archives/${yearMonthParam}/`}
 />
