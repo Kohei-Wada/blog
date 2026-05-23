@@ -1,31 +1,31 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
 ---
 
 <BaseLayout
   title="Contact - Kohei Wada"
-  description="Contact form — questions, feedback, and work inquiries welcome."
+  description="お問い合わせフォーム。ご質問やご連絡はこちらからどうぞ。"
 >
   <section class="man-section">
     <h2>NAME</h2>
-    <p>contact — get in touch</p>
+    <p>contact — お問い合わせ</p>
   </section>
 
   <section class="man-section">
     <h2>DESCRIPTION</h2>
-    <p>Questions, feedback, work inquiries — feel free to reach out.</p>
+    <p>ご質問、フィードバック、お仕事のご依頼など、お気軽にお声をおかけください。</p>
   </section>
 
   <section class="man-section">
     <h2>CHANNELS</h2>
     <form
-      name="contact"
+      name="contact-ja"
       method="POST"
       data-netlify="true"
       netlify-honeypot="bot-field"
       class="contact-form"
     >
-      <input type="hidden" name="form-name" value="contact" />
+      <input type="hidden" name="form-name" value="contact-ja" />
       <p hidden>
         <label>
           Don't fill this out: <input name="bot-field" />
@@ -33,13 +33,13 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       </p>
 
       <div class="form-group">
-        <label for="name" class="form-label">Name</label>
-        <input type="text" id="name" name="name" class="form-input" placeholder="Jane Doe" />
+        <label for="name" class="form-label">お名前</label>
+        <input type="text" id="name" name="name" class="form-input" placeholder="山田 太郎" />
       </div>
 
       <div class="form-group">
         <label for="email" class="form-label">
-          Email<span class="required">*</span>
+          メールアドレス<span class="required">*</span>
         </label>
         <input
           type="email"
@@ -52,37 +52,37 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       </div>
 
       <div class="form-group">
-        <label for="subject" class="form-label">Subject</label>
+        <label for="subject" class="form-label">件名</label>
         <input
           type="text"
           id="subject"
           name="subject"
           class="form-input"
-          placeholder="What's this about?"
+          placeholder="お問い合わせの件名"
         />
       </div>
 
       <div class="form-group">
         <label for="message" class="form-label">
-          Message<span class="required">*</span>
+          メッセージ<span class="required">*</span>
         </label>
         <textarea
           id="message"
           name="message"
           class="form-textarea"
-          placeholder="Write your message here"
+          placeholder="お問い合わせ内容をご記入ください"
           required></textarea>
       </div>
 
-      <button type="submit" class="submit-button">Send</button>
+      <button type="submit" class="submit-button">送信する</button>
     </form>
   </section>
 
   <section class="man-section">
     <h2>SEE ALSO</h2>
     <p>
-      <a href="/about">about(1)</a>,
-      <a href="/privacy">privacy(1)</a>
+      <a href="/ja/about">about(1)</a>,
+      <a href="/ja/privacy">privacy(1)</a>
     </p>
   </section>
 
