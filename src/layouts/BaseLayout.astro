@@ -27,6 +27,7 @@ const pathname = Astro.url.pathname;
 const sectionName = 'WADA-DEV(7)';
 const today = new Date().toISOString().slice(0, 10);
 const headerPath = pathname === '/' || pathname === '/ja/' ? '/' : pathname;
+const localePrefix = pathname.startsWith('/ja') ? '/ja' : '';
 ---
 
 <!doctype html>
@@ -54,6 +55,10 @@ const headerPath = pathname === '/' || pathname === '/ja/' ? '/' : pathname;
     <hr class="man-rule" />
     <footer class="man-footer">
       <span>{sectionName}</span>
+      <nav class="man-footer-links" aria-label="footer">
+        <a href={`${localePrefix}/contact`}>contact</a>
+        <a href={`${localePrefix}/privacy`}>privacy</a>
+      </nav>
       <span>{today}</span>
     </footer>
     <SearchModal />
