@@ -11,7 +11,8 @@
   --text-dim:  #928374;
   --accent:    #af3a03;
   --accent-2:  #79740e;
-  --border:    rgba(42, 40, 38, 0.15);
+  --border:       rgba(42, 40, 38, 0.15);
+  --border-light: rgba(42, 40, 38, 0.08);
   --link:      var(--accent);
 
   /* Back-compat aliases — kept until callers migrate */
@@ -20,7 +21,7 @@
   --color-text:         var(--text);
   --color-text-secondary: var(--text-dim);
   --color-border:       var(--border);
-  --color-border-light: var(--border);
+  --color-border-light: var(--border-light);
   --color-link:         var(--link);
   --color-link-hover:   var(--accent);
   --accent-dark:        var(--accent);
@@ -31,6 +32,14 @@
   --code-text:          var(--text);
   --toc-bg:             var(--bg);
   --toc-border:         var(--border);
+
+  /* Removed tokens — preserve callers via Paper/Amber-coherent aliases */
+  --card-background:    var(--bg-alt);
+  --hover-background:   var(--bg-alt);
+  --subtle-background:  var(--bg-alt);
+  --active-background:  var(--bg-alt);
+  --card-border:        var(--border);
+  --separator-border:   var(--border);
 
   /* Layout */
   --content-max-width: 720px;
@@ -64,9 +73,9 @@
   --radius-full: 50%;
 
   /* Shadows */
-  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
-  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.15);
-  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.2);
+  --shadow-sm: 0 1px 3px rgba(42, 40, 38, 0.1);
+  --shadow-md: 0 4px 12px rgba(42, 40, 38, 0.15);
+  --shadow-lg: 0 8px 24px rgba(42, 40, 38, 0.2);
 
   /* Transitions */
   --transition-fast: 0.15s ease;
