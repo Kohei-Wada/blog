@@ -43,3 +43,8 @@ CHANGELOG.md
 
 # Files with complex inline scripts that prettier can't parse
 src/components/Analytics.astro
+
+# Project planning docs — contain fenced ```astro blocks with JSX fragments
+# that prettier-plugin-astro mis-parses. Their formatting is owned by the
+# author, not by prettier.
+docs/superpowers/
