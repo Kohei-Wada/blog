@@ -3,7 +3,6 @@ import {
   groupPostsByMonth,
   formatArchiveLabel,
   generateArchiveSlug,
-  getRecentArchiveMonths,
   parseArchiveSlug,
 } from '../../src/utils/archive-utils';
 import { createMockPost } from '../../src/test/helpers';
@@ -147,46 +146,6 @@ describe('archive-utils', () => {
       expect(parseArchiveSlug('2025-00')).toBeNull(); // 月が0
       expect(parseArchiveSlug('2025-13')).toBeNull(); // 月が13
       expect(parseArchiveSlug('2025-ab')).toBeNull(); // 月が数値でない
-    });
-  });
-
-  describe('getRecentArchiveMonths', () => {
-    it('should return most recent archive months', () => {
-      const archives = groupPostsByMonth(mockPosts);
-      const recent = getRecentArchiveMonths(archives, 3);
-
-      expect(recent).toHaveLength(3);
-      expect(recent[0].slug).toBe('2025-08');
-      expect(recent[1].slug).toBe('2025-07');
-      expect(recent[2].slug).toBe('2025-06');
-    });
-
-    it('should handle limit larger than available archives', () => {
-      const archives = groupPostsByMonth(mockPosts);
-      const recent = getRecentArchiveMonths(archives, 10);
-
-      expect(recent).toHaveLength(4); // 全てのアーカイブを返す
-    });
-
-    it('should handle empty archives', () => {
-      const recent = getRecentArchiveMonths([], 5);
-      expect(recent).toEqual([]);
-    });
-
-    it('should default to 6 months if no limit specified', () => {
-      const manyPosts = Array.from({ length: 24 }, (_, i) => {
-        const date = new Date(2025, 7 - i, 1); // 8月から遡って24ヶ月
-        return createMockPost({
-          id: `post-${i}`,
-          title: `記事${i}`,
-          pubDate: date.toISOString().split('T')[0],
-        });
-      });
-
-      const archives = groupPostsByMonth(manyPosts);
-      const recent = getRecentArchiveMonths(archives);
-
-      expect(recent).toHaveLength(6);
     });
   });
 });

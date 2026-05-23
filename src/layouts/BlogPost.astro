@@ -10,11 +10,7 @@ interface Props {
   description: string;
   pubDate: Date;
   tags: string[];
-  featured?: boolean;
-  updatedDate?: Date;
   seeAlso?: string[];
-  headings?: { depth: number; slug: string; text: string }[];
-  relatedPosts?: unknown;
 }
 
 const { id, title, description, pubDate, tags, seeAlso = [] } = Astro.props;

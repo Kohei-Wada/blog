@@ -10,9 +10,7 @@ import { getPostLang } from '../utils/post-locale';
 
 const all = await getCollection('blog');
 const enPosts = all.filter(post => getPostLang(post.id) === 'en');
-const featuredPosts = enPosts.filter(post => post.data.featured);
-const otherPosts = enPosts.filter(post => !post.data.featured);
-const posts = [...sortPostsByDate(featuredPosts), ...sortPostsByDate(otherPosts)].slice(0, 10);
+const posts = sortPostsByDate(enPosts).slice(0, 10);
 
 const allProjects = await getCollection('projects');
 const featuredProjects = allProjects

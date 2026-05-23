@@ -12,13 +12,6 @@ export function getErrorMessage(error: unknown): string {
 }
 
 /**
- * Type guard to check if a value is an Error object
- */
-export function isError(value: unknown): value is Error {
-  return value instanceof Error;
-}
-
-/**
  * Format an error for logging output
  */
 export function formatErrorForLog(error: unknown, context?: string): string {

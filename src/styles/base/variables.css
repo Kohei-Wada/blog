@@ -16,30 +16,16 @@
   --link:      var(--accent);
 
   /* Back-compat aliases — kept until callers migrate */
-  --color-bg:           var(--bg);
-  --color-bg-secondary: var(--bg-alt);
-  --color-text:         var(--text);
+  --color-bg:             var(--bg);
+  --color-text:           var(--text);
   --color-text-secondary: var(--text-dim);
-  --color-border:       var(--border);
-  --color-border-light: var(--border-light);
-  --color-link:         var(--link);
-  --color-link-hover:   var(--accent);
-  --accent-dark:        var(--accent);
-  --accent-light:       var(--accent);
-  --header-bg:          var(--bg);
-  --header-shadow:      none;
-  --code-bg:            var(--bg-alt);
-  --code-text:          var(--text);
-  --toc-bg:             var(--bg);
-  --toc-border:         var(--border);
-
-  /* Removed tokens — preserve callers via Paper/Amber-coherent aliases */
-  --card-background:    var(--bg-alt);
-  --hover-background:   var(--bg-alt);
-  --subtle-background:  var(--bg-alt);
-  --active-background:  var(--bg-alt);
-  --card-border:        var(--border);
-  --separator-border:   var(--border);
+  --color-border:         var(--border);
+  --color-link:           var(--link);
+  --color-link-hover:     var(--accent);
+  --accent-dark:          var(--accent);
+  --card-background:      var(--bg-alt);
+  --active-background:    var(--bg-alt);
+  --separator-border:     var(--border);
 
   /* Layout */
   --content-max-width: 720px;
@@ -50,7 +36,6 @@
   --spacing-md: 2rem;
   --spacing-lg: 3rem;
   --spacing-xl: 4rem;
-  --spacing-xxl: 6rem;
 
   /* Font Sizes — single source of truth (px). Responsive overrides live in
      responsive.css :root media queries; nothing else may redefine these. */
@@ -58,26 +43,19 @@
   --font-size-sm: 13px;
   --font-size-base: 15px;
   --font-size-lg: 17px;
-  --font-size-xl: 19px;
   --font-size-2xl: 22px;
   --font-size-3xl: 30px;
-  --font-size-4xl: 38px;
 
   /* Border Radius */
   --radius-sm: 4px;
   --radius-md: 6px;
-  --radius-lg: 8px;
   --radius-xl: 15px;
-  --radius-full: 50%;
 
   /* Shadows */
-  --shadow-sm: 0 1px 3px rgba(42, 40, 38, 0.1);
   --shadow-md: 0 4px 12px rgba(42, 40, 38, 0.15);
-  --shadow-lg: 0 8px 24px rgba(42, 40, 38, 0.2);
 
   /* Transitions */
   --transition-fast: 0.15s ease;
   --transition-normal: 0.2s ease;
-  --transition-slow: 0.3s ease;
   --theme-transition: 0.3s ease;
 }

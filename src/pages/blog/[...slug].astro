@@ -2,7 +2,6 @@
 import { type CollectionEntry, getCollection } from 'astro:content';
 import BlogPost from '../../layouts/BlogPost.astro';
 import { render } from 'astro:content';
-import { getRelatedPosts } from '../../utils/related-posts';
 import { getPostLang, getPostSlug } from '../../utils/post-locale';
 
 export async function getStaticPaths() {
@@ -17,12 +16,9 @@ export async function getStaticPaths() {
 type Props = CollectionEntry<'blog'>;
 
 const post = Astro.props;
-const { Content, headings } = await render(post);
-const all = await getCollection('blog');
-const sameLang = all.filter(p => getPostLang(p.id) === getPostLang(post.id));
-const relatedPosts = getRelatedPosts(post, sameLang, 3);
+const { Content } = await render(post);
 ---
 
-<BlogPost {...post.data} id={post.id} headings={headings} relatedPosts={relatedPosts}>
+<BlogPost {...post.data} id={post.id}>
   <Content />
 </BlogPost>
