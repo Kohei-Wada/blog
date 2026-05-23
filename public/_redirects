@@ -1,0 +1,17 @@
+# 301 redirects for ja post URLs that existed before the English-default flip.
+# Listing pages (/blog, /tags, /archives) and chrome (/about, /projects) now
+# serve English by design and are NOT redirected.
+/blog/bread-compression-calorie-reduction        /ja/blog/bread-compression-calorie-reduction        301
+/blog/container-use-parallel-development         /ja/blog/container-use-parallel-development         301
+/blog/first-post                                 /ja/blog/first-post                                 301
+/blog/github-actions-netlify-scheduled-deploy    /ja/blog/github-actions-netlify-scheduled-deploy    301
+/blog/haskell-unix-pipelines                     /ja/blog/haskell-unix-pipelines                     301
+/blog/hyprland-waybar-exec-start-hyprland        /ja/blog/hyprland-waybar-exec-start-hyprland        301
+/blog/obsidian-lychee-link-checker               /ja/blog/obsidian-lychee-link-checker               301
+/blog/shell-functional-programming               /ja/blog/shell-functional-programming               301
+/blog/tar-ssh-pipe-technique                     /ja/blog/tar-ssh-pipe-technique                     301
+/blog/taskdog-cli-task-management-tool           /ja/blog/taskdog-cli-task-management-tool           301
+/blog/trying-ghostbsd                            /ja/blog/trying-ghostbsd                            301
+/blog/why-i-built-this-blog-and-chose-astro      /ja/blog/why-i-built-this-blog-and-chose-astro      301
+/blog/zettelkasten-operation-part1-design        /ja/blog/zettelkasten-operation-part1-design        301
+/blog/zettelkasten-operation-part2-analysis      /ja/blog/zettelkasten-operation-part2-analysis      301

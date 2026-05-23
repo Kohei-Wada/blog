@@ -12,7 +12,7 @@ import { getPostLang } from '../../../../utils/post-locale';
 
 export const getStaticPaths = (async ({ paginate }) => {
   const all = await getCollection('blog');
-  const posts = all.filter(p => getPostLang(p.id) === 'en');
+  const posts = all.filter(p => getPostLang(p.id) === 'ja');
   const archives = groupPostsByMonth(posts);
 
   return archives.flatMap(archive => {
@@ -36,7 +36,7 @@ if (!parsed) {
 const { page } = Astro.props;
 const { year, month } = parsed;
 const title = `${formatArchiveLabel(year, month)} - ${SITE_TITLE}`;
-const description = `Posts published in ${formatArchiveLabel(year, month)}.`;
+const description = `${formatArchiveLabel(year, month)}に投稿された記事一覧です。`;
 ---
 
 <BlogListLayout
@@ -46,5 +46,5 @@ const description = `Posts published in ${formatArchiveLabel(year, month)}.`;
   sectionLabel="LISTING"
   siblingHref="/"
   page={page}
-  baseUrl={`/en/archives/${yearMonthParam}/`}
+  baseUrl={`/archives/${yearMonthParam}/`}
 />

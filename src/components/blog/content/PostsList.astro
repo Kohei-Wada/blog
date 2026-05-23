@@ -4,9 +4,10 @@ import { getPostLang, getPostSlug } from '../../../utils/post-locale';
 
 interface Props {
   posts: CollectionEntry<'blog'>[];
+  showLang?: boolean;
 }
 
-const { posts } = Astro.props;
+const { posts, showLang = false } = Astro.props;
 
 function formatSize(post: CollectionEntry<'blog'>): string {
   const length = post.body?.length ?? 0;
@@ -17,7 +18,7 @@ function formatSize(post: CollectionEntry<'blog'>): string {
 function postHref(post: CollectionEntry<'blog'>): string {
   const lang = getPostLang(post.id);
   const slug = getPostSlug(post.id);
-  return lang === 'en' ? `/en/blog/${slug}` : `/blog/${slug}`;
+  return lang === 'ja' ? `/ja/blog/${slug}` : `/blog/${slug}`;
 }
 ---
 
@@ -30,8 +31,21 @@ function postHref(post: CollectionEntry<'blog'>): string {
         <span class="date">{post.data.pubDate.toISOString().slice(0, 10)}</span>
         <span class="title">
           <a href={postHref(post)}>{post.data.title}</a>
+          {showLang && (
+            <span class="post-lang" aria-label={`language: ${getPostLang(post.id)}`}>
+              ({getPostLang(post.id).toUpperCase()})
+            </span>
+          )}
         </span>
       </li>
     ))
   }
 </ul>
+
+<style>
+  .post-lang {
+    margin-left: 0.5ch;
+    color: var(--text-dim);
+    font-size: var(--font-size-xs);
+  }
+</style>

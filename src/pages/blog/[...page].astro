@@ -8,7 +8,7 @@ import { getPostLang } from '../../utils/post-locale';
 
 export const getStaticPaths = (async ({ paginate }) => {
   const all = await getCollection('blog');
-  const posts = sortPostsByDate(all.filter(p => getPostLang(p.id) === 'ja'));
+  const posts = sortPostsByDate(all.filter(p => getPostLang(p.id) === 'en'));
   return paginate(posts, { pageSize: POSTS_PER_PAGE });
 }) satisfies GetStaticPaths;
 
@@ -19,9 +19,9 @@ const { page } = Astro.props;
   title={SITE_TITLE}
   description={SITE_DESCRIPTION}
   posts={page.data}
-  headerTitle="全ての記事"
+  headerTitle="All Posts"
   headerIcon="📚"
-  headerDescription="技術記事から個人的な学びまで、これまでに書いた記事をすべてご覧いただけます。気になる記事があれば、ぜひクリックして詳細をお読みください。"
+  headerDescription="All English posts on this blog."
   page={page}
   baseUrl="/blog/"
 />

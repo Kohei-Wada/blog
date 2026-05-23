@@ -2,8 +2,8 @@
 import { localeFromUrl } from '../../utils/i18n';
 
 const locale = localeFromUrl(Astro.url);
-const prefix = locale === 'en' ? '/en' : '';
-const stripped = Astro.url.pathname.replace(/^\/en/, '') || '/';
+const prefix = locale === 'ja' ? '/ja' : '';
+const stripped = Astro.url.pathname.replace(/^\/ja/, '') || '/';
 
 let current: string | null = null;
 if (stripped === '/' || stripped === '') current = 'home';
