@@ -16,7 +16,13 @@ export default defineConfig({
   },
   integrations: [
     expressiveCode({
-      themes: ['github-dark'],
+      themes: ['solarized-light'],
+      styleOverrides: {
+        borderRadius: '4px',
+        frames: {
+          shadowColor: 'transparent',
+        },
+      },
     }),
     mdx(),
     sitemap({
