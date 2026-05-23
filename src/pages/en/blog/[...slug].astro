@@ -23,6 +23,6 @@ const sameLang = all.filter(p => getPostLang(p.id) === getPostLang(post.id));
 const relatedPosts = getRelatedPosts(post, sameLang, 3);
 ---
 
-<BlogPost {...post.data} headings={headings} relatedPosts={relatedPosts}>
+<BlogPost {...post.data} id={post.id} headings={headings} relatedPosts={relatedPosts}>
   <Content />
 </BlogPost>
