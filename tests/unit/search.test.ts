@@ -1,11 +1,18 @@
 import { describe, it, expect } from 'vitest';
-import { createSearchIndex, search, type SearchItem } from '@/utils/search';
+import {
+  createSearchIndex,
+  search,
+  stripMarkdown,
+  truncateBody,
+  type SearchItem,
+} from '@/utils/search';
 
 const createMockSearchItem = (
   id: string,
   title: string,
   description: string,
-  tags: string[]
+  tags: string[],
+  body = ''
 ): SearchItem => ({
   id,
   title,
@@ -13,6 +20,7 @@ const createMockSearchItem = (
   tags,
   pubDate: '2025-01-15T00:00:00.000Z',
   url: `/blog/${id}/`,
+  body,
 });
 
 const mockItems: SearchItem[] = [
@@ -113,6 +121,69 @@ describe('Search Utility', () => {
       const fuse = createSearchIndex(mockItems);
       const result = search(fuse, 'xxxxxxxxx存在しないキーワード');
       expect(result).toEqual([]);
+    });
+
+    it('body 内のキーワードでマッチする', () => {
+      const itemsWithBody: SearchItem[] = [
+        createMockSearchItem(
+          'foo',
+          'Foo タイトル',
+          'Foo description',
+          ['x'],
+          'これは秘密の本文です'
+        ),
+        createMockSearchItem('bar', 'Bar タイトル', 'Bar description', ['y'], 'まったく違う内容'),
+      ];
+      const fuse = createSearchIndex(itemsWithBody);
+      const result = search(fuse, '秘密');
+      expect(result.length).toBeGreaterThan(0);
+      expect(result[0].item.id).toBe('foo');
+    });
+  });
+
+  describe('truncateBody', () => {
+    it('2000 文字以下はそのまま返す', () => {
+      const short = 'x'.repeat(500);
+      expect(truncateBody(short)).toBe(short);
+    });
+
+    it('2000 文字超は切り詰める', () => {
+      const long = 'y'.repeat(3000);
+      expect(truncateBody(long).length).toBe(2000);
+    });
+  });
+
+  describe('stripMarkdown', () => {
+    it('見出し記号を除去する', () => {
+      expect(stripMarkdown('# Heading\n## Sub\nbody')).toBe('Heading Sub body');
+    });
+
+    it('インラインコード `…` のバッククォートを外す', () => {
+      expect(stripMarkdown('use `npm install` to set up')).toBe('use npm install to set up');
+    });
+
+    it('コードブロックを除去する', () => {
+      expect(stripMarkdown('text\n```ts\nconst x = 1;\n```\nmore')).toBe('text more');
+    });
+
+    it('リンクは表示テキストだけ残す', () => {
+      expect(stripMarkdown('see [docs](https://example.com) for more')).toBe('see docs for more');
+    });
+
+    it('画像は除去する', () => {
+      expect(stripMarkdown('intro ![alt](x.png) tail')).toBe('intro tail');
+    });
+
+    it('強調 (** / *) を外す', () => {
+      expect(stripMarkdown('**bold** and *italic* text')).toBe('bold and italic text');
+    });
+
+    it('HTML コメントとタグを除去する', () => {
+      expect(stripMarkdown('a <!-- hidden --> b <span>c</span> d')).toBe('a b c d');
+    });
+
+    it('連続する空白は 1 つに正規化する', () => {
+      expect(stripMarkdown('a\n\n\nb   c\td')).toBe('a b c d');
     });
   });
 });
