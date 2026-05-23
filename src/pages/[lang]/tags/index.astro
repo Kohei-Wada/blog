@@ -1,20 +1,26 @@
 ---
+import type { GetStaticPaths } from 'astro';
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import ManCommand from '../../../components/shared/ui/ManCommand.astro';
 import { SITE_TITLE } from '../../../consts';
-import { t } from '../../../i18n/strings';
+import { t, type Locale } from '../../../i18n/strings';
 import { getCollection } from 'astro:content';
 import { getTagCounts, getAllTags } from '../../../utils/content-aggregation';
 import { getPostLang } from '../../../utils/post-locale';
+import { LOCALES } from '../../../utils/i18n';
 
+export const getStaticPaths = (() =>
+  LOCALES.map(lang => ({ params: { lang } }))) satisfies GetStaticPaths;
+
+const lang = Astro.params.lang as Locale;
 const all = await getCollection('blog');
-const posts = all.filter(p => getPostLang(p.id) === 'ja');
+const posts = all.filter(p => getPostLang(p.id) === lang);
 const tagCounts = getTagCounts(posts);
 const tags = getAllTags(posts);
-const title = `タグ一覧 - ${SITE_TITLE}`;
+const title = `${lang === 'ja' ? 'タグ一覧' : 'Tags'} - ${SITE_TITLE}`;
 ---
 
-<BaseLayout title={title} description={t('siteDescription', 'ja')}>
+<BaseLayout title={title} description={t('siteDescription', lang)}>
   <section class="man-section">
     <h2>NAME</h2>
     <p>{title}</p>
@@ -30,7 +36,7 @@ const title = `タグ一覧 - ${SITE_TITLE}`;
             <span class="perms">drwxr-xr-x</span>
             <span class="size">{tagCounts[tag]}</span>
             <span class="title">
-              <a href={`/ja/tags/${tag}/`}>{tag}</a>
+              <a href={`/${lang}/tags/${tag}/`}>{tag}</a>
             </span>
           </li>
         ))
@@ -41,9 +47,8 @@ const title = `タグ一覧 - ${SITE_TITLE}`;
   <section class="man-section">
     <h2>NAVIGATION</h2>
     <p>
-      <a href="/ja/blog">blog</a> · <a href="/ja/tags/">tags</a> · <a href="/ja/archives/"
-        >archives</a
-      >
+      <a href={`/${lang}/blog`}>blog</a> · <a href={`/${lang}/tags/`}>tags</a> ·
+      <a href={`/${lang}/archives/`}>archives</a>
     </p>
   </section>
 </BaseLayout>

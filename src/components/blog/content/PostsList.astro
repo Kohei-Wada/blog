@@ -17,7 +17,7 @@ function formatSize(post: CollectionEntry<'blog'>): string {
 function postHref(post: CollectionEntry<'blog'>): string {
   const lang = getPostLang(post.id);
   const slug = getPostSlug(post.id);
-  return lang === 'ja' ? `/ja/blog/${slug}` : `/blog/${slug}`;
+  return `/${lang}/blog/${slug}`;
 }
 ---
 

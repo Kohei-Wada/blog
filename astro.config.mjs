@@ -11,8 +11,11 @@ export default defineConfig({
     defaultLocale: 'en',
     locales: ['en', 'ja'],
     routing: {
-      prefixDefaultLocale: false,
+      prefixDefaultLocale: true,
     },
+  },
+  redirects: {
+    '/': '/en',
   },
   integrations: [
     expressiveCode({
@@ -44,8 +47,8 @@ export default defineConfig({
       changefreq: 'weekly',
       priority: 0.7,
       serialize(item) {
-        // Homepage has highest priority
-        if (item.url === 'https://wada-dev.com/') {
+        // Locale homepages have highest priority
+        if (item.url === 'https://wada-dev.com/en/' || item.url === 'https://wada-dev.com/ja/') {
           item.priority = 1.0;
           item.changefreq = 'daily';
         }

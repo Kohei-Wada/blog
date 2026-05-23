@@ -1,22 +1,27 @@
-import type { APIRoute } from 'astro';
+import type { APIRoute, GetStaticPaths } from 'astro';
 import { getCollection } from 'astro:content';
 import type { SearchItem } from '../../utils/search';
 import { truncateBody, stripMarkdown } from '../../utils/search';
 import { formatErrorForLog } from '../../utils/error-utils';
 import { getPostLang, getPostSlug } from '../../utils/post-locale';
+import { LOCALES } from '../../utils/i18n';
 
-export const GET: APIRoute = async () => {
+export const getStaticPaths = (() =>
+  LOCALES.map(lang => ({ params: { lang } }))) satisfies GetStaticPaths;
+
+export const GET: APIRoute = async ({ params }) => {
+  const lang = params.lang;
   try {
     const posts = await getCollection('blog');
-    const jaPosts = posts.filter(post => getPostLang(post.id) === 'ja');
+    const langPosts = posts.filter(post => getPostLang(post.id) === lang);
 
-    const searchIndex: SearchItem[] = jaPosts.map(post => ({
+    const searchIndex: SearchItem[] = langPosts.map(post => ({
       id: post.id,
       title: post.data.title,
       description: post.data.description,
       tags: post.data.tags,
       pubDate: post.data.pubDate.toISOString(),
-      url: `/ja/blog/${getPostSlug(post.id)}/`,
+      url: `/${lang}/blog/${getPostSlug(post.id)}/`,
       body: truncateBody(stripMarkdown(post.body ?? '')),
     }));
 

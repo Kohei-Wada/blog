@@ -24,18 +24,18 @@ describe('i18n utils', () => {
   });
 
   describe('siblingUrl', () => {
-    it('adds /ja prefix when going from en to ja', () => {
-      expect(siblingUrl('/', 'en', 'ja')).toBe('/ja/');
-      expect(siblingUrl('/blog/taskdog', 'en', 'ja')).toBe('/ja/blog/taskdog');
+    it('swaps the leading locale segment en -> ja', () => {
+      expect(siblingUrl('/en/', 'en', 'ja')).toBe('/ja/');
+      expect(siblingUrl('/en/blog/taskdog', 'en', 'ja')).toBe('/ja/blog/taskdog');
     });
 
-    it('strips /ja prefix when going from ja to en', () => {
-      expect(siblingUrl('/ja/', 'ja', 'en')).toBe('/');
-      expect(siblingUrl('/ja/blog/taskdog', 'ja', 'en')).toBe('/blog/taskdog');
+    it('swaps the leading locale segment ja -> en', () => {
+      expect(siblingUrl('/ja/', 'ja', 'en')).toBe('/en/');
+      expect(siblingUrl('/ja/blog/taskdog', 'ja', 'en')).toBe('/en/blog/taskdog');
     });
 
     it('returns the same path when target locale equals current locale', () => {
-      expect(siblingUrl('/blog/foo', 'en', 'en')).toBe('/blog/foo');
+      expect(siblingUrl('/en/blog/foo', 'en', 'en')).toBe('/en/blog/foo');
       expect(siblingUrl('/ja/blog/foo', 'ja', 'ja')).toBe('/ja/blog/foo');
     });
   });

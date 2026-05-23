@@ -25,13 +25,7 @@ const seeAlsoEntries = resolveSeeAlso(seeAlso, id, all);
 
 const otherLang = lang === 'ja' ? 'en' : 'ja';
 const hasTranslation = all.some(p => getPostLang(p.id) === otherLang && getPostSlug(p.id) === slug);
-const siblingHref = hasTranslation
-  ? otherLang === 'ja'
-    ? `/ja/blog/${slug}`
-    : `/blog/${slug}`
-  : otherLang === 'ja'
-    ? '/ja/'
-    : '/';
+const siblingHref = hasTranslation ? `/${otherLang}/blog/${slug}` : `/${otherLang}/`;
 ---
 
 <BaseLayout title={title} description={description} siblingHref={siblingHref}>
@@ -60,10 +54,7 @@ const siblingHref = hasTranslation
           <p>
             {tags.map((tag, i) => (
               <span>
-                <a
-                  class="tag-pill"
-                  href={`${lang === 'ja' ? '/ja' : ''}/tags/${encodeURIComponent(tag)}/`}
-                >
+                <a class="tag-pill" href={`/${lang}/tags/${encodeURIComponent(tag)}/`}>
                   {tag}
                 </a>
                 {i < tags.length - 1 && <span class="tag-sep"> · </span>}
