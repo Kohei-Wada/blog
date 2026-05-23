@@ -76,15 +76,18 @@ input {
 
 code {
   padding: 2px 5px;
-  background-color: var(--card-background);
-  border-radius: 2px;
+  background-color: var(--bg-alt);
+  border-radius: 4px;
+  font-family: var(--font-mono);
 }
 
 pre {
   padding: 1.5em;
-  border-radius: 8px;
+  border-radius: 4px;
+  font-family: var(--font-mono);
 }
 
 pre > code {
   all: unset;
+  font-family: var(--font-mono);
 }
