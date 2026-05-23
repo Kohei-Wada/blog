@@ -38,22 +38,13 @@ export function getPostsByTag(
 }
 
 /**
- * Get all unique tags from posts, sorted alphabetically
+ * Get all unique tags from posts, sorted alphabetically (case-insensitive),
+ * matching the `ls -l tags/` ordering the tag index advertises.
  * @param posts Array of blog posts
- * @returns Array of unique tag names, sorted alphabetically
+ * @returns Array of unique tag names
  */
 export function getAllTags(posts: CollectionEntry<'blog'>[]): string[] {
-  return Array.from(new Set(posts.flatMap(post => post.data.tags))).sort();
-}
-
-/**
- * Get tags sorted by post count (descending)
- * @param posts Array of blog posts
- * @returns Array of tag names, sorted by count (most posts first)
- */
-export function getTagsSortedByCount(posts: CollectionEntry<'blog'>[]): string[] {
-  const tagCounts = getTagCounts(posts);
-  return Object.entries(tagCounts)
-    .sort(([, a], [, b]) => b - a)
-    .map(([tag]) => tag);
+  return Array.from(new Set(posts.flatMap(post => post.data.tags))).sort((a, b) =>
+    a.localeCompare(b, undefined, { sensitivity: 'base' })
+  );
 }

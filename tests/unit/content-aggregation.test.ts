@@ -1,10 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import {
-  getTagCounts,
-  getPostsByTag,
-  getAllTags,
-  getTagsSortedByCount,
-} from '../../src/utils/content-aggregation';
+import { getTagCounts, getPostsByTag, getAllTags } from '../../src/utils/content-aggregation';
 import { createMockPost } from '../../src/test/helpers';
 
 const mockPosts = [
@@ -106,43 +101,16 @@ describe('content-aggregation', () => {
       expect(result).toHaveLength(4);
     });
 
-    it('should return sorted tags', () => {
+    it('should return tags sorted alphabetically, case-insensitively', () => {
       const result = getAllTags(mockPosts);
-      const sorted = [...result].sort();
 
-      expect(result).toEqual(sorted);
+      // Astro, blog, React, TypeScript — not ASCII order (which puts blog last).
+      expect(result).toEqual(['Astro', 'blog', 'React', 'TypeScript']);
     });
 
     it('should handle empty array', () => {
       const result = getAllTags([]);
       expect(result).toEqual([]);
-    });
-  });
-
-  describe('getTagsSortedByCount', () => {
-    it('should return tags sorted by count (descending)', () => {
-      const result = getTagsSortedByCount(mockPosts);
-
-      // TypeScript と Astro は両方3なので、どちらが先でも良い
-      expect(result.slice(0, 2)).toContain('TypeScript');
-      expect(result.slice(0, 2)).toContain('Astro');
-      // React と blog は両方2
-      expect(result.slice(2, 4)).toContain('React');
-      expect(result.slice(2, 4)).toContain('blog');
-    });
-
-    it('should handle empty array', () => {
-      const result = getTagsSortedByCount([]);
-      expect(result).toEqual([]);
-    });
-
-    it('should handle single tag', () => {
-      const singleTagPosts = [
-        createMockPost({ id: 'single', title: 'Single', pubDate: '2025-01-01', tags: ['only'] }),
-      ];
-      const result = getTagsSortedByCount(singleTagPosts);
-
-      expect(result).toEqual(['only']);
     });
   });
 });
