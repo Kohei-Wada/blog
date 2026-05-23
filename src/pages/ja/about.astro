@@ -1,9 +1,10 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { AUTHOR_NAME, AUTHOR_BIO, AUTHOR_JOB_TITLE } from '../../consts';
+import { AUTHOR_NAME, AUTHOR_JOB_TITLE } from '../../consts';
+import { t } from '../../i18n/strings';
 ---
 
-<BaseLayout title="About" description={AUTHOR_BIO}>
+<BaseLayout title="About" description={t('authorBio', 'ja')}>
   <section class="man-section">
     <h2>NAME</h2>
     <p>whoami — {AUTHOR_NAME}</p>
@@ -12,7 +13,7 @@ import { AUTHOR_NAME, AUTHOR_BIO, AUTHOR_JOB_TITLE } from '../../consts';
   <section class="man-section">
     <h2>DESCRIPTION</h2>
     <p>
-      {AUTHOR_JOB_TITLE}. {AUTHOR_BIO}
+      {AUTHOR_JOB_TITLE}. {t('authorBio', 'ja')}
     </p>
     <p>
       東京でリモートワーク中心に活動しているエンジニアです。

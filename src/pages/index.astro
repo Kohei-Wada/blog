@@ -1,14 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import {
-  SITE_TITLE,
-  HOME_TITLE,
-  SITE_SUBTITLE,
-  GITHUB_URL,
-  ZENN_URL,
-  QIITA_URL,
-  X_URL,
-} from '../consts';
+import { SITE_TITLE, HOME_TITLE, GITHUB_URL, ZENN_URL, QIITA_URL, X_URL } from '../consts';
+import { t } from '../i18n/strings';
 import { getCollection } from 'astro:content';
 import { sortPostsByDate } from '../utils/content-aggregation';
 import PostsList from '../components/blog/content/PostsList.astro';
@@ -30,14 +23,13 @@ const featuredProjects = allProjects
   })
   .slice(0, 3);
 
-const description =
-  'Engineer in Yokohama. Notes on building tools (taskdog, ttymap, knowledge-gardener) and what I learned along the way.';
+const description = t('siteDescription', 'en');
 ---
 
 <BaseLayout title={SITE_TITLE} description={description}>
   <section class="man-section">
     <h2>NAME</h2>
-    <p>{HOME_TITLE} -- {SITE_SUBTITLE}</p>
+    <p>{HOME_TITLE} -- {t('siteSubtitle', 'en')}</p>
   </section>
 
   <section class="man-section">

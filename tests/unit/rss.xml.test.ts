@@ -1,10 +1,12 @@
 import { describe, it, expect } from 'vitest';
-import { SITE_TITLE, SITE_DESCRIPTION } from '../../src/consts';
+import { SITE_TITLE } from '../../src/consts';
+import { t } from '../../src/i18n/strings';
 
 describe('RSS Feed', () => {
   it('should use correct site metadata', () => {
     expect(SITE_TITLE).toBe('wada-dev');
-    expect(SITE_DESCRIPTION).toContain('ようこそ');
+    // RSS is the default-locale (English) feed.
+    expect(t('siteDescription', 'en')).toMatch(/[A-Za-z]/);
   });
 
   it('should format blog post link correctly', () => {

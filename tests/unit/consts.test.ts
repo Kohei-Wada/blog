@@ -1,5 +1,6 @@
 import { describe, it, expect } from 'vitest';
-import { SITE_TITLE, SITE_DESCRIPTION, GITHUB_URL, ZENN_URL } from '../../src/consts';
+import { SITE_TITLE, GITHUB_URL, ZENN_URL } from '../../src/consts';
+import { t } from '../../src/i18n/strings';
 
 describe('consts', () => {
   it('should export correct site title', () => {
@@ -7,10 +8,10 @@ describe('consts', () => {
     expect(typeof SITE_TITLE).toBe('string');
   });
 
-  it('should export valid site description', () => {
-    expect(SITE_DESCRIPTION).toContain('ようこそ');
-    expect(typeof SITE_DESCRIPTION).toBe('string');
-    expect(SITE_DESCRIPTION.length).toBeGreaterThan(0);
+  it('should resolve locale-aware site description', () => {
+    expect(t('siteDescription', 'ja')).toContain('ようこそ');
+    expect(t('siteDescription', 'en')).toMatch(/[A-Za-z]/);
+    expect(t('siteDescription', 'en')).not.toContain('ようこそ');
   });
 
   it('should export valid GitHub URL', () => {
@@ -25,7 +26,6 @@ describe('consts', () => {
 
   it('should have all constants as strings', () => {
     expect(typeof SITE_TITLE).toBe('string');
-    expect(typeof SITE_DESCRIPTION).toBe('string');
     expect(typeof GITHUB_URL).toBe('string');
     expect(typeof ZENN_URL).toBe('string');
   });
