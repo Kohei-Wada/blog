@@ -10,6 +10,7 @@ if (stripped === '/' || stripped === '') current = 'home';
 else if (stripped.startsWith('/blog')) current = 'blog';
 else if (stripped.startsWith('/tags')) current = 'tags';
 else if (stripped.startsWith('/archives')) current = 'archives';
+else if (stripped.startsWith('/projects')) current = 'projects';
 else if (stripped.startsWith('/about')) current = 'about';
 
 const links: Array<{ id: string; label: string; href: string }> = [
@@ -17,6 +18,7 @@ const links: Array<{ id: string; label: string; href: string }> = [
   { id: 'blog', label: 'blog', href: `${prefix}/blog` },
   { id: 'tags', label: 'tags', href: `${prefix}/tags/` },
   { id: 'archives', label: 'archives', href: `${prefix}/archives/` },
+  { id: 'projects', label: 'projects', href: `${prefix}/projects` },
   { id: 'about', label: 'about', href: `${prefix}/about` },
 ];
 ---

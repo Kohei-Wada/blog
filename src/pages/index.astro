@@ -20,6 +20,15 @@ const allPosts = all.filter(p => getPostLang(p.id) === 'ja');
 const featuredPosts = allPosts.filter(post => post.data.featured);
 const otherPosts = allPosts.filter(post => !post.data.featured);
 const posts = [...sortPostsByDate(featuredPosts), ...sortPostsByDate(otherPosts)].slice(0, 10);
+
+const allProjects = await getCollection('projects');
+const featuredProjects = allProjects
+  .filter(p => p.data.status === 'active')
+  .sort((a, b) => {
+    if (b.data.order !== a.data.order) return b.data.order - a.data.order;
+    return a.data.name.localeCompare(b.data.name);
+  })
+  .slice(0, 3);
 ---
 
 <BaseLayout title={SITE_TITLE} description={SITE_DESCRIPTION}>
@@ -55,13 +64,17 @@ const posts = [...sortPostsByDate(featuredPosts), ...sortPostsByDate(otherPosts)
   <section class="man-section">
     <h2>PROJECTS</h2>
     <ul class="projects">
-      <li><a href="https://github.com/Kohei-Wada/taskdog">taskdog</a> — cli task manager</li>
-      <li><a href="https://github.com/Kohei-Wada/ttymap">ttymap</a> — tmux session viz</li>
-      <li>
-        <a href="https://github.com/Kohei-Wada/knowledge-gardener">knowledge-gardener</a> — obsidian
-        + ai
-      </li>
+      {
+        featuredProjects.map(p => (
+          <li>
+            <a href={p.data.repo}>{p.data.name}</a> — {p.data.description}
+          </li>
+        ))
+      }
     </ul>
+    <p class="see-all">
+      <span class="man-prompt"></span><a href="/projects">ls --all → /projects</a>
+    </p>
   </section>
 
   <section class="man-section">
