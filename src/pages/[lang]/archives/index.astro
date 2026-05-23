@@ -1,16 +1,24 @@
 ---
+import type { GetStaticPaths } from 'astro';
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import ManCommand from '../../../components/shared/ui/ManCommand.astro';
 import { SITE_TITLE } from '../../../consts';
+import { type Locale } from '../../../i18n/strings';
 import { getCollection } from 'astro:content';
 import { groupPostsByMonth } from '../../../utils/archive-utils';
 import { getPostLang } from '../../../utils/post-locale';
+import { LOCALES } from '../../../utils/i18n';
 
+export const getStaticPaths = (() =>
+  LOCALES.map(lang => ({ params: { lang } }))) satisfies GetStaticPaths;
+
+const lang = Astro.params.lang as Locale;
 const all = await getCollection('blog');
-const posts = all.filter(p => getPostLang(p.id) === 'ja');
+const posts = all.filter(p => getPostLang(p.id) === lang);
 const archives = groupPostsByMonth(posts);
-const title = `アーカイブ - ${SITE_TITLE}`;
-const description = 'ブログ記事の月別アーカイブ一覧です。';
+const title = `${lang === 'ja' ? 'アーカイブ' : 'Archives'} - ${SITE_TITLE}`;
+const description =
+  lang === 'ja' ? 'ブログ記事の月別アーカイブ。' : 'Monthly archive of blog posts.';
 
 const groupedByYear = new Map<number, typeof archives>();
 archives.forEach(archive => {
@@ -34,18 +42,18 @@ const sortedYears = Array.from(groupedByYear.keys()).sort((a, b) => b - a);
     <ManCommand cmd={"ls -l blog/ | awk '{print $6}' | cut -d- -f1,2 | sort -r | uniq -c"} />
     {
       archives.length === 0 ? (
-        <p>まだ記事が投稿されていません。</p>
+        <p>No posts yet.</p>
       ) : (
         sortedYears.map(year => (
           <div class="archive-year-group">
-            <h3>{year}年</h3>
+            <h3>{year}</h3>
             <ul class="ls-listing ls-listing--compact">
               {groupedByYear.get(year)!.map(archive => (
                 <li>
                   <span class="perms">drwxr-xr-x</span>
                   <span class="size">{archive.count}</span>
                   <span class="title">
-                    <a href={`/ja/archives/${archive.slug}/`}>{archive.month}月</a>
+                    <a href={`/${lang}/archives/${archive.slug}/`}>{archive.month}</a>
                   </span>
                 </li>
               ))}
@@ -59,9 +67,8 @@ const sortedYears = Array.from(groupedByYear.keys()).sort((a, b) => b - a);
   <section class="man-section">
     <h2>NAVIGATION</h2>
     <p>
-      <a href="/ja/blog">blog</a> · <a href="/ja/tags/">tags</a> · <a href="/ja/archives/"
-        >archives</a
-      >
+      <a href={`/${lang}/blog`}>blog</a> · <a href={`/${lang}/tags/`}>tags</a> ·
+      <a href={`/${lang}/archives/`}>archives</a>
     </p>
   </section>
 </BaseLayout>

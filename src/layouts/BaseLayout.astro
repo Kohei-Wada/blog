@@ -25,8 +25,8 @@ const { title, description, image, isArticle, publishedTime, siblingHref } = Ast
 const pathname = Astro.url.pathname;
 const sectionName = 'WADA-DEV(7)';
 const today = new Date().toISOString().slice(0, 10);
-const headerPath = pathname === '/' || pathname === '/ja/' ? '/' : pathname;
-const localePrefix = pathname.startsWith('/ja') ? '/ja' : '';
+const localePrefix = pathname.startsWith('/ja') ? '/ja' : '/en';
+const headerPath = pathname === `${localePrefix}/` ? '/' : pathname;
 ---
 
 <!doctype html>

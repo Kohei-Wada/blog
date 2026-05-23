@@ -13,7 +13,7 @@ export async function GET(context) {
     site: context.site,
     items: enPosts.map(post => ({
       ...post.data,
-      link: `/blog/${getPostSlug(post.id)}/`,
+      link: `/en/blog/${getPostSlug(post.id)}/`,
     })),
   });
 }

@@ -6,9 +6,8 @@ import { getPostLang, getPostSlug } from '../../../utils/post-locale';
 
 export async function getStaticPaths() {
   const all = await getCollection('blog');
-  const ja = all.filter(p => getPostLang(p.id) === 'ja');
-  return ja.map(post => ({
-    params: { slug: getPostSlug(post.id) },
+  return all.map(post => ({
+    params: { lang: getPostLang(post.id), slug: getPostSlug(post.id) },
     props: post,
   }));
 }

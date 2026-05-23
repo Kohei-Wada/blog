@@ -1,6 +1,6 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
-import ManCommand from '../components/shared/ui/ManCommand.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ManCommand from '../../components/shared/ui/ManCommand.astro';
 import { getCollection } from 'astro:content';
 
 const all = await getCollection('projects');
@@ -76,7 +76,7 @@ const groups = [
   <section class="man-section">
     <h2>SEE ALSO</h2>
     <p>
-      <a href="https://github.com/Kohei-Wada">github(1)</a>, <a href="/blog">blog(7)</a>
+      <a href="https://github.com/Kohei-Wada">github(1)</a>, <a href="/en/blog">blog(7)</a>
     </p>
   </section>
 

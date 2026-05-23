@@ -2,6 +2,7 @@
 import type { GetStaticPaths } from 'astro';
 import BlogListLayout from '../../../../layouts/BlogListLayout.astro';
 import { SITE_TITLE, POSTS_PER_PAGE } from '../../../../consts';
+import { type Locale } from '../../../../i18n/strings';
 import { getCollection } from 'astro:content';
 import {
   groupPostsByMonth,
@@ -9,20 +10,22 @@ import {
   formatArchiveLabel,
 } from '../../../../utils/archive-utils';
 import { getPostLang } from '../../../../utils/post-locale';
+import { LOCALES, otherLocale } from '../../../../utils/i18n';
 
 export const getStaticPaths = (async ({ paginate }) => {
   const all = await getCollection('blog');
-  const posts = all.filter(p => getPostLang(p.id) === 'ja');
-  const archives = groupPostsByMonth(posts);
-
-  return archives.flatMap(archive => {
-    return paginate(archive.posts, {
-      params: { yearmonth: archive.slug },
-      pageSize: POSTS_PER_PAGE,
-    });
+  return LOCALES.flatMap(lang => {
+    const posts = all.filter(p => getPostLang(p.id) === lang);
+    return groupPostsByMonth(posts).flatMap(archive =>
+      paginate(archive.posts, {
+        params: { lang, yearmonth: archive.slug },
+        pageSize: POSTS_PER_PAGE,
+      })
+    );
   });
 }) satisfies GetStaticPaths;
 
+const lang = Astro.params.lang as Locale;
 const { yearmonth: yearMonthParam } = Astro.params;
 if (!yearMonthParam) {
   throw new Error('Year-month parameter is required');
@@ -35,8 +38,10 @@ if (!parsed) {
 
 const { page } = Astro.props;
 const { year, month } = parsed;
-const title = `${formatArchiveLabel(year, month)} - ${SITE_TITLE}`;
-const description = `${formatArchiveLabel(year, month)}に投稿された記事一覧です。`;
+const label = formatArchiveLabel(year, month);
+const title = `${label} - ${SITE_TITLE}`;
+const description =
+  lang === 'ja' ? `${label}に投稿された記事一覧です。` : `Posts published in ${label}.`;
 ---
 
 <BlogListLayout
@@ -45,7 +50,7 @@ const description = `${formatArchiveLabel(year, month)}に投稿された記事�
   posts={page.data}
   sectionLabel="LISTING"
   command={`ls -l archives/${yearMonthParam}/`}
-  siblingHref="/"
+  siblingHref={`/${otherLocale(lang)}/`}
   page={page}
-  baseUrl={`/archives/${yearMonthParam}/`}
+  baseUrl={`/${lang}/archives/${yearMonthParam}/`}
 />

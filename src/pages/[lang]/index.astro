@@ -1,16 +1,21 @@
 ---
+import type { GetStaticPaths } from 'astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { SITE_TITLE, HOME_TITLE, GITHUB_URL, ZENN_URL, QIITA_URL, X_URL } from '../../consts';
-import { t } from '../../i18n/strings';
+import { t, type Locale } from '../../i18n/strings';
 import { getCollection } from 'astro:content';
 import { sortPostsByDate } from '../../utils/content-aggregation';
 import PostsList from '../../components/blog/content/PostsList.astro';
 import ManCommand from '../../components/shared/ui/ManCommand.astro';
 import { getPostLang } from '../../utils/post-locale';
+import { LOCALES, otherLocale } from '../../utils/i18n';
 
+export const getStaticPaths = (() =>
+  LOCALES.map(lang => ({ params: { lang } }))) satisfies GetStaticPaths;
+
+const lang = Astro.params.lang as Locale;
 const all = await getCollection('blog');
-const allPosts = all.filter(p => getPostLang(p.id) === 'ja');
-const posts = sortPostsByDate(allPosts).slice(0, 10);
+const posts = sortPostsByDate(all.filter(post => getPostLang(post.id) === lang)).slice(0, 10);
 
 const allProjects = await getCollection('projects');
 const featuredProjects = allProjects
@@ -20,12 +25,15 @@ const featuredProjects = allProjects
     return a.data.name.localeCompare(b.data.name);
   })
   .slice(0, 3);
+
+const description = t('siteDescription', lang);
+const other = otherLocale(lang);
 ---
 
-<BaseLayout title={SITE_TITLE} description={t('siteDescription', 'ja')}>
+<BaseLayout title={SITE_TITLE} description={description}>
   <section class="man-section">
     <h2>NAME</h2>
-    <p>{HOME_TITLE} -- {t('siteSubtitle', 'ja')}</p>
+    <p>{HOME_TITLE} -- {t('siteSubtitle', lang)}</p>
   </section>
 
   <section class="man-section">
@@ -40,7 +48,7 @@ const featuredProjects = allProjects
 
   <section class="man-section">
     <h2>DESCRIPTION</h2>
-    <p>{t('siteDescription', 'ja')}</p>
+    <p>{description}</p>
     <p>
       Notes on building tools (taskdog, ttymap, knowledge-gardener) and what I learned along the
       way. Bilingual: 日本語 / English.
@@ -59,22 +67,22 @@ const featuredProjects = allProjects
       {
         featuredProjects.map(p => (
           <li>
-            <a href={p.data.repo}>{p.data.name}</a> — {p.data.description}
+            <a href={p.data.repo}>{p.data.name}</a> —{' '}
+            {lang === 'ja' ? p.data.description : p.data.description_en}
           </li>
         ))
       }
     </ul>
     <p class="see-all">
-      <span class="man-prompt"></span><a href="/ja/projects">ls --all → /projects</a>
+      <span class="man-prompt"></span><a href={`/${lang}/projects`}>ls --all → /projects</a>
     </p>
   </section>
 
   <section class="man-section">
     <h2>NAVIGATION</h2>
     <p>
-      <a href="/ja/blog">blog</a> · <a href="/ja/tags/">tags</a> · <a href="/ja/archives/"
-        >archives</a
-      > · <a href="/">en</a>
+      <a href={`/${lang}/blog`}>blog</a> · <a href={`/${lang}/tags/`}>tags</a> ·
+      <a href={`/${lang}/archives/`}>archives</a> · <a href={`/${other}/`}>{other}</a>
     </p>
   </section>
 

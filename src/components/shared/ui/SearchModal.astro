@@ -83,10 +83,9 @@
       if (fuse) return;
       if (!indexLoadPromise) {
         // Search the locale matching the current page: /ja/* searches the
-        // Japanese index, everything else (English default) the root index.
-        const indexUrl = window.location.pathname.startsWith('/ja')
-          ? '/ja/search-index.json'
-          : '/search-index.json';
+        // Japanese index, everything else the English index.
+        const locale = window.location.pathname.startsWith('/ja') ? 'ja' : 'en';
+        const indexUrl = `/${locale}/search-index.json`;
         indexLoadPromise = fetch(indexUrl)
           .then(r => (r.ok ? (r.json() as Promise<SearchItem[]>) : Promise.reject(r.status)))
           .then(items => {

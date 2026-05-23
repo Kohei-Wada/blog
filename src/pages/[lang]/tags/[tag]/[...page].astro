@@ -2,25 +2,24 @@
 import type { GetStaticPaths } from 'astro';
 import BlogListLayout from '../../../../layouts/BlogListLayout.astro';
 import { SITE_TITLE, POSTS_PER_PAGE } from '../../../../consts';
-import { t } from '../../../../i18n/strings';
+import { t, type Locale } from '../../../../i18n/strings';
 import { getCollection } from 'astro:content';
 import { getAllTags, getPostsByTag, sortPostsByDate } from '../../../../utils/content-aggregation';
 import { getPostLang } from '../../../../utils/post-locale';
+import { LOCALES, otherLocale } from '../../../../utils/i18n';
 
 export const getStaticPaths = (async ({ paginate }) => {
   const all = await getCollection('blog');
-  const posts = all.filter(p => getPostLang(p.id) === 'ja');
-  const tags = getAllTags(posts);
-
-  return tags.flatMap(tag => {
-    const tagPosts = sortPostsByDate(getPostsByTag(posts, tag));
-    return paginate(tagPosts, {
-      params: { tag },
-      pageSize: POSTS_PER_PAGE,
+  return LOCALES.flatMap(lang => {
+    const posts = all.filter(p => getPostLang(p.id) === lang);
+    return getAllTags(posts).flatMap(tag => {
+      const tagPosts = sortPostsByDate(getPostsByTag(posts, tag));
+      return paginate(tagPosts, { params: { lang, tag }, pageSize: POSTS_PER_PAGE });
     });
   });
 }) satisfies GetStaticPaths;
 
+const lang = Astro.params.lang as Locale;
 const { tag } = Astro.params;
 if (!tag) {
   throw new Error('Tag parameter is required');
@@ -28,16 +27,15 @@ if (!tag) {
 
 const { page } = Astro.props;
 const title = `${tag} - ${SITE_TITLE}`;
-const description = t('siteDescription', 'ja');
 ---
 
 <BlogListLayout
   title={title}
-  description={description}
+  description={t('siteDescription', lang)}
   posts={page.data}
   sectionLabel="APROPOS"
   command={`ls -l tags/${tag}/`}
-  siblingHref="/"
+  siblingHref={`/${otherLocale(lang)}/`}
   page={page}
-  baseUrl={`/tags/${tag}/`}
+  baseUrl={`/${lang}/tags/${tag}/`}
 />
