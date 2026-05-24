@@ -62,8 +62,9 @@
 }
 
 .man-footer {
-  margin-top: 3em;
-  padding-top: 1em;
+  max-width: var(--max-content);
+  margin: 3em auto 0;
+  padding: 1em 1rem 0;
   border-top: 1px solid var(--border);
   display: flex;
   flex-wrap: wrap;
@@ -92,7 +93,9 @@
 .man-rule {
   border: 0;
   border-top: 1px solid var(--border);
-  margin: 1.5em 0;
+  max-width: var(--max-content);
+  margin: 1.5em auto;
+  padding: 0 1rem;
 }
 
 .man-prompt::before {
@@ -158,6 +161,8 @@
      reach closer to the viewport edge on narrow screens. */
   .man-header { padding: 0 0.75rem; }
   .man-page   { padding: 0 0.75rem; }
+  .man-footer { padding: 1em 0.75rem 0; }
+  .man-rule   { padding: 0 0.75rem; }
 }
 
 .tag-pill {
