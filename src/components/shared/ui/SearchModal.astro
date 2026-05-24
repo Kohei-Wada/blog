@@ -278,6 +278,10 @@
     });
 
     window.addEventListener('search-modal:open', () => open());
+
+    // Close before the page enters the bfcache, so navigating to a result
+    // and pressing Back doesn't restore the modal in its open state.
+    window.addEventListener('pagehide', () => close());
   }
 </script>
 
