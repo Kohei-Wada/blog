@@ -2,9 +2,7 @@
 title: 'AWKを超えて：HaskellをUnixパイプラインに持ち込む'
 description: 'HaskellをUnixパイプラインに持ち込む'
 pubDate: 'Aug 10 2025'
-updatedDate: 'Aug 10 2025'
 tags: ['Haskell', 'ghci', 'shell芸']
-featured: true
 ---
 
 ## 1. 開発者の日常から生まれた課題

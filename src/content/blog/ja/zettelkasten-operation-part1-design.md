@@ -2,7 +2,6 @@
 title: 'Zettelkasten 運用記録 Part 1: 設計編'
 description: 'Zettelkastenを2年運用して落ち着いたフォルダ構造・タグ設計・MOCの運用方法を紹介'
 pubDate: 'Jan 08 2026'
-updatedDate: 'Jan 08 2026'
 tags: ['Zettelkasten', 'Obsidian', 'Markdown', 'ナレッジマネジメント']
 ---
 
@@ -32,7 +31,7 @@ vault/
 ├── 02_ReferenceNotes/
 ├── 03_PermanentNotes/
 ├── 04_DailyNotes/
-├── 05_BlogDrafts/
+├── 05_Blog/
 └── 99_Templates/
 ```
 
@@ -42,7 +41,7 @@ vault/
 
 **PermanentNotes** は MOC（Map of Contents）や、自分の見解をまとめたノートです。複数の Reference Note を束ねる役割があります。
 
-**DailyNotes** は振り返り用。**BlogDrafts** はブログ下書きです。
+**DailyNotes** は振り返り用。**Blog** はブログ記事です。
 
 フォルダは浅く保ちます。深い階層を作ると、どこに置くか迷う問題が再発します。
 

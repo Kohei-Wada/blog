@@ -2,7 +2,6 @@
 title: 'Zettelkasten in Practice Part 1: Design'
 description: 'The folder structure, tag design, and MOC workflow I settled on after two years of running a Zettelkasten'
 pubDate: 'Jan 08 2026'
-updatedDate: 'Jan 08 2026'
 tags: ['Zettelkasten', 'Obsidian', 'Markdown', 'Knowledge Management']
 ---
 
@@ -32,7 +31,7 @@ vault/
 ├── 02_ReferenceNotes/
 ├── 03_PermanentNotes/
 ├── 04_DailyNotes/
-├── 05_BlogDrafts/
+├── 05_Blog/
 └── 99_Templates/
 ```
 
@@ -42,7 +41,7 @@ vault/
 
 **PermanentNotes** holds MOCs (Map of Contents) and notes that consolidate my own takes. They bundle multiple Reference Notes together.
 
-**DailyNotes** is for retrospectives. **BlogDrafts** holds blog drafts.
+**DailyNotes** is for retrospectives. **Blog** holds blog posts.
 
 I keep the folder hierarchy shallow. Going deep brings back the "where should I put this?" problem.
 

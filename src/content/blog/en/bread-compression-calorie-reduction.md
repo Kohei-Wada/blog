@@ -2,7 +2,6 @@
 title: 'Can Squashing Bread Actually Cut Its Calories?'
 description: 'Can squashing bread really cut its net calories? A (mostly serious) investigation.'
 pubDate: '2025-08-16'
-updatedDate: '2025-08-16'
 tags: ['joke post', 'idea']
 ---
 

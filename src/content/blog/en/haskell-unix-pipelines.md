@@ -2,9 +2,7 @@
 title: 'Beyond AWK: Bringing Haskell into Unix Pipelines'
 description: 'Bringing Haskell into Unix pipelines'
 pubDate: 'Aug 10 2025'
-updatedDate: 'Aug 10 2025'
 tags: ['Haskell', 'ghci', 'shell-tricks']
-featured: true
 ---
 
 ## 1. A Problem Born from Daily Developer Life

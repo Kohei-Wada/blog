@@ -2,7 +2,6 @@
 title: 'Why I Built This Blog, and Why I Chose Astro'
 description: "Writing this down so I don't forget what I built this blog for"
 pubDate: '2025-08-11'
-updatedDate: '2025-08-11'
 tags: ['blog', 'astro', 'frontend']
 ---
 

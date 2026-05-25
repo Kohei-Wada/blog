@@ -2,9 +2,7 @@
 title: 'I Started a Blog with Astro'
 description: 'I built myself a blog with Astro'
 pubDate: 'June 9 2025'
-updatedDate: 'June 15 2025'
 tags: ['blog', 'Zettelkasten', 'astro']
-featured: true
 ---
 
 Hi, I'm Kohei.
