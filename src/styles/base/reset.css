@@ -9,6 +9,9 @@
 
 /* ルートレベルでのテーマトランジション設定 */
 html {
+  /* Reserve the scrollbar gutter so short pages (e.g. archives) don't shift
+     right relative to scrollable pages. */
+  scrollbar-gutter: stable;
   transition: background-color var(--theme-transition);
 }
 
