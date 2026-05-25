@@ -2,7 +2,6 @@
 title: 'Zettelkasten in Practice Part 1: Design'
 description: 'The folder structure, tag design, and MOC workflow I settled on after two years of running a Zettelkasten'
 pubDate: 'Jan 08 2026'
-updatedDate: 'Jan 08 2026'
 tags: ['Zettelkasten', 'Obsidian', 'Markdown', 'Knowledge Management']
 ---
 

@@ -2,7 +2,6 @@
 title: 'なぜブログを作ったか、なぜAstroを選んだか'
 description: 'このブログを作った目的を忘れないために書きます'
 pubDate: '2025-08-11'
-updatedDate: '2025-08-11'
 tags: ['blog', 'astro', 'frontend']
 ---
 

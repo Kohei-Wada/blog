@@ -2,7 +2,6 @@
 title: 'Zettelkasten 運用記録 Part 1: 設計編'
 description: 'Zettelkastenを2年運用して落ち着いたフォルダ構造・タグ設計・MOCの運用方法を紹介'
 pubDate: 'Jan 08 2026'
-updatedDate: 'Jan 08 2026'
 tags: ['Zettelkasten', 'Obsidian', 'Markdown', 'ナレッジマネジメント']
 ---
 
