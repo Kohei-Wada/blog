@@ -23,8 +23,6 @@ const pages = Array.from({ length: lastPage }, (_, i) => i + 1);
 {
   showPagination && (
     <nav class="pagination" aria-label="pagination">
-      <span class="man-prompt" />
-      <span class="label">ls --page</span>
       {prevUrl ? (
         <a href={prevUrl} class="arrow" rel="prev">
           &larr;
@@ -68,10 +66,6 @@ const pages = Array.from({ length: lastPage }, (_, i) => i + 1);
 
   .pagination > * + * {
     margin-left: 1ch;
-  }
-
-  .label {
-    color: var(--text-dim);
   }
 
   .page,

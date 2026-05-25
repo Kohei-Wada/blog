@@ -6,6 +6,7 @@ import PostsList from '../components/blog/content/PostsList.astro';
 import Pagination from '../components/shared/ui/Pagination.astro';
 import ManCommand from '../components/shared/ui/ManCommand.astro';
 import { localeFromUrl } from '../utils/i18n';
+import { buildListingCommand } from '../utils/listing-command';
 
 interface Props {
   title: string;
@@ -30,6 +31,7 @@ const {
 } = Astro.props;
 
 const locale = localeFromUrl(Astro.url);
+const displayCommand = command && page ? buildListingCommand(command, page) : command;
 ---
 
 <BaseLayout title={title} description={description} siblingHref={siblingHref}>
@@ -40,7 +42,7 @@ const locale = localeFromUrl(Astro.url);
 
   <section class="man-section">
     <h2>{sectionLabel}</h2>
-    {command && <ManCommand cmd={command} />}
+    {displayCommand && <ManCommand cmd={displayCommand} />}
     <PostsList posts={posts} />
     {
       page && (
