@@ -20,7 +20,7 @@ This blog (`Kohei-Wada/blog`, prod https://wada-dev.com) is English-default, bil
 | `src/content/blog/ja/<slug>.md`   | Japanese post (served at `/ja/blog/<slug>`)                          |
 | `src/content/blog/en/<slug>.md`   | English post (served at `/en/blog/<slug>`)                           |
 | `src/content/projects/<name>.md`  | Projects-page entry                                                  |
-| `src/content/blog/` source drafts | often live in the Obsidian vault `$KG_VAULT/05_BlogDrafts/<slug>.md` |
+| `src/content/blog/` source drafts | often live in the Obsidian vault `$KG_VAULT/05_Blog/draft/<slug>.md` |
 
 ## Frontmatter schema (blog)
 
