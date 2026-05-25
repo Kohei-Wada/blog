@@ -31,7 +31,7 @@ vault/
 ├── 02_ReferenceNotes/
 ├── 03_PermanentNotes/
 ├── 04_DailyNotes/
-├── 05_BlogDrafts/
+├── 05_Blog/
 └── 99_Templates/
 ```
 
@@ -41,7 +41,7 @@ vault/
 
 **PermanentNotes** は MOC（Map of Contents）や、自分の見解をまとめたノートです。複数の Reference Note を束ねる役割があります。
 
-**DailyNotes** は振り返り用。**BlogDrafts** はブログ下書きです。
+**DailyNotes** は振り返り用。**Blog** はブログ記事です。
 
 フォルダは浅く保ちます。深い階層を作ると、どこに置くか迷う問題が再発します。
 
