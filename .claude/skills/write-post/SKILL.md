@@ -38,7 +38,7 @@ seeAlso: ['other-slug'] # optional, default []; MUST resolve in the SAME locale
 ---
 ```
 
-There is **no `heroImage`** field — drafts that have one must drop it. Frontmatter must be valid YAML (single-quote strings containing `:` or `'`).
+Frontmatter must be valid YAML (single-quote strings containing `:` or `'`).
 
 ## House style (man-page aesthetic)
 
@@ -58,7 +58,7 @@ There is **no `heroImage`** field — drafts that have one must drop it. Frontma
 ## Process
 
 1. **Pre-flight**: `cd ~/ghq/github.com/Kohei-Wada/blog && git pull --ff-only origin main`, then `git worktree add .worktrees/<name> -b <branch> origin/main`. Work in the worktree.
-2. **Write both files**: `src/content/blog/{ja,en}/<slug>.md`. Same slug. Drop `heroImage`, use plain headings.
+2. **Write both files**: `src/content/blog/{ja,en}/<slug>.md`. Same slug. Use plain headings.
 3. **Verify locally** (in the worktree):
    - `npm run check:posts` → must say `parity OK (N ja / N en)`
    - `npm run build` → succeeds; `npx vitest run` → green
@@ -93,6 +93,6 @@ relatedPosts: ['<slug>'] # optional
 
 ## Don't
 
-- Don't add a `heroImage` or emoji headers (legacy draft template — strip them).
+- Don't add emoji headers (legacy draft template — strip them).
 - Don't commit a single-locale post (parity check will block it).
 - Don't claim it's live without `curl`-ing production.
