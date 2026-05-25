@@ -32,8 +32,6 @@ title: '...' # required
 description: '...' # required (also the meta description)
 pubDate: 'May 23 2026' # required (z.coerce.date accepts this or 2026-05-23)
 tags: ['Claude Code', 'plugin'] # default []
-updatedDate: '...' # optional
-featured: false # optional, default false
 seeAlso: ['other-slug'] # optional, default []; MUST resolve in the SAME locale
 ---
 ```
