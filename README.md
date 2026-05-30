@@ -51,7 +51,7 @@ For detailed technical documentation:
 - [Architecture](./docs/architecture.md) - System design, components, caching
 - [Testing](./docs/testing.md) - 84+ tests, coverage, strategies
 - [Deployment](./docs/deployment.md) - Netlify, CI/CD, monitoring
-- [Content Creation](./docs/content-creation.md) - Blog posts, SEO, images
+- [Content Creation](./docs/content-creation.md) - **How to write & ship a post**: format, frontmatter, the worth-publishing test, and PII-masking rules
 - [API Specifications](./docs/api-specifications.md) - GitHub integration, RSS
 - [Troubleshooting](./docs/troubleshooting.md) - Common issues, solutions
 
