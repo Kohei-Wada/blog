@@ -141,7 +141,7 @@ npm run typecheck && npm run lint && npm run test:run && npm run build
   locales required (parity is enforced by `npm run check:posts` + pre-commit)
 - Images in `src/assets/`
 - Follow the frontmatter schema in `src/content.config.ts`
-- See [Content Creation](./content-creation.md) and the `write-post` skill
+- See [Content Creation](./content-creation.md)
 
 ### Debugging
 

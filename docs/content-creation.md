@@ -2,8 +2,17 @@
 
 This blog is **bilingual (ja + en)**. Every post must exist in **both** locales
 or it cannot be committed (a pre-commit hook + `npm run check:posts` enforce
-parity). For the full agent-driven workflow see the `write-post` skill
-(`.claude/skills/write-post/SKILL.md`); this doc is the human reference.
+parity). This doc is the reference for writing and shipping a post.
+
+## Worth publishing?
+
+Decide this _before_ writing. The blog's axis is **process, not topic** (see the
+published post `blog-axis-curious-driven-tester`). A post earns its place only if
+it carries your own **experiment / failure / judgment / first-hand experience** —
+not a generic explainer of lookup-able knowledge that docs and LLMs already cover
+better. A common topic still works when it's told through what you actually tried,
+hit, or decided (the pacman incident, the gdb fd trick). If a draft is just
+"here's how X works" with no first-hand layer, don't publish it.
 
 ## Creating a Post
 
@@ -59,6 +68,17 @@ removed. Drafts that carry them must drop them. Frontmatter must be valid YAML.
 - Keep it to a handful of specific tags. Check existing tags at `/en/tags/` and
   `/ja/tags/` for consistency.
 
+## Masking personal info
+
+Posts are synthesized from real-valued private notes, so **redact every personal
+detail before the post goes public** — real LAN IPs, device serials / MACs /
+BLIDs, tokens, **family members' names, home/commute station names, hospital or
+workplace names**, and any other PII. Replace with generic placeholders or
+example values (`192.168.0.x` → `192.168.1.x`, family names → "family member",
+specific stations → "stations / workplaces"). The source notes keep the real
+values; only the public `src/content/blog/` copy gets masked. This is
+non-negotiable even for low-sensitivity items.
+
 ## Verify Before Shipping
 
 ```bash
@@ -66,6 +86,9 @@ npm run check:posts   # parity OK (N ja / N en)
 npm run build         # succeeds
 npm run dev           # then open both locale URLs in a browser
 ```
+
+Before shipping, scan both locale files for **unmasked PII** (see [Masking
+personal info](#masking-personal-info)) — real IPs, names, stations, tokens.
 
 Render and eyeball **both** `/en/blog/<slug>` and `/ja/blog/<slug>`: headings,
 no wrong-language text in `.post-body`, code blocks present, and the LangSwitcher
