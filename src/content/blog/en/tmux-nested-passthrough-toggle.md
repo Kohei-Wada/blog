@@ -101,3 +101,5 @@ set-option -g default-command 'bash -i'
 - `C-b T` silences the outer, plain `T` returns. F12 works too, but if you toggle often the prefix side is within reach. The trick is that the entrance and exit live in different key tables (prefix table vs off table).
 - Hiding the outer status bar makes "I'm on the inner side" visible.
 - Killing the re-login with ControlMaster and dropping the `/bin/bash` hardcode for portability gives you the same experience on every machine.
+
+The tmux.conf and SSH config from this post live in my [dotfiles repository](https://github.com/Kohei-Wada/dotfiles).
