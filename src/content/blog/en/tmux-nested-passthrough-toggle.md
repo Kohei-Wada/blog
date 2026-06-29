@@ -102,4 +102,4 @@ set-option -g default-command 'bash -i'
 - Hiding the outer status bar makes "I'm on the inner side" visible.
 - Killing the re-login with ControlMaster and dropping the `/bin/bash` hardcode for portability gives you the same experience on every machine.
 
-The tmux.conf and SSH config from this post live in my [dotfiles repository](https://github.com/Kohei-Wada/dotfiles).
+The tmux.conf from this post lives in my [dotfiles repository](https://github.com/Kohei-Wada/dotfiles) (the SSH config isn't there — it carries real hostnames).

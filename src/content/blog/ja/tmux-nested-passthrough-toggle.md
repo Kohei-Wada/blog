@@ -102,4 +102,4 @@ set-option -g default-command 'bash -i'
 - 外側のステータスバーを消すと「今は内側」が可視化される。
 - ControlMasterで再ログインを消し、`/bin/bash`ハードコードをやめてポータブルにすると、全マシンで同じ体験になる。
 
-この記事で使っている tmux.conf やSSH configは [dotfilesリポジトリ](https://github.com/Kohei-Wada/dotfiles) に置いてある。
+この記事の tmux.conf は [dotfilesリポジトリ](https://github.com/Kohei-Wada/dotfiles) に置いてある（SSH configは実ホスト名が入るので置いていない）。
