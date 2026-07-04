@@ -3,7 +3,7 @@ title: '自宅サーバがランダムフリーズした話 (1) ─ journal か�
 description: '数日おきに SSH 無応答になる自宅 AI サーバ。永続化した journal から 3 回のハングを特定し、クラッシュ署名を読み解いて「DRAM のビット化け」仮説に到達するまでの記録。'
 pubDate: '2026-07-04'
 tags: ['自宅サーバ', 'Linux', 'NixOS', 'トラブルシューティング']
-seeAlso: ['nixos-home-ai-server-install-gotchas']
+seeAlso: ['nixos-home-ai-server-install-gotchas', 'rtx5090-blackwell-headless-gsp-watchdog']
 ---
 
 ## はじめに
@@ -22,36 +22,38 @@ seeAlso: ['nixos-home-ai-server-install-gotchas']
 - 電源・温度
 - メモリ
 
-私は当初 GSP timeout を本命にしていました。新しい GPU、新しいドライバ、いかにも怪しい。**この予想は外れます。**
+私は当初 GSP timeout を本命にしていました。新しい GPU、新しいドライバ、いかにも怪しい。しかも [GSP timeout 対策の watchdog](/ja/blog/rtx5090-blackwell-headless-gsp-watchdog) は仕込み済みで、それが一度も発火せずに固まっている ─ もっとも、OS ごと固まればユーザー空間の watchdog 自身も動けないので、これは矛盾ではありません。いずれにせよ**この予想は外れます。**
 
 ## boot 境界からハングを特定する
 
 journald を永続化してある（`/var/log/journal`）ので、過去の boot は全部残っています。まず `journalctl --list-boots` で boot 一覧を出し、**「前の boot の最終ログ」と「次の boot の開始」のギャップ**を見ます。
 
 ```text
--16 5b6a5ff0... Sun 2026-06-14 11:47 — Tue 2026-06-16 22:22
--15 3af95980... Tue 2026-06-16 22:23 — Thu 2026-06-18 21:01
+-15 0c8eb04e... Thu 2026-06-18 23:45 — Fri 2026-06-19 00:51  ← 次の boot まで 37 秒（正常 reboot）
+-14 96582cae... Fri 2026-06-19 00:52 — Fri 2026-06-19 16:28  ← 次の boot まで 8 分（ハング→電源長押し）
+-13 a40ea466... Fri 2026-06-19 16:36 — Fri 2026-06-19 17:22
 ```
 
-正常な reboot ならギャップは 30〜60 秒。**ハングして電源長押しした boot は、最終ログから数分〜十数分の空白**ができます。この方法で 3 回のハングを特定しました。
+正常な reboot ならギャップは 30〜60 秒。**ハングして電源長押しした boot は、最終ログから次の boot まで数分〜十数分の空白**ができます（フリーズに気づいて電源ボタンまで歩いていく時間です）。この方法で 3 回のハングを特定しました。
 
 ## 3 つのクラッシュ署名を読む
 
 特定した各 boot の末尾には、毎回違う顔のクラッシュが残っていました。
 
-### 1 回目: CPU 0 がロックを握ったまま帰ってこない
+### 1 回目: CPU 0 がロック待ちのまま帰ってこない
 
 ```text
 kernel: rcu: INFO: rcu_preempt detected stalls on CPUs/tasks:
 kernel: rcu:     (detected by 3, t=21002 jiffies, g=5283881, q=116 ncpus=32)
 kernel: Sending NMI from CPU 3 to CPUs 0:
+kernel: CPU: 0 UID: 0 PID: 1 Comm: systemd Tainted: G  D  O  6.18.34 #1-NixOS
 kernel: RIP: 0010:native_queued_spin_lock_slowpath+0x64/0x2c0
 kernel:  _raw_spin_lock_irqsave+0x3d/0x50
 （1 分後）
 kernel: rcu:     (detected by 17, t=84007 jiffies, g=5283881, q=224 ncpus=32)
 ```
 
-CPU 0 がスピンロック取得で硬直し、RCU が「CPU 0 が応答しない」と NMI を撃ち込んでいます。`t=21002 → 84007 jiffies` と待ち時間が伸び続けるだけで、二度と回復しない。この後ログは途絶え、次に現れるのは電源長押し後の起動メッセージです。
+CPU 0 で **PID 1、つまり systemd** がスピンロック取得待ちで硬直し、RCU が「CPU 0 が応答しない」と NMI を撃ち込んでいます。`t=21002 → 84007 jiffies` と待ち時間が伸び続けるだけで、二度と回復しない。この後ログは途絶え、次に現れるのは電源長押し後の起動メッセージです。
 
 ### 2 回目: ありえないアドレスへのアクセス
 
@@ -81,7 +83,7 @@ kernel: raw: 017fffc000000000 dead000000000100 dead000000000122 0400000000000000
 kernel: page dumped because: non-NULL mapping
 ```
 
-解放済みページの `mapping` フィールドは NULL であるべきなのに、raw ダンプの 4 語目に `0400000000000000` が残っています。**`0x0400000000000000` は bit 58 が 1 個だけ立った値**。それ以外は全部ゼロ。誰かが書いたにしては綺麗すぎる、「勝手に 1 ビット立った」形です。ちなみに死んだのはただの bash。
+解放済みページの `mapping` フィールドは NULL であるべきなのに、raw ダンプの 4 語目に `0400000000000000` が残っています。**`0x0400000000000000` は bit 58 が 1 個だけ立った値**。それ以外は全部ゼロ。誰かが書いたにしては綺麗すぎる、「勝手に 1 ビット立った」形です。ちなみにこれを踏んで検出の巻き添えになったのはただの bash でした（Bad page state はダンプを吐くだけでプロセスを殺しはしません）。
 
 ## 推理: 共通項を探す
 
@@ -89,7 +91,7 @@ kernel: page dumped because: non-NULL mapping
 
 1. **全部、無関係なプロセス**（systemd / 音声認識 / bash）で起きている。特定のアプリのバグなら同じプロセスで再現するはず
 2. **全部、汎用のカーネルメモリ管理コード**（spinlock / `exit_mmap` / ページ解放）の中で死んでいる。カーネルの同じバグなら同じ関数で死ぬはず
-3. **全部、64bit 値の 1 ビットだけが化けている**（bit 57 が落ちる、bit 58 が立つ）
+3. **うち 2 件は、64bit 値の 1 ビットだけが化けた姿が直接見えている**（bit 57 が落ちる、bit 58 が立つ）。残る 1 件（デッドロック）も、ロック変数の破損と置けば同じ絵に収まる
 4. そして本命だった **nvidia モジュールは、どのコールトレースにも一度も登場しない**
 
 ソフトウェアのバグは「同じ条件で同じ場所が壊れる」。一方この壊れ方は「ランダムな場所の、ランダムなタイミングの、1 ビット」。これはソフトの顔ではありません。**DRAM のビット化けの顔**です。

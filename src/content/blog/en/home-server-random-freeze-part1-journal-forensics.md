@@ -2,8 +2,8 @@
 title: 'My Home Server Kept Freezing (Part 1) — Hunting the Culprit in the Journal'
 description: 'My home AI server went SSH-unresponsive every few days. How I identified three hangs from the persistent journal, read the crash signatures, and arrived at the "DRAM bit-flip" hypothesis.'
 pubDate: '2026-07-04'
-tags: ['homelab', 'linux', 'NixOS', 'troubleshooting']
-seeAlso: ['nixos-home-ai-server-install-gotchas']
+tags: ['homelab', 'home-server', 'linux', 'NixOS', 'troubleshooting']
+seeAlso: ['nixos-home-ai-server-install-gotchas', 'rtx5090-blackwell-headless-gsp-watchdog']
 ---
 
 ## The Incident
@@ -22,36 +22,38 @@ When a headless Linux server freezes solid, the usual suspects are:
 - Power / thermals
 - Memory
 
-My initial favorite was the GSP timeout. New GPU, new driver, obviously suspicious. **That guess turns out to be wrong.**
+My initial favorite was the GSP timeout. New GPU, new driver, obviously suspicious. I even had [a watchdog built specifically for GSP timeouts](/en/blog/rtx5090-blackwell-headless-gsp-watchdog) already in place, and it never fired — though that's no contradiction: when the whole OS freezes, a userspace watchdog freezes with it. Either way, **that guess turns out to be wrong.**
 
 ## Finding the Hangs from Boot Boundaries
 
 I keep journald persistent (`/var/log/journal`), so every past boot is retained. First, list the boots with `journalctl --list-boots` and look at **the gap between one boot's last log line and the next boot's first**:
 
 ```text
--16 5b6a5ff0... Sun 2026-06-14 11:47 — Tue 2026-06-16 22:22
--15 3af95980... Tue 2026-06-16 22:23 — Thu 2026-06-18 21:01
+-15 0c8eb04e... Thu 2026-06-18 23:45 — Fri 2026-06-19 00:51  ← next boot 37s later (clean reboot)
+-14 96582cae... Fri 2026-06-19 00:52 — Fri 2026-06-19 16:28  ← next boot 8min later (hang → long-press)
+-13 a40ea466... Fri 2026-06-19 16:36 — Fri 2026-06-19 17:22
 ```
 
-A clean reboot leaves a 30–60 second gap. **A hang followed by a long-press power cycle leaves minutes to tens of minutes of silence** after the last log line. This method pinpointed all three hangs.
+A clean reboot leaves a 30–60 second gap. **A hang followed by a long-press power cycle leaves minutes to tens of minutes of silence** between the last log line and the next boot (that's the time it takes to notice the freeze and walk over to the power button). This method pinpointed all three hangs.
 
 ## Reading the Three Crash Signatures
 
 At the tail of each identified boot, a crash with a different face was waiting.
 
-### Crash 1: CPU 0 Takes a Lock and Never Comes Back
+### Crash 1: CPU 0 Gets Stuck Waiting on a Lock and Never Comes Back
 
 ```text
 kernel: rcu: INFO: rcu_preempt detected stalls on CPUs/tasks:
 kernel: rcu:     (detected by 3, t=21002 jiffies, g=5283881, q=116 ncpus=32)
 kernel: Sending NMI from CPU 3 to CPUs 0:
+kernel: CPU: 0 UID: 0 PID: 1 Comm: systemd Tainted: G  D  O  6.18.34 #1-NixOS
 kernel: RIP: 0010:native_queued_spin_lock_slowpath+0x64/0x2c0
 kernel:  _raw_spin_lock_irqsave+0x3d/0x50
 (one minute later)
 kernel: rcu:     (detected by 17, t=84007 jiffies, g=5283881, q=224 ncpus=32)
 ```
 
-CPU 0 is wedged trying to acquire a spinlock, and RCU is firing NMIs at it because it stopped responding. The wait time just keeps growing (`t=21002 → 84007 jiffies`) and never recovers. The log goes silent after this; the next entry is the boot banner after my long-press.
+On CPU 0, **PID 1 — systemd itself** — is wedged waiting to acquire a spinlock, and RCU is firing NMIs at it because it stopped responding. The wait time just keeps growing (`t=21002 → 84007 jiffies`) and never recovers. The log goes silent after this; the next entry is the boot banner after my long-press.
 
 ### Crash 2: An Access to an Impossible Address
 
@@ -81,7 +83,7 @@ kernel: raw: 017fffc000000000 dead000000000100 dead000000000122 0400000000000000
 kernel: page dumped because: non-NULL mapping
 ```
 
-A freed page's `mapping` field should be NULL, yet the fourth word of the raw dump holds `0400000000000000`. **`0x0400000000000000` is a value with only bit 58 set.** Everything else is zero. Far too clean for anything to have written it — this is the shape of "a bit turned itself on." The victim, by the way, was a plain bash process.
+A freed page's `mapping` field should be NULL, yet the fourth word of the raw dump holds `0400000000000000`. **`0x0400000000000000` is a value with only bit 58 set.** Everything else is zero. Far too clean for anything to have written it — this is the shape of "a bit turned itself on." The bystander that stepped on it and triggered the detection, by the way, was a plain bash process (Bad page state only dumps diagnostics; it doesn't kill the process).
 
 ## Deduction: Finding the Common Thread
 
@@ -89,7 +91,7 @@ Line the three up and the pattern emerges:
 
 1. **All in unrelated processes** (systemd / speech recognition / bash). An app bug would reproduce in the same process
 2. **All inside generic kernel memory-management code** (spinlock / `exit_mmap` / page free). The same kernel bug would die in the same function
-3. **All are single-bit corruptions of 64-bit values** (bit 57 dropped, bit 58 set)
+3. **Two of the three show a single flipped bit in a 64-bit value, directly visible** (bit 57 dropped, bit 58 set). The remaining one (the deadlock) fits the same picture if you posit a corrupted lock variable
 4. And the prime suspect — **the nvidia module never appears in a single call trace**
 
 Software bugs break the same place under the same conditions. This breakage is "a random bit, at a random place, at a random time." That is not the face of software. **It's the face of DRAM bit flips.**
@@ -100,6 +102,6 @@ It's a consumer build without ECC despite being used as a server (a choice I mad
 
 The circumstantial evidence is damning. But at this point, all I can say is "the memory is suspicious." No amount of re-reading logs will tell me which DIMM, which bit.
 
-Hard evidence means hammering the RAM directly with memtest86+. Except there's a rather silly obstacle: a headless server has no physical console — and after that, **the premise of my hypothesis gets overturned by an actual measurement**.
+Hard evidence means hammering the RAM directly with memtest86+. Except there's a rather silly obstacle: a headless server has no physical console — and then, on top of it, **the premise of my hypothesis gets overturned by an actual measurement**.
 
 Next time: correcting a misdiagnosis, and preparing the experiment.
