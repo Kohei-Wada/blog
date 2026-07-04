@@ -31,20 +31,25 @@ LISTEN しているソケットも `/proc/net/tcp` を手でデコードして�
 `ps aux` と自己解剖から構成を復元すると、こういう縦の主線になる:
 
 ```text
-あなた (Slack client)
-   │  メッセージ送信 / 応答
-Slack ⇄ Anthropic 連携ボット
-   │  stdin/stdout (stream-json)
-PID 1  process_api  (--firecracker-init)   ← ホスト↔VM 制御チャネル / 唯一の外部公開
-   │
-PID 557  environment-manager               ← task-run・セッション管理（監督役）
-   │
-PID 569  claude                            ← エージェント本体（指揮役）
-   │  spawn                          │  外向き HTTPS
-Task/worker (bash) ×N              claude 内蔵 agent-proxy リレー
-  実際のコマンド実行                   CONNECT 専用・ホスト許可リストで allow/403
-                                          │  allow のみ
-                                    許可されたホスト（api.anthropic.com / github / npm・pypi …）
+you (Slack client)
+      |  message / reply (stream-json)
+      v
++-- Firecracker microVM ------------------------------
+|
+|  PID 1   process_api (--firecracker-init)
+|              -> host<->VM control channel, only public listener
+|
+|  PID 557 environment-manager
+|              -> task-run / session management (supervisor)
+|
+|  PID 569 claude  (conductor / the agent itself)
+|      |-- spawn --> worker(bash) xN   (runs the actual commands)
+|      \-- HTTPS --> agent-proxy relay (CONNECT-only, allowlist)
+|                         |  allow / 403
++-------------------------+---------------------------
+                          v
+       allowed hosts only:  api.anthropic.com, github, npm, pypi ...
+       off-allowlist hosts  -> 403
 ```
 
 ポイントは **実行と指揮の分離** だ。`claude`（PID 569）は指揮役で、実際の `lscpu` や `ps` は使い捨ての worker(bash) にやらせている。ちなみに `claude` の VSZ は 73GB もあるが、これは V8/Node.js の仮想アドレス予約で実 RSS は ~400MB。そして `kill 569` は自分自身（このセッション）への SIGTERM ―― つまり自爆コマンドになる。

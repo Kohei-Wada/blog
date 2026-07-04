@@ -31,19 +31,24 @@ Reconstructing the layout from `ps aux` and the self-dissection gives this verti
 
 ```text
 you (Slack client)
-   │  send message / receive reply
-Slack ⇄ Anthropic connector bot
-   │  stdin/stdout (stream-json)
-PID 1  process_api  (--firecracker-init)   ← host↔VM control channel / only external listener
-   │
-PID 557  environment-manager               ← task-run / session mgmt (supervisor)
-   │
-PID 569  claude                            ← the agent itself (conductor)
-   │  spawn                          │  outbound HTTPS
-Task/worker (bash) ×N              claude-internal agent-proxy relay
-  runs the actual commands            CONNECT-only, allow/403 by host allowlist
-                                          │  allow only
-                                    allowed hosts (api.anthropic.com / github / npm・pypi …)
+      |  message / reply (stream-json)
+      v
++-- Firecracker microVM ------------------------------
+|
+|  PID 1   process_api (--firecracker-init)
+|              -> host<->VM control channel, only public listener
+|
+|  PID 557 environment-manager
+|              -> task-run / session management (supervisor)
+|
+|  PID 569 claude  (conductor / the agent itself)
+|      |-- spawn --> worker(bash) xN   (runs the actual commands)
+|      \-- HTTPS --> agent-proxy relay (CONNECT-only, allowlist)
+|                         |  allow / 403
++-------------------------+---------------------------
+                          v
+       allowed hosts only:  api.anthropic.com, github, npm, pypi ...
+       off-allowlist hosts  -> 403
 ```
 
 The point is the **separation of execution and command**. `claude` (PID 569) is the conductor; the actual `lscpu` and `ps` are farmed out to disposable worker(bash) processes. Incidentally `claude`'s VSZ is a whopping 73GB, but that's V8/Node.js virtual address reservation — real RSS is ~400MB. And `kill 569` is a SIGTERM to itself (this very session) — a self-destruct command.
