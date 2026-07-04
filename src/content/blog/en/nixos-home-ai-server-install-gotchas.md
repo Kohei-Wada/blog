@@ -1,7 +1,7 @@
 ---
 title: 'Why I Picked NixOS for a 24/7 Home AI Server, and the 5 Gotchas That Bit Me During Install'
 description: 'Building a 24/7 unattended AI server as a local-LLM playground, I dropped my original plan of Arch and went with NixOS. Here is why I chose declarative config and rollback, and — on a Blackwell GPU (RTX 5090), basically zero-precedent pioneer territory — the five things that actually tripped me up installing from the minimal ISO: the wpa_supplicant trap, btrfs mount options getting dropped, losing the network on a headless reboot, WiFi power save wrecking SSH latency, and remote sudo + glob expansion.'
-pubDate: 'Jun 14 2026'
+pubDate: 'Jun 14 2026 09:00'
 tags: ['NixOS', 'homelab', 'home-server', 'WiFi', 'btrfs', 'troubleshooting']
 ---
 

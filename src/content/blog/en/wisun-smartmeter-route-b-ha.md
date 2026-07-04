@@ -1,7 +1,7 @@
 ---
 title: "I gave up reading my smart meter with a homemade script — and Home Assistant's official integration had caught up"
 description: 'In 2024 I started a homemade script to read the power smart meter (Route B) over a Wi-SUN dongle, then shelved it because of timeout and decode handling. Years later HA Core had an official Route B Smart Meter integration: plug in the dongle, enter the B-route ID and password, and instantaneous power and cumulative consumption just appear.'
-pubDate: 'May 24 2026'
+pubDate: 'May 24 2026 13:00'
 tags: ['home-assistant', 'wi-sun', 'smart-meter', 'energy']
 seeAlso: ['ha-alexa-migration-journey', 'ha-claude-code-alexa-report']
 ---

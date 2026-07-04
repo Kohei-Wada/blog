@@ -1,7 +1,7 @@
 ---
 title: 'Letting AI write without losing the "I wrote this" feeling — drawing the line with vault provenance'
 description: 'The core of "this feels AI-written" is the loss of thinking-ownership. Drawing the AI boundary per-prompt has too high a judgement cost. Fix it at the workflow level (vault → AI summary → blog) and thinking-ownership is preserved structurally.'
-pubDate: 'May 23 2026'
+pubDate: 'May 23 2026 11:00'
 tags: ['ai-workflow', 'writing', 'zettelkasten', 'personal-projects']
 seeAlso: ['zettelkasten-operation-part1-design']
 ---

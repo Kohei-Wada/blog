@@ -1,7 +1,7 @@
 ---
 title: 'The plugin holds only WHEN, the vault holds HOW — designing a format-agnostic Claude Code plugin'
 description: "How my knowledge-gardener plugin runs without hardcoding any of the vault's formatting conventions. The difference from existing Obsidian-for-Claude plugins, and what the separation of concerns buys you."
-pubDate: 'May 23 2026'
+pubDate: 'May 23 2026 19:00'
 tags: ['claude-code', 'obsidian', 'plugin-design', 'personal-projects']
 ---
 

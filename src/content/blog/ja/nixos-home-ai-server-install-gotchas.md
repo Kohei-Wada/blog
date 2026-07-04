@@ -1,7 +1,7 @@
 ---
 title: '24時間動かす自宅AIサーバのOSにNixOSを選んで、導入で踏んだ5つの地雷'
 description: 'ローカルLLMの実験場として24/7無人のAIサーバを建てるにあたり、当初予定のArchをやめてNixOSにした。なぜ宣言的構成とrollbackを取ったのか、そしてGPUがBlackwell(RTX5090)というほぼ前例ゼロのパイオニア領域で、minimal ISOからのインストール時に実際に詰まった5つ——WiFiのwpa_supplicant罠、btrfsマウントオプション消失、ヘッドレス再起動でのネット喪失、WiFi power saveによるSSH激遅、リモートsudo+globの展開——をまとめた実録。'
-pubDate: 'Jun 14 2026'
+pubDate: 'Jun 14 2026 09:00'
 tags: ['NixOS', 'homelab', '自宅サーバ', 'WiFi', 'btrfs', 'トラブルシューティング']
 ---
 

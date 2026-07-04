@@ -1,7 +1,7 @@
 ---
 title: "Rewiring a running process's output (fd) with gdb"
 description: 'A trick that uses gdb not as a debugger but as a "tool for rewriting a running process''s file descriptors." You can switch stdout to a log file mid-run, or re-point it at another pts. Silly, but handy once you know it.'
-pubDate: 'May 23 2026'
+pubDate: 'May 23 2026 17:00'
 tags: ['gdb', 'debugging', 'linux']
 ---
 

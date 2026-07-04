@@ -1,7 +1,7 @@
 ---
 title: 'Plugin は WHEN だけ、vault は HOW を持つ ─ format-agnostic な Claude Code plugin の設計'
 description: '自作 knowledge-gardener plugin で、vault の formatting 規約を一切 hardcode せずに動かす設計の話。既存 Obsidian-for-Claude 系 plugin との違いと、責務分離の効用。'
-pubDate: 'May 23 2026'
+pubDate: 'May 23 2026 19:00'
 tags: ['Claude Code', 'Obsidian', '個人開発']
 ---
 

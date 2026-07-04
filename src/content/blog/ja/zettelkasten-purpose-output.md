@@ -1,7 +1,7 @@
 ---
 title: 'vault を育てる plugin を作ったのに、Zettelkasten の本来の目的は「出力」だった'
 description: '9 ヶ月で 4 記事しか出ない停滞を診断したら、Zettelkasten の目的は出力 (C) ひとつで、検索性 (A) と洞察の結晶化 (B) は手段、決定ログ (D) は外来要素だった。vault を育てる knowledge-gardener を作り込むほど手段が目的化しかける、その綱引きの記録。'
-pubDate: 'May 24 2026'
+pubDate: 'May 24 2026 11:00'
 tags: ['Zettelkasten', 'PKM', '個人開発']
 seeAlso: ['knowledge-gardener-when-how-separation', 'blog-axis-curious-driven-tester']
 ---

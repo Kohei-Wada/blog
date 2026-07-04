@@ -1,7 +1,7 @@
 ---
 title: 'I''m re-centering this blog around "someone who tries things"'
 description: 'I kept failing to run this blog as a topic-bound thing, so I re-centered it on process rather than topic. The story of why 9 months yielded only 4 posts, and making my fickleness load-bearing instead of fighting it.'
-pubDate: 'May 23 2026'
+pubDate: 'May 23 2026 12:00'
 tags: ['blogging', 'zettelkasten', 'personal-projects']
 seeAlso: ['ai-writing-thinking-ownership-workflow']
 ---

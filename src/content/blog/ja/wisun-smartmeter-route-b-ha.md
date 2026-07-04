@@ -1,7 +1,7 @@
 ---
 title: 'スマートメーターを自前スクリプトで読むのを諦めたら、Home Assistant 公式統合が追いついていた'
 description: 'Wi-SUN ドングルで電力スマートメーター（B ルート）を読もうと 2024 年に自前スクリプトを書きかけ、タイムアウトとデコード処理の面倒さで塩漬けにした。数年後、HA Core に公式の Route B Smart Meter 統合が入っていて、ドングルを挿して B ルート ID とパスワードを入れるだけで瞬時電力・積算消費が取れるようになっていた話。'
-pubDate: 'May 24 2026'
+pubDate: 'May 24 2026 13:00'
 tags: ['Home Assistant', 'Wi-SUN', 'スマートメーター', '個人開発']
 seeAlso: ['ha-alexa-migration-journey', 'ha-claude-code-alexa-report']
 ---

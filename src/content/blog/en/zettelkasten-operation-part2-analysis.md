@@ -1,7 +1,7 @@
 ---
 title: 'Zettelkasten Operation Log Part 2: Analysis'
 description: 'Visualizing my own activity with a Makefile: tag skew analysis, a day-of-week × hour heatmap, and more.'
-pubDate: 'Jan 08 2026'
+pubDate: 'Jan 08 2026 13:00'
 tags: ['Zettelkasten', 'Makefile', 'gnuplot', 'CLI']
 ---
 

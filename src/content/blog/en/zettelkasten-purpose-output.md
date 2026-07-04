@@ -1,7 +1,7 @@
 ---
 title: 'I built a plugin to grow my vault — but the real purpose of a Zettelkasten was output'
 description: 'Diagnosing why 9 months yielded only 4 posts: a Zettelkasten has exactly one purpose — output (C); searchability (A) and insight crystallization (B) are means, and a decision log (D) is foreign. The more I built knowledge-gardener to grow the vault, the more the means tried to become the end. A record of that tug-of-war.'
-pubDate: 'May 24 2026'
+pubDate: 'May 24 2026 11:00'
 tags: ['zettelkasten', 'pkm', 'personal-projects']
 seeAlso: ['knowledge-gardener-when-how-separation', 'blog-axis-curious-driven-tester']
 ---

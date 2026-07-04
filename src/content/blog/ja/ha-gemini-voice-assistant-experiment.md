@@ -1,7 +1,7 @@
 ---
 title: 'Home Assistant に Gemini 音声アシスタントを組んでみたら半分しか動かなかった'
 description: 'Home Assistant の Assist パイプラインに Google Gemini 2.0-flash を統合して、スマホ音声 → Gemini → Alexa Echo Dot 読み上げの一筋を作ってみた。基本はちゃんと動くが、会話履歴・ツール組み合わせ・引数つきスクリプトはどれも動かなかった。'
-pubDate: 'May 24 2026'
+pubDate: 'May 24 2026 15:00'
 tags: ['Home Assistant', 'Gemini', '音声アシスタント', '個人開発']
 seeAlso: ['ha-claude-code-alexa-report', 'ha-alexa-migration-journey']
 ---

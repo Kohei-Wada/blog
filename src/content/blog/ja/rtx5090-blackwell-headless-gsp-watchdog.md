@@ -1,7 +1,7 @@
 ---
 title: 'Blackwell(RTX5090)を24時間ヘッドレスで動かす本丸はGSPハング、"壊れる前提"のwatchdogで受けた'
 description: 'コンシューマ最新世代のRTX5090(Blackwell)を24/7無人のAIサーバにするのは、コミュニティ実績ほぼゼロのパイオニア領域だった。nvidia-open一択・CUDA sm_120の罠といった既知の落とし穴に加え、本丸はin-placeリセット不可のGSP heartbeat timeoutハング。実装前にdeep-researchで地雷を洗い出し、「いつか必ず吊る」前提でnvidia-smi無反応→自動rebootのwatchdogをNixOSに宣言的に組んだ話。'
-pubDate: 'Jun 14 2026'
+pubDate: 'Jun 14 2026 11:00'
 tags: ['NixOS', 'NVIDIA', 'RTX5090', 'homelab', '自宅サーバ', 'トラブルシューティング']
 ---
 

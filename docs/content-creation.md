@@ -39,6 +39,21 @@ tags: ['shell-tricks', 'astro'] # see Tagging below
 ---
 ```
 
+**Same-day ordering.** Posts sort by `pubDate` value alone (newest first); a
+bare date makes every same-day post tie, and ties fall back to filename order.
+When publishing a post on a day that already has one, append an increasing
+**afternoon** time so the new post sorts on top:
+
+```yaml
+pubDate: '2026-07-04T15:00' # ISO date-and-time
+```
+
+Keep the time in the `09:00`–`21:00` window — the displayed date is derived in
+UTC, so an early-morning time would render as the previous day for JST readers.
+Give each same-day post a distinct, chronologically-increasing time (e.g.
+`09:00`, `11:00`, `13:00`). The `ja` and `en` copies of one post share the same
+`pubDate`.
+
 ### Optional
 
 ```yaml

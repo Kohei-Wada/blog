@@ -1,7 +1,7 @@
 ---
 title: 'Obsidianのリンク切れをlycheeで自動チェックする'
 description: 'Rust製の高速リンクチェッカー「lychee」を使って、Obsidian vaultのリンク切れを自動検出する方法'
-pubDate: 'Jan 08 2026'
+pubDate: 'Jan 08 2026 09:00'
 tags: ['Obsidian', 'lychee', 'Markdown', 'pre-commit', 'Zettelkasten']
 ---
 

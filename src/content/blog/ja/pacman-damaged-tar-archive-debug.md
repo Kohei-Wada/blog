@@ -1,7 +1,7 @@
 ---
 title: 'pacman "Damaged tar archive" 障害復旧戦記 ─ 3 つの要因が合流した日'
 description: 'sudo pacman -Syu が "Damaged tar archive (bad header checksum)" で延々失敗する障害を踏んだ。tar/bsdtar では読めるのに pacman だけが落ちる謎、HTTP 304 で再ダウンロードもされない罠、そして systemd timer のサスペンド復帰挙動。3 要因の合流で起きた障害を pacman --debug と gzip フォーマット解析で追った記録。'
-pubDate: 'May 23 2026'
+pubDate: 'May 23 2026 14:00'
 tags: ['Arch Linux', 'pacman', 'systemd', 'トラブルシューティング']
 ---
 

@@ -1,7 +1,7 @@
 ---
 title: '自宅サーバがランダムフリーズした話 (番外) ─ 使い捨てられるサーバ'
 description: 'RAM 不良が確定した故障機を修理に送り出す準備をしたら、304GB のディスクのうち守る価値があるのはログ 2.8GB だけだった。GitOps / 宣言的構成が受けた最終試験の話。'
-pubDate: '2026-07-04'
+pubDate: '2026-07-04T15:00'
 tags: ['自宅サーバ', 'NixOS', 'GitOps']
 seeAlso: ['home-server-random-freeze-part3-memtest-verdict', 'nixos-home-ai-server-install-gotchas']
 ---

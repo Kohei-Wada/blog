@@ -1,7 +1,7 @@
 ---
 title: 'My Home Server Kept Freezing (Part 2) — When a Measurement Overturns Your Hypothesis'
 description: 'First stop the bleeding with a hardware watchdog, then gather evidence. My "memory overclock is the culprit" assumption then gets flattened by one dmidecode command, shifting suspicion to the hardware itself.'
-pubDate: '2026-07-04'
+pubDate: '2026-07-04T11:00'
 tags: ['homelab', 'home-server', 'linux', 'NixOS', 'troubleshooting']
 seeAlso: ['home-server-random-freeze-part1-journal-forensics']
 ---

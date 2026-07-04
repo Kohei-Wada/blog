@@ -1,7 +1,7 @@
 ---
 title: '自宅サーバがランダムフリーズした話 (1) ─ journal から犯人を探す'
 description: '数日おきに SSH 無応答になる自宅 AI サーバ。永続化した journal から 3 回のハングを特定し、クラッシュ署名を読み解いて「DRAM のビット化け」仮説に到達するまでの記録。'
-pubDate: '2026-07-04'
+pubDate: '2026-07-04T09:00'
 tags: ['自宅サーバ', 'Linux', 'NixOS', 'トラブルシューティング']
 seeAlso: ['nixos-home-ai-server-install-gotchas', 'rtx5090-blackwell-headless-gsp-watchdog']
 ---

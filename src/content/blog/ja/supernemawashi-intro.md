@@ -1,7 +1,7 @@
 ---
 title: 'supernemawashi を作った ― 同僚との会話のために心理プロファイルを管理する Claude Code plugin'
 description: "「あの人にどう言えばいいか」を毎回考える疲れを、プロファイルをデータとして管理する形で解決する Claude Code plugin。Slack / Gmail / Calendar から事実を集め、心理学フレームワークで分類し、状況別の DO / DON'T ルールを返す。"
-pubDate: 'May 23 2026'
+pubDate: 'May 23 2026 09:00'
 tags: ['Claude Code', 'plugin', 'MCP', 'コミュニケーション', '個人開発']
 ---
 
