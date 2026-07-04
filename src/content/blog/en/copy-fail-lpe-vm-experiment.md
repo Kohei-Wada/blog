@@ -1,7 +1,7 @@
 ---
 title: 'Reproducing Copy Fail (CVE-2026-31431) in a disposable VM to feel what 732 bytes to root is like'
 description: 'Rather than calling myself vulnerable or safe based on a version number, I stood up a disposable VM with a pre-patch kernel and actually ran the official Copy Fail PoC. A 732-byte Python one-shot took me from non-root to uid=0 — no race, 100% deterministic. Plus the realization that the circulating "check" is not a patch test, and verifying the mitigation.'
-pubDate: 'May 25 2026'
+pubDate: 'May 25 2026 11:00'
 tags: ['security', 'linux', 'kernel', 'cve', 'privilege-escalation', 'qemu']
 seeAlso: ['arch-safe-kernel-upgrade-journey']
 ---

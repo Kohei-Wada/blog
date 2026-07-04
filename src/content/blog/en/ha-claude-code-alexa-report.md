@@ -1,7 +1,7 @@
 ---
 title: 'I built a way for Claude Code to report progress through my home Alexa'
 description: 'I built a skill that reads the progress of a long-running Claude Code session aloud in Japanese from the Echo Dot next to me. A build log that hits all of it: the HA SSH add-on sshd constraints, the Amazon-side _speak API going silent, the JWT-mint path, and persisting a script that the tmpfs would otherwise wipe.'
-pubDate: 'May 23 2026'
+pubDate: 'May 23 2026 15:00'
 tags: ['home-assistant', 'claude-code', 'alexa', 'personal-projects']
 seeAlso: ['roomba-lan-penetration-experiment']
 ---

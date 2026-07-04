@@ -1,7 +1,7 @@
 ---
 title: '自宅サーバがランダムフリーズした話 (2) ─ 仮説の前提が実測で崩れる'
 description: 'まず hardware watchdog で出血を止め、証拠を集める。ところが「メモリ OC が原因」という思い込みが dmidecode の実測でひっくり返り、容疑はハードウェアそのものへ。memtest 準備までの記録。'
-pubDate: '2026-07-04'
+pubDate: '2026-07-04T11:00'
 tags: ['自宅サーバ', 'Linux', 'NixOS', 'トラブルシューティング']
 seeAlso: ['home-server-random-freeze-part1-journal-forensics']
 ---

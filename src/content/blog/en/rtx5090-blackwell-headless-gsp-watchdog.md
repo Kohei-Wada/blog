@@ -1,7 +1,7 @@
 ---
 title: 'Running Blackwell (RTX 5090) Headless 24/7: The Real Boss Is the GSP Hang, and I Took It With a "Assume It Breaks" Watchdog'
 description: 'Turning a latest-gen consumer RTX 5090 (Blackwell) into a 24/7 unattended AI server is near-zero-precedent pioneer territory. On top of known traps — nvidia-open being the only driver, the CUDA sm_120 gotcha — the real boss is the GSP heartbeat timeout hang, which cannot be reset in place. Before writing any GPU config I scouted the landmines with deep-research, then built a declarative NixOS watchdog that reboots on an unresponsive nvidia-smi, assuming the hang will eventually hit.'
-pubDate: 'Jun 14 2026'
+pubDate: 'Jun 14 2026 11:00'
 tags: ['NixOS', 'NVIDIA', 'RTX5090', 'homelab', 'home-server', 'troubleshooting']
 ---
 

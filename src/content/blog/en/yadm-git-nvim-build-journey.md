@@ -1,7 +1,7 @@
 ---
 title: "yadm + Neovim Git plugins didn't work, so I built yadm-git.nvim (and fixed the Bazzite symlink three times)"
 description: 'Dotfiles managed by yadm live in $HOME with no .git, so gitsigns / fugitive / lazygit refuse to recognize them. I built a tiny Neovim plugin whose only job is to make them "just work" — the design decisions, plus the saga of fixing home-directory resolution three times for the symlink on an immutable distro like Bazzite.'
-pubDate: 'May 23 2026'
+pubDate: 'May 23 2026 10:00'
 tags: ['neovim', 'yadm', 'dotfiles', 'plugin', 'lua', 'experiment']
 ---
 

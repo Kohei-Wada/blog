@@ -1,7 +1,7 @@
 ---
 title: 'Back when there was no official integration, I drove the unofficial API to make Alexa talk'
 description: "Before there was an easy official way to make an Echo Dot talk from Home Assistant, I had a self-built setup that drove Amazon's private Alexa API via alexa-remote-control. How I got the refresh token, the SSH-from-HA wiring, and why I eventually moved to the official integration."
-pubDate: 'May 23 2026'
+pubDate: 'May 23 2026 16:00'
 tags: ['home-assistant', 'alexa', 'reverse-engineering', 'personal-projects']
 seeAlso: ['ha-claude-code-alexa-report']
 ---

@@ -1,7 +1,7 @@
 ---
 title: 'カーネル更新で起動不能になったトラウマから、固定をやめて安全に更新し続ける体制にした'
 description: 'Arch で out-of-tree な USB WiFi ドライバ（8821au）がカーネル更新で壊れ、起動はするがネット無しで詰む事故を踏んで以来、カーネルを IgnorePkg で固定して止めていた。今回それを根本解決した話。原因の DKMS を捨てて in-tree だけにし、linux-lts を保険に入れ、固定を解除して最新まで追いついた。partial upgrade の罠と linux-firmware 分割の衝突も込み。'
-pubDate: 'May 25 2026'
+pubDate: 'May 25 2026 09:00'
 tags: ['Arch Linux', 'pacman', 'kernel', 'GRUB', 'DKMS', 'トラブルシューティング']
 seeAlso: ['pacman-damaged-tar-archive-debug']
 ---

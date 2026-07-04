@@ -1,7 +1,7 @@
 ---
 title: 'Copy Fail (CVE-2026-31431) を使い捨て VM で再現して、root を 732 バイトで取られる感触を確かめた'
 description: '話題になったカーネル LPE「Copy Fail」を、影響範囲の数字だけで脆弱/安全を即断せず、使い捨て VM にパッチ前カーネルを載せて公式 PoC を実際に走らせてみた。732 バイトの Python 一発で非 root から uid=0 へ。レースも無く 100% 決定的だった。記事のチェック法が「パッチ判定ではない」と気づいた話と、緩和の検証まで。'
-pubDate: 'May 25 2026'
+pubDate: 'May 25 2026 11:00'
 tags: ['security', 'Linux', 'kernel', 'CVE', '権限昇格', 'QEMU']
 seeAlso: ['arch-safe-kernel-upgrade-journey']
 ---

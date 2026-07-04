@@ -1,7 +1,7 @@
 ---
 title: 'My Home Server Kept Freezing (Part 1) — Hunting the Culprit in the Journal'
 description: 'My home AI server went SSH-unresponsive every few days. How I identified three hangs from the persistent journal, read the crash signatures, and arrived at the "DRAM bit-flip" hypothesis.'
-pubDate: '2026-07-04'
+pubDate: '2026-07-04T09:00'
 tags: ['homelab', 'home-server', 'linux', 'NixOS', 'troubleshooting']
 seeAlso: ['nixos-home-ai-server-install-gotchas', 'rtx5090-blackwell-headless-gsp-watchdog']
 ---

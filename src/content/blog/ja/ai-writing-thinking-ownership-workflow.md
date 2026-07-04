@@ -1,7 +1,7 @@
 ---
 title: 'AI に書かせても "自分で書いた感じ" を失わない workflow ─ vault provenance で境界を引く'
 description: '「AIで書いた感じ」の核は thinking-ownership の喪失。prompt 単位で AI 境界を引くのは judgement cost が高すぎる。workflow 単位で固定する（vault → AI summary → blog）と、構造的に thinking-ownership が保たれる。'
-pubDate: 'May 23 2026'
+pubDate: 'May 23 2026 11:00'
 tags: ['AIワークフロー', '文章術', 'Zettelkasten', '個人開発']
 seeAlso: ['zettelkasten-operation-part1-design']
 ---

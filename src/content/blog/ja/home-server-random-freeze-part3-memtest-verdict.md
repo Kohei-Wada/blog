@@ -1,7 +1,7 @@
 ---
 title: '自宅サーバがランダムフリーズした話 (3) ─ memtest、1 分で答えが出る'
 description: 'memtest86+ は開始 1 分で Errors 705 を叩き出し、26 分後には自分自身がフリーズした。journal で見えた化けビットと memtest の実測が一致する答え合わせ、そして全症状が 1 つの故障で説明できるまで。'
-pubDate: '2026-07-04'
+pubDate: '2026-07-04T13:00'
 tags: ['自宅サーバ', 'Linux', 'NixOS', 'トラブルシューティング']
 seeAlso:
   [

@@ -1,7 +1,7 @@
 ---
 title: 'My Home Server Kept Freezing (Bonus) — The Disposable Server'
 description: 'Preparing the RAM-defective machine for repair shipment revealed that of 304GB on disk, only 2.8GB of logs were worth saving. The story of GitOps / declarative configuration taking its final exam.'
-pubDate: '2026-07-04'
+pubDate: '2026-07-04T15:00'
 tags: ['homelab', 'home-server', 'NixOS', 'gitops']
 seeAlso: ['home-server-random-freeze-part3-memtest-verdict', 'nixos-home-ai-server-install-gotchas']
 ---

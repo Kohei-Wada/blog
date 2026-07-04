@@ -1,7 +1,7 @@
 ---
 title: 'Integrating 6 psychology frameworks in supernemawashi — 1 framework = 1 file × parallel agents'
 description: "supernemawashi's analyze skill runs 6 psychology frameworks (defense mechanisms / TKI / TA / motivators / biases / attachment) as 1 framework = 1 file × 1 parallel agent. Why I dropped the monolithic profile and split per framework, making the registry the single source of truth, all the way to situation-indexed rule generation."
-pubDate: 'May 24 2026'
+pubDate: 'May 24 2026 09:00'
 tags: ['claude-code', 'supernemawashi', 'psychology', 'personal-projects']
 seeAlso: ['supernemawashi-intro']
 ---

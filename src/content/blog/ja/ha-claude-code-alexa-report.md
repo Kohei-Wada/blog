@@ -1,7 +1,7 @@
 ---
 title: 'Claude Code に自宅 Alexa で進捗報告させる仕組みを作った'
 description: '長時間動く Claude Code セッションの進捗を、横に置いた Echo Dot から日本語で読み上げさせる skill を作った。HA SSH add-on の sshd 制約、Amazon 側で _speak API が音にならない問題、JWT mint 経路、tmpfs で消えるスクリプトの永続化、まで一通り踏んだ実装記録。'
-pubDate: 'May 23 2026'
+pubDate: 'May 23 2026 15:00'
 tags: ['Home Assistant', 'Claude Code', 'Alexa', '個人開発']
 seeAlso: ['roomba-lan-penetration-experiment']
 ---

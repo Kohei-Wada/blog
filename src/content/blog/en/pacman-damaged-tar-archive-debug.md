@@ -1,7 +1,7 @@
 ---
 title: 'A "Damaged tar archive" pacman recovery war story — the day three causes converged'
 description: 'sudo pacman -Syu kept failing endlessly with "Damaged tar archive (bad header checksum)". The mystery of why tar/bsdtar can read the DB but pacman alone chokes, the trap where HTTP 304 blocks a re-download, and systemd timer wake-from-suspend behavior. A record of chasing a three-cause convergence with pacman --debug and gzip format analysis.'
-pubDate: 'May 23 2026'
+pubDate: 'May 23 2026 14:00'
 tags: ['arch-linux', 'pacman', 'systemd', 'troubleshooting']
 ---
 

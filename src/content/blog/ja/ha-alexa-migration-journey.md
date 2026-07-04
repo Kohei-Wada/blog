@@ -1,7 +1,7 @@
 ---
 title: 'Home Assistant の Alexa 連携を 3 世代渡り歩いて automation を集約した話'
 description: 'alexa-remote-control (SSH 経由) → Alexa Media Player (HACS) → Alexa Devices (公式 integration) と移行を重ねた記録。位置通知・電力レポートなど 75 個のオートメーションを一括生成し、64 個の位置通知を動的 zone trigger + Jinja で 2 個に集約。ChatGPT スキル構築では Amazon developer アカウントの罠にもハマった。'
-pubDate: 'May 23 2026'
+pubDate: 'May 23 2026 18:00'
 tags: ['Home Assistant', 'Alexa', '個人開発']
 seeAlso: ['ha-claude-code-alexa-report', 'ha-alexa-remote-control-tts']
 ---

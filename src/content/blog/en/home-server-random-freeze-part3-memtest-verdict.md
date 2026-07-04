@@ -1,7 +1,7 @@
 ---
 title: 'My Home Server Kept Freezing (Part 3) — Memtest Answers in One Minute'
 description: 'memtest86+ racked up 705 errors within the first minute, and 26 minutes in, froze itself. The flipped bits seen in the journal match the ones memtest measures — and every symptom collapses into one defect.'
-pubDate: '2026-07-04'
+pubDate: '2026-07-04T13:00'
 tags: ['homelab', 'home-server', 'linux', 'NixOS', 'troubleshooting']
 seeAlso:
   [

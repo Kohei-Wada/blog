@@ -1,7 +1,7 @@
 ---
 title: 'I wired a Gemini voice assistant into Home Assistant and only half of it worked'
 description: "I integrated Google Gemini 2.0-flash into Home Assistant's Assist pipeline to build a phone-voice → Gemini → Alexa Echo Dot readout path. The basics work, but conversation history, tool chaining, and scripts-with-arguments all failed."
-pubDate: 'May 24 2026'
+pubDate: 'May 24 2026 15:00'
 tags: ['home-assistant', 'gemini', 'voice-assistant', 'personal-projects']
 seeAlso: ['ha-claude-code-alexa-report', 'ha-alexa-migration-journey']
 ---

@@ -1,7 +1,7 @@
 ---
 title: 'I built supernemawashi — a Claude Code plugin that manages psychological profiles for talking to colleagues'
 description: 'A Claude Code plugin that kills the fatigue of figuring out "how do I phrase this for that person" every time, by managing profiles as data. It gathers facts from Slack / Gmail / Calendar, classifies them with psychology frameworks, and returns situation-specific DO / DON''T rules.'
-pubDate: 'May 23 2026'
+pubDate: 'May 23 2026 09:00'
 tags: ['Claude Code', 'plugin', 'MCP', 'communication', 'personal-projects']
 ---
 

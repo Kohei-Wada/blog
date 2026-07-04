@@ -1,7 +1,7 @@
 ---
 title: 'ターミナルで地球儀を回す ── 自作 ttymap で飛行機も地震も ISS も眺める'
 description: 'ベクタタイルを Unicode Braille + ANSI 256色でレンダリングして、ターミナルの中に動く地球儀を出す ttymap という自作ツールの紹介。上空を飛ぶ ADS-B 航空機、直近の地震、頭上を通過する衛星、traceroute のホップまで地図に重ねて眺められる。すべての機能が Lua プラグインで、設定もシーン演出も Lua で書ける。'
-pubDate: 'May 25 2026'
+pubDate: 'May 25 2026 13:00'
 tags: ['個人開発', 'Rust', 'TUI', 'Lua']
 seeAlso: ['taskdog-cli-task-management-tool']
 ---

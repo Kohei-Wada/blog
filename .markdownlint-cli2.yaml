@@ -4,7 +4,8 @@
 # Glob patterns to include
 globs:
   - '**/*.md'
-  - '!node_modules'
+  - '!**/node_modules'
+  - '!.claude'
 
 # Configuration options
 config:

@@ -1,7 +1,7 @@
 ---
 title: 'Zettelkasten 運用記録 Part 2: 分析編'
 description: 'Makefileで自分の活動を可視化する。タグの偏り分析、曜日×時間のヒートマップなど'
-pubDate: 'Jan 08 2026'
+pubDate: 'Jan 08 2026 13:00'
 tags: ['Zettelkasten', 'Makefile', 'gnuplot', 'CLI']
 ---
 

@@ -1,7 +1,7 @@
 ---
 title: 'このブログの軸を「何かを試す人」に置き直すことにした'
 description: 'topic 縛りの blog 運営に何度も失敗したので、軸を topic ではなく process に置き直した。9 ヶ月で 4 記事しか出なかった原因と、気まぐれを load-bearing にする戦略変更の話。'
-pubDate: 'May 23 2026'
+pubDate: 'May 23 2026 12:00'
 tags: ['ブログ運営', 'Zettelkasten', '個人開発']
 seeAlso: ['ai-writing-thinking-ownership-workflow']
 ---

@@ -1,7 +1,7 @@
 ---
 title: 'Spinning a Globe in the Terminal — Watching Planes, Earthquakes, and the ISS with My Own ttymap'
 description: 'A tour of ttymap, a tool I built that renders vector tiles as Unicode Braille in ANSI 256-color to put a live globe inside your terminal. Overlay the ADS-B planes flying overhead right now, recent earthquakes, satellites passing above, even traceroute hops on the map. Every feature is a Lua plugin, and config and scene choreography are Lua too.'
-pubDate: 'May 25 2026'
+pubDate: 'May 25 2026 13:00'
 tags: ['personal-projects', 'Rust', 'TUI', 'Lua']
 seeAlso: ['taskdog-cli-task-management-tool']
 ---

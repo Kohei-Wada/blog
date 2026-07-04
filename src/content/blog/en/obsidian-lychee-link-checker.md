@@ -1,7 +1,7 @@
 ---
 title: 'Automatically Check Obsidian for Broken Links with lychee'
 description: 'How to automatically detect broken links in an Obsidian vault using lychee, a fast link checker written in Rust'
-pubDate: 'Jan 08 2026'
+pubDate: 'Jan 08 2026 09:00'
 tags: ['Obsidian', 'lychee', 'Markdown', 'pre-commit', 'Zettelkasten']
 ---
 

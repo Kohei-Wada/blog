@@ -1,7 +1,7 @@
 ---
 title: 'yadm × Neovim の Git plugin が動かないので yadm-git.nvim を作った（Bazzite の symlink で 3 回直した話つき）'
 description: 'yadm 管理の dotfiles は $HOME に置かれていて .git が無いので、gitsigns / fugitive / lazygit がそのままでは認識しない。それを「黙って動かす」ためだけの小さい Neovim plugin を作った。設計判断と、Bazzite のような immutable distro の symlink で 3 回 home directory 解決を直し直した経緯。'
-pubDate: 'May 23 2026'
+pubDate: 'May 23 2026 10:00'
 tags: ['neovim', 'yadm', 'dotfiles', 'plugin', 'lua', 'experiment']
 ---
 

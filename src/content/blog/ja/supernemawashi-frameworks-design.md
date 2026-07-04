@@ -1,7 +1,7 @@
 ---
 title: 'supernemawashi の心理学フレームワーク 6 種統合 ─ 1 framework = 1 file × 並列 agent 構成'
 description: 'supernemawashi の analyze skill は、6 つの心理学フレームワーク（防衛機制 / TKI / TA / 動機 / バイアス / 愛着）を 1 framework = 1 file × 1 parallel agent で並走させる。なぜ monolithic な profile を捨てて framework ごとに分離したか、registry の single source of truth 化、状況別ルール生成までの全体設計。'
-pubDate: 'May 24 2026'
+pubDate: 'May 24 2026 09:00'
 tags: ['Claude Code', 'supernemawashi', '心理学', '個人開発']
 seeAlso: ['supernemawashi-intro']
 ---

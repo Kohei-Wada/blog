@@ -1,7 +1,7 @@
 ---
 title: "Walking Home Assistant's Alexa integration through three generations and consolidating the automations"
 description: 'A record of migrating through alexa-remote-control (over SSH) → Alexa Media Player (HACS) → Alexa Devices (the official integration). I bulk-generated 75 automations (location notices, power reports, etc.), then consolidated 64 location notices into 2 with a dynamic zone trigger + Jinja. And the Alexa-ChatGPT skill walked me straight into an Amazon developer-account trap.'
-pubDate: 'May 23 2026'
+pubDate: 'May 23 2026 18:00'
 tags: ['home-assistant', 'alexa', 'personal-projects']
 seeAlso: ['ha-claude-code-alexa-report', 'ha-alexa-remote-control-tts']
 ---

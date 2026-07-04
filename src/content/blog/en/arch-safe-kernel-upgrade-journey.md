@@ -1,7 +1,7 @@
 ---
 title: 'From the trauma of an unbootable kernel update to staying current safely instead of pinning'
 description: 'Ever since an out-of-tree USB WiFi driver (8821au) broke on an Arch kernel update — leaving a machine that booted but had no network — I had pinned the kernel with IgnorePkg and stopped updating. This is how I fixed it at the root: dropped the culprit DKMS driver for in-tree only, added linux-lts as a fallback, removed the pin, and caught up to the latest. Includes the partial-upgrade trap and the linux-firmware split conflict.'
-pubDate: 'May 25 2026'
+pubDate: 'May 25 2026 09:00'
 tags: ['arch-linux', 'pacman', 'kernel', 'grub', 'dkms', 'troubleshooting']
 seeAlso: ['pacman-damaged-tar-archive-debug']
 ---

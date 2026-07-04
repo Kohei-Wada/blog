@@ -1,7 +1,7 @@
 ---
 title: '公式 integration が無かった頃、Alexa を喋らせるために非公式 API を叩いていた話'
 description: 'Home Assistant から Echo Dot を喋らせる公式手段が無かった頃、Amazon の非公開 Alexa API を alexa-remote-control 経由で叩く自作セットアップを組んでいた。refresh token の取り方、SSH 越しに HA から叩く構成、そして結局なぜ公式 integration に移ったか。'
-pubDate: 'May 23 2026'
+pubDate: 'May 23 2026 16:00'
 tags: ['Home Assistant', 'Alexa', 'リバースエンジニアリング', '個人開発']
 seeAlso: ['ha-claude-code-alexa-report']
 ---
