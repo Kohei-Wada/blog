@@ -1,6 +1,6 @@
 ---
 title: 'My Home Server Kept Freezing (Part 2) — When a Measurement Overturns Your Hypothesis'
-description: 'First stop the bleeding with a hardware watchdog, then gather evidence. Then my "memory overclock is the culprit" assumption gets flattened by one dmidecode command, shifting suspicion to the hardware itself.'
+description: 'First stop the bleeding with a hardware watchdog, then gather evidence. My "memory overclock is the culprit" assumption then gets flattened by one dmidecode command, shifting suspicion to the hardware itself.'
 pubDate: '2026-07-04'
 tags: ['homelab', 'home-server', 'linux', 'NixOS', 'troubleshooting']
 seeAlso: ['home-server-random-freeze-part1-journal-forensics']
@@ -19,9 +19,9 @@ Linux has hardware watchdogs. A timer built into the chipset (on this board, AMD
 On NixOS this is all it takes:
 
 ```nix
-systemd.watchdog = {
-  runtimeTime = "20s";  # reset if not fed for 20 seconds
-  rebootTime = "30s";
+systemd.settings.Manager = {
+  RuntimeWatchdogSec = "20s"; # reset if not fed for 20 seconds
+  RebootWatchdogSec = "30s";
 };
 ```
 
@@ -69,11 +69,11 @@ Status:           finished
 Error summary:    no errors found
 ```
 
-**Scrub — a checksum verification of every byte on disk — finds zero errors.** There's only one explanation for this contradiction: the data read from disk is fine, and it's getting corrupted **after landing in the page cache, in RAM**, where the checksum mismatch is then detected. The disk is innocent; the RAM was framing it. One more piece of corroborating evidence for the bit-flip hypothesis.
+**Scrub — a checksum verification of every byte on disk — finds zero errors.** The most straightforward explanation of this contradiction: the data read from disk is fine, and it's getting corrupted **in RAM, between landing there and being checksum-verified**, where the mismatch is then detected. The disk is innocent; the RAM was framing it. One more piece of corroborating evidence for the bit-flip hypothesis.
 
 ## "It's Obviously the Overclock" — the Assumption Collapses
 
-At this point my working theory was: "DDR5-6000 EXPO on AM5 is out-of-spec overclocking. A 64GB two-stick dual-rank setup is hard on the IMC (the CPU's integrated memory controller). That must be it." The internet is full of AM5 + EXPO instability reports. Disable EXPO in the BIOS and it'll be fixed, surely.
+At this point my working theory was: "DDR5-6000 EXPO on AM5 is out-of-spec overclocking. A 64GB (2×32GB) dual-rank setup is hard on the IMC (the CPU's integrated memory controller). That must be it." The internet is full of AM5 + EXPO instability reports. Disable EXPO in the BIOS and it'll be fixed, surely.
 
 Let's measure.
 
@@ -86,7 +86,7 @@ $ sudo dmidecode -t 17 | grep -E "Speed|Part Number|Rank"
 
 **5600. Not 6000.** Looking up the part number: it's Crucial's plain DDR5-5600 — not an overclock kit carrying an EXPO profile, but a **JEDEC-compliant stock module**. And I had never touched the BIOS since purchase (later confirmed on the actual BIOS screen: EXPO: Disabled).
 
-Re-reading the spec sheets revealed a second misconception of mine: AMD's official AM5 memory spec for two dual-rank sticks (1DPC 2R) is DDR5-5600. This configuration sits **dead center inside the official spec**. Nothing aggressive anywhere.
+Re-reading the spec sheets revealed a second misconception of mine: for Ryzen 9000 (this server runs a 9950X), AMD's official memory spec for two dual-rank sticks (1DPC 2R) is DDR5-5600. This configuration sits **dead center inside the official spec**. Nothing aggressive anywhere.
 
 The "overclock did it" hypothesis evaporated with one command. **Measuring before touching the BIOS was probably the single best decision of this whole investigation.** Hunting for an EXPO toggle that was already off would merely have wasted time — the truly bad timeline is "change something, get a few coincidentally stable days, declare victory."
 
@@ -110,6 +110,6 @@ boot.loader.systemd-boot.memtest86.enable = true;
 
 This went through the usual GitOps flow (PR → merge → auto-deploy), and from the next reboot the boot menu carries a `Memtest86+` entry. Even the preparation of a diagnostic session ends up in commit history — one of the quiet perks of declarative configuration.
 
-One problem remains. Memtest runs without an OS, so **you can't see the results over SSH**. This headless server needs a physical monitor and keyboard. I ordered a portable monitor and waited for it to arrive—.
+One problem remains. Memtest runs without an OS, so **you can't see the results over SSH**. This headless server needs a physical monitor and keyboard. So I ordered a portable monitor and waited for it to arrive.
 
 Next time: I plug in the monitor and boot memtest. **The answer took one minute.**
