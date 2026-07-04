@@ -25,12 +25,14 @@ Stock settings, correct slots. The only suspect left is the hardware itself.
 
 ## Booting Memtest (and a Small Incident)
 
-I picked Memtest86+ from the boot menu. And **nothing appeared on screen.** After a few minutes of black, I seriously started wondering: "is the memory so broken that even memtest can't start?" The anticlimactic resolution: a reboot and re-select made it display fine (apparently a video-output routing quirk on a dual-GPU system). Bad for the heart.
+I picked Memtest86+ from the boot menu. And **nothing appeared on screen.** After a few minutes of black, I seriously started wondering: "is the memory so broken that even memtest can't start?" The anticlimactic resolution: a reboot and re-select made it display fine (apparently a video-output routing quirk on a dual-GPU system). Not great for my heart.
 
 One minute after the screen came alive, it looked like this:
 
 ```text
 Memtest86+ v8.00        AMD Ryzen 9 9950X 16-Core Processor
+Pass  3% #
+Test 45% ##################
 IMC: DDR5-5600 / CAS 46-45-45-90
 
 Time: 0:01:00    Status: Failed!
@@ -50,7 +52,7 @@ The errors themselves speak volumes. Write all zeros, read back `200000002000000
 
 Confession time: this screen briefly worried me. `Pass: 0` — not a single pass? Did I mess something up?
 
-It's just how the UI reads. `Pass:` counts **completed full passes**; one pass over 64GB takes close to an hour, so of course it's 0 after one minute. The `Pass 3%` at the top is the current pass's progress. And `Status: Failed!` doesn't mean the test malfunctioned — it means **the memory failed the test**, which is exactly the diagnosis I came for. The checkup found the disease; the checkup itself worked fine.
+It's just how the UI reads. `Pass:` counts **completed full passes**; one pass over 64GB takes a good half hour, so of course it's 0 after one minute. The `Pass 3%` line at the top of the screen is the current pass's progress. And `Status: Failed!` doesn't mean the test malfunctioned — it means **the memory failed the test**, which is exactly the diagnosis I came for. The checkup found the disease; the checkup itself worked fine.
 
 ## 26 Minutes In, the Doctor Collapses
 
@@ -87,13 +89,13 @@ Familiar bits. [Back in part 1](/en/blog/home-server-random-freeze-part1-journal
 With hard evidence in hand, every symptom folds into one picture:
 
 ```text
-Physical defect (bits 57/58/61/29 family, roughly the 43–56GB region)
+Physical defect (bits 57/58/61/29/26 family, roughly 43–56GB — incl. error rows not shown here)
      │ the face changes depending on where the flipped bit lands
      ├─ high bit of a kernel pointer  → GPF non-canonical (part 1, crash 2)
      ├─ page bookkeeping              → Bad page state (part 1, crash 3)
      ├─ linked-list pointer           → list_del corruption (part 2)
      ├─ lock variable                 → spinlock deadlock → total freeze (part 1, crash 1)
-     ├─ page cache                    → BTRFS "corruption" false alarm (part 2's framing)
+     ├─ page cache                    → BTRFS "corruption" false alarm (the framing from part 2)
      └─ memtest's own working memory  → the diagnostic tool freezes (this part)
 ```
 
