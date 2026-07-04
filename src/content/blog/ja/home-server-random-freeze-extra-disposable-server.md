@@ -8,7 +8,7 @@ seeAlso: ['home-server-random-freeze-part3-memtest-verdict', 'nixos-home-ai-serv
 
 ## 本編のあとで
 
-[本編 3 回](/ja/blog/home-server-random-freeze-part3-memtest-verdict)で自宅 AI サーバの RAM 不良が確定し、保証対応が始まりました。そこで現実的な問題が発生します。**本体ごと修理に送る展開があり得る。** SSD には何が入っている？　消すべき秘密は？　バックアップは何を取る？
+本編（[第 1 回](/ja/blog/home-server-random-freeze-part1-journal-forensics)〜[第 3 回](/ja/blog/home-server-random-freeze-part3-memtest-verdict)）で自宅 AI サーバの RAM 不良が確定し、保証対応が始まりました。そこで現実的な問題が発生します。**本体ごと修理に送る展開があり得る。** SSD には何が入っている？　消すべき秘密は？　バックアップは何を取る？
 
 答えを先に言うと、この棚卸しはシリーズで一番あっけない作業になりました。そしてそのあっけなさ自体が、この 1 か月で一番の収穫だったかもしれません。
 
@@ -26,6 +26,8 @@ seeAlso: ['home-server-random-freeze-part3-memtest-verdict', 'nixos-home-ai-serv
 | 検証用コード          | 4.8GB     | 使い捨てのロード試験コード |
 | **ログ (`/var/log`)** | **2.8GB** | **代替なし ← これだけ**    |
 
+※ 各行のサイズは `du` のファイルサイズベース。btrfs の透過圧縮と共有エクステントのため、単純合計（約 330GB）は実ディスク消費（`df` で 304GB）より大きくなります。
+
 304GB のうち、**この世に 1 部しか存在しないデータは 2.8GB のログだけ**でした。しかもその中身は、journal（＝本シリーズの法医学記録そのもの）と、別件で調査中のネットワーク機器の syslog。つまりこのマシンが持っていた唯一の固有データは、**自分の病歴と、他人の事件の証拠**だったわけです。バックアップは `tar` 一発、数分で終わります。
 
 ## 消すべき秘密は 5 点で列挙できた
@@ -36,7 +38,7 @@ seeAlso: ['home-server-random-freeze-part3-memtest-verdict', 'nixos-home-ai-serv
 2. 構成リポジトリのローカルクローン ─ 暗号化された secrets ファイルを含み、1 と同居するとディスク単体で復号が成立してしまう
 3. Git 認証トークンの類
 4. シェル履歴・エージェント系ツールの履歴
-5. 実行時 secrets ─ tmpfs 上なので電源断で消える（対応不要）
+5. 実行時 secrets ─ RAM 上（ramfs、swap にも落ちない）なので電源断で消える（対応不要）
 
 ポイントは「短い」ことではなく、**「これで全部だ」と確信を持って言い切れる**ことです。secrets 管理を sops-nix の 1 系統に集約してあったから、所在の特定に探索が要らなかった。逆に言うと、1 と 2 の組み合わせが 1 台のディスクに同居している事実はこの棚卸しで初めて直視したので、返却後はホスト鍵の再生成と secrets の re-key、トークンのローテーションが必須になります（**ファイルを消しても、発行済みのトークンは生きている**ので、無効化まででワンセット）。
 
@@ -67,6 +69,6 @@ NixOS + GitOps + yadm という構成を選んだとき、期待していた価�
 1. [journal の法医学](/ja/blog/home-server-random-freeze-part1-journal-forensics)で仮説を立て
 2. [実測で思い込みを潰し](/ja/blog/home-server-random-freeze-part2-hypothesis-correction)
 3. [memtest で 1 分で物証を取り](/ja/blog/home-server-random-freeze-part3-memtest-verdict)
-4. そして機体を、ためらいなく手放せる状態で送り出した
+4. そして機体を、いつでもためらいなく送り出せる状態にした
 
 不良メモリを引いたのは運ですが、この 4 点セットで返せたのは構成の力です。ハードは壊れるものとして設計する ─ 自宅サーバでも、それは十分に元が取れる投資でした。
