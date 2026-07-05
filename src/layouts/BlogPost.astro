@@ -122,9 +122,15 @@ const postHref = (p: (typeof localePosts)[number]) => `/${lang}/blog/${getPostSl
   </article>
 
   <style>
-    .post-body :where(h2, h3, h4) {
+    /* man(7) subsections don't scale type: SH/SS are body-sized bold. Keep
+       markdown headings at body size so they never outweigh the section
+       headers (NAME, DESCRIPTION, ...) they sit under. :global() because the
+       slotted markdown carries no astro scope attribute. */
+    .post-body :global(:where(h2, h3, h4)) {
       text-transform: none;
       letter-spacing: 0;
+      font-size: var(--font-size-base);
+      font-weight: bold;
     }
     .see-also {
       list-style: none;
