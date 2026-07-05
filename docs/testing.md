@@ -4,7 +4,7 @@
 
 This project follows **Test-Driven Development (TDD)** with comprehensive coverage of critical functionality.
 
-**Current Status**: 84+ tests with high coverage of core utilities and business logic.
+**Current Status**: 155 tests across 17 files with high coverage of core utilities and business logic.
 
 ## 🛠️ Test Framework Stack
 
@@ -31,7 +31,7 @@ npm run test:coverage  # Generate coverage report
 vitest run tests/unit/consts.test.ts
 
 # Run tests matching pattern
-vitest run -t "GitHub"
+vitest run -t "search"
 
 # Run tests in watch mode
 vitest watch tests/unit/
@@ -45,13 +45,13 @@ vitest watch tests/unit/
 tests/
 ├── components/              # Component logic tests
 │   ├── FormattedDate.test.ts
-│   ├── HeaderLink.test.ts
-│   └── ShareButtons.test.ts
+│   └── LangSwitcher.test.ts
 ├── unit/                    # Unit tests for utilities
 │   ├── archive-utils.test.ts
-│   ├── GitHub-cache-manager.test.ts
-│   ├── related-posts.test.ts
+│   ├── search.test.ts
+│   ├── rss.xml.test.ts
 │   └── ...
+├── helpers.ts               # Shared test helpers
 └── setup.ts                 # Test configuration
 ```
 
@@ -79,25 +79,18 @@ tests/
 
    - Date formatting and calculations
    - Archive organization
-   - Related post algorithms
-   - Hero image randomization
+   - Post locale and slug handling
+   - Search (fuse.js) and search modal logic
 
-2. **GitHub API Integration** (100% coverage)
-
-   - Cache manager singleton behavior
-   - API call optimization
-   - Error handling and fallbacks
-   - Statistics tracking
-
-3. **Content Management** (95%+ coverage)
+2. **Content Management** (95%+ coverage)
 
    - Content schema validation
    - RSS feed generation
-   - Page route generation
+   - See-also link resolution
+   - i18n strings and utilities
 
-4. **Component Logic** (90%+ coverage)
-   - Share button URL generation
-   - Header link active states
+3. **Component Logic** (90%+ coverage)
+   - Language switcher behavior
    - Date display formatting
 
 ## 🎯 TDD Workflow
@@ -150,13 +143,13 @@ vi.mock('fs', () => ({
 ### Testing Async Operations
 
 ```typescript
-it('should handle async GitHub API calls', async () => {
+it('should handle async fetch calls', async () => {
   mockFetch.mockResolvedValueOnce({
     ok: true,
     JSON: async () => mockData,
   });
 
-  const result = await fetchGitHubData();
+  const result = await fetchData();
   expect(result).toEqual(expectedData);
 });
 ```
@@ -167,8 +160,8 @@ it('should handle async GitHub API calls', async () => {
 it('should handle network errors gracefully', async () => {
   mockFetch.mockRejectedValue(new Error('Network error'));
 
-  const result = await fetchGitHubData();
-  expect(result).toEqual({ events: [], repos: [] });
+  const result = await fetchData();
+  expect(result).toEqual([]);
 });
 ```
 

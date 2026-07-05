@@ -2,7 +2,7 @@
 
 ## Project Context
 
-This is a personal blog built with Astro, featuring bilingual content (Japanese/English) and GitHub API integration. The project follows Test-Driven Development (TDD) principles with comprehensive test coverage.
+This is a personal blog built with Astro, featuring bilingual content (Japanese/English). The project follows Test-Driven Development (TDD) principles with comprehensive test coverage.
 
 ## Code Review Focus Areas
 
@@ -49,13 +49,6 @@ This is a personal blog built with Astro, featuring bilingual content (Japanese/
 - Validate server-side vs client-side code separation
 - Review static site generation implications
 - Ensure proper meta tag and SEO handling
-
-### GitHub API Integration
-
-- Review rate limiting and error handling
-- Check caching strategies for build optimization
-- Validate mock data usage in development
-- Ensure graceful degradation when API is unavailable
 
 ## Style Guidelines
 

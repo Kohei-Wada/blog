@@ -7,7 +7,7 @@ This site deploys automatically to **Netlify** with the following setup:
 - **Production URL**: [https://wada-dev.com/](https://wada-dev.com/)
 - **Auto-deploy**: Every push to `main` branch
 - **Preview deploys**: For pull requests
-- **Daily builds**: Scheduled at 00:00 JST to refresh GitHub activity
+- **Daily builds**: Scheduled at 00:00 JST to refresh build-time data
 
 ## 🔧 Netlify Configuration
 
@@ -31,18 +31,8 @@ This site deploys automatically to **Netlify** with the following setup:
 
 ### Environment Variables
 
-**Production Environment** (set in Netlify dashboard):
-
-- No `PUBLIC_DISABLE_GITHUB_API` → GitHub API enabled
-- No `PUBLIC_DISABLE_ADSENSE` → AdSense enabled
-- Build uses live GitHub API data
-
-**Development Environment** (`.env` file):
-
-```bash
-PUBLIC_DISABLE_GITHUB_API=true  # Use mock data
-PUBLIC_DISABLE_ADSENSE=true     # Disable ads
-```
+No build-time environment variables are required. Production-only
+integrations (AdSense, Analytics) are gated on `import.meta.env.PROD`.
 
 ## ⚙️ CI/CD Pipeline
 
@@ -65,7 +55,7 @@ PUBLIC_DISABLE_ADSENSE=true     # Disable ads
 #### 2. Daily Build Workflow (`.GitHub/workflows/daily-Netlify-deploy.yml`)
 
 **Schedule**: 00:00 JST daily
-**Purpose**: Refresh GitHub activity data
+**Purpose**: Rebuild and redeploy the site with fresh build-time data
 
 **Flow**:
 
@@ -108,12 +98,11 @@ PUBLIC_DISABLE_ADSENSE=true     # Disable ads
 2. Quality Checks
    ├── TypeScript compilation
    ├── ESLint validation
-   ├── Test execution (84+ tests)
+   ├── Test execution (155 tests)
    └── Security scanning
 
 3. Static Site Generation
    ├── Content processing (MDX → HTML)
-   ├── GitHub API data fetching (1 call + cache)
    ├── Image optimization (Sharp)
    ├── Asset bundling & minification
    └── Sitemap & RSS generation
@@ -129,7 +118,6 @@ PUBLIC_DISABLE_ADSENSE=true     # Disable ads
 **Metrics**:
 
 - **Build time**: ~2-3 minutes
-- **GitHub API calls**: 1 (vs 22+ without caching)
 - **Generated pages**: 22+
 - **Bundle size**: < 50KB JavaScript
 
