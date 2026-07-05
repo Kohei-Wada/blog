@@ -1,31 +1,67 @@
 ---
+import type { GetStaticPaths } from 'astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import type { Locale } from '../../i18n/strings';
+import { LOCALES } from '../../utils/i18n';
+
+export const getStaticPaths = (() =>
+  LOCALES.map(lang => ({ params: { lang } }))) satisfies GetStaticPaths;
+
+const lang = Astro.params.lang as Locale;
+
+const copy = {
+  en: {
+    description: 'Contact form — questions, feedback, and work inquiries welcome.',
+    name: 'contact — get in touch',
+    body: 'Questions, feedback, work inquiries — feel free to reach out.',
+    formName: 'contact',
+    nameLabel: 'Name',
+    namePlaceholder: 'Jane Doe',
+    emailLabel: 'Email',
+    subjectLabel: 'Subject',
+    subjectPlaceholder: "What's this about?",
+    messageLabel: 'Message',
+    messagePlaceholder: 'Write your message here',
+    submit: 'Send',
+  },
+  ja: {
+    description: 'お問い合わせフォーム。ご質問やご連絡はこちらからどうぞ。',
+    name: 'contact — お問い合わせ',
+    body: 'ご質問、フィードバック、お仕事のご依頼など、お気軽にお声をおかけください。',
+    formName: 'contact-ja',
+    nameLabel: 'お名前',
+    namePlaceholder: '山田 太郎',
+    emailLabel: 'メールアドレス',
+    subjectLabel: '件名',
+    subjectPlaceholder: 'お問い合わせの件名',
+    messageLabel: 'メッセージ',
+    messagePlaceholder: 'お問い合わせ内容をご記入ください',
+    submit: '送信する',
+  },
+}[lang];
 ---
 
-<BaseLayout
-  title="Contact - Kohei Wada"
-  description="Contact form — questions, feedback, and work inquiries welcome."
->
+<BaseLayout title="Contact - Kohei Wada" description={copy.description}>
   <section class="man-section">
     <h2>NAME</h2>
-    <p>contact — get in touch</p>
+    <p>{copy.name}</p>
   </section>
 
   <section class="man-section">
     <h2>DESCRIPTION</h2>
-    <p>Questions, feedback, work inquiries — feel free to reach out.</p>
+    <p>{copy.body}</p>
   </section>
 
   <section class="man-section">
     <h2>CHANNELS</h2>
     <form
-      name="contact"
+      name={copy.formName}
       method="POST"
       data-netlify="true"
       netlify-honeypot="bot-field"
       class="contact-form"
     >
-      <input type="hidden" name="form-name" value="contact" />
+      <input type="hidden" name="form-name" value={copy.formName} />
       <p hidden>
         <label>
           Don't fill this out: <input name="bot-field" />
@@ -33,13 +69,19 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
       </p>
 
       <div class="form-group">
-        <label for="name" class="form-label">Name</label>
-        <input type="text" id="name" name="name" class="form-input" placeholder="Jane Doe" />
+        <label for="name" class="form-label">{copy.nameLabel}</label>
+        <input
+          type="text"
+          id="name"
+          name="name"
+          class="form-input"
+          placeholder={copy.namePlaceholder}
+        />
       </div>
 
       <div class="form-group">
         <label for="email" class="form-label">
-          Email<span class="required">*</span>
+          {copy.emailLabel}<span class="required">*</span>
         </label>
         <input
           type="email"
@@ -52,37 +94,37 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
       </div>
 
       <div class="form-group">
-        <label for="subject" class="form-label">Subject</label>
+        <label for="subject" class="form-label">{copy.subjectLabel}</label>
         <input
           type="text"
           id="subject"
           name="subject"
           class="form-input"
-          placeholder="What's this about?"
+          placeholder={copy.subjectPlaceholder}
         />
       </div>
 
       <div class="form-group">
         <label for="message" class="form-label">
-          Message<span class="required">*</span>
+          {copy.messageLabel}<span class="required">*</span>
         </label>
         <textarea
           id="message"
           name="message"
           class="form-textarea"
-          placeholder="Write your message here"
+          placeholder={copy.messagePlaceholder}
           required></textarea>
       </div>
 
-      <button type="submit" class="submit-button">Send</button>
+      <button type="submit" class="submit-button">{copy.submit}</button>
     </form>
   </section>
 
   <section class="man-section">
     <h2>SEE ALSO</h2>
     <p>
-      <a href="/en/about">about(1)</a>,
-      <a href="/en/privacy">privacy(1)</a>
+      <a href={`/${lang}/about`}>about(1)</a>,
+      <a href={`/${lang}/privacy`}>privacy(1)</a>
     </p>
   </section>
 

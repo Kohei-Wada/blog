@@ -1,7 +1,30 @@
 ---
+import type { GetStaticPaths } from 'astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import ManCommand from '../../components/shared/ui/ManCommand.astro';
 import { getCollection, getEntry } from 'astro:content';
+import type { Locale } from '../../i18n/strings';
+import { LOCALES } from '../../utils/i18n';
+
+export const getStaticPaths = (() =>
+  LOCALES.map(lang => ({ params: { lang } }))) satisfies GetStaticPaths;
+
+const lang = Astro.params.lang as Locale;
+
+const copy = {
+  en: {
+    description:
+      'A showcase of my OSS work. Each project lists what it is, its stack, repo link, and related posts.',
+    name: 'projects — OSS showcase',
+    body: 'A list of my open-source projects. Each entry includes the description, stack, repository link, and related write-ups.',
+  },
+  ja: {
+    description:
+      'OSS 作品のショーケース。各プロジェクトの概要、技術スタック、リポジトリ、関連記事を一覧。',
+    name: 'projects — OSS 作品ショーケース',
+    body: '自作の OSS 作品を一覧します。各プロジェクトの概要、使用技術、リポジトリへのリンク、関連する制作過程記事をまとめています。',
+  },
+}[lang];
 
 const all = await getCollection('projects');
 const sorted = all.sort((a, b) => {
@@ -23,14 +46,14 @@ const groups = [
 async function resolveRelated(slugs: string[]): Promise<Array<{ title: string; href: string }>> {
   const resolved = await Promise.all(
     slugs.map(async slug => {
-      const post = await getEntry('blog', `en/${slug}`);
+      const post = await getEntry('blog', `${lang}/${slug}`);
       if (!post) {
         throw new Error(
-          `project relatedPosts entry "${slug}" did not resolve under blog/en/. ` +
+          `project relatedPosts entry "${slug}" did not resolve under blog/${lang}/. ` +
             `Either add the post or remove the slug.`
         );
       }
-      return { title: post.data.title, href: `/en/blog/${slug}` };
+      return { title: post.data.title, href: `/${lang}/blog/${slug}` };
     })
   );
   return resolved;
@@ -49,21 +72,15 @@ const groupsWithRelated = await Promise.all(
 );
 ---
 
-<BaseLayout
-  title="Projects — wada-dev"
-  description="A showcase of my OSS work. Each project lists what it is, its stack, repo link, and related posts."
->
+<BaseLayout title="Projects — wada-dev" description={copy.description}>
   <section class="man-section">
     <h2>NAME</h2>
-    <p>projects — OSS showcase</p>
+    <p>{copy.name}</p>
   </section>
 
   <section class="man-section">
     <h2>DESCRIPTION</h2>
-    <p>
-      A list of my open-source projects. Each entry includes the description, stack, repository
-      link, and related write-ups.
-    </p>
+    <p>{copy.body}</p>
   </section>
 
   {
@@ -89,7 +106,9 @@ const groupsWithRelated = await Promise.all(
                       ))}
                     </span>
                   </div>
-                  <p class="project-desc">{item.data.description_en}</p>
+                  <p class="project-desc">
+                    {lang === 'ja' ? item.data.description : item.data.description_en}
+                  </p>
                   <p class="project-meta">
                     <span class="man-prompt" />
                     <a href={item.data.repo}>{item.data.repo.replace(/^https?:\/\//, '')}</a>
@@ -116,7 +135,7 @@ const groupsWithRelated = await Promise.all(
   <section class="man-section">
     <h2>SEE ALSO</h2>
     <p>
-      <a href="https://github.com/Kohei-Wada">github(1)</a>, <a href="/en/blog">blog(7)</a>
+      <a href="https://github.com/Kohei-Wada">github(1)</a>, <a href={`/${lang}/blog`}>blog(7)</a>
     </p>
   </section>
 

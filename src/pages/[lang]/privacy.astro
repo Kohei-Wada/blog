@@ -1,0 +1,30 @@
+---
+import type { GetStaticPaths } from 'astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import type { Locale } from '../../i18n/strings';
+import { LOCALES } from '../../utils/i18n';
+import PrivacyEn from './_privacy-en.astro';
+import PrivacyJa from './_privacy-ja.astro';
+
+export const getStaticPaths = (() =>
+  LOCALES.map(lang => ({ params: { lang } }))) satisfies GetStaticPaths;
+
+const lang = Astro.params.lang as Locale;
+
+const meta = {
+  en: {
+    title: 'Privacy Policy',
+    description:
+      'Privacy policy for this site: how personal data is handled, plus Cookie, analytics, and advertising disclosures.',
+  },
+  ja: {
+    title: 'プライバシーポリシー',
+    description:
+      '当サイトのプライバシーポリシーについて。個人情報の取り扱い、Cookie、広告に関する方針を記載しています。',
+  },
+}[lang];
+---
+
+<BaseLayout title={meta.title} description={meta.description}>
+  {lang === 'en' ? <PrivacyEn /> : <PrivacyJa />}
+</BaseLayout>
