@@ -25,7 +25,7 @@ const description = t('siteDescription', lang);
 const other = otherLocale(lang);
 ---
 
-<BaseLayout title={SITE_TITLE} description={description}>
+<BaseLayout title={`${SITE_TITLE} — ${t('siteSubtitle', lang)}`} description={description}>
   <section class="man-section">
     <h1>NAME</h1>
     <p>{HOME_TITLE} -- {t('siteSubtitle', lang)}</p>

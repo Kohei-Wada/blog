@@ -10,12 +10,14 @@ const lang = Astro.params.lang as Locale;
 
 const copy = {
   en: {
+    title: 'Projects — wada-dev',
     description:
       'A showcase of my OSS work. Each project lists what it is, its stack, repo link, and related posts.',
     name: 'projects — OSS showcase',
     body: 'A list of my open-source projects. Each entry includes the description, stack, repository link, and related write-ups.',
   },
   ja: {
+    title: 'プロジェクト — wada-dev',
     description:
       'OSS 作品のショーケース。各プロジェクトの概要、技術スタック、リポジトリ、関連記事を一覧。',
     name: 'projects — OSS 作品ショーケース',
@@ -69,7 +71,7 @@ const groupsWithRelated = await Promise.all(
 );
 ---
 
-<BaseLayout title="Projects — wada-dev" description={copy.description}>
+<BaseLayout title={copy.title} description={copy.description}>
   <section class="man-section">
     <h1>NAME</h1>
     <p>{copy.name}</p>

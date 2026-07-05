@@ -8,6 +8,7 @@ const lang = Astro.params.lang as Locale;
 
 const copy = {
   en: {
+    title: 'Contact - Kohei Wada',
     description: 'Contact form — questions, feedback, and work inquiries welcome.',
     name: 'contact — get in touch',
     body: 'Questions, feedback, work inquiries — feel free to reach out.',
@@ -22,6 +23,7 @@ const copy = {
     submit: 'Send',
   },
   ja: {
+    title: 'お問い合わせ - Kohei Wada',
     description: 'お問い合わせフォーム。ご質問やご連絡はこちらからどうぞ。',
     name: 'contact — お問い合わせ',
     body: 'ご質問、フィードバック、お仕事のご依頼など、お気軽にお声をおかけください。',
@@ -38,7 +40,7 @@ const copy = {
 }[lang];
 ---
 
-<BaseLayout title="Contact - Kohei Wada" description={copy.description}>
+<BaseLayout title={copy.title} description={copy.description}>
   <section class="man-section">
     <h1>NAME</h1>
     <p>{copy.name}</p>

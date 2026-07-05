@@ -16,6 +16,9 @@ const description =
     : `Software engineer in Japan building open-source tools. About ${AUTHOR_NAME}.`;
 ---
 
-<BaseLayout title="About" description={description}>
+<BaseLayout
+  title={lang === 'ja' ? '自己紹介 - wada-dev' : 'About - wada-dev'}
+  description={description}
+>
   {lang === 'en' ? <AboutEn /> : <AboutJa />}
 </BaseLayout>

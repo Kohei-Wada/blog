@@ -12,6 +12,7 @@ interface BlogPostingProps {
   title: string;
   description: string;
   url: string;
+  inLanguage: string;
   datePublished: Date;
   dateModified?: Date;
   image?: ImageMetadata;
@@ -24,6 +25,7 @@ interface WebSiteProps {
   name: string;
   description: string;
   url: string;
+  inLanguage: string;
 }
 
 interface OrganizationProps {
@@ -49,6 +51,7 @@ export function generateBlogPostingSchema(props: BlogPostingProps): BlogPostingS
     headline: props.title,
     description: props.description,
     url: props.url,
+    inLanguage: props.inLanguage,
     datePublished: props.datePublished.toISOString(),
     dateModified: props.dateModified?.toISOString() || props.datePublished.toISOString(),
     author: {
@@ -88,14 +91,7 @@ export function generateWebSiteSchema(props: WebSiteProps): WebSiteSchema {
     name: props.name,
     description: props.description,
     url: props.url,
-    potentialAction: {
-      '@type': 'SearchAction',
-      target: {
-        '@type': 'EntryPoint',
-        urlTemplate: `${props.url}search?q={search_term_string}`,
-      },
-      'query-input': 'required name=search_term_string',
-    },
+    inLanguage: props.inLanguage,
   };
 }
 

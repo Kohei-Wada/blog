@@ -38,23 +38,13 @@ export interface JsonLdWebPage {
   '@id': string;
 }
 
-export interface JsonLdSearchAction {
-  '@type': 'SearchAction';
-  target: JsonLdEntryPoint;
-  'query-input': string;
-}
-
-export interface JsonLdEntryPoint {
-  '@type': 'EntryPoint';
-  urlTemplate: string;
-}
-
 export interface BlogPostingSchema {
   '@context': string;
   '@type': 'BlogPosting';
   headline: string;
   description: string;
   url: string;
+  inLanguage: string;
   datePublished: string;
   dateModified: string;
   author: JsonLdPerson;
@@ -69,7 +59,7 @@ export interface WebSiteSchema {
   name: string;
   description: string;
   url: string;
-  potentialAction: JsonLdSearchAction;
+  inLanguage: string;
 }
 
 export interface OrganizationSchema {
