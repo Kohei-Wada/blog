@@ -14,9 +14,9 @@ my own ideas ──→ fleeting note → permanent note → article → reader f
                      └────────────────────────────────────────────┘
 ```
 
-The original purpose of a Zettelkasten is output. The loop starts with my own ideas: they enter as fleeting notes, crystallize into permanent notes, and become raw material for articles. Reader reactions to those articles flow back into fleeting notes as a **second input stream**, joining my own ideas. Only when outside input merges into what was previously a closed circle in my own head does the loop actually complete a lap.
+The original purpose of a Zettelkasten is output. The loop starts with my own ideas: they enter as fleeting notes, crystallize into permanent notes, and become raw material for articles. Reader reactions to those articles flow back into fleeting notes as a **second input stream**, joining my own ideas. The loop only completes a lap when outside input merges into what was previously a closed circle in my own head.
 
-In May 2025 I wrote a problem note in my vault: "the loop isn't turning — and not having a blog is part of the problem." Today I added the last missing piece, a comment box on this blog, and every segment of the loop now exists as a system. This article is a record of each component.
+In May 2025 I wrote a problem note in my vault: "the loop of writing articles and getting feedback isn't turning" and "not having a blog is part of the problem." Today I added the last missing piece, a comment box on this blog, and every segment of the loop now exists as a system. This article is a record of each component.
 
 ## The components
 
@@ -61,4 +61,4 @@ The whole thing, from setup to theme tweaking, took half a day.
 
 This article is itself a product of the pipeline described above (raw material: five permanent notes from the vault; structure and claims: mine; compression into prose: Claude). And right below it sits the comment box I added today.
 
-As a matter of fact, there is no feedback yet — zero comments, zero reactions. If you're reading this, a comment or even a single emoji reaction would make my day: it would be the first lap of this loop.
+For the record, there is no feedback yet — zero comments, zero reactions. If you're reading this, a comment or even a single emoji reaction would make my day: it would be the first lap of this loop.
