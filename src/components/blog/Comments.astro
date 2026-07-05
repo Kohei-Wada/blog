@@ -1,0 +1,42 @@
+---
+interface Props {
+  slug: string;
+  lang: 'ja' | 'en';
+}
+
+const { slug, lang } = Astro.props;
+---
+
+<section class="man-section">
+  <h2>COMMENTS</h2>
+  <div class="giscus"></div>
+</section>
+
+{
+  /* Theme CSS is resolved against location.origin so localhost previews and
+    Netlify deploy previews style the widget the same way as production. */
+}
+<script is:inline define:vars={{ slug, lang }}>
+  const giscus = document.createElement('script');
+  giscus.src = 'https://giscus.app/client.js';
+  giscus.async = true;
+  giscus.crossOrigin = 'anonymous';
+  const config = {
+    repo: 'Kohei-Wada/blog',
+    'repo-id': 'R_kgDOO2mDEw',
+    category: 'Announcements',
+    'category-id': 'DIC_kwDOO2mDE84DAhm5',
+    mapping: 'specific',
+    term: slug,
+    'reactions-enabled': '1',
+    'emit-metadata': '0',
+    'input-position': 'bottom',
+    theme: new URL('/giscus-theme.css', location.origin).href,
+    lang,
+    loading: 'lazy',
+  };
+  for (const [key, value] of Object.entries(config)) {
+    giscus.setAttribute(`data-${key}`, value);
+  }
+  document.head.appendChild(giscus);
+</script>

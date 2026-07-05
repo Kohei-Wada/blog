@@ -1,5 +1,6 @@
 ---
 import BaseLayout from './BaseLayout.astro';
+import Comments from '../components/blog/Comments.astro';
 import { getCollection } from 'astro:content';
 import { resolveSeeAlso } from '../utils/see-also';
 import { getPostLang, getPostSlug } from '../i18n/locale';
@@ -91,6 +92,8 @@ const postHref = (p: (typeof localePosts)[number]) => `/${lang}/blog/${getPostSl
         </p>
       )
     }
+
+    <Comments slug={slug} lang={lang} />
 
     <footer class="post-bottom-rule">
       <hr class="man-rule" />
