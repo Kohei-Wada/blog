@@ -61,8 +61,3 @@ seeAlso: ['knowledge-gardener-when-how-separation', 'zettelkasten-purpose-output
 - キモさは連続する：**純知識 → ブログ下書き（ハイブリッド）→ 純タスク**。ブログはこのスペクトラムの真ん中。
 - 下書きは知識でもタスクでもなく、source から組む途中の状態。**永続させない**。
 - 分離は無駄ではない。proximity は **merge でなくリンク**で取れる。
-
-## 参考リンク
-
-- [Plugin は WHEN だけ、vault は HOW を持つ](/ja/blog/knowledge-gardener-when-how-separation) — 同じ「責務を分離して drift に強くする」原則の別応用
-- [Zettelkasten の本来の目的は「出力」だった](/ja/blog/zettelkasten-purpose-output) — vault を育てすぎて手段が目的化する綱引きの話

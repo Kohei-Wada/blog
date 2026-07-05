@@ -61,8 +61,3 @@ This is where a durability axis earns its keep (**source / cache / artifact**). 
 - The ickiness is a continuum: **pure knowledge → blog draft (hybrid) → pure task.** Blog sits in the middle of it.
 - A draft is neither knowledge nor task — it's in-progress state built from a source. **Don't persist it.**
 - Separation isn't wasteful. You get proximity from a **link, not a merge.**
-
-## See also
-
-- [A plugin holds WHEN, the vault holds HOW](/en/blog/knowledge-gardener-when-how-separation) — the same "separate responsibilities to stay drift-proof" principle, applied elsewhere
-- [The real purpose of a Zettelkasten was output](/en/blog/zettelkasten-purpose-output) — the tug-of-war of over-tending the vault until the means becomes the end
