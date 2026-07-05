@@ -2,3 +2,7 @@
 # forever; a changed file always gets a new URL.
 /_astro/*
   Cache-Control: public, max-age=31536000, immutable
+
+# giscus fetches the custom theme stylesheet from its own origin with CORS.
+/giscus-theme.css
+  Access-Control-Allow-Origin: https://giscus.app
