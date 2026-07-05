@@ -1,6 +1,14 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { SITE_TITLE, HOME_TITLE, GITHUB_URL, ZENN_URL, QIITA_URL, X_URL } from '../../consts';
+import {
+  SITE_TITLE,
+  HOME_TITLE,
+  GITHUB_URL,
+  ZENN_URL,
+  QIITA_URL,
+  X_URL,
+  REDDIT_URL,
+} from '../../consts';
 import { t } from '../../i18n/strings';
 import { getCollection } from 'astro:content';
 import { sortPostsByDate, getPostsByLocale } from '../../utils/content-aggregation';
@@ -35,9 +43,10 @@ const other = otherLocale(lang);
     <h2>SYNOPSIS</h2>
     <p>
       <a href={GITHUB_URL}>GitHub</a> ·
-      <a href={ZENN_URL}>Zenn</a> ·
-      <a href={QIITA_URL}>Qiita</a> ·
-      <a href={X_URL}>X</a>
+      <a href={ZENN_URL}>Zenn</a>{lang === 'en' && <span> (ja)</span>} ·
+      <a href={QIITA_URL}>Qiita</a>{lang === 'en' && <span> (ja)</span>} ·
+      <a href={X_URL}>X</a> ·
+      <a href={REDDIT_URL}>Reddit</a>
     </p>
   </section>
 
@@ -85,9 +94,10 @@ const other = otherLocale(lang);
     <h2>SEE ALSO</h2>
     <p>
       <a href={GITHUB_URL}>github(1)</a>,
-      <a href={ZENN_URL}>zenn(1)</a>,
-      <a href={QIITA_URL}>qiita(1)</a>,
-      <a href={X_URL}>x(1)</a>
+      <a href={ZENN_URL}>zenn({lang === 'en' ? 'ja' : '1'})</a>,
+      <a href={QIITA_URL}>qiita({lang === 'en' ? 'ja' : '1'})</a>,
+      <a href={X_URL}>x(1)</a>,
+      <a href={REDDIT_URL}>reddit(1)</a>
     </p>
   </section>
 </BaseLayout>

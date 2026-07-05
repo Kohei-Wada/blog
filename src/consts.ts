@@ -10,9 +10,10 @@ export const ZENN_URL = 'https://zenn.dev/koheiwada';
 export const QIITA_URL = 'https://qiita.com/program3152019';
 export const X_URL = 'https://x.com/koheiwada12';
 export const X_HANDLE = '@koheiwada12';
+export const REDDIT_URL = 'https://www.reddit.com/user/No-Reality-4877/';
 
 // Social links for structured data (sameAs)
-export const SOCIAL_LINKS = [GITHUB_URL, ZENN_URL, QIITA_URL].filter((x): x is string =>
+export const SOCIAL_LINKS = [GITHUB_URL, ZENN_URL, QIITA_URL, REDDIT_URL].filter((x): x is string =>
   Boolean(x)
 );
 
