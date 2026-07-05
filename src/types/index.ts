@@ -10,19 +10,6 @@ export interface ArchiveMonth {
   slug: string;
 }
 
-export interface MarkdownHeading {
-  depth: number;
-  slug: string;
-  text: string;
-}
-
-export interface TocItem {
-  depth: number;
-  slug: string;
-  text: string;
-  subheadings: TocItem[];
-}
-
 // JSON-LD Schema.org types
 export interface JsonLdPerson {
   '@type': 'Person';

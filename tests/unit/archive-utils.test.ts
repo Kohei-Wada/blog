@@ -5,7 +5,7 @@ import {
   generateArchiveSlug,
   parseArchiveSlug,
 } from '../../src/utils/archive-utils';
-import { createMockPost } from '../../src/test/helpers';
+import { createMockPost } from '../helpers';
 
 const mockPosts = [
   createMockPost({ id: 'post-1', title: '2025年8月の記事1', pubDate: '2025-08-20' }),

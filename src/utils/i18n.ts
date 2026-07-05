@@ -1,7 +1,6 @@
 /* global URL */
 import type { Locale } from '../i18n/strings';
 
-export const DEFAULT_LOCALE: Locale = 'en';
 export const LOCALES: readonly Locale[] = ['en', 'ja'] as const;
 
 export function localeFromUrl(url: URL): Locale {

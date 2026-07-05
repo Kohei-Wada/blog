@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { resolveSeeAlso } from '../../src/utils/see-also';
-import { createMockPost } from '../../src/test/helpers';
+import { createMockPost } from '../helpers';
 
 const makeFixture = (id: string, title: string) => createMockPost({ id, title });
 
