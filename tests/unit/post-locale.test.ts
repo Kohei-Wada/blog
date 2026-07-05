@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { getPostLang, getPostSlug } from '../../src/utils/post-locale';
+import { getPostLang, getPostSlug } from '../../src/i18n/locale';
 
 describe('post-locale', () => {
   it('extracts ja from a JP-locale entry id', () => {

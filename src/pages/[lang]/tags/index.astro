@@ -1,20 +1,15 @@
 ---
-import type { GetStaticPaths } from 'astro';
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import ManCommand from '../../../components/shared/ui/ManCommand.astro';
 import { SITE_TITLE } from '../../../consts';
-import { t, type Locale } from '../../../i18n/strings';
-import { getCollection } from 'astro:content';
-import { getTagCounts, getAllTags } from '../../../utils/content-aggregation';
-import { getPostLang } from '../../../utils/post-locale';
-import { LOCALES } from '../../../utils/i18n';
+import { t } from '../../../i18n/strings';
+import { localeStaticPaths, type Locale } from '../../../i18n/locale';
+import { getTagCounts, getAllTags, getPostsByLocale } from '../../../utils/content-aggregation';
 
-export const getStaticPaths = (() =>
-  LOCALES.map(lang => ({ params: { lang } }))) satisfies GetStaticPaths;
+export const getStaticPaths = localeStaticPaths;
 
 const lang = Astro.params.lang as Locale;
-const all = await getCollection('blog');
-const posts = all.filter(p => getPostLang(p.id) === lang);
+const posts = await getPostsByLocale(lang);
 const tagCounts = getTagCounts(posts);
 const tags = getAllTags(posts);
 const title = `${lang === 'ja' ? 'タグ一覧' : 'Tags'} - ${SITE_TITLE}`;

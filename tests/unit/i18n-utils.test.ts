@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { localeFromUrl, siblingUrl, otherLocale } from '../../src/utils/i18n';
+import { localeFromUrl, siblingUrl, otherLocale } from '../../src/i18n/locale';
 
 describe('i18n utils', () => {
   describe('localeFromUrl', () => {

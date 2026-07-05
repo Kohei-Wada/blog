@@ -1,46 +1,50 @@
 #!/usr/bin/env node
-// Enforce that every blog post exists in BOTH locales (ja/ and en/).
-// Run by the pre-commit hook and in CI so a post can never ship in only
-// one language.
-import { existsSync, readdirSync } from 'node:fs';
+// Enforce that every blog post exists in ALL locales (the directories under
+// src/content/blog/). Run by the pre-commit hook and in CI so a post can
+// never ship in only one language.
+import { readdirSync } from 'node:fs';
 import { join } from 'node:path';
 
 const BLOG_DIR = 'src/content/blog';
-const LOCALES = ['ja', 'en'];
+
+const LOCALES = readdirSync(BLOG_DIR, { withFileTypes: true })
+  .filter(entry => entry.isDirectory())
+  .map(entry => entry.name)
+  .sort();
+
+if (LOCALES.length < 2) {
+  console.error(`✗ Expected at least two locale directories under ${BLOG_DIR}.`);
+  process.exit(1);
+}
 
 function slugsFor(locale) {
-  const dir = join(BLOG_DIR, locale);
-  if (!existsSync(dir)) {
-    console.error(`✗ Expected directory ${dir} does not exist.`);
-    process.exit(1);
-  }
   return new Set(
-    readdirSync(dir)
+    readdirSync(join(BLOG_DIR, locale))
       .filter(f => /\.mdx?$/.test(f))
       .map(f => f.replace(/\.mdx?$/, ''))
   );
 }
 
-const [ja, en] = LOCALES.map(slugsFor);
+const slugSets = new Map(LOCALES.map(locale => [locale, slugsFor(locale)]));
+const allSlugs = new Set([...slugSets.values()].flatMap(set => [...set]));
 
-const missingEn = [...ja].filter(s => !en.has(s)).sort();
-const missingJa = [...en].filter(s => !ja.has(s)).sort();
+const missing = new Map();
+for (const [locale, set] of slugSets) {
+  const absent = [...allSlugs].filter(s => !set.has(s)).sort();
+  if (absent.length > 0) missing.set(locale, absent);
+}
 
-if (missingEn.length === 0 && missingJa.length === 0) {
-  console.log(`✓ post locale parity OK (${ja.size} ja / ${en.size} en)`);
+if (missing.size === 0) {
+  const counts = LOCALES.map(locale => `${slugSets.get(locale).size} ${locale}`).join(' / ');
+  console.log(`✓ post locale parity OK (${counts})`);
   process.exit(0);
 }
 
 console.error('✗ Blog post locale parity check failed.\n');
-if (missingEn.length > 0) {
-  console.error('Missing English versions (add the file before committing):');
-  for (const s of missingEn) console.error(`  - ${BLOG_DIR}/en/${s}.md  (ja/ exists)`);
+for (const [locale, slugs] of missing) {
+  console.error(`Missing ${locale} versions (add the file before committing):`);
+  for (const s of slugs) console.error(`  - ${BLOG_DIR}/${locale}/${s}.md`);
   console.error('');
 }
-if (missingJa.length > 0) {
-  console.error('Missing Japanese versions (add the file before committing):');
-  for (const s of missingJa) console.error(`  - ${BLOG_DIR}/ja/${s}.md  (en/ exists)`);
-  console.error('');
-}
-console.error('Every post must exist in both ja/ and en/.');
+console.error(`Every post must exist in all locales (${LOCALES.join(', ')}).`);
 process.exit(1);

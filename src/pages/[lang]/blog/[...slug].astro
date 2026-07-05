@@ -2,7 +2,7 @@
 import { type CollectionEntry, getCollection } from 'astro:content';
 import BlogPost from '../../../layouts/BlogPost.astro';
 import { render } from 'astro:content';
-import { getPostLang, getPostSlug } from '../../../utils/post-locale';
+import { getPostLang, getPostSlug } from '../../../i18n/locale';
 
 export async function getStaticPaths() {
   const all = await getCollection('blog');
