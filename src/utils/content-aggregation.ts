@@ -2,10 +2,20 @@ import { getCollection, type CollectionEntry } from 'astro:content';
 import { getPostLang, type Locale } from '../i18n/locale';
 
 /**
- * All blog posts belonging to one locale (unsorted).
+ * A post is published once its pubDate is not in the future, evaluated against
+ * the build clock (UTC on CI). Future-dated posts are excluded from every page
+ * and feed until a rebuild after their pubDate — the daily deploy workflow
+ * picks them up automatically.
+ */
+export function isPublished(post: CollectionEntry<'blog'>): boolean {
+  return post.data.pubDate.valueOf() <= Date.now();
+}
+
+/**
+ * All published blog posts belonging to one locale (unsorted).
  */
 export async function getPostsByLocale(lang: Locale): Promise<CollectionEntry<'blog'>[]> {
-  const posts = await getCollection('blog');
+  const posts = await getCollection('blog', isPublished);
   return posts.filter(post => getPostLang(post.id) === lang);
 }
 

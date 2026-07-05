@@ -3,11 +3,11 @@ import type { GetStaticPaths } from 'astro';
 import BlogListLayout from '../../../layouts/BlogListLayout.astro';
 import { SITE_TITLE, POSTS_PER_PAGE } from '../../../consts';
 import { getCollection } from 'astro:content';
-import { sortPostsByDate } from '../../../utils/content-aggregation';
+import { isPublished, sortPostsByDate } from '../../../utils/content-aggregation';
 import { getPostLang, LOCALES, type Locale } from '../../../i18n/locale';
 
 export const getStaticPaths = (async ({ paginate }) => {
-  const all = await getCollection('blog');
+  const all = await getCollection('blog', isPublished);
   return LOCALES.flatMap(lang => {
     const posts = sortPostsByDate(all.filter(p => getPostLang(p.id) === lang));
     return paginate(posts, { params: { lang }, pageSize: POSTS_PER_PAGE });

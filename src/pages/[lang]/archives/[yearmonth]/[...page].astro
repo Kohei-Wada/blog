@@ -9,9 +9,10 @@ import {
   formatArchiveLabel,
 } from '../../../../utils/archive-utils';
 import { getPostLang, LOCALES, otherLocale, type Locale } from '../../../../i18n/locale';
+import { isPublished } from '../../../../utils/content-aggregation';
 
 export const getStaticPaths = (async ({ paginate }) => {
-  const all = await getCollection('blog');
+  const all = await getCollection('blog', isPublished);
   return LOCALES.flatMap(lang => {
     const posts = all.filter(p => getPostLang(p.id) === lang);
     return groupPostsByMonth(posts).flatMap(archive =>

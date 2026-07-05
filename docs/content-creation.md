@@ -120,6 +120,21 @@ git push   # open a PR; on green CI, squash-merge — Netlify auto-deploys main
 After deploy, `curl -sL https://wada-dev.com/en/blog/<slug>` and `/ja/blog/<slug>`
 should both return 200.
 
+## Scheduled publishing
+
+Posts with a **future `pubDate` are excluded at build time** (every page, feed,
+and search index — the `isPublished` filter in `src/utils/content-aggregation.ts`).
+To schedule a post, merge it with a future date; the daily deploy workflow
+(`daily-netlify-deploy.yml`, cron 15:00 UTC = 00:00 JST) rebuilds the site and
+the post goes live on the first build after its `pubDate`.
+
+- The comparison uses the **build clock (UTC on CI)**. A bare `pubDate:
+'YYYY-MM-DD'` (midnight UTC) publishes on that day's 00:00 JST daily build.
+- Publishing granularity is one day (or push any commit / trigger the workflow
+  manually to publish sooner).
+- The post is visible in the GitHub repo once merged — scheduling hides it from
+  the site, not from the source.
+
 ## Auto-generated Features
 
 - **Table of Contents**: built from H2/H3 headings.
