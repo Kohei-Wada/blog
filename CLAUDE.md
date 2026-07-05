@@ -126,16 +126,14 @@ src/components/
 │       ├── ManCommand.astro # Shell-command annotation under a section heading
 │       ├── Pagination.astro # Prev/next pagination
 │       └── SearchModal.astro # Client-side search modal
-├── blog/
+└── blog/
 │   └── content/
 │       └── PostsList.astro  # ls -l style post listing
-└── integrations/
-    └── AdSenseScript.astro  # Google AdSense loader
 ```
 
 ### Data Flow & API Integration
 
-- **API Constants**: `src/constants/api.ts` - Analytics and AdSense configuration
+- **API Constants**: `src/constants/api.ts` - Analytics configuration
 - **RSS Generation**: `src/pages/rss.xml.js` - Dynamic RSS feed from blog posts
 
 ### Page Routing Strategy

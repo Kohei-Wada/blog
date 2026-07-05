@@ -41,11 +41,9 @@ src/components/
 │       ├── ManCommand.astro    # Man-page style command header
 │       ├── Pagination.astro    # List pagination
 │       └── SearchModal.astro   # Fuzzy search modal (fuse.js)
-├── blog/                  # Blog-specific components
+└── blog/                  # Blog-specific components
 │   └── content/
 │       └── PostsList.astro     # Post listing
-└── integrations/          # External services
-    └── AdSenseScript.astro     # Google AdSense
 ```
 
 ### Component Design Principles

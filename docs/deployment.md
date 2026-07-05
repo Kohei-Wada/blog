@@ -32,7 +32,7 @@ This site deploys automatically to **Netlify** with the following setup:
 ### Environment Variables
 
 No build-time environment variables are required. Production-only
-integrations (AdSense, Analytics) are gated on `import.meta.env.PROD`.
+integrations (Analytics) are gated on `import.meta.env.PROD`.
 
 ## ⚙️ CI/CD Pipeline
 
