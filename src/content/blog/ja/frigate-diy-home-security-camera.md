@@ -1,7 +1,7 @@
 ---
 title: '闇バイトの時代なので、監視カメラを買わずに作った'
 description: '近所に監視カメラが増えていく中、月数百円のクラウドAIを契約する代わりに、格安WiFiカメラ + Frigate + 余り物ラップトップでサブスク無しの24時間人物検知を宅内に立てた。現在の構成の全体像。'
-pubDate: '2026-07-05'
+pubDate: '2026-07-05T15:00'
 tags: ['自宅サーバ', 'Home Assistant', 'セキュリティ', 'homelab']
 seeAlso: ['diffusiongemma-vllm-rtx5090-local']
 ---
