@@ -29,7 +29,7 @@ html.theme-transitioning *::after {
 }
 
 body {
-  font-family: 'Atkinson', sans-serif;
+  font-family: sans-serif;
   margin: 0;
   padding: 0;
   text-align: left;
