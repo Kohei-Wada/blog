@@ -64,7 +64,7 @@ npm audit fix       # Auto-fix security issues
 ### Environment Configuration
 
 No environment variables are required. Production-only integrations
-(AdSense, Analytics) are gated on `import.meta.env.PROD` and stay disabled
+(Analytics) are gated on `import.meta.env.PROD` and stay disabled
 automatically in development.
 
 ## 🔄 Development Workflow
