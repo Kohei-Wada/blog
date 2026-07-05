@@ -1,7 +1,7 @@
 ---
 title: 'Person Detection Died Silently Four Times in One Month — Same Symptom, Different Culprit Every Time'
 description: 'The incident post for my DIY security camera. Four times the camera kept streaming, the container kept running, and only the detection events stopped. The culprits: a self-poisoning watchdog, a camera choking on concurrent sessions, a 59-second JIT vs a 20-second watchdog, and an OOM kill.'
-pubDate: '2026-07-05T17:00'
+pubDate: '2026-07-05T17:00+09:00'
 tags: ['homelab', 'home-server', 'home-assistant', 'troubleshooting']
 seeAlso: ['frigate-diy-home-security-camera']
 ---

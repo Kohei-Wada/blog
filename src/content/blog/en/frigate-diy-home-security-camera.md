@@ -1,7 +1,7 @@
 ---
 title: 'In the Age of Yami Baito, I Built My Own Security Camera Instead of Buying One'
 description: 'As security cameras multiply in my neighborhood, instead of paying a monthly cloud-AI fee I built a subscription-free 24/7 person-detection system with a cheap WiFi camera, Frigate, and a spare laptop. A tour of the current setup.'
-pubDate: '2026-07-05T15:00'
+pubDate: '2026-07-05T15:00+09:00'
 tags: ['homelab', 'home-server', 'home-assistant', 'security']
 seeAlso: ['diffusiongemma-vllm-rtx5090-local']
 ---

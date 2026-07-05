@@ -42,17 +42,21 @@ tags: ['shell-tricks', 'astro'] # see Tagging below
 **Same-day ordering.** Posts sort by `pubDate` value alone (newest first); a
 bare date makes every same-day post tie, and ties fall back to filename order.
 When publishing a post on a day that already has one, append an increasing
-**afternoon** time so the new post sorts on top:
+**afternoon JST** time so the new post sorts on top — and **always include the
+`+09:00` offset**:
 
 ```yaml
-pubDate: '2026-07-04T15:00' # ISO date-and-time
+pubDate: '2026-07-04T15:00+09:00' # ISO date-and-time, explicit JST offset
 ```
 
-Keep the time in the `09:00`–`21:00` window — the displayed date is derived in
-UTC, so an early-morning time would render as the previous day for JST readers.
-Give each same-day post a distinct, chronologically-increasing time (e.g.
-`09:00`, `11:00`, `13:00`). The `ja` and `en` copies of one post share the same
-`pubDate`.
+Without an offset, the time is parsed in the build machine's zone (**UTC on
+CI**) — a `T15:00` written this afternoon is still in the future in UTC, and
+the scheduled-publishing filter will **hide the post until 15:00 UTC** (this
+bit us on 2026-07-05: two just-published posts vanished from the site). With
+`+09:00`, keep the time in the `09:00`–`21:00` JST window so the UTC-derived
+displayed date stays on the same day. Give each same-day post a distinct,
+chronologically-increasing time. The `ja` and `en` copies of one post share
+the same `pubDate`.
 
 ### Optional
 
@@ -128,10 +132,12 @@ To schedule a post, merge it with a future date; the daily deploy workflow
 (`daily-netlify-deploy.yml`, cron 15:00 UTC = 00:00 JST) rebuilds the site and
 the post goes live on the first build after its `pubDate`.
 
-- The comparison uses the **build clock (UTC on CI)**. A bare `pubDate:
-'YYYY-MM-DD'` (midnight UTC) publishes on that day's 00:00 JST daily build.
-- Publishing granularity is one day (or push any commit / trigger the workflow
-  manually to publish sooner).
+- The comparison uses the **build clock (UTC on CI)** — always write pubDate
+  with an explicit `+09:00` offset (see Same-day ordering above).
+- A post goes live on the **first build after its pubDate instant**. With the
+  daily cron at 15:00 UTC (= 00:00 JST), a bare `pubDate: 'YYYY-MM-DD'`
+  (= midnight UTC = 09:00 JST) goes live at **00:00 JST the following day**.
+  To publish sooner, push any commit or trigger the workflow manually.
 - The post is visible in the GitHub repo once merged — scheduling hides it from
   the site, not from the source.
 

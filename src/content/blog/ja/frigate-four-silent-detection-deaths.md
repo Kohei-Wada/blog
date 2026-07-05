@@ -1,7 +1,7 @@
 ---
 title: '人物検知はひと月で4回、黙って死んだ — 同じ症状、毎回違う真因'
 description: '自作監視カメラの障害編。カメラは映り、コンテナは動き、検知イベントだけが止まる「サイレント死」を4回踏んだ。真因は毎回違った — watchdogの自家中毒、カメラの同時セッション限界、59秒のJITと20秒のwatchdog、そしてOOM。'
-pubDate: '2026-07-05T17:00'
+pubDate: '2026-07-05T17:00+09:00'
 tags: ['自宅サーバ', 'Home Assistant', 'トラブルシューティング', 'homelab']
 seeAlso: ['frigate-diy-home-security-camera']
 ---
