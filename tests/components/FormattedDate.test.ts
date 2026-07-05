@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { createTestDate, formatTestDate } from '../../src/test/helpers';
+import { createTestDate, formatTestDate } from '../helpers';
 
 describe('FormattedDate', () => {
   it('should format date correctly', () => {

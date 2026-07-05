@@ -1,6 +1,11 @@
 import { describe, it, expect } from 'vitest';
-import { getTagCounts, getPostsByTag, getAllTags } from '../../src/utils/content-aggregation';
-import { createMockPost } from '../../src/test/helpers';
+import {
+  sortPostsByDate,
+  getTagCounts,
+  getPostsByTag,
+  getAllTags,
+} from '../../src/utils/content-aggregation';
+import { createMockPost } from '../helpers';
 
 const mockPosts = [
   createMockPost({
@@ -111,6 +116,29 @@ describe('content-aggregation', () => {
     it('should handle empty array', () => {
       const result = getAllTags([]);
       expect(result).toEqual([]);
+    });
+  });
+
+  describe('sortPostsByDate', () => {
+    it('should sort posts by pubDate, newest first', () => {
+      const shuffled = [mockPosts[3], mockPosts[0], mockPosts[4], mockPosts[2], mockPosts[1]];
+
+      const result = sortPostsByDate(shuffled);
+
+      expect(result.map(p => p.id)).toEqual(['post-1', 'post-2', 'post-3', 'post-4', 'post-5']);
+    });
+
+    it('should not mutate the input array', () => {
+      const input = [mockPosts[2], mockPosts[0], mockPosts[1]];
+      const snapshot = [...input];
+
+      sortPostsByDate(input);
+
+      expect(input).toEqual(snapshot);
+    });
+
+    it('should handle empty array', () => {
+      expect(sortPostsByDate([])).toEqual([]);
     });
   });
 });
