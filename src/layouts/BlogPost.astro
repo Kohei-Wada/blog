@@ -132,6 +132,11 @@ const postHref = (p: (typeof localePosts)[number]) => `/${lang}/blog/${getPostSl
       font-size: var(--font-size-base);
       font-weight: bold;
     }
+    /* man(7) puts SS headers between the section header (col 0) and the
+       body (col 7); half the indent keeps that on any --indent-section. */
+    .post-body :global(h2) {
+      margin-left: calc(var(--indent-section) / -2);
+    }
     .see-also {
       list-style: none;
       padding: 0;
