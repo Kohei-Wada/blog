@@ -8,9 +8,11 @@
   --bg:        #f4ecd8;
   --bg-alt:    #ece4cf;
   --text:      #2a2826;
-  --text-dim:  #928374;
+  /* Dim/olive tones are the darkest shades that keep the paper look while
+     passing WCAG AA (4.5:1) on both --bg and --bg-alt. */
+  --text-dim:  #6a6255;
   --accent:    #af3a03;
-  --accent-2:  #79740e;
+  --accent-2:  #696113;
   --border:       rgba(42, 40, 38, 0.15);
   --border-light: rgba(42, 40, 38, 0.08);
   --link:      var(--accent);

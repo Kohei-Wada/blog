@@ -37,7 +37,14 @@ const olderPost =
 const postHref = (p: (typeof localePosts)[number]) => `/${lang}/blog/${getPostSlug(p.id)}`;
 ---
 
-<BaseLayout title={title} description={description} siblingHref={siblingHref}>
+<BaseLayout
+  title={title}
+  description={description}
+  siblingHref={siblingHref}
+  isArticle={true}
+  publishedTime={pubDate}
+  alternateHref={hasTranslation ? `${siblingHref}/` : undefined}
+>
   <article>
     <section class="man-section">
       <h2>NAME</h2>

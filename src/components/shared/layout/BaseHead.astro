@@ -16,7 +16,7 @@ import {
   AUTHOR_JOB_TITLE,
 } from '../../../consts';
 import { t } from '../../../i18n/strings';
-import { localeFromUrl } from '../../../i18n/locale';
+import { localeFromUrl, otherLocale } from '../../../i18n/locale';
 import FallbackImage from '../../../assets/avatar.png';
 import type { ImageMetadata } from 'astro';
 import Analytics from '../ui/Analytics.astro';
@@ -35,12 +35,23 @@ interface Props {
   image?: ImageMetadata;
   isArticle?: boolean;
   publishedTime?: Date;
+  /** Path of this page in the other locale — only when that page exists. */
+  alternateHref?: string;
 }
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 const locale = localeFromUrl(Astro.url);
 
-const { title, description, image = FallbackImage, isArticle = false, publishedTime } = Astro.props;
+const {
+  title,
+  description,
+  image = FallbackImage,
+  isArticle = false,
+  publishedTime,
+  alternateHref,
+} = Astro.props;
+
+const alternateURL = alternateHref ? new URL(alternateHref, Astro.site) : null;
 
 // Generate JSON-LD structured data
 const siteUrl = Astro.site?.toString() || 'https://wada-dev.com';
@@ -101,12 +112,22 @@ if (isArticle && publishedTime) {
 />
 <meta name="generator" content={Astro.generator} />
 
-<!-- Font preloads -->
-<link rel="preload" href="/fonts/atkinson-regular.woff" as="font" type="font/woff" crossorigin />
-<link rel="preload" href="/fonts/atkinson-bold.woff" as="font" type="font/woff" crossorigin />
-
 <!-- Canonical URL -->
 <link rel="canonical" href={canonicalURL} />
+
+{
+  alternateURL && (
+    <>
+      <link rel="alternate" hreflang={locale} href={canonicalURL} />
+      <link rel="alternate" hreflang={otherLocale(locale)} href={alternateURL} />
+      <link
+        rel="alternate"
+        hreflang="x-default"
+        href={locale === 'en' ? canonicalURL : alternateURL}
+      />
+    </>
+  )
+}
 
 <!-- Primary Meta Tags -->
 <title>{title}</title>
