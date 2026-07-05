@@ -5,6 +5,7 @@ import GlobalNav from '../components/shared/GlobalNav.astro';
 import SearchModal from '../components/shared/ui/SearchModal.astro';
 import { localeFromUrl, otherLocale, siblingUrl } from '../i18n/locale';
 import { t } from '../i18n/strings';
+import { FEED_PATHS } from '../utils/rss';
 import type { ImageMetadata } from 'astro';
 
 interface Props {
@@ -72,6 +73,7 @@ const alternateHref =
       <nav class="man-footer-links" aria-label={t('footerNavLabel', locale)}>
         <a href={`${localePrefix}/contact`}>contact</a>
         <a href={`${localePrefix}/privacy`}>privacy</a>
+        <a href={FEED_PATHS[locale]}>rss</a>
       </nav>
       <span>{today}</span>
     </footer>

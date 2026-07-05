@@ -36,10 +36,25 @@ if (!parsed) {
 
 const { page } = Astro.props;
 const { year, month } = parsed;
-const label = formatArchiveLabel(year, month);
-const title = `${label} - ${SITE_TITLE}`;
-const description =
-  lang === 'ja' ? `${label}に投稿された記事一覧です。` : `Posts published in ${label}.`;
+const jaLabel = formatArchiveLabel(year, month);
+
+const copy = {
+  en: {
+    base: `Posts from ${yearMonthParam}`,
+    pageSuffix: (n: number) => ` - Page ${n}`,
+    description: `Blog posts published in ${yearMonthParam}.`,
+  },
+  ja: {
+    base: `${jaLabel}の記事`,
+    pageSuffix: (n: number) => ` - ${n}ページ目`,
+    description: `${jaLabel}に投稿された記事一覧です。`,
+  },
+}[lang];
+
+const title = `${copy.base}${
+  page.currentPage > 1 ? copy.pageSuffix(page.currentPage) : ''
+} - ${SITE_TITLE}`;
+const description = copy.description;
 ---
 
 <BlogListLayout

@@ -2,7 +2,6 @@
 import type { GetStaticPaths } from 'astro';
 import BlogListLayout from '../../../../layouts/BlogListLayout.astro';
 import { SITE_TITLE, POSTS_PER_PAGE } from '../../../../consts';
-import { t } from '../../../../i18n/strings';
 import { getCollection } from 'astro:content';
 import { getAllTags, getPostsByTag, sortPostsByDate } from '../../../../utils/content-aggregation';
 import { getPostLang, LOCALES, otherLocale, type Locale } from '../../../../i18n/locale';
@@ -25,12 +24,28 @@ if (!tag) {
 }
 
 const { page } = Astro.props;
-const title = `${tag} - ${SITE_TITLE}`;
+
+const copy = {
+  en: {
+    base: `Posts tagged "${tag}"`,
+    pageSuffix: (n: number) => ` - Page ${n}`,
+    description: `Blog posts tagged "${tag}" on ${SITE_TITLE}.`,
+  },
+  ja: {
+    base: `タグ「${tag}」の記事`,
+    pageSuffix: (n: number) => ` - ${n}ページ目`,
+    description: `${SITE_TITLE} のタグ「${tag}」が付いた記事一覧。`,
+  },
+}[lang];
+
+const title = `${copy.base}${
+  page.currentPage > 1 ? copy.pageSuffix(page.currentPage) : ''
+} - ${SITE_TITLE}`;
 ---
 
 <BlogListLayout
   title={title}
-  description={t('siteDescription', lang)}
+  description={copy.description}
   posts={page.data}
   sectionLabel="APROPOS"
   command={`ls -l tags/${tag}/`}

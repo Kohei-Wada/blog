@@ -46,6 +46,10 @@ export default defineConfig({
     sitemap({
       changefreq: 'weekly',
       priority: 0.7,
+      i18n: {
+        defaultLocale: 'en',
+        locales: { en: 'en', ja: 'ja' },
+      },
       serialize(item) {
         // Locale homepages have highest priority
         if (item.url === 'https://wada-dev.com/en/' || item.url === 'https://wada-dev.com/ja/') {
