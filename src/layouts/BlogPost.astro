@@ -4,7 +4,7 @@ import Comments from '../components/blog/Comments.astro';
 import { getCollection } from 'astro:content';
 import { resolveSeeAlso } from '../utils/see-also';
 import { getPostLang, getPostSlug } from '../i18n/locale';
-import { sortPostsByDate } from '../utils/content-aggregation';
+import { isPublished, sortPostsByDate } from '../utils/content-aggregation';
 import { t } from '../i18n/strings';
 
 interface Props {
@@ -23,7 +23,7 @@ const slug = getPostSlug(id);
 const manTitle = slug.toUpperCase().replace(/-/g, '_');
 const pubIso = pubDate.toISOString().slice(0, 10);
 
-const all = await getCollection('blog');
+const all = await getCollection('blog', isPublished);
 const seeAlsoEntries = resolveSeeAlso(seeAlso, id, all);
 
 const otherLang = lang === 'ja' ? 'en' : 'ja';

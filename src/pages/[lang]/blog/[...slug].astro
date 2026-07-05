@@ -3,9 +3,10 @@ import { type CollectionEntry, getCollection } from 'astro:content';
 import BlogPost from '../../../layouts/BlogPost.astro';
 import { render } from 'astro:content';
 import { getPostLang, getPostSlug } from '../../../i18n/locale';
+import { isPublished } from '../../../utils/content-aggregation';
 
 export async function getStaticPaths() {
-  const all = await getCollection('blog');
+  const all = await getCollection('blog', isPublished);
   return all.map(post => ({
     params: { lang: getPostLang(post.id), slug: getPostSlug(post.id) },
     props: post,

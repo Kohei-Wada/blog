@@ -1,6 +1,7 @@
 import { describe, it, expect, vi } from 'vitest';
 import { getCollection } from 'astro:content';
 import {
+  isPublished,
   sortPostsByDate,
   getTagCounts,
   getPostsByTag,
@@ -159,7 +160,29 @@ describe('content-aggregation', () => {
       const result = await getPostsByLocale('en');
 
       expect(result.map(p => p.id)).toEqual(['en/hello', 'en/world']);
-      expect(getCollection).toHaveBeenCalledWith('blog');
+      expect(getCollection).toHaveBeenCalledWith('blog', isPublished);
+    });
+  });
+
+  describe('isPublished', () => {
+    it('should accept posts dated in the past', () => {
+      expect(isPublished(createMockPost({ pubDate: '2020-01-01' }))).toBe(true);
+    });
+
+    it('should accept a post dated exactly now', () => {
+      vi.useFakeTimers();
+      vi.setSystemTime(new Date('2026-07-05T12:00:00Z'));
+      expect(isPublished(createMockPost({ pubDate: new Date('2026-07-05T12:00:00Z') }))).toBe(true);
+      vi.useRealTimers();
+    });
+
+    it('should reject posts dated in the future', () => {
+      vi.useFakeTimers();
+      vi.setSystemTime(new Date('2026-07-05T12:00:00Z'));
+      expect(isPublished(createMockPost({ pubDate: new Date('2026-07-06T00:00:00Z') }))).toBe(
+        false
+      );
+      vi.useRealTimers();
     });
   });
 });
