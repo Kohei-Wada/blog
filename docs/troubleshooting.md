@@ -77,42 +77,6 @@ npm run dev -- --port 3000
    sudo sysctl -p
    ```
 
-### GitHub API Issues
-
-#### Rate Limiting
-
-**Symptoms**:
-
-```bash
-GitHub API rate limit exceeded. Status: 403
-```
-
-**Solutions**:
-
-1. **Development**: Enable mock data in `.env`
-
-   ```bash
-   PUBLIC_DISABLE_GITHUB_API=true
-   ```
-
-2. **Production**: Wait for rate limit reset (1 hour)
-3. Consider GitHub token authentication for higher limits
-
-#### Network Connectivity
-
-**Symptoms**:
-
-```bash
-GitHub API unavailable: Network error
-```
-
-**Solutions**:
-
-1. Check internet connection
-2. Verify GitHub API status: [status.GitHub.com](https://www.githubstatus.com/)
-3. Test API manually: `curl https://api.github.com/users/Kohei-Wada`
-4. Enable development mock data as fallback
-
 ### Test Failures
 
 #### Tests Not Running
@@ -185,10 +149,9 @@ TypeError: Cannot read property 'mockResolvedValue' of undefined
 
 **Solutions**:
 
-1. Enable GitHub API caching (already implemented)
-2. Optimize image sizes before commit
-3. Remove unused dependencies
-4. Use Netlify build plugins for optimization
+1. Optimize image sizes before commit
+2. Remove unused dependencies
+3. Use Netlify build plugins for optimization
 
 ### Content Issues
 
@@ -258,7 +221,6 @@ npm run build -- --stats
 1. Optimize images before committing
 2. Remove unused dependencies
 3. Check for circular imports
-4. Use development API mocking
 
 #### Large Bundle Sizes
 
@@ -309,7 +271,7 @@ npm run preview
 
 ```bash
 # Run specific test file
-npm test -- tests/unit/GitHub-cache-manager.test.ts
+npm test -- tests/unit/search.test.ts
 
 # Debug test with logs
 npm test -- --reporter=verbose
@@ -342,7 +304,6 @@ When reporting issues, include:
 - [Astro Documentation](https://docs.astro.build/)
 - [Vitest Documentation](https://vitest.dev/)
 - [Netlify Support](https://docs.netlify.com/)
-- [GitHub API Documentation](https://docs.github.com/en/rest)
 
 ---
 

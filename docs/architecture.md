@@ -32,26 +32,20 @@ This is a static site built with Astro, utilizing:
 ```
 src/components/
 ├── shared/                 # Reusable components
+│   ├── GlobalNav.astro         # Site navigation
+│   ├── LangSwitcher.astro      # ja/en locale switcher
 │   ├── layout/            # Layout structure
-│   │   ├── BaseHead.Astro      # HTML head with meta tags
-│   │   ├── Header.Astro        # Site navigation
-│   │   └── Footer.Astro        # Site footer
+│   │   └── BaseHead.astro      # HTML head with meta tags
 │   └── ui/                # UI components
-│       ├── FormattedDate.Astro # Date display
-│       ├── HeroSection.Astro   # Homepage hero
-│       └── ThemeToggle.Astro   # Dark/light mode
+│       ├── Analytics.astro     # Google Analytics
+│       ├── ManCommand.astro    # Man-page style command header
+│       ├── Pagination.astro    # List pagination
+│       └── SearchModal.astro   # Fuzzy search modal (fuse.js)
 ├── blog/                  # Blog-specific components
-│   ├── content/          # Content display
-│   │   ├── PostCard.Astro      # Post preview cards
-│   │   ├── PostsGrid.Astro     # Grid layouts
-│   │   └── RelatedPosts.Astro  # Related post suggestions
-│   └── navigation/       # Blog navigation
-│       ├── Sidebar.Astro       # Archive & tag navigation
-│       └── TableOfContents.Astro # Dynamic TOC
+│   └── content/
+│       └── PostsList.astro     # Post listing
 └── integrations/          # External services
-    ├── GitHubActivity.Astro    # GitHub API integration
-    ├── ShareButtons.Astro      # Social sharing
-    └── Analytics.Astro         # Google Analytics
+    └── AdSenseScript.astro     # Google AdSense
 ```
 
 ### Component Design Principles
@@ -84,29 +78,6 @@ src/components/
    ├── Archive navigation
    └── Related post suggestions
 ```
-
-### GitHub API Integration
-
-**Problem**: Multiple pages need GitHub data → Multiple API calls → Rate limiting
-
-**Solution**: Intelligent caching system
-
-```typescript
-// Singleton cache manager
-class GitHubCacheManager {
-  // Single API call per build
-  async getOrFetch(): Promise<GitHubData>;
-
-  // Statistics tracking
-  getStats(): CacheStats;
-}
-```
-
-**Flow**:
-
-1. First component requests GitHub data → API call + cache
-2. Subsequent components → Cache hit (no API call)
-3. Build completes → Single API call for 22+ pages
 
 ## 🗂️ File Structure & Routing
 
@@ -201,7 +172,6 @@ const blogCollection = defineCollection({
 ### External Services
 
 - **Netlify**: Hosting, forms, build hooks
-- **GitHub API**: Repository activity data
 - **Google Analytics**: Usage tracking
 - **RSS**: Standard XML feed for syndication
 

@@ -63,20 +63,9 @@ npm audit fix       # Auto-fix security issues
 
 ### Environment Configuration
 
-Create `.env` file in project root for development:
-
-```bash
-# .env (development only)
-PUBLIC_DISABLE_GITHUB_API=true  # Disable GitHub API calls, use mock data
-PUBLIC_DISABLE_ADSENSE=true     # Disable AdSense in development
-```
-
-**Why disable GitHub API in development?**
-
-- Avoids rate limiting (60 requests/hour for unauthenticated requests)
-- Faster build times (no network requests)
-- Consistent mock data for UI development
-- Works offline
+No environment variables are required. Production-only integrations
+(AdSense, Analytics) are gated on `import.meta.env.PROD` and stay disabled
+automatically in development.
 
 ## 🔄 Development Workflow
 

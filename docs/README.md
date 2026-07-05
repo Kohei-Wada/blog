@@ -13,7 +13,7 @@ Technical documentation for wada-dev personal blog project.
 ### Operations & Deployment
 
 - [Deployment](./deployment.md) - Netlify setup, CI/CD, environment variables
-- [API Specifications](./api-specifications.md) - GitHub API integration, RSS generation
+- [API Specifications](./api-specifications.md) - RSS feed and sitemap generation
 
 ### Content Management
 
@@ -29,8 +29,8 @@ This is a modern personal blog built with Astro, featuring:
 
 - Static site generation with optimal performance
 - Bilingual content support (Japanese/English)
-- GitHub API integration with intelligent caching
-- Comprehensive test coverage (84+ tests)
+- Client-side fuzzy search (fuse.js)
+- Comprehensive test coverage (155 tests)
 - Automated CI/CD pipeline
 
 ---
