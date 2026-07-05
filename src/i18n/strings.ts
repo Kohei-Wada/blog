@@ -1,4 +1,4 @@
-export type Locale = 'ja' | 'en';
+import type { Locale } from './locale';
 
 const strings = {
   recentPosts: { ja: '最近の記事', en: 'Recent posts' },

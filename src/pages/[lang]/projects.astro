@@ -1,13 +1,10 @@
 ---
-import type { GetStaticPaths } from 'astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import ManCommand from '../../components/shared/ui/ManCommand.astro';
 import { getCollection, getEntry } from 'astro:content';
-import type { Locale } from '../../i18n/strings';
-import { LOCALES } from '../../utils/i18n';
+import { localeStaticPaths, type Locale } from '../../i18n/locale';
 
-export const getStaticPaths = (() =>
-  LOCALES.map(lang => ({ params: { lang } }))) satisfies GetStaticPaths;
+export const getStaticPaths = localeStaticPaths;
 
 const lang = Astro.params.lang as Locale;
 

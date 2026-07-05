@@ -1,5 +1,6 @@
 import { describe, it, expect } from 'vitest';
-import { t, type Locale } from '../../src/i18n/strings';
+import { t } from '../../src/i18n/strings';
+import type { Locale } from '../../src/i18n/locale';
 
 describe('i18n strings', () => {
   it('returns the requested locale value for a known key', () => {

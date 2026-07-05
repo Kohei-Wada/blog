@@ -1,21 +1,17 @@
 ---
-import type { GetStaticPaths } from 'astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { SITE_TITLE, HOME_TITLE, GITHUB_URL, ZENN_URL, QIITA_URL, X_URL } from '../../consts';
-import { t, type Locale } from '../../i18n/strings';
+import { t } from '../../i18n/strings';
 import { getCollection } from 'astro:content';
-import { sortPostsByDate } from '../../utils/content-aggregation';
+import { sortPostsByDate, getPostsByLocale } from '../../utils/content-aggregation';
 import PostsList from '../../components/blog/content/PostsList.astro';
 import ManCommand from '../../components/shared/ui/ManCommand.astro';
-import { getPostLang } from '../../utils/post-locale';
-import { LOCALES, otherLocale } from '../../utils/i18n';
+import { otherLocale, localeStaticPaths, type Locale } from '../../i18n/locale';
 
-export const getStaticPaths = (() =>
-  LOCALES.map(lang => ({ params: { lang } }))) satisfies GetStaticPaths;
+export const getStaticPaths = localeStaticPaths;
 
 const lang = Astro.params.lang as Locale;
-const all = await getCollection('blog');
-const posts = sortPostsByDate(all.filter(post => getPostLang(post.id) === lang)).slice(0, 10);
+const posts = sortPostsByDate(await getPostsByLocale(lang)).slice(0, 10);
 
 const allProjects = await getCollection('projects');
 const featuredProjects = allProjects

@@ -2,11 +2,10 @@
 import type { GetStaticPaths } from 'astro';
 import BlogListLayout from '../../../layouts/BlogListLayout.astro';
 import { SITE_TITLE, POSTS_PER_PAGE } from '../../../consts';
-import { t, type Locale } from '../../../i18n/strings';
+import { t } from '../../../i18n/strings';
 import { getCollection } from 'astro:content';
 import { sortPostsByDate } from '../../../utils/content-aggregation';
-import { getPostLang } from '../../../utils/post-locale';
-import { LOCALES } from '../../../utils/i18n';
+import { getPostLang, LOCALES, type Locale } from '../../../i18n/locale';
 
 export const getStaticPaths = (async ({ paginate }) => {
   const all = await getCollection('blog');

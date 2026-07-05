@@ -1,5 +1,5 @@
 import type { CollectionEntry } from 'astro:content';
-import { getPostLang, getPostSlug } from './post-locale';
+import { getPostLang, getPostSlug } from '../i18n/locale';
 
 export interface SeeAlsoEntry {
   title: string;

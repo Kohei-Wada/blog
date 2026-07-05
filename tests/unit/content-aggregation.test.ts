@@ -1,11 +1,16 @@
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, vi } from 'vitest';
+import { getCollection } from 'astro:content';
 import {
   sortPostsByDate,
   getTagCounts,
   getPostsByTag,
   getAllTags,
+  getPostsByLocale,
 } from '../../src/utils/content-aggregation';
 import { createMockPost } from '../helpers';
+
+// astro:content is server-only and cannot be loaded in vitest; mock it.
+vi.mock('astro:content', () => ({ getCollection: vi.fn() }));
 
 const mockPosts = [
   createMockPost({
@@ -139,6 +144,22 @@ describe('content-aggregation', () => {
 
     it('should handle empty array', () => {
       expect(sortPostsByDate([])).toEqual([]);
+    });
+  });
+
+  describe('getPostsByLocale', () => {
+    it('should return only posts whose id carries the requested locale prefix', async () => {
+      const localePosts = [
+        createMockPost({ id: 'en/hello', title: 'Hello' }),
+        createMockPost({ id: 'ja/hello', title: 'こんにちは' }),
+        createMockPost({ id: 'en/world', title: 'World' }),
+      ];
+      vi.mocked(getCollection).mockResolvedValue(localePosts);
+
+      const result = await getPostsByLocale('en');
+
+      expect(result.map(p => p.id)).toEqual(['en/hello', 'en/world']);
+      expect(getCollection).toHaveBeenCalledWith('blog');
     });
   });
 });

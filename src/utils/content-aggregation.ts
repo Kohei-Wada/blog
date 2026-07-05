@@ -1,4 +1,13 @@
-import type { CollectionEntry } from 'astro:content';
+import { getCollection, type CollectionEntry } from 'astro:content';
+import { getPostLang, type Locale } from '../i18n/locale';
+
+/**
+ * All blog posts belonging to one locale (unsorted).
+ */
+export async function getPostsByLocale(lang: Locale): Promise<CollectionEntry<'blog'>[]> {
+  const posts = await getCollection('blog');
+  return posts.filter(post => getPostLang(post.id) === lang);
+}
 
 /**
  * Sort posts by publication date (newest first)

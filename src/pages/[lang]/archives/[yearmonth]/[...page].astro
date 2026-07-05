@@ -2,15 +2,13 @@
 import type { GetStaticPaths } from 'astro';
 import BlogListLayout from '../../../../layouts/BlogListLayout.astro';
 import { SITE_TITLE, POSTS_PER_PAGE } from '../../../../consts';
-import { type Locale } from '../../../../i18n/strings';
 import { getCollection } from 'astro:content';
 import {
   groupPostsByMonth,
   parseArchiveSlug,
   formatArchiveLabel,
 } from '../../../../utils/archive-utils';
-import { getPostLang } from '../../../../utils/post-locale';
-import { LOCALES, otherLocale } from '../../../../utils/i18n';
+import { getPostLang, LOCALES, otherLocale, type Locale } from '../../../../i18n/locale';
 
 export const getStaticPaths = (async ({ paginate }) => {
   const all = await getCollection('blog');
