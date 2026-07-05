@@ -29,17 +29,3 @@ export function createMockPost(
     },
   } as CollectionEntry<'blog'>;
 }
-
-// テスト用の日付生成ヘルパー
-export function createTestDate(dateString: string): Date {
-  return new Date(dateString);
-}
-
-// 日付フォーマットテストヘルパー
-export function formatTestDate(date: Date): string {
-  return date.toLocaleDateString('en-us', {
-    year: 'numeric',
-    month: 'short',
-    day: 'numeric',
-  });
-}

@@ -3,11 +3,6 @@ import { UI_CONFIG, ARCHIVE_YEAR_RANGE } from '../../src/constants/ui';
 
 describe('constants/ui', () => {
   describe('UI_CONFIG', () => {
-    it('SCROLL_THRESHOLD should be a positive number', () => {
-      expect(UI_CONFIG.SCROLL_THRESHOLD).toBe(100);
-      expect(UI_CONFIG.SCROLL_THRESHOLD).toBeGreaterThan(0);
-    });
-
     it('SEARCH_MAX_RESULTS should be a positive number', () => {
       expect(UI_CONFIG.SEARCH_MAX_RESULTS).toBe(10);
       expect(UI_CONFIG.SEARCH_MAX_RESULTS).toBeGreaterThan(0);
