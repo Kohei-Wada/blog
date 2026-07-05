@@ -1,6 +1,7 @@
-# Root goes to the English home with a real 301 (the Astro `redirects` entry
-# only emits a noindex meta-refresh page, which _redirects overrides).
-/    /en/    301
+# Root goes to the English home with a real 301. Astro's `redirects` entry
+# emits a noindex meta-refresh page at /index.html, and Netlify serves static
+# files over redirect rules unless the rule is forced with `!`.
+/    /en/    301!
 
 # 301 redirects for ja post URLs that existed before the English-default flip.
 # Listing pages (/blog, /tags, /archives) and chrome (/about, /projects) now
