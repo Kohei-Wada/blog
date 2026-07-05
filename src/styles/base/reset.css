@@ -7,25 +7,10 @@
   box-sizing: border-box;
 }
 
-/* ルートレベルでのテーマトランジション設定 */
 html {
   /* Reserve the scrollbar gutter so short pages (e.g. archives) don't shift
      right relative to scrollable pages. */
   scrollbar-gutter: stable;
-  transition: background-color var(--theme-transition);
-}
-
-html.theme-transitioning *,
-html.theme-transitioning *::before,
-html.theme-transitioning *::after {
-  transition:
-    color var(--theme-transition),
-    background-color var(--theme-transition),
-    background-image var(--theme-transition),
-    border-color var(--theme-transition),
-    box-shadow var(--theme-transition),
-    fill var(--theme-transition),
-    stroke var(--theme-transition) !important;
 }
 
 body {

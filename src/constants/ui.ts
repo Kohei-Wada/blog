@@ -1,8 +1,5 @@
 // UI-related constants
 export const UI_CONFIG = {
-  // Scroll detection threshold (pixels)
-  SCROLL_THRESHOLD: 100,
-
   // Search modal settings
   SEARCH_MAX_RESULTS: 10,
   SEARCH_DEBOUNCE_MS: 200,

@@ -1,10 +1,4 @@
 ---
-import '../styles/base/variables.css';
-import '../styles/base/reset.css';
-import '../styles/base/typography.css';
-import '../styles/base/responsive.css';
-import '../styles/components/man-page.css';
-
 import BaseHead from '../components/shared/layout/BaseHead.astro';
 import LangSwitcher from '../components/shared/LangSwitcher.astro';
 import GlobalNav from '../components/shared/GlobalNav.astro';
@@ -19,7 +13,6 @@ interface Props {
   image?: ImageMetadata;
   isArticle?: boolean;
   publishedTime?: Date;
-  showSidebar?: boolean; // back-compat: ignored by the new design
   siblingHref?: string;
   /** Same content in the other locale — only when that page exists. */
   alternateHref?: string;
