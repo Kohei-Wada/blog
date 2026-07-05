@@ -42,7 +42,7 @@
   margin: 1.5em 0;
 }
 
-.man-section > h2 {
+.man-section > :is(h1, h2) {
   font-weight: bold;
   text-transform: uppercase;
   letter-spacing: 0.08em;
@@ -51,7 +51,7 @@
   padding: 0;
 }
 
-.man-section > :not(h2) {
+.man-section > :not(h1, h2) {
   padding-left: var(--indent-section);
 }
 

@@ -1,5 +1,6 @@
 ---
 import { localeFromUrl, otherLocale, siblingUrl, type Locale } from '../../i18n/locale';
+import { t } from '../../i18n/strings';
 
 interface Props {
   /** Override the auto-computed sibling URL. Pass the other-locale home (e.g. '/ja/') when no translation exists. */
@@ -12,7 +13,7 @@ const computedHref = siblingUrl(Astro.url.pathname, current, other);
 const siblingHref = Astro.props.siblingHref ?? computedHref;
 ---
 
-<nav class="lang-switcher" aria-label="Language">
+<nav class="lang-switcher" aria-label={t('langSwitcherLabel', current)}>
   [
   {
     current === 'ja' ? (

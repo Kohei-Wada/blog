@@ -25,8 +25,12 @@ function postHref(post: CollectionEntry<'blog'>): string {
   {
     posts.map(post => (
       <li>
-        <span class="perms">-rw-r--r--</span>
-        <span class="size">{formatSize(post)}</span>
+        <span class="perms" aria-hidden="true">
+          -rw-r--r--
+        </span>
+        <span class="size" aria-hidden="true">
+          {formatSize(post)}
+        </span>
         <span class="date">{post.data.pubDate.toISOString().slice(0, 10)}</span>
         <span class="title">
           <a href={postHref(post)}>{post.data.title}</a>

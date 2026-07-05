@@ -1,5 +1,9 @@
 ---
 import '../../../styles/components/search-modal.css';
+import { t } from '../../../i18n/strings';
+import { localeFromUrl } from '../../../i18n/locale';
+
+const locale = localeFromUrl(Astro.url);
 ---
 
 <div
@@ -12,12 +16,13 @@ import '../../../styles/components/search-modal.css';
 >
   <div class="search-overlay" data-search-close></div>
   <div class="search-shell" role="document">
-    <h2 id="search-modal-title" class="visually-hidden">Search articles</h2>
+    <h2 id="search-modal-title" class="visually-hidden">{t('searchTitle', locale)}</h2>
     <header class="search-input-bar">
       <span class="search-prompt" aria-hidden="true">$ man -k</span>
       <input
         id="search-input"
         type="search"
+        aria-label={t('searchPlaceholder', locale)}
         class="search-input"
         autocomplete="off"
         spellcheck="false"
@@ -28,12 +33,22 @@ import '../../../styles/components/search-modal.css';
         aria-activedescendant=""
       />
       <span class="search-input-cursor" aria-hidden="true">▌</span>
-      <button type="button" class="search-close-button" data-search-close aria-label="Close search">
+      <button
+        type="button"
+        class="search-close-button"
+        data-search-close
+        aria-label={t('closeSearchLabel', locale)}
+      >
         <kbd>Esc</kbd>
       </button>
     </header>
     <div class="search-body">
-      <ul id="search-results" class="search-results" role="listbox" aria-label="Search results">
+      <ul
+        id="search-results"
+        class="search-results"
+        role="listbox"
+        aria-label={t('searchResultsLabel', locale)}
+      >
       </ul>
       <aside id="search-preview" class="search-preview-pane" aria-live="polite"></aside>
     </div>

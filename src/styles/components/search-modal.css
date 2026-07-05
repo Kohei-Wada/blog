@@ -305,3 +305,10 @@ body.search-modal-open {
     gap: 0.5rem;
   }
 }
+
+@media (prefers-reduced-motion: reduce) {
+  .search-input-cursor {
+    animation: none;
+    opacity: 1;
+  }
+}

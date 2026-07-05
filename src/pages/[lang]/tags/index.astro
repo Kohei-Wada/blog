@@ -17,7 +17,7 @@ const title = `${lang === 'ja' ? 'タグ一覧' : 'Tags'} - ${SITE_TITLE}`;
 
 <BaseLayout title={title} description={t('siteDescription', lang)}>
   <section class="man-section">
-    <h2>NAME</h2>
+    <h1>NAME</h1>
     <p>{title}</p>
   </section>
 
@@ -28,7 +28,9 @@ const title = `${lang === 'ja' ? 'タグ一覧' : 'Tags'} - ${SITE_TITLE}`;
       {
         tags.map(tag => (
           <li>
-            <span class="perms">drwxr-xr-x</span>
+            <span class="perms" aria-hidden="true">
+              drwxr-xr-x
+            </span>
             <span class="size">{tagCounts[tag]}</span>
             <span class="title">
               <a href={`/${lang}/tags/${tag}/`}>{tag}</a>
