@@ -3,16 +3,17 @@ import { ANALYTICS } from '../../../constants/api';
 
 const isProduction: boolean = import.meta.env.PROD;
 const measurementId = ANALYTICS.GA_MEASUREMENT_ID;
+const gaInit = `window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', '${measurementId}');`;
 ---
-{isProduction && (
-  <>
-    <script async src={`https://www.googletagmanager.com/gtag/js?id=${measurementId}`}></script>
-    <script is:inline>
-      /* eslint-disable */
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-XGH4QVLSMS');
-    </script>
-  </>
-)}
+
+{
+  isProduction && (
+    <>
+      <script async src={`${ANALYTICS.GOOGLE_TAG_MANAGER}?id=${measurementId}`} />
+      <script is:inline set:html={gaInit} />
+    </>
+  )
+}
