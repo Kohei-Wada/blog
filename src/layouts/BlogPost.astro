@@ -90,18 +90,20 @@ const postHref = (p: (typeof localePosts)[number]) => `/${lang}/blog/${getPostSl
       {
         (olderPost || newerPost) && (
           <nav class="post-nav" aria-label={t('navigation', lang)}>
-            {olderPost && (
-              <span class="post-nav-older">
-                <span class="label">{t('prevPost', lang)}: </span>
-                <a href={postHref(olderPost)}>{olderPost.data.title}</a>
-              </span>
-            )}
-            {newerPost && (
-              <span class="post-nav-newer">
-                <span class="label">{t('nextPost', lang)}: </span>
-                <a href={postHref(newerPost)}>{newerPost.data.title}</a>
-              </span>
-            )}
+            <ul>
+              {newerPost && (
+                <li>
+                  <span class="label">{t('nextPost', lang)}: </span>
+                  <a href={postHref(newerPost)}>{newerPost.data.title}</a>
+                </li>
+              )}
+              {olderPost && (
+                <li>
+                  <span class="label">{t('prevPost', lang)}: </span>
+                  <a href={postHref(olderPost)}>{olderPost.data.title}</a>
+                </li>
+              )}
+            </ul>
           </nav>
         )
       }
@@ -130,50 +132,23 @@ const postHref = (p: (typeof localePosts)[number]) => `/${lang}/blog/${getPostSl
     }
     .post-tags {
       margin: 1.5em 0 0;
-      font-size: var(--font-size-sm);
     }
     .post-tags .label {
       color: var(--text-dim);
     }
-    .post-tags a {
-      color: var(--text-dim);
-      text-decoration: underline;
-    }
-    .post-tags a:hover {
-      color: var(--accent);
-    }
     .post-nav {
-      display: flex;
-      justify-content: space-between;
-      gap: 2ch;
-      font-size: var(--font-size-sm);
-      margin: 0.35em 0;
+      margin: 0.5em 0;
     }
-    .post-nav-older,
-    .post-nav-newer {
-      max-width: 48%;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
+    .post-nav ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
     }
-    .post-nav-newer {
-      margin-left: auto;
+    .post-nav li {
+      padding: 0.15em 0;
     }
     .post-nav .label {
       color: var(--text-dim);
-    }
-    @media (max-width: 600px) {
-      .post-nav {
-        flex-direction: column;
-        gap: 0.2em;
-      }
-      .post-nav-older,
-      .post-nav-newer {
-        max-width: 100%;
-      }
-      .post-nav-newer {
-        margin-left: 0;
-      }
     }
   </style>
 </BaseLayout>
