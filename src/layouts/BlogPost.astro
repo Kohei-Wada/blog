@@ -3,6 +3,8 @@ import BaseLayout from './BaseLayout.astro';
 import { getCollection } from 'astro:content';
 import { resolveSeeAlso } from '../utils/see-also';
 import { getPostLang, getPostSlug } from '../utils/post-locale';
+import { sortPostsByDate } from '../utils/content-aggregation';
+import { t } from '../i18n/strings';
 
 interface Props {
   id: string;
@@ -26,6 +28,13 @@ const seeAlsoEntries = resolveSeeAlso(seeAlso, id, all);
 const otherLang = lang === 'ja' ? 'en' : 'ja';
 const hasTranslation = all.some(p => getPostLang(p.id) === otherLang && getPostSlug(p.id) === slug);
 const siblingHref = hasTranslation ? `/${otherLang}/blog/${slug}` : `/${otherLang}/`;
+
+const localePosts = sortPostsByDate(all.filter(p => getPostLang(p.id) === lang));
+const postIndex = localePosts.findIndex(p => p.id === id);
+const newerPost = postIndex > 0 ? localePosts[postIndex - 1] : null;
+const olderPost =
+  postIndex >= 0 && postIndex < localePosts.length - 1 ? localePosts[postIndex + 1] : null;
+const postHref = (p: (typeof localePosts)[number]) => `/${lang}/blog/${getPostSlug(p.id)}`;
 ---
 
 <BaseLayout title={title} description={description} siblingHref={siblingHref}>
@@ -48,24 +57,6 @@ const siblingHref = hasTranslation ? `/${otherLang}/blog/${slug}` : `/${otherLan
     </section>
 
     {
-      tags.length > 0 && (
-        <section class="man-section">
-          <h2>TAGS</h2>
-          <p>
-            {tags.map((tag, i) => (
-              <span>
-                <a class="tag-pill" href={`/${lang}/tags/${encodeURIComponent(tag)}/`}>
-                  {tag}
-                </a>
-                {i < tags.length - 1 && <span class="tag-sep"> · </span>}
-              </span>
-            ))}
-          </p>
-        </section>
-      )
-    }
-
-    {
       seeAlsoEntries.length > 0 && (
         <section class="man-section">
           <h2>SEE ALSO</h2>
@@ -80,8 +71,40 @@ const siblingHref = hasTranslation ? `/${otherLang}/blog/${slug}` : `/${otherLan
       )
     }
 
+    {
+      tags.length > 0 && (
+        <p class="post-tags">
+          <span class="label">tags: </span>
+          {tags.map((tag, i) => (
+            <span>
+              <a href={`/${lang}/tags/${encodeURIComponent(tag)}/`}>{tag}</a>
+              {i < tags.length - 1 && <span class="tag-sep"> · </span>}
+            </span>
+          ))}
+        </p>
+      )
+    }
+
     <footer class="post-bottom-rule">
       <hr class="man-rule" />
+      {
+        (olderPost || newerPost) && (
+          <nav class="post-nav" aria-label={t('navigation', lang)}>
+            {olderPost && (
+              <span class="post-nav-older">
+                <span class="label">{t('prevPost', lang)}: </span>
+                <a href={postHref(olderPost)}>{olderPost.data.title}</a>
+              </span>
+            )}
+            {newerPost && (
+              <span class="post-nav-newer">
+                <span class="label">{t('nextPost', lang)}: </span>
+                <a href={postHref(newerPost)}>{newerPost.data.title}</a>
+              </span>
+            )}
+          </nav>
+        )
+      }
       <div class="man-footer">
         <span>{manTitle}(7)</span>
         <span>{pubIso}</span>
@@ -104,6 +127,53 @@ const siblingHref = hasTranslation ? `/${otherLang}/blog/${slug}` : `/${otherLan
     }
     .tag-sep {
       color: var(--text-dim);
+    }
+    .post-tags {
+      margin: 1.5em 0 0;
+      font-size: var(--font-size-sm);
+    }
+    .post-tags .label {
+      color: var(--text-dim);
+    }
+    .post-tags a {
+      color: var(--text-dim);
+      text-decoration: underline;
+    }
+    .post-tags a:hover {
+      color: var(--accent);
+    }
+    .post-nav {
+      display: flex;
+      justify-content: space-between;
+      gap: 2ch;
+      font-size: var(--font-size-sm);
+      margin: 0.35em 0;
+    }
+    .post-nav-older,
+    .post-nav-newer {
+      max-width: 48%;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .post-nav-newer {
+      margin-left: auto;
+    }
+    .post-nav .label {
+      color: var(--text-dim);
+    }
+    @media (max-width: 600px) {
+      .post-nav {
+        flex-direction: column;
+        gap: 0.2em;
+      }
+      .post-nav-older,
+      .post-nav-newer {
+        max-width: 100%;
+      }
+      .post-nav-newer {
+        margin-left: 0;
+      }
     }
   </style>
 </BaseLayout>

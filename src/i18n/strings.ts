@@ -26,6 +26,8 @@ const strings = {
     ja: 'ソフトウェアエンジニア。Web開発、クラウドインフラ、関数型プログラミングに興味があります。',
     en: 'Software engineer interested in web development, cloud infrastructure, and functional programming.',
   },
+  prevPost: { ja: '前', en: 'prev' },
+  nextPost: { ja: '次', en: 'next' },
   searchNoResults: { ja: '該当する記事はありません', en: 'No matching articles' },
   searchPreviewPrompt: {
     ja: '記事を選択するとプレビューが表示されます',
