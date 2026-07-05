@@ -10,6 +10,7 @@ import LangSwitcher from '../components/shared/LangSwitcher.astro';
 import GlobalNav from '../components/shared/GlobalNav.astro';
 import SearchModal from '../components/shared/ui/SearchModal.astro';
 import { localeFromUrl, otherLocale, siblingUrl } from '../i18n/locale';
+import { t } from '../i18n/strings';
 import type { ImageMetadata } from 'astro';
 
 interface Props {
@@ -22,9 +23,11 @@ interface Props {
   siblingHref?: string;
   /** Same content in the other locale — only when that page exists. */
   alternateHref?: string;
+  /** Emit robots noindex and no canonical/hreflang (error pages). */
+  noindex?: boolean;
 }
 
-const { title, description, image, isArticle, publishedTime, siblingHref } = Astro.props;
+const { title, description, image, isArticle, publishedTime, siblingHref, noindex } = Astro.props;
 const pathname = Astro.url.pathname;
 const sectionName = 'WADA-DEV(7)';
 const today = new Date().toISOString().slice(0, 10);
@@ -55,9 +58,11 @@ const alternateHref =
       isArticle={isArticle}
       publishedTime={publishedTime}
       alternateHref={alternateHref}
+      noindex={noindex}
     />
   </head>
   <body>
+    <a class="skip-link" href="#main-content">{t('skipToContent', locale)}</a>
     <header class="man-header">
       <span class="hdr-section">{sectionName}</span>
       <span class="hdr-prompt">$ {headerPath}</span>
@@ -65,13 +70,13 @@ const alternateHref =
     </header>
     <GlobalNav />
     <hr class="man-rule" />
-    <main class="man-page">
+    <main id="main-content" class="man-page">
       <slot />
     </main>
     <hr class="man-rule" />
     <footer class="man-footer">
       <span>{sectionName}</span>
-      <nav class="man-footer-links" aria-label="footer">
+      <nav class="man-footer-links" aria-label={t('footerNavLabel', locale)}>
         <a href={`${localePrefix}/contact`}>contact</a>
         <a href={`${localePrefix}/privacy`}>privacy</a>
       </nav>
@@ -80,6 +85,18 @@ const alternateHref =
     <SearchModal />
 
     <style>
+      .skip-link {
+        position: absolute;
+        left: -9999px;
+        top: 0;
+        background: var(--bg-alt);
+        color: var(--text);
+        padding: 0.5em 1em;
+        z-index: 100;
+      }
+      .skip-link:focus {
+        left: 0;
+      }
       .man-header {
         display: flex;
         justify-content: space-between;

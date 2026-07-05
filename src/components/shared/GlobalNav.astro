@@ -1,5 +1,6 @@
 ---
 import { localeFromUrl } from '../../i18n/locale';
+import { t } from '../../i18n/strings';
 
 const locale = localeFromUrl(Astro.url);
 const prefix = `/${locale}`;
@@ -23,7 +24,7 @@ const links: Array<{ id: string; label: string; href: string }> = [
 ];
 ---
 
-<nav class="global-nav" aria-label="primary">
+<nav class="global-nav" aria-label={t('navigation', locale)}>
   <div class="nav-inline">
     {
       links.map(link =>
@@ -40,7 +41,7 @@ const links: Array<{ id: string; label: string; href: string }> = [
       type="button"
       class="global-nav-search"
       data-search-trigger
-      aria-label="Open search (press / or Ctrl+K)"
+      aria-label={t('searchOpenLabel', locale)}
       title="Open search (/ or Ctrl+K)"
     >
       <span class="global-nav-search-prompt" aria-hidden="true">$ man -k</span>
@@ -58,7 +59,7 @@ const links: Array<{ id: string; label: string; href: string }> = [
     data-nav-toggle
     aria-expanded="false"
     aria-controls="mobile-menu"
-    aria-label="Menu"
+    aria-label={t('menuLabel', locale)}
   >
     <span class="nav-toggle-icon" aria-hidden="true">☰</span>
     <span class="nav-toggle-label">menu</span>

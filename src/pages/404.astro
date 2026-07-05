@@ -2,20 +2,31 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 
-<BaseLayout title="404" description="Page not found">
+<BaseLayout title="404" description="Page not found" noindex={true}>
   <section class="man-section">
-    <h2>ERROR</h2>
+    <h1>ERROR</h1>
     <pre
-      class="terminal-block"><span class="man-prompt" />cat {Astro.url.pathname}
-cat: {Astro.url.pathname}: No such file or directory</pre>
+      class="terminal-block"><span class="man-prompt" />cat <span data-404-path>{Astro.url.pathname}</span>
+cat: <span data-404-path>{Astro.url.pathname}</span>: No such file or directory</pre>
   </section>
   <section class="man-section">
     <h2>SEE ALSO</h2>
     <p>
-      <span class="man-prompt"></span><a href="/en/">cd /</a> &nbsp;&nbsp;&nbsp;[home]<br />
-      <span class="man-prompt"></span><a href="/en/blog">ls /blog</a> &nbsp;[posts]
+      <span class="man-prompt"></span><a href="/en/">cd /en/</a> &nbsp;&nbsp;&nbsp;&nbsp;[home]<br
+      />
+      <span class="man-prompt"></span><a href="/en/blog">ls /en/blog</a> &nbsp;[posts]<br />
+      <span class="man-prompt"></span><a href="/ja/">cd /ja/</a> &nbsp;&nbsp;&nbsp;&nbsp;[ホーム]<br
+      />
+      <span class="man-prompt"></span><a href="/ja/blog">ls /ja/blog</a> &nbsp;[記事一覧]
     </p>
   </section>
+  <script is:inline>
+    // The page is statically built as /404, so patch in the path that
+    // actually failed.
+    document.querySelectorAll('[data-404-path]').forEach(el => {
+      el.textContent = location.pathname;
+    });
+  </script>
   <style>
     .terminal-block {
       background: var(--bg-alt);

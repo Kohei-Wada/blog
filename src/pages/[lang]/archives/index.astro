@@ -28,7 +28,7 @@ const sortedYears = Array.from(groupedByYear.keys()).sort((a, b) => b - a);
 
 <BaseLayout title={title} description={description}>
   <section class="man-section">
-    <h2>NAME</h2>
+    <h1>NAME</h1>
     <p>{title}</p>
   </section>
 
@@ -45,7 +45,9 @@ const sortedYears = Array.from(groupedByYear.keys()).sort((a, b) => b - a);
             <ul class="ls-listing ls-listing--compact">
               {groupedByYear.get(year)!.map(archive => (
                 <li>
-                  <span class="perms">drwxr-xr-x</span>
+                  <span class="perms" aria-hidden="true">
+                    drwxr-xr-x
+                  </span>
                   <span class="size">{archive.count}</span>
                   <span class="title">
                     <a href={`/${lang}/archives/${archive.slug}/`}>{archive.month}</a>

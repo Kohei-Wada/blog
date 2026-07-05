@@ -1,4 +1,7 @@
 ---
+import { localeFromUrl } from '../../../i18n/locale';
+import { t } from '../../../i18n/strings';
+
 interface Props {
   currentPage: number;
   lastPage: number;
@@ -8,6 +11,7 @@ interface Props {
 }
 
 const { currentPage, lastPage, prevUrl, nextUrl, baseUrl } = Astro.props;
+const locale = localeFromUrl(Astro.url);
 
 function getPageUrl(page: number): string {
   if (page === 1) {
@@ -22,13 +26,13 @@ const pages = Array.from({ length: lastPage }, (_, i) => i + 1);
 
 {
   showPagination && (
-    <nav class="pagination" aria-label="pagination">
+    <nav class="pagination" aria-label={t('navigation', locale)}>
       {prevUrl ? (
-        <a href={prevUrl} class="arrow" rel="prev">
+        <a href={prevUrl} class="arrow" rel="prev" aria-label={t('prevPageLabel', locale)}>
           &larr;
         </a>
       ) : (
-        <span class="arrow disabled" aria-disabled="true">
+        <span class="arrow disabled" aria-hidden="true">
           &larr;
         </span>
       )}
@@ -44,11 +48,11 @@ const pages = Array.from({ length: lastPage }, (_, i) => i + 1);
         )
       )}
       {nextUrl ? (
-        <a href={nextUrl} class="arrow" rel="next">
+        <a href={nextUrl} class="arrow" rel="next" aria-label={t('nextPageLabel', locale)}>
           &rarr;
         </a>
       ) : (
-        <span class="arrow disabled" aria-disabled="true">
+        <span class="arrow disabled" aria-hidden="true">
           &rarr;
         </span>
       )}

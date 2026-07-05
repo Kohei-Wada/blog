@@ -37,6 +37,8 @@ interface Props {
   publishedTime?: Date;
   /** Path of this page in the other locale — only when that page exists. */
   alternateHref?: string;
+  /** Emit robots noindex and no canonical/hreflang (error pages). */
+  noindex?: boolean;
 }
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
@@ -49,6 +51,7 @@ const {
   isArticle = false,
   publishedTime,
   alternateHref,
+  noindex = false,
 } = Astro.props;
 
 const alternateURL = alternateHref ? new URL(alternateHref, Astro.site) : null;
@@ -113,7 +116,7 @@ if (isArticle && publishedTime) {
 <meta name="generator" content={Astro.generator} />
 
 <!-- Canonical URL -->
-<link rel="canonical" href={canonicalURL} />
+{noindex ? <meta name="robots" content="noindex" /> : <link rel="canonical" href={canonicalURL} />}
 
 {
   alternateURL && (
