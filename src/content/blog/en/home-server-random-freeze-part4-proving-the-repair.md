@@ -1,7 +1,7 @@
 ---
 title: "My Home Server Kept Freezing (Part 4) — Don't Trust the Replaced RAM"
 description: 'The warranty swap brought new memory. But "replaced the part" is not "fixed." Proving its innocence with a layered check — memtest, stress-ng, a real LLM load, a 70B load — and then finding one ghost the bad RAM left behind.'
-pubDate: '2026-07-08T13:00'
+pubDate: '2026-07-08T13:00+09:00'
 tags: ['homelab', 'home-server', 'linux', 'NixOS', 'troubleshooting']
 seeAlso:
   [
@@ -35,7 +35,7 @@ So with the OS up, I ran two stress tests.
 First, `stress-ng`'s memory verification. The same "write a pattern, read it right back, compare" as memtest, but **under the full heat and voltage of 32 CPU threads at 100%.**
 
 ```bash
-stress-ng --vm 12 --vm-bytes 48G --vm-method all --verify --timeout 1800s
+stress-ng --vm 12 --vm-bytes 4G --vm-method all --verify --timeout 1800s
 ```
 
 48GB of system RAM — including the ~50GB failure region from before — across every pattern for 30 minutes. Tctl peaked at 84°C. Load it with the heat and voltage memtest never applies, and see whether bits still flip.

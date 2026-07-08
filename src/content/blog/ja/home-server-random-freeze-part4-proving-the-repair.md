@@ -1,7 +1,7 @@
 ---
 title: '自宅サーバがランダムフリーズした話 (4) ─ 交換した RAM を信じない'
 description: '初期不良交換で新品メモリが届いた。だが「部品を替えた」は「直った」ではない。memtest・stress-ng・実 LLM 負荷・70B ロードの多層検証で無罪を証明し、最後に破損 RAM が残した亡霊を 1 匹見つけた話。'
-pubDate: '2026-07-08T13:00'
+pubDate: '2026-07-08T13:00+09:00'
 tags: ['自宅サーバ', 'Linux', 'NixOS', 'トラブルシューティング']
 seeAlso:
   [
@@ -35,7 +35,7 @@ seeAlso:
 まずは `stress-ng` のメモリ検証。memtest と同じ「パターンを書いて即読み返して照合」を、**CPU 32 スレッド全開の実発熱・実電圧下で**やる。
 
 ```bash
-stress-ng --vm 12 --vm-bytes 48G --vm-method all --verify --timeout 1800s
+stress-ng --vm 12 --vm-bytes 4G --vm-method all --verify --timeout 1800s
 ```
 
 システム RAM 48GB——前回の故障帯 50GB 付近を含む——を、全パターンで 30 分。Tctl はピーク 84°C まで上がった。memtest が踏まなかった熱と電圧のストレスを乗せて、それでもビット破損が出るかを見る。

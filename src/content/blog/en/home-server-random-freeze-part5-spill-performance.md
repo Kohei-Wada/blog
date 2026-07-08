@@ -1,7 +1,7 @@
 ---
 title: 'My Home Server Kept Freezing (Part 5) — The Spill Cliff: tok/s Is Set by What Overflows'
 description: 'The experiment the healthy RAM finally unlocked: how much does spilling a model out of VRAM into CPU actually cost? A num_gpu sweep drew not a proportional curve but a cliff. The law tok/s ≈ RAM bandwidth ÷ spilled GB, and the practical size limit where a 70B still runs.'
-pubDate: '2026-07-08T15:00'
+pubDate: '2026-07-08T15:00+09:00'
 tags: ['local-llm', 'RTX5090', 'ollama', 'homelab', 'home-server']
 seeAlso:
   [
@@ -54,7 +54,7 @@ A CPU layer is orders of magnitude slower than a GPU one, so **the layers left o
 
 ## The Law: tok/s ≈ RAM Bandwidth ÷ Spilled GB
 
-You can push one step further. Generation reads each weight once per token, so the CPU side is purely **RAM-bandwidth bound.** View each sweep point as "tok/s × GB on CPU" and the value is nearly constant:
+You can push one step further. Generation reads each weight once per token, so the CPU side is purely **RAM-bandwidth bound.** View each sweep point as "tok/s × GB on CPU" and the value lands in the ~50–60 band (the low-spill points drift down because the GPU's fixed per-token time weighs relatively more there; the pure-CPU point is what anchors the coefficient):
 
 ```
 num_gpu 48:  9.64 tok/s × ~5 GB  ≈ 48
@@ -74,7 +74,7 @@ If speed is set by the spill amount alone, you can back out the ceiling on model
 | Snappy     |              10 |     ~6 GB | ~34 GB (32B Q6 / 49B Q4)         |
 | Usable     |               5 |    ~12 GB | **~40 GB (70B Q4, just barely)** |
 | Patient    |               3 |    ~20 GB | ~48 GB (70B Q5)                  |
-| Batch only |               1 |    ~60 GB | ~78 GB (capacity limit)          |
+| Batch only |               1 |    ~50 GB | ~78 GB (capacity limit)          |
 
 The table also implies that a half-hearted spill is the worst place to be: the moment you overflow a little, you drop off the cliff.
 
