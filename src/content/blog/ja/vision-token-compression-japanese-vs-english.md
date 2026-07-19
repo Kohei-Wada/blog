@@ -1,7 +1,7 @@
 ---
 title: '「テキストは画像で渡したほうが安い」は日本語で本当に得なのか実測した'
 description: 'DeepSeek-OCR をきっかけに広まった「文章を画像化して渡すとトークンが減る」という話。情報密度の高い日本語ほど得なはず、という直感を、意味が同一の英日テキストを画像化して Claude / Qwen2.5-VL / DeepSeek-OCR の3つで実測して検証した。結論は直感の逆だった。'
-pubDate: '2026-07-19T16:30+09:00'
+pubDate: '2026-07-19T16:00+09:00'
 tags: ['ローカルLLM', 'AI', 'RTX5090', 'DeepSeek', 'ホームラボ']
 seeAlso: ['diffusiongemma-vllm-rtx5090-local']
 ---

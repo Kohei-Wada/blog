@@ -1,7 +1,7 @@
 ---
 title: 'Is "Send Text as an Image" Actually a Win for Japanese? I Measured It'
 description: 'DeepSeek-OCR revived the idea that screenshotting text and feeding it as an image costs fewer tokens than plain text. Information-dense Japanese should benefit most — so I rendered a meaning-identical English/Japanese document and measured token cost and readback accuracy across Claude, Qwen2.5-VL, and DeepSeek-OCR. The result was the opposite of the intuition.'
-pubDate: '2026-07-19T16:30+09:00'
+pubDate: '2026-07-19T16:00+09:00'
 tags: ['Local LLM', 'AI', 'RTX5090', 'DeepSeek', 'homelab']
 seeAlso: ['diffusiongemma-vllm-rtx5090-local']
 ---
