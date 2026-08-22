@@ -57,6 +57,18 @@ table code {
   font-size: 0.95em;
 }
 
+/*
+ * Narrow screens: the table becomes its own scroll container, but the rows have
+ * to keep table layout or the columns stop lining up. A bare `display: block`
+ * on <table> drops the table algorithm and every cell sizes itself, which on a
+ * phone renders as one visible column with rows hundreds of pixels tall.
+ * Restoring `display: table` on thead/tbody keeps the columns while the outer
+ * block scrolls.
+ *
+ * The first column is deliberately not `nowrap`: the labels here are Japanese
+ * phrases, not identifiers, and refusing to wrap them shoves the rest of the
+ * row off-screen.
+ */
 @media (max-width: 600px) {
   table {
     display: block;
@@ -64,7 +76,9 @@ table code {
     font-size: var(--font-size-sm);
   }
 
-  tbody td:first-child {
-    white-space: nowrap;
+  thead,
+  tbody {
+    display: table;
+    width: 100%;
   }
 }
