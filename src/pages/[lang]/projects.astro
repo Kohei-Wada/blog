@@ -25,21 +25,15 @@ const copy = {
   },
 }[lang];
 
+const STATUS_ORDER = ['active', 'maintenance', 'archived'] as const;
+
 const all = await getCollection('projects');
 const sorted = all.sort((a, b) => {
+  const status = STATUS_ORDER.indexOf(a.data.status) - STATUS_ORDER.indexOf(b.data.status);
+  if (status !== 0) return status;
   if (b.data.order !== a.data.order) return b.data.order - a.data.order;
   return a.data.name.localeCompare(b.data.name);
 });
-
-const groups = [
-  { id: 'active', label: 'ACTIVE', items: sorted.filter(p => p.data.status === 'active') },
-  {
-    id: 'maintenance',
-    label: 'MAINTENANCE',
-    items: sorted.filter(p => p.data.status === 'maintenance'),
-  },
-  { id: 'archived', label: 'ARCHIVED', items: sorted.filter(p => p.data.status === 'archived') },
-];
 
 // Resolve related-post slugs to title/href so missing slugs fail loudly at build.
 async function resolveRelated(slugs: string[]): Promise<Array<{ title: string; href: string }>> {
@@ -58,15 +52,10 @@ async function resolveRelated(slugs: string[]): Promise<Array<{ title: string; h
   return resolved;
 }
 
-const groupsWithRelated = await Promise.all(
-  groups.map(async group => ({
-    ...group,
-    items: await Promise.all(
-      group.items.map(async item => ({
-        ...item,
-        related: await resolveRelated(item.data.relatedPosts),
-      }))
-    ),
+const projects = await Promise.all(
+  sorted.map(async item => ({
+    ...item,
+    related: await resolveRelated(item.data.relatedPosts),
   }))
 );
 ---
@@ -79,57 +68,62 @@ const groupsWithRelated = await Promise.all(
 
   <section class="man-section">
     <h2>DESCRIPTION</h2>
+    <ManCommand cmd="cat projects/*.md" />
     <p>{copy.body}</p>
-  </section>
 
-  {
-    groupsWithRelated.map(
-      group =>
-        group.items.length > 0 && (
-          <section class="man-section">
-            <h2>{group.label}</h2>
-            <ManCommand cmd={`ls -l projects/ | grep ${group.id}`} />
-            <ul class="projects">
-              {group.items.map(item => (
-                <li class="project">
-                  <div class="project-head">
-                    <a class="project-name" href={item.data.repo}>
-                      {item.data.name}
-                    </a>
-                    <span class="project-stack">
-                      {item.data.stack.map((s, i) => (
-                        <>
-                          <span class="tag-pill">{s}</span>
-                          {i < item.data.stack.length - 1 && <span class="dot"> · </span>}
-                        </>
-                      ))}
-                    </span>
-                  </div>
-                  <p class="project-desc">
-                    {lang === 'ja' ? item.data.description : item.data.description_en}
-                  </p>
-                  <p class="project-meta">
-                    <span class="man-prompt" />
-                    <a href={item.data.repo}>{item.data.repo.replace(/^https?:\/\//, '')}</a>
-                  </p>
-                  {item.related.length > 0 && (
-                    <p class="project-related">
-                      <span class="label">↪ related: </span>
-                      {item.related.map((r, i) => (
-                        <>
-                          <a href={r.href}>{r.title}</a>
-                          {i < item.related.length - 1 && <span> · </span>}
-                        </>
-                      ))}
-                    </p>
-                  )}
-                </li>
-              ))}
-            </ul>
-          </section>
-        )
-    )
-  }
+    {
+      projects.map(item => (
+        <div class="project">
+          <h3>{item.data.name}</h3>
+          <p class="project-desc">
+            {lang === 'ja' ? item.data.description : item.data.description_en}
+          </p>
+          <dl class="project-fields">
+            {/* active is the default; man pages only note the deviations. */}
+            {item.data.status !== 'active' && (
+              <>
+                <dt>status:</dt>
+                <dd>{item.data.status}</dd>
+              </>
+            )}
+
+            {item.data.stack.length > 0 && (
+              <>
+                <dt>stack:</dt>
+                <dd>
+                  {item.data.stack.map((s, i) => (
+                    <>
+                      {s}
+                      {i < item.data.stack.length - 1 && <span class="sep"> · </span>}
+                    </>
+                  ))}
+                </dd>
+              </>
+            )}
+
+            <dt>repo:</dt>
+            <dd>
+              <a href={item.data.repo}>{item.data.repo.replace(/^https?:\/\//, '')}</a>
+            </dd>
+
+            {item.related.length > 0 && (
+              <>
+                <dt>related:</dt>
+                <dd>
+                  {item.related.map((r, i) => (
+                    <>
+                      <a href={r.href}>{r.title}</a>
+                      {i < item.related.length - 1 && <span class="sep"> · </span>}
+                    </>
+                  ))}
+                </dd>
+              </>
+            )}
+          </dl>
+        </div>
+      ))
+    }
+  </section>
 
   <section class="man-section">
     <h2>SEE ALSO</h2>
@@ -139,59 +133,40 @@ const groupsWithRelated = await Promise.all(
   </section>
 
   <style>
-    .projects {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
     .project {
-      padding: 0.75em 0;
-      border-bottom: 1px dashed var(--border);
+      margin: 1.25em 0 0;
     }
-    .project:last-child {
-      border-bottom: 0;
-    }
-    .project-head {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: baseline;
-      gap: 1ch;
-    }
-    .project-name {
-      font-weight: bold;
-      color: var(--accent);
-      text-decoration: none;
-    }
-    .project-name:hover {
-      text-decoration: underline;
-    }
-    .project-stack {
-      font-size: var(--font-size-sm);
-    }
-    .project-stack .dot {
-      color: var(--text-dim);
+    .project h3 {
+      margin: 0 0 0.25em;
     }
     .project-desc {
-      margin: 0.25em 0;
+      margin: 0 0 0.25em;
     }
-    .project-meta {
-      margin: 0;
-      font-size: var(--font-size-sm);
-      color: var(--text-dim);
-    }
-    .project-meta a {
-      color: var(--text-dim);
-      text-decoration: underline;
-    }
-    .project-meta a:hover {
-      color: var(--accent);
-    }
-    .project-related {
+    /* man(7) indents field bodies to a fixed column, like a .TP list. Type
+       stays at body size — a man page has one font; structure is columns. */
+    .project-fields {
+      display: grid;
+      grid-template-columns: 9ch minmax(0, 1fr);
+      gap: 0 1ch;
       margin: 0.25em 0 0;
-      font-size: var(--font-size-sm);
     }
-    .project-related .label {
+    .project-fields dt {
       color: var(--text-dim);
+    }
+    .project-fields dd {
+      margin: 0;
+    }
+    .sep {
+      color: var(--text-dim);
+    }
+
+    @media (max-width: 480px) {
+      .project-fields {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .project-fields dd {
+        padding-left: var(--indent-section);
+      }
     }
   </style>
 </BaseLayout>

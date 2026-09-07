@@ -164,9 +164,3 @@
   .man-footer { padding: 1em 0.75rem 0; }
   .man-rule   { padding: 0 0.75rem; }
 }
-
-.tag-pill {
-  color: var(--accent-2);
-  text-decoration: underline;
-  margin-right: 0.5ch;
-}
