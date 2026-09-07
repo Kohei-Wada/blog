@@ -1,7 +1,7 @@
 // UI-related constants
 export const UI_CONFIG = {
   // Search modal settings
-  SEARCH_MAX_RESULTS: 10,
+  SEARCH_MAX_RESULTS: 50,
   SEARCH_DEBOUNCE_MS: 200,
 } as const;
 

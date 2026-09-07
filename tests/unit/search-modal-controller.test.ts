@@ -12,6 +12,7 @@ import {
   isSearchShortcut,
 } from '../../src/utils/search-modal-controller';
 import type { SearchItem, SearchResult } from '../../src/utils/search';
+import { UI_CONFIG } from '../../src/constants/ui';
 
 function mockItem(overrides: Partial<SearchItem> = {}): SearchItem {
   return {
@@ -235,7 +236,8 @@ describe('search-modal-controller', () => {
     });
 
     it('caps at SEARCH_MAX_RESULTS - 1', () => {
-      expect(handleKeyboardNavigation('ArrowDown', false, 9, 15)).toBe(9);
+      const last = UI_CONFIG.SEARCH_MAX_RESULTS - 1;
+      expect(handleKeyboardNavigation('ArrowDown', false, last, last + 10)).toBe(last);
     });
 
     it('returns current index for unrelated keys', () => {

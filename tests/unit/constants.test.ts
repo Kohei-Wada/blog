@@ -4,7 +4,7 @@ import { UI_CONFIG, ARCHIVE_YEAR_RANGE } from '../../src/constants/ui';
 describe('constants/ui', () => {
   describe('UI_CONFIG', () => {
     it('SEARCH_MAX_RESULTS should be a positive number', () => {
-      expect(UI_CONFIG.SEARCH_MAX_RESULTS).toBe(10);
+      expect(UI_CONFIG.SEARCH_MAX_RESULTS).toBe(50);
       expect(UI_CONFIG.SEARCH_MAX_RESULTS).toBeGreaterThan(0);
     });
 
