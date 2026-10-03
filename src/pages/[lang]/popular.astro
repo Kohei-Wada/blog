@@ -1,0 +1,78 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ManCommand from '../../components/shared/ui/ManCommand.astro';
+import { SITE_TITLE } from '../../consts';
+import { t } from '../../i18n/strings';
+import { getPostSlug, localeStaticPaths, type Locale } from '../../i18n/locale';
+import { getPostsByLocale } from '../../utils/content-aggregation';
+import { rankByReads } from '../../utils/reads';
+import readsData from '../../data/reads.json';
+
+export const getStaticPaths = localeStaticPaths;
+
+const LIMIT = 20;
+const lang = Astro.params.lang as Locale;
+const ranked = rankByReads(await getPostsByLocale(lang), readsData.reads, LIMIT);
+const title = `${lang === 'ja' ? 'よく読まれている記事' : 'Popular posts'} - ${SITE_TITLE}`;
+const note =
+  lang === 'ja'
+    ? `GA4 のエンゲージしたセッション数 (公開以来の累計)。${readsData.generatedAt ?? '未集計'} 時点、週1回更新。`
+    : `Engaged sessions from GA4, all time. As of ${readsData.generatedAt ?? 'never'}, updated weekly.`;
+---
+
+<BaseLayout title={title} description={t('siteDescription', lang)}>
+  <section class="man-section">
+    <h1>NAME</h1>
+    <p>{title}</p>
+  </section>
+
+  <section class="man-section">
+    <h2>TOP {LIMIT}</h2>
+    <ManCommand cmd={`sort -rn reads | head -${LIMIT}`} />
+    {
+      ranked.length > 0 ? (
+        <ul class="ls-listing ls-listing--compact popular-list">
+          {ranked.map(({ post, reads }) => (
+            <li>
+              <span class="perms" aria-hidden="true">
+                -rw-r--r--
+              </span>
+              <span class="size">{reads}</span>
+              <span class="title">
+                <a href={`/${lang}/blog/${getPostSlug(post.id)}`}>{post.data.title}</a>
+              </span>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p>{lang === 'ja' ? 'まだデータがありません。' : 'No data yet.'}</p>
+      )
+    }
+    <p class="popular-note">{note}</p>
+  </section>
+
+  <section class="man-section">
+    <h2>NAVIGATION</h2>
+    <p>
+      <a href={`/${lang}/blog`}>blog</a> · <a href={`/${lang}/tags/`}>tags</a> ·
+      <a href={`/${lang}/archives/`}>archives</a>
+    </p>
+  </section>
+</BaseLayout>
+
+<style>
+  .popular-note {
+    color: var(--text-dim);
+  }
+  /* The shared listing hides the size column on narrow screens; here it is
+     the ranking value, so keep it next to the title. */
+  @media (max-width: 600px) {
+    .popular-list li {
+      grid-template-columns: 6ch minmax(0, 1fr);
+      gap: 1ch;
+    }
+    .popular-list .size {
+      display: block;
+    }
+  }
+</style>

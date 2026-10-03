@@ -6,6 +6,8 @@ import { resolveSeeAlso } from '../utils/see-also';
 import { getPostLang, getPostSlug } from '../i18n/locale';
 import { isPublished, sortPostsByDate } from '../utils/content-aggregation';
 import { t } from '../i18n/strings';
+import { getReads } from '../utils/reads';
+import readsData from '../data/reads.json';
 
 interface Props {
   id: string;
@@ -22,6 +24,7 @@ const lang = getPostLang(id);
 const slug = getPostSlug(id);
 const manTitle = slug.toUpperCase().replace(/-/g, '_');
 const pubIso = pubDate.toISOString().slice(0, 10);
+const reads = getReads(id, readsData.reads);
 
 const all = await getCollection('blog', isPublished);
 const seeAlsoEntries = resolveSeeAlso(seeAlso, id, all);
@@ -93,6 +96,15 @@ const postHref = (p: (typeof localePosts)[number]) => `/${lang}/blog/${getPostSl
       )
     }
 
+    {
+      reads > 0 && (
+        <p class="post-reads">
+          <span class="label">reads: </span>
+          <a href={`/${lang}/popular/`}>{reads}</a>
+        </p>
+      )
+    }
+
     <Comments slug={slug} lang={lang} />
 
     <footer class="post-bottom-rule">
@@ -154,8 +166,12 @@ const postHref = (p: (typeof localePosts)[number]) => `/${lang}/blog/${getPostSl
     .post-tags {
       margin: 1.5em 0 0;
     }
-    .post-tags .label {
+    .post-tags .label,
+    .post-reads .label {
       color: var(--text-dim);
+    }
+    .post-reads {
+      margin: 0.25em 0 0;
     }
     .post-nav {
       margin: 0.5em 0;

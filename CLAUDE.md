@@ -91,7 +91,7 @@ This is a personal blog built with Astro, a modern static site generator. The si
 - Automated testing on Node.js 18 & 20
 - Quality checks: typecheck → lint → test → build
 - Automatic PR validation and deployment previews
-- Additional workflows: gitleaks security scan, pre-commit auto-update, daily Netlify deploy
+- Additional workflows: gitleaks security scan, pre-commit auto-update, daily Netlify deploy, weekly GA4 reads update (writes `src/data/reads.json`; needs the `GA4_SERVICE_ACCOUNT_KEY` secret)
 
 ## Architecture
 
