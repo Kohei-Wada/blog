@@ -77,7 +77,7 @@ knowledge を読むのは基本的に AI なので、人間にとって読みや
 
 ### 記録を自動で取る
 
-後から振り返れない作業は資産にならない。Stop フックから `claude -p` を呼んで、セッションの活動ログを daily note に自動で書かせている。
+後から振り返れない作業は資産にならない。Stop フックから `claude -p` を呼んで、セッションの活動ログを daily note に自動で書かせている。これは自作の Claude Code plugin の [knowledge-gardener](https://github.com/Kohei-Wada/knowledge-gardener) でやっていて、設計は [Plugin は WHEN だけ、vault は HOW を持つ](/ja/blog/knowledge-gardener-when-how-separation) に書いた。
 
 ## 入口と出口も外に出す
 

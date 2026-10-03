@@ -77,7 +77,7 @@ The idea of separating knowledge from behavior actually came from my personal Ob
 
 ### Record automatically
 
-Work you cannot look back on does not become an asset. A Stop hook calls `claude -p` and has it write the session's activity log into my daily note automatically.
+Work you cannot look back on does not become an asset. A Stop hook calls `claude -p` and has it write the session's activity log into my daily note automatically. This is done by [knowledge-gardener](https://github.com/Kohei-Wada/knowledge-gardener), a Claude Code plugin I wrote; its design is in [The plugin holds only WHEN, the vault holds HOW](/en/blog/knowledge-gardener-when-how-separation).
 
 ## Move the entrance and exit outside too
 
