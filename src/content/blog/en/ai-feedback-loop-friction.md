@@ -13,7 +13,7 @@ seeAlso:
 
 ## Thirty percent
 
-At a company of about 50 people, it turns out I was using 30% of all the AI tokens. Over one month, `claude` was launched more than 4,000 times in total, over five times as often as the second-heaviest user. Nobody told me off. These numbers do include `claude` processes started automatically from hooks and the like, not just sessions I typed into (the automatic work log I describe later is one of them).
+At a company of about 50 people, it turns out I was using 30% of all the AI tokens. Over one month, `claude` was launched more than 4,000 times in total, over five times as often as the second-heaviest user. Nobody told me off. Most of those launches are `claude` processes started automatically from hooks (the automatic work log I describe later). In tokens, though, the automatic log is under 2%; almost all of the 30% is my own conversations.
 
 Honestly, I assumed everyone used about as much. I did not think I was doing anything special either. But if the usage is that lopsided, maybe the things I consider normal are worth sharing. So here they are.
 
