@@ -77,11 +77,13 @@ The idea of separating knowledge from behavior actually came from my personal Ob
 
 ### Record automatically
 
-Work you cannot look back on does not become an asset. A Stop hook calls `claude -p` and has it write the session's activity log into my daily note automatically.
+Work you cannot look back on does not become an asset. A Stop hook calls `claude -p` and has it write the session's activity log into my daily note automatically. This is done by [knowledge-gardener](https://github.com/Kohei-Wada/knowledge-gardener), a Claude Code plugin I wrote; its design is in [The plugin holds only WHEN, the vault holds HOW](/en/blog/knowledge-gardener-when-how-separation).
 
 ## Move the entrance and exit outside too
 
 Automation only pays off once both its entrance and its exit are moved outside. Even if `/loop` watches a task that waits on someone else, you are still tied down if you have to stare at the screen to know when it finishes. A notification on my phone is enough for the completion report. Once it arrives, nobody has to sit and watch.
+
+Before I set up moshi, I actually had my home Alexa speak the notifications through Home Assistant. That way I hear it anywhere in the house. If even carrying your phone around is a hassle, I recommend this. I wrote up how it works in [I built a way for Claude Code to report progress through my home Alexa](/en/blog/ha-claude-code-alexa-report).
 
 Next is stepping in midway. If I can SSH in from my phone right when the notification arrives, check the agent, or give it a short answer, the loop keeps going without me going back to my desk. I set this up just today, getting into herdr from moshi on a Pixel.
 

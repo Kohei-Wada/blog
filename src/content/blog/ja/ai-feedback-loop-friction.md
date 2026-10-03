@@ -77,11 +77,13 @@ knowledge を読むのは基本的に AI なので、人間にとって読みや
 
 ### 記録を自動で取る
 
-後から振り返れない作業は資産にならない。Stop フックから `claude -p` を呼んで、セッションの活動ログを daily note に自動で書かせている。
+後から振り返れない作業は資産にならない。Stop フックから `claude -p` を呼んで、セッションの活動ログを daily note に自動で書かせている。これは自作の Claude Code plugin の [knowledge-gardener](https://github.com/Kohei-Wada/knowledge-gardener) でやっていて、設計は [Plugin は WHEN だけ、vault は HOW を持つ](/ja/blog/knowledge-gardener-when-how-separation) に書いた。
 
 ## 入口と出口も外に出す
 
 自動化は、入口と出口の両方を外に出して初めて効く。相手の準備ができるのを待つ作業を `/loop` に監視させても、完了を知るために画面を見張っていたら、結局は拘束される。完了の報告はスマホへの通知で足りる。届けば、人は張り付かなくてよくなる。
+
+実は moshi を入れる前は、自宅の Home Assistant 経由で Alexa に喋らせて通知していた。これなら家のどこにいても分かる。スマホを持ち歩くのも面倒なら、こちらがおすすめだ。仕組みは [Claude Code に自宅 Alexa で進捗報告させる仕組みを作った](/ja/blog/ha-claude-code-alexa-report) に書いた。
 
 その次は途中の介入だ。通知を受けたその場で、スマホから SSH で入って agent の状態を見たり、短く答えたりできれば、机に戻らなくてもループは止まらない。これは今日、Pixel の moshi から herdr に入れるようにしたところだ。
 
