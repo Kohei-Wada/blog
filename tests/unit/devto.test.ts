@@ -2,6 +2,7 @@ import { describe, it, expect } from 'vitest';
 import {
   parsePost,
   shouldCrosspost,
+  selectBacklog,
   devtoTags,
   rewriteBody,
   toDevtoArticle,
@@ -35,6 +36,39 @@ describe('shouldCrosspost', () => {
 
   it('rejects scheduled posts that are not live yet', () => {
     expect(shouldCrosspost({ devto: true, pubDate: '2026-10-12T15:00+09:00' }, now)).toBe(false);
+  });
+});
+
+describe('selectBacklog', () => {
+  const before = new Date('2026-10-11T00:00+09:00').valueOf();
+  const post = (slug: string, pubDate: string) => ({ slug, data: { pubDate } });
+  const posts = [
+    post('old-a', '2026-01-01'),
+    post('old-b', '2026-02-01'),
+    post('old-c', '2026-03-01'),
+    post('new', '2026-10-12'),
+  ];
+  const reads = { 'en/old-a': 1, 'ja/old-a': 2, 'en/old-b': 5, 'ja/old-c': 4 };
+
+  it('picks the most-read uncreated stock posts first, up to the limit', () => {
+    expect(selectBacklog(posts, { created: new Set(), before, reads, limit: 2 })).toEqual([
+      'old-b',
+      'old-c',
+    ]);
+  });
+
+  it('skips posts already on dev.to', () => {
+    const created = new Set(['old-b']);
+    expect(selectBacklog(posts, { created, before, reads, limit: 1 })).toEqual(['old-c']);
+  });
+
+  it('never treats posts from the cutoff on as stock', () => {
+    const created = new Set(['old-a', 'old-b', 'old-c']);
+    expect(selectBacklog(posts, { created, before, reads, limit: 5 })).toEqual([]);
+  });
+
+  it('selects nothing when the limit is 0', () => {
+    expect(selectBacklog(posts, { created: new Set(), before, reads, limit: 0 })).toEqual([]);
   });
 });
 
