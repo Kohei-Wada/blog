@@ -62,7 +62,7 @@ the same `pubDate`.
 
 ```yaml
 seeAlso: ['other-slug'] # shown in SEE ALSO; MUST resolve in the SAME locale
-devto: true # en only: cross-post to dev.to as a draft (see devto-sync.yml)
+devto: true # en only: publish to dev.to on merge (see devto-sync.yml)
 ```
 
 There is **no** `heroImage`, `updatedDate`, or `featured` field — they were
