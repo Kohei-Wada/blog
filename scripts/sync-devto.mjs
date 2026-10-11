@@ -1,6 +1,6 @@
 #!/usr/bin/env node
-// Cross-post published en posts that opt in with `devto: true` to dev.to as drafts, and keep them in sync.
-// New posts are created unpublished; publishing is done by hand on dev.to.
+// Cross-post published en posts that opt in with `devto: true` to dev.to, and keep them in sync.
+// New posts are published on creation; `devto: true` is the review gate.
 // Updates keep the article's current published state.
 // State (slug -> article id + content hash) lives in src/data/devto.json.
 // Run by .github/workflows/devto-sync.yml. `--dry-run` skips the API.
@@ -90,7 +90,7 @@ for (const post of posts) {
     updated++;
   } else {
     const res = await api('POST', '/articles', {
-      article: toDevtoArticle(post, { published: false }),
+      article: toDevtoArticle(post, { published: true }),
     });
     state[post.slug] = { id: res.id, hash };
     created++;
