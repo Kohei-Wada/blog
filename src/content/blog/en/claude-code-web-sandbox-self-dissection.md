@@ -2,6 +2,7 @@
 title: 'I Had Claude Code on the Web Dissect Its Own Sandbox'
 description: 'I asked the Claude running in my Slack "where are you running?" and had it reconstruct its own execution environment from ps, /proc, and binary inspection. The answer: Firecracker microVM isolation plus a mandatory built-in allowlist proxy for all egress. The next day I red-teamed that boundary — none of the exfiltration paths I tried worked.'
 pubDate: 'Jul 02 2026'
+devto: true
 tags: ['security', 'ai-agents', 'claude-code', 'sandbox', 'reverse-engineering']
 seeAlso: ['copy-fail-lpe-vm-experiment', 'roomba-lan-penetration-experiment']
 ---

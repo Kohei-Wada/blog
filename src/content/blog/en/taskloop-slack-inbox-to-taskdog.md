@@ -2,6 +2,7 @@
 title: 'Funneling Slack requests into taskdog and letting /loop run them (a taskloop work-in-progress)'
 description: 'My "assigned to me" work arrives scattered across Slack, email, and hallway conversations. I have been funneling it all into a single hub — taskdog — and letting Claude Code /loop cycle through intake, triage, and self-driving dispatch. It has reached ~5 hours of unattended running, but I also hit empty cycling, the note-and-bail failure, and candidate pile-up. A progress note from the middle of the experiment.'
 pubDate: '2026-07-16T15:00+09:00'
+devto: true
 tags: ['personal-projects', 'taskdog', 'task-management', 'claude-code', 'AI']
 seeAlso: ['knowledge-vs-task-direction-of-fit']
 ---

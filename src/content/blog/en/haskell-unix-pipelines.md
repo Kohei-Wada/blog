@@ -2,6 +2,7 @@
 title: 'Beyond AWK: Bringing Haskell into Unix Pipelines'
 description: 'Bringing Haskell into Unix pipelines'
 pubDate: 'Aug 10 2025'
+devto: true
 tags: ['Haskell', 'ghci', 'shell-tricks']
 ---
 

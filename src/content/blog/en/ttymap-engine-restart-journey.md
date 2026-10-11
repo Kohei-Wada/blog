@@ -2,6 +2,7 @@
 title: "You Can't Kill a Thread, So Make It a Process — Making ttymap's Engine Restartable"
 description: 'In ttymap, my terminal globe, the polygon triangulation library earcut hits an infinite loop on pathological input, and the zombie threads keep burning CPU forever. Why I made the engine restartable, and why that restart has to be a process rather than a thread — the one fact that in safe Rust you cannot kill a running thread from the outside.'
 pubDate: 'May 28 2026'
+devto: true
 tags: ['personal-projects', 'Rust', 'TUI', 'process-isolation']
 seeAlso: ['ttymap-terminal-scriptable-globe']
 ---

@@ -2,6 +2,7 @@
 title: 'I Built Four AI Automations and Deleted Them All in 7 Hours, 6 Days, 11 Days and 12 Days — the Survivor Is the One That Makes No Decisions'
 description: 'There are endless posts about setting up a resident AI agent, and almost none about what happened afterwards. I built four AI-powered automations at home and tore every one of them out — the shortest lasted seven hours, the longest twelve days. The only survivor is person detection, which makes no decisions at all.'
 pubDate: '2026-08-22T12:00+09:00'
+devto: true
 tags: ['AI', 'homelab', 'home-server', 'local-llm']
 seeAlso: ['frigate-four-silent-detection-deaths', 'moe-vs-dense-local-llm-agent-tasks']
 ---

@@ -2,6 +2,7 @@
 title: 'Running DiffusionGemma Locally on an RTX 5090 with vLLM: The One-Time Pioneer Cost of Bleeding-Edge Model × Bleeding-Edge GPU'
 description: "I stood up Google's diffusion language model DiffusionGemma as a vLLM OpenAI-compatible server on my home RTX 5090 (Blackwell / 32GB), so Open WebUI could use it as just another model. Declarative, on-demand on NixOS. This is the write-up of the traps I hit (a VRAM precheck that kills startup instantly, a container that wedges in a crash loop, the 32GB constraint that leaves NVFP4 as the only quantization that fits) and the lesson I drew from it: mature models are a one-liner, bleeding-edge ones you pioneer by hand exactly once."
 pubDate: 'Jun 21 2026'
+devto: true
 tags: ['local-llm', 'vLLM', 'RTX5090', 'homelab', 'NixOS', 'AI']
 seeAlso: ['rtx5090-blackwell-headless-gsp-watchdog']
 ---

@@ -2,6 +2,7 @@
 title: 'Trying Out GhostBSD'
 description: 'Notes from installing GhostBSD and playing with SSH setup, ZFS, jails, and more — a BSD experience report from a Linux user.'
 pubDate: 'Feb 15 2026'
+devto: true
 tags: ['FreeBSD', 'GhostBSD', 'ZFS']
 ---
 

@@ -2,6 +2,7 @@
 title: 'Notes on the tar + ssh pipe technique'
 description: 'A practical streaming-transfer technique with tar + ssh pipes, for when rsync is missing or you need sudo to read the files'
 pubDate: 'Jan 11 2026'
+devto: true
 tags: ['Shell', 'Bash', 'SSH', 'Linux', 'Unix']
 ---
 

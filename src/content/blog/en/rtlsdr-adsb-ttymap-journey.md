@@ -2,6 +2,7 @@
 title: 'Dropping OpenSky to Receive It Myself — Feeding RTL-SDR ADS-B into My Terminal Globe ttymap'
 description: "The aircraft plugin in ttymap, the terminal globe I built earlier, pulled overhead planes from OpenSky's public API. This time I replace that with real radio I receive on my own antenna. A reception journey: plug in an RTL-SDR, get past the DVB driver trap, catch raw frames with rtl_adsb, turn them into lat/lon with CPR decoding, and bridge a local JSON server so a ttymap user plugin can show them."
 pubDate: 'May 26 2026'
+devto: true
 tags: ['personal-projects', 'SDR', 'ADS-B', 'RTL-SDR', 'ttymap']
 seeAlso: ['ttymap-terminal-scriptable-globe']
 ---

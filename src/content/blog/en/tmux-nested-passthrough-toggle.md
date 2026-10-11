@@ -2,6 +2,7 @@
 title: 'Keeping my auto-tmux muscle memory while also touching tmux over SSH — taming the nesting with prefix+T'
 description: 'Once you get used to auto-starting tmux in your terminal, the moment you run tmux on an SSH host it nests and your keys never reach the inner session. The canonical F12 toggle works but is an awkward reach, so I settled on prefix+T to silence the outer session and pass keys straight through. Plus why I dropped the popular "native splits locally" answer because I also use Alacritty, hiding the outer status bar as the visual cue, and the ControlMaster + NixOS /bin/bash gotchas.'
 pubDate: 'Jun 30 2026'
+devto: true
 tags: ['tmux', 'terminal', 'ssh', 'dotfiles', 'shell-tricks']
 ---
 
