@@ -35,7 +35,8 @@ jobs:
       - name: Sync
         env:
           DEV_TO_API_KEY: ${{ secrets.DEV_TO_API_KEY }}
-        run: node scripts/sync-devto.mjs
+        # Stock posts go out one per scheduled/manual run; pushes only sync new posts.
+        run: node scripts/sync-devto.mjs ${{ github.event_name != 'push' && '--backlog=1' || '' }}
 
       - name: Commit if changed
         if: always()

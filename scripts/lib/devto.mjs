@@ -22,6 +22,20 @@ export function shouldCrosspost(data, now) {
   return data.devto === true && new Date(data.pubDate).valueOf() <= now;
 }
 
+/**
+ * Stock posts (published before `before`) not yet on dev.to, most-read first.
+ * @param {Array<{ slug: string; data: Record<string, any> }>} posts
+ * @param {{ created: Set<string>; before: number; reads: Record<string, number>; limit: number }} opts
+ */
+export function selectBacklog(posts, { created, before, reads, limit }) {
+  const total = slug => (reads[`en/${slug}`] ?? 0) + (reads[`ja/${slug}`] ?? 0);
+  return posts
+    .filter(p => !created.has(p.slug) && new Date(p.data.pubDate).valueOf() < before)
+    .map(p => p.slug)
+    .sort((a, b) => total(b) - total(a))
+    .slice(0, limit);
+}
+
 /** @param {string[]} tags */
 export function devtoTags(tags) {
   const cleaned = tags.map(t => t.toLowerCase().replace(/[^a-z0-9]/g, '')).filter(Boolean);

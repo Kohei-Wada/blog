@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 // Cross-post published en posts that opt in with `devto: true` to dev.to, and keep them in sync.
 // New posts are published on creation; `devto: true` is the review gate.
+// Stock posts (published before BACKLOG_BEFORE) are drip-fed, `--backlog=N` per run.
 // Updates keep the article's current published state.
 // State (slug -> article id + content hash) lives in src/data/devto.json.
 // Run by .github/workflows/devto-sync.yml. `--dry-run` skips the API.
@@ -8,12 +9,16 @@ import { createHash } from 'node:crypto';
 import { readdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { setTimeout as sleep } from 'node:timers/promises';
-import { parsePost, shouldCrosspost, toDevtoArticle } from './lib/devto.mjs';
+import { parsePost, selectBacklog, shouldCrosspost, toDevtoArticle } from './lib/devto.mjs';
 
 const API = 'https://dev.to/api';
 const EN_DIR = 'src/content/blog/en';
 const STATE = 'src/data/devto.json';
+const READS = 'src/data/reads.json';
+const BACKLOG_BEFORE = new Date('2026-10-11T00:00+09:00').valueOf();
 const dryRun = process.argv.includes('--dry-run');
+const backlogArg = process.argv.find(a => a.startsWith('--backlog='));
+const backlogLimit = backlogArg ? Number(backlogArg.slice('--backlog='.length)) : 0;
 
 const apiKey = process.env.DEV_TO_API_KEY;
 if (!apiKey && !dryRun) {
@@ -56,6 +61,16 @@ const posts = readdirSync(EN_DIR)
   .filter(p => shouldCrosspost(p.data, Date.now()))
   .sort((a, b) => new Date(a.data.pubDate).valueOf() - new Date(b.data.pubDate).valueOf());
 
+const backlog = new Set(
+  selectBacklog(posts, {
+    created: new Set(Object.keys(state)),
+    before: BACKLOG_BEFORE,
+    reads: JSON.parse(readFileSync(READS, 'utf8')).reads,
+    limit: backlogLimit,
+  })
+);
+const isStock = post => new Date(post.data.pubDate).valueOf() < BACKLOG_BEFORE;
+
 /** @type {Map<number, boolean>} */
 const publishedById = new Map();
 if (!dryRun) {
@@ -74,6 +89,7 @@ for (const post of posts) {
     .digest('hex');
   const known = state[post.slug];
   if (known?.hash === hash) continue;
+  if (!known && isStock(post) && !backlog.has(post.slug)) continue;
 
   if (dryRun) {
     console.log(`${known ? 'update' : 'create'} ${post.slug}`);
