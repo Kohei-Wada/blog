@@ -2,6 +2,7 @@
 title: 'Functional Programming in the Shell'
 description: 'Treating Unix pipelines as function composition, and using map/filter/fold as building blocks for log analysis and data processing'
 pubDate: 'Jan 09 2026'
+devto: true
 tags: ['Shell', 'Bash', 'awk', 'Functional Programming', 'Unix']
 ---
 

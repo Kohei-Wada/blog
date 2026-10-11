@@ -2,6 +2,7 @@
 title: 'I broke into my own Roomba over the LAN'
 description: 'On my own Roomba i2, under the constraints of no physical operation, no cloud API, and LAN-only, I tested how much I could exfiltrate and attack. MQTT auth was solid but cutting off cloud traffic was easy, and in the end I extracted the MQTT password with the dorita980 magic packet.'
 pubDate: 'May 23 2026 13:00'
+devto: true
 tags: ['security', 'iot', 'mqtt', 'home-assistant', 'reverse-engineering']
 ---
 

@@ -2,6 +2,7 @@
 title: 'Only the Design of My Eval Harness Survived'
 description: 'Three weeks ago I wrote an RFC 6902 porting harness to decide whether to keep Ornith. I reused it to evaluate Qwen3.8 27B — except the script itself had vanished with /tmp, and rebuilding took minutes only because the design was written down. Plus a record of the two predictions it proved wrong.'
 pubDate: '2026-08-15T13:00+09:00'
+devto: true
 tags: ['local-llm', 'ollama', 'RTX5090', 'AI', 'homelab']
 seeAlso: ['moe-vs-dense-local-llm-agent-tasks']
 ---

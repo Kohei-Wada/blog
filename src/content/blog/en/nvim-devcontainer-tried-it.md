@@ -2,6 +2,7 @@
 title: 'I Tried devcontainers with Neovim and Gave Up'
 description: 'A record of trying a devcontainer setup — attaching to a container from nvim to develop inside it — and dropping it over slow startup and wasted storage. For solo dev I think it goes nix > per-language package managers > devcontainer.'
 pubDate: '2026-06-27'
+devto: true
 tags: ['devcontainer', 'neovim', 'Docker', 'nix', 'dev-environment']
 ---
 

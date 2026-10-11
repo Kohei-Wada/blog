@@ -2,6 +2,7 @@
 title: 'Building a CLI Task Manager That Solves the "When to Do It" Problem Taskwarrior Lacked'
 description: 'How I built Taskdog, a CLI/TUI task manager that auto-generates schedules from deadlines, estimates, and priorities while respecting a daily work-hour limit.'
 pubDate: '2025-12-29'
+devto: true
 tags: ['Python', 'CLI', 'personal-projects']
 ---
 

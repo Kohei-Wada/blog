@@ -2,6 +2,7 @@
 title: 'Parallel Development with Claude Code Without git worktree (container-use)'
 description: 'How to run parallel development with Claude Code using Dagger''s MCP tool "container-use" without cluttering your directory structure'
 pubDate: 'Jan 12 2026'
+devto: true
 tags: ['Claude Code', 'MCP', 'container-use', 'Dagger', 'Git']
 ---
 

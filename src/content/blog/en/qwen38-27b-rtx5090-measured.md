@@ -2,6 +2,7 @@
 title: "Qwen3.8 27B Measured on an RTX 5090 — and Why vLLM Didn't Work"
 description: 'Running Qwen3.8 27B on a 32GB card on launch day: the runtime version wall, VRAM measured at each context length, and the full account of trying to move it to vLLM for concurrency and failing. Includes a size survey of the "4-bit" builds — none came in under 18GB — and the image input that a client was quietly discarding.'
 pubDate: '2026-08-15T15:00+09:00'
+devto: true
 tags: ['local-llm', 'ollama', 'RTX5090', 'AI', 'homelab']
 seeAlso: ['local-llm-eval-harness-reuse']
 ---

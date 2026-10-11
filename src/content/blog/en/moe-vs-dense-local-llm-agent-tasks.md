@@ -2,6 +2,7 @@
 title: "A 3x Faster Local LLM That Can't Finish the Job — Two Days of MoE vs Dense on Real Tasks"
 description: 'The MoE coding model I put on my RTX 5090 was 3x faster with equal single-shot quality, so it became my opencode default. Then it went 0-for-5 on multi-step agent work. A record of porting RFC 6902 with a 112-case conformance suite as the machine judge, and the structural trade-off it exposed: the source of MoE speed and the cause of its failures are the same thing.'
 pubDate: '2026-07-25'
+devto: true
 tags: ['local-llm', 'ollama', 'RTX5090', 'AI', 'homelab']
 seeAlso: ['diffusiongemma-vllm-rtx5090-local']
 ---

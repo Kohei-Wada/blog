@@ -2,6 +2,7 @@
 title: 'Why Waybar Survives When You Quit Hyprland, and How exec start-hyprland Fixes It'
 description: 'How Linux process management actually works, and the correct way to start Hyprland'
 pubDate: 'Jan 07 2026'
+devto: true
 tags: ['Linux', 'Hyprland', 'Arch Linux', 'wayland']
 ---
 
