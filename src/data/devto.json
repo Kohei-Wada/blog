@@ -2,5 +2,9 @@
   "supernemawashi-intro": {
     "id": 4831921,
     "hash": "795b210fd1f874ca024c21b9ca6bb847b54e64751aadf3aaf91e28d9ccfd694c"
+  },
+  "haskell-unix-pipelines": {
+    "id": 4833379,
+    "hash": "12173ab416a4fe97e807dc1508b0500fcf02915c58e7e07e22d0b5c3b2ee28ab"
   }
 }
