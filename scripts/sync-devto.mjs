@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// Cross-post published en posts to dev.to as drafts, and keep them in sync.
+// Cross-post published en posts that opt in with `devto: true` to dev.to as drafts, and keep them in sync.
 // New posts are created unpublished; publishing is done by hand on dev.to.
 // Updates keep the article's current published state.
 // State (slug -> article id + content hash) lives in src/data/devto.json.
@@ -8,7 +8,7 @@ import { createHash } from 'node:crypto';
 import { readdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { setTimeout as sleep } from 'node:timers/promises';
-import { parsePost, toDevtoArticle } from './lib/devto.mjs';
+import { parsePost, shouldCrosspost, toDevtoArticle } from './lib/devto.mjs';
 
 const API = 'https://dev.to/api';
 const EN_DIR = 'src/content/blog/en';
@@ -53,7 +53,7 @@ const posts = readdirSync(EN_DIR)
     slug: f.replace(/\.mdx?$/, ''),
     ...parsePost(readFileSync(join(EN_DIR, f), 'utf8')),
   }))
-  .filter(p => new Date(p.data.pubDate).valueOf() <= Date.now())
+  .filter(p => shouldCrosspost(p.data, Date.now()))
   .sort((a, b) => new Date(a.data.pubDate).valueOf() - new Date(b.data.pubDate).valueOf());
 
 /** @type {Map<number, boolean>} */
@@ -101,5 +101,5 @@ for (const post of posts) {
 }
 
 console.log(
-  `✓ dev.to sync: ${created} created, ${updated} updated, ${posts.length} published posts`
+  `✓ dev.to sync: ${created} created, ${updated} updated, ${posts.length} opted-in posts`
 );

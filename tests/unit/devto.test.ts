@@ -1,5 +1,11 @@
 import { describe, it, expect } from 'vitest';
-import { parsePost, devtoTags, rewriteBody, toDevtoArticle } from '../../scripts/lib/devto.mjs';
+import {
+  parsePost,
+  shouldCrosspost,
+  devtoTags,
+  rewriteBody,
+  toDevtoArticle,
+} from '../../scripts/lib/devto.mjs';
 
 const SITE = 'https://wada-dev.com';
 const RAW = 'https://raw.githubusercontent.com/Kohei-Wada/blog/main';
@@ -12,6 +18,23 @@ describe('parsePost', () => {
       data: { title: 'Hi', tags: ['a', 'b'] },
       body: '## Body\n',
     });
+  });
+});
+
+describe('shouldCrosspost', () => {
+  const now = new Date('2026-10-11T00:00:00Z').valueOf();
+
+  it('accepts published posts that opt in with devto: true', () => {
+    expect(shouldCrosspost({ devto: true, pubDate: '2026-10-01' }, now)).toBe(true);
+  });
+
+  it('rejects posts without the opt-in', () => {
+    expect(shouldCrosspost({ pubDate: '2026-10-01' }, now)).toBe(false);
+    expect(shouldCrosspost({ devto: false, pubDate: '2026-10-01' }, now)).toBe(false);
+  });
+
+  it('rejects scheduled posts that are not live yet', () => {
+    expect(shouldCrosspost({ devto: true, pubDate: '2026-10-12T15:00+09:00' }, now)).toBe(false);
   });
 });
 

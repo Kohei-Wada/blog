@@ -14,6 +14,14 @@ export function parsePost(source) {
   return { data: parse(m[1]), body: source.slice(m[0].length) };
 }
 
+/**
+ * @param {Record<string, any>} data
+ * @param {number} now
+ */
+export function shouldCrosspost(data, now) {
+  return data.devto === true && new Date(data.pubDate).valueOf() <= now;
+}
+
 /** @param {string[]} tags */
 export function devtoTags(tags) {
   const cleaned = tags.map(t => t.toLowerCase().replace(/[^a-z0-9]/g, '')).filter(Boolean);
