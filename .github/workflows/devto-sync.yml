@@ -1,0 +1,52 @@
+name: 📤 dev.to Sync
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'src/content/blog/en/**'
+  schedule:
+    # 00:30 JST (15:30 UTC), after the daily build publishes scheduled posts
+    - cron: '30 15 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: devto-sync
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    name: Cross-post en posts to dev.to
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 20
+          cache: npm
+
+      - run: npm ci
+
+      - name: Sync
+        env:
+          DEV_TO_API_KEY: ${{ secrets.DEV_TO_API_KEY }}
+        run: node scripts/sync-devto.mjs
+
+      - name: Commit if changed
+        if: always()
+        run: |
+          if git diff --quiet -- src/data/devto.json; then
+            echo "devto.json unchanged"
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add src/data/devto.json
+          git commit -m 'chore(devto): sync dev.to article state'
+          git pull --rebase
+          git push
