@@ -6,5 +6,9 @@
   "haskell-unix-pipelines": {
     "id": 4833379,
     "hash": "12173ab416a4fe97e807dc1508b0500fcf02915c58e7e07e22d0b5c3b2ee28ab"
+  },
+  "taskdog-cli-task-management-tool": {
+    "id": 4839122,
+    "hash": "dfc3afe471fa087f6567591f8e071f979f00dbf973e495e4439f2a3556199f1e"
   }
 }
