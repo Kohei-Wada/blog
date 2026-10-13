@@ -10,5 +10,9 @@
   "taskdog-cli-task-management-tool": {
     "id": 4839122,
     "hash": "dfc3afe471fa087f6567591f8e071f979f00dbf973e495e4439f2a3556199f1e"
+  },
+  "obsidian-lychee-link-checker": {
+    "id": 4845385,
+    "hash": "4b9581e87b67e73ad153d2db13b2b51c960669ace6f8523d0a50959bc295e366"
   }
 }
