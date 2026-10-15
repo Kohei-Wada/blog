@@ -18,5 +18,9 @@
   "trying-ghostbsd": {
     "id": 4850981,
     "hash": "bb368c1b3daae8e4f6fbd86426a8f7d7d4fc3d6f18f0863917c196d165245d70"
+  },
+  "tar-ssh-pipe-technique": {
+    "id": 4857350,
+    "hash": "70981cdddfda41fd7b206d7ab0c3e1c578c0fec777fb65da1c7e1dad5c2206b5"
   }
 }
