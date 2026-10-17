@@ -26,5 +26,9 @@
   "container-use-parallel-development": {
     "id": 4863285,
     "hash": "838654b678d1b22f2067400b0d5badbe35de88022b7997d1cf31f3174caf38ee"
+  },
+  "taskloop-slack-inbox-to-taskdog": {
+    "id": 4868118,
+    "hash": "0509759c5a3bd3bd6f02d9546b701df3bac951b71f903ddf0c3c17325f6de148"
   }
 }
